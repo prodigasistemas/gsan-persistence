@@ -5,7 +5,7 @@ Projeto contendo as entidades utilizadas pelo GSAN
 
 Importar para o projeto cliente
 ------------
-Adicione `gsan-persistence<https://github.com/prodigasistemas/gsan-persistence/>` como dependência do projeto cliente:
+Adicione `gsan-persistence<https://github.com/prodigasistemas/gsan-persistence/>`_ como dependência do projeto cliente:
 
 	<dependency>
     	<groupId>br.gov</groupId>
@@ -13,7 +13,7 @@ Adicione `gsan-persistence<https://github.com/prodigasistemas/gsan-persistence/>
     	<version>0.1</version>    	
 	</dependency>
 
-Como exemplo, temos o projeto `gsan-batch<https://github.com/prodigasistemas/gsan-batch/>`, contendo EJBs que acessam as entidades do gsan-persistente.
+Como exemplo, temos o projeto `gsan-batch<https://github.com/prodigasistemas/gsan-batch/>`_, contendo EJBs que acessam as entidades do gsan-persistente.
 
 Usando as entidades
 ------------
