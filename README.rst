@@ -7,6 +7,8 @@ Importar para o projeto cliente
 ------------
 Adicione `gsan-persistence <https://github.com/prodigasistemas/gsan-persistence/>`_ como dependência do projeto cliente:
 
+.. code-block:: pycon
+
 	<dependency>
     	<groupId>br.gov</groupId>
     	<artifactId>gsan-persistence</artifactId>
@@ -19,6 +21,8 @@ Usando as entidades
 ------------
 
 Uma vez que as entidades e o persistence unit são importados pelo lib, basta injetar um contexto JPA em um EJB para realizar as transações:
+
+.. code-block:: pycon
 
 	@Stateless
 	public class MeuEJB{
