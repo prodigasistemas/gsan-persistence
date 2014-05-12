@@ -23,7 +23,7 @@ Em seguida, adicione [gsan-persistence](https://github.com/prodigasistemas/gsan-
     	<version>0.1</version>    	
 	</dependency>
 
-Também configure o hibernate:
+Também configure o hibernate core:
 
 	<dependency>
 		<groupId>org.hibernate</groupId>
