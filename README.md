@@ -5,6 +5,10 @@ Projeto contendo as entidades utilizadas pelo GSAN
 
 Importar para o projeto cliente
 ------------
+Após clonar o projeto, instale-o no seu repositório maven:
+
+	mvn install
+	
 Adicione [gsan-persistence](https://github.com/prodigasistemas/gsan-persistence/) como dependência do projeto cliente:
 
 	<dependency>
