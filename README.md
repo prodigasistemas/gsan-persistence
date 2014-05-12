@@ -5,11 +5,11 @@ Projeto contendo as entidades utilizadas pelo GSAN
 
 Importar para o projeto cliente
 ------------
-Após clonar o projeto, instale-o no seu repositório maven:
+Após o clone, crie a lib do projeto no seu repositório maven:
 
 	mvn install
-	
-Adicione [gsan-persistence](https://github.com/prodigasistemas/gsan-persistence/) como dependência do projeto cliente:
+
+Em seguida, adicione [gsan-persistence](https://github.com/prodigasistemas/gsan-persistence/) como dependência do projeto cliente:
 
 	<dependency>
     	<groupId>br.gov</groupId>
@@ -17,7 +17,7 @@ Adicione [gsan-persistence](https://github.com/prodigasistemas/gsan-persistence/
     	<version>0.1</version>    	
 	</dependency>
 
-Como exemplo, temos o projeto [gsan-batch](https://github.com/prodigasistemas/gsan-batch/), contendo EJBs que acessam as entidades do gsan-persistente.
+O projeto [gsan-batch](https://github.com/prodigasistemas/gsan-batch/) possui EJBs que acessam as entidades do gsan-persistente.
 
 Usando as entidades
 ------------
