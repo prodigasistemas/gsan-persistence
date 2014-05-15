@@ -1,4 +1,4 @@
-package br.gov.model;
+package br.gov.model.batch;
 
 import java.io.Serializable;
 import java.sql.Date;

@@ -1,4 +1,4 @@
-package br.gov.model;
+package br.gov.model.operacao;
 
 
 import java.io.Serializable;
