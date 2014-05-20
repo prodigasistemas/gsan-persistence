@@ -31,6 +31,9 @@ public class Processo implements Serializable{
 	@Column(name="proc_dsabreviado", length=10)
 	private String abreviacao;
 	
+	@Column(name="proc_limite")
+	private Integer limite;
+	
 	public Processo(){}
 
 	public Integer getId() {
@@ -55,5 +58,13 @@ public class Processo implements Serializable{
 
 	public void setAbreviacao(String abreviacao) {
 		this.abreviacao = abreviacao;
+	}
+
+	public Integer getLimite() {
+		return limite;
+	}
+
+	public void setLimite(Integer limite) {
+		this.limite = limite;
 	}
 }

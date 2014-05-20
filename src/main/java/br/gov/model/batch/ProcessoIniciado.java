@@ -50,6 +50,9 @@ public class ProcessoIniciado implements Serializable{
 	@Column(name="usur_id")
 	private Integer usuario;
 	
+	@Column(name="proi_prioridade")
+	private Integer prioridade;
+	
 	public ProcessoIniciado(){}
 
 	public Integer getId() {
@@ -118,5 +121,18 @@ public class ProcessoIniciado implements Serializable{
 	
 	public String getProcessoAbreviacao(){
 		return processo.getAbreviacao();
+	}
+
+	public Integer getPrioridade() {
+		return prioridade;
+	}
+
+	public void setPrioridade(Integer prioridade) {
+		this.prioridade = prioridade;
+	}
+	
+	@Override
+	public String toString(){
+		return "ProcessoIniciado@"+this.getId();
 	}
 }
