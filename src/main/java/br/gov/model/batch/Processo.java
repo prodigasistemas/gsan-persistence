@@ -34,6 +34,9 @@ public class Processo implements Serializable{
 	@Column(name="proc_limite")
 	private Integer limite;
 	
+	@Column(name="proc_nmarquivobatch")
+	private String nomeArquivoBatch;
+	
 	public Processo(){}
 
 	public Integer getId() {
@@ -66,5 +69,13 @@ public class Processo implements Serializable{
 
 	public void setLimite(Integer limite) {
 		this.limite = limite;
+	}
+
+	public String getNomeArquivoBatch() {
+		return nomeArquivoBatch;
+	}
+
+	public void setNomeArquivoBatch(String nomeArquivoBatch) {
+		this.nomeArquivoBatch = nomeArquivoBatch;
 	}
 }

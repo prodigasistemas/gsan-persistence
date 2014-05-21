@@ -44,6 +44,9 @@ public class ProcessoIniciado implements Serializable{
 	@Column(name="proi_tmtermino")
 	private Date termino;
 	
+	@Column(name="proi_tmultimaalteracao")
+	private Date ultimaAlteracao;
+	
 	@Column(name="prst_id")
 	private Integer situacao;
 	
@@ -101,6 +104,14 @@ public class ProcessoIniciado implements Serializable{
 
 	public void setTermino(Date termino) {
 		this.termino = termino;
+	}
+
+	public Date getUltimaAlteracao() {
+		return ultimaAlteracao;
+	}
+
+	public void setUltimaAlteracao(Date ultimaAlteracao) {
+		this.ultimaAlteracao = ultimaAlteracao;
 	}
 
 	public Integer getSituacao() {

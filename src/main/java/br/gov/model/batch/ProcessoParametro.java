@@ -13,7 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="processo",schema="batch")
+@Table(name="processo_parametros",schema="batch")
 public class ProcessoParametro implements Serializable {
 
 	/**
