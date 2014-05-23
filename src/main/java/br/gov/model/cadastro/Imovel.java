@@ -4,13 +4,30 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="imovel", schema="cadastro")
+@NamedQueries({
+	@NamedQuery(name="imovel.totalImoveisParaPreFaturamento"
+			,query="select count(im) from Imovel im "
+					+ " inner join im.quadra qua "
+					+ " inner join qua.rota rot "
+					+ " WHERE rot.id = :rotaId ")
+	,
+	@NamedQuery(name="imovel.pesquisarImovelParaPreFaturamento"
+		,query="select im from Imovel im "
+				+ " inner join im.quadra qua "
+				+ " inner join qua.rota rot "
+				+ " WHERE rot.id = :rotaId ")
+}
+)
 public class Imovel implements Serializable{
 	private static final long serialVersionUID = 8944311080432329009L;
 
@@ -18,15 +35,15 @@ public class Imovel implements Serializable{
 	@Column(name="imov_id")
 	private Integer id;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="loca_id")
 	private Localidade localidade;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="stcm_id")
 	private SetorComercial setorComercial;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="qdra_id")
 	private Quadra quadra;
 	
@@ -78,7 +95,6 @@ public class Imovel implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Imovel [id=" + id + ", localidade=" + localidade + ", setorComercial=" + setorComercial + ", quadra=" + quadra + ", numeroImovel="
-				+ numeroImovel + "]";
+		return "Imovel [numeroImovel=" + numeroImovel + "]";
 	}
 }

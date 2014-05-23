@@ -5,7 +5,11 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.gov.model.micromedicao.Rota;
 
 
 @Entity
@@ -17,6 +21,10 @@ public class Quadra implements Serializable {
 	@Column(name="qdra_id")
 	private Integer id;
 	
+	@ManyToOne
+	@JoinColumn(name="rota_id")
+	private Rota rota;
+	
 	public Quadra() {
 	}
 
@@ -26,6 +34,14 @@ public class Quadra implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Rota getRota() {
+		return rota;
+	}
+
+	public void setRota(Rota rota) {
+		this.rota = rota;
 	}
 
 	public String toString() {
