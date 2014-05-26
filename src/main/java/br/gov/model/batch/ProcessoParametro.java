@@ -23,7 +23,7 @@ public class ProcessoParametro implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_PROCESSO_PARAMETROS")
-	@SequenceGenerator(name="SEQ_PROCESSO_PARAMETROS", sequenceName="seq_processo_parametros")
+	@SequenceGenerator(name="SEQ_PROCESSO_PARAMETROS", schema="batch", sequenceName="seq_processo_parametros")
 	@Column(name="prpr_id")
 	private Integer id;
 	
@@ -38,6 +38,12 @@ public class ProcessoParametro implements Serializable {
 	private String valor;
 	
 	public ProcessoParametro(){}
+	
+	public ProcessoParametro(ProcessoIniciado processoIniciado, String nomeParametro, String valor){
+		this.processoIniciado = processoIniciado;
+		this.nomeParametro = nomeParametro;
+		this.valor = valor;
+	}
 
 	public Integer getId() {
 		return id;

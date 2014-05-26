@@ -24,7 +24,7 @@ public class ProcessoIniciado implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_PROCESSO_INICIADO")
-	@SequenceGenerator(name="SEQ_PROCESSO_INICIADO", sequenceName="seq_processo_iniciado")
+	@SequenceGenerator(name="SEQ_PROCESSO_INICIADO", schema="batch", sequenceName="seq_processo_iniciado")
 	@Column(name="proi_id")
 	private Integer id;
 	

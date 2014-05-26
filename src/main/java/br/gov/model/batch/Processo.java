@@ -21,7 +21,7 @@ public class Processo implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_PROCESSO")
-	@SequenceGenerator(name="SEQ_PROCESSO", sequenceName="seq_processo")
+	@SequenceGenerator(name="SEQ_PROCESSO", schema="batch", sequenceName="seq_processo")
 	@Column(name="proc_id")
 	private Integer id;
 	
