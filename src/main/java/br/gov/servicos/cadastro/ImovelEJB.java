@@ -37,4 +37,18 @@ public class ImovelEJB{
 				.setFirstResult(firstItem).setMaxResults(numItems)
 				.getResultList();
 	}
+	
+	public boolean existeContaImovel(Long idImovel, Integer anoMesReferencia) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select count (ct) from Conta ct ")
+		.append("inner join ct.imovel im ")
+		.append("where im.id = :idImovel and ct.referencia = :anoMesReferencia");
+		
+		Long qtd = entity.createQuery(sql.toString(), Long.class)
+			.setParameter("idImovel", idImovel)
+			.setParameter("anoMesReferencia" , anoMesReferencia)
+			.getSingleResult();
+		
+		return (qtd > 0) ? true : false; 
+	}
 }
