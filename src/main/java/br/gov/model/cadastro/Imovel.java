@@ -10,7 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import br.gov.model.atendimentopublico.LigacaoAgua;
 
 @Entity
 @Table(name="imovel", schema="cadastro")
@@ -49,6 +52,9 @@ public class Imovel implements Serializable{
 	
 	@Column(name="imov_nnimovel")
 	private String numeroImovel;
+	
+	@OneToOne(mappedBy="imovel")
+	private LigacaoAgua ligacaoAgua;
 	
 	public Imovel() {
 	}
@@ -91,6 +97,14 @@ public class Imovel implements Serializable{
 
 	public void setNumeroImovel(String numeroImovel) {
 		this.numeroImovel = numeroImovel;
+	}
+
+	public LigacaoAgua getLigacaoAgua() {
+		return ligacaoAgua;
+	}
+
+	public void setLigacaoAgua(LigacaoAgua ligacaoAgua) {
+		this.ligacaoAgua = ligacaoAgua;
 	}
 
 	@Override
