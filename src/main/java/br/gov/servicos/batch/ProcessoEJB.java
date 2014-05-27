@@ -17,7 +17,7 @@ public class ProcessoEJB {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public boolean atualizaSituacaoProcesso(Integer idProcessoIniciado, ProcessoSituacao situacao){
+	public boolean atualizaSituacaoProcesso(Long idProcessoIniciado, ProcessoSituacao situacao){
 		int result = entity.createQuery("update ProcessoIniciado set situacao = :situacao, inicio = :inicio, ultimaAlteracao = :ultimaAlteracao "
 										+ "where id = :processoId ")
 						.setParameter("situacao", situacao.getId())
@@ -29,7 +29,8 @@ public class ProcessoEJB {
 	}
 	
 	public List<ProcessoIniciado> buscarProcessosPorSituacao(ProcessoSituacao situacao){
-		return entity.createQuery("from ProcessoIniciado where situacao = :idSituacao order by prioridade desc", ProcessoIniciado.class)
+		//TODO Retirar o id do processo de teste 
+		return entity.createQuery("from ProcessoIniciado where situacao = :idSituacao and processo.id = 509 order by prioridade desc", ProcessoIniciado.class)
 						.setParameter("idSituacao", situacao.getId())
 						.getResultList();
 	}
@@ -49,8 +50,10 @@ public class ProcessoEJB {
 	}
 	
 	public List<ProcessoIniciado> buscarProcessosPorSituacao(Processo processo, ProcessoSituacao situacao) {
+		//TODO Retirar o id do processo de teste
 		return entity.createQuery("from ProcessoIniciado where processo.id = :processoId and situacao = :situacao", ProcessoIniciado.class)
-						.setParameter("processoId", processo.getId())
+//						.setParameter("processoId", processo.getId())
+						.setParameter("processoId", 509l)
 						.setParameter("situacao", situacao.getId())
 						.getResultList();
 	}

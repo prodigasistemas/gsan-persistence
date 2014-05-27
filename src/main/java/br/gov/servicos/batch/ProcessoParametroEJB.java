@@ -39,8 +39,10 @@ public class ProcessoParametroEJB {
 	public List<ProcessoParametro> inserirParametrosDefault(ProcessoIniciado processoIniciado){
 		Properties parametros = new Properties();
 		
-		parametros.setProperty("idProcessoIniciado", processoIniciado.getId().toString());
-		parametros.setProperty("nomeArquivoBatch", processoIniciado.getProcesso().getNomeArquivoBatch());
+		parametros.setProperty("idProcessoIniciado", String.valueOf(processoIniciado.getId()));
+		if (processoIniciado.getProcesso().getNomeArquivoBatch() != null){
+			parametros.setProperty("nomeArquivoBatch", processoIniciado.getProcesso().getNomeArquivoBatch());
+		}
 		
 		return this.inserirParametros(processoIniciado, parametros);
 	}
@@ -56,7 +58,7 @@ public class ProcessoParametroEJB {
 			ProcessoParametro parametro = new ProcessoParametro(processoIniciado, chave, parametros.getProperty(chave));
 			entity.persist(parametro);
 			
-			parametrosInseridos.add(parametro);
+//			parametrosInseridos.add(parametro);
 		}
 		
 		return parametrosInseridos;
