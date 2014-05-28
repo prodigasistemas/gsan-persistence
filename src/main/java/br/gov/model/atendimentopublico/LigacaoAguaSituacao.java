@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.gov.model.Status;
+
 @Entity
 @Table(name="ligacao_agua_situacao", schema="atendimentopublico")
 public class LigacaoAguaSituacao implements Serializable {
@@ -18,6 +20,9 @@ public class LigacaoAguaSituacao implements Serializable {
 
 	@Column(name="last_dsligacaoaguasituacao")
 	private String descricao;
+	
+	@Column(name="last_icfaturamento")
+	private int situacaoFaturamento;
 	
 	public LigacaoAguaSituacao() {
 	}
@@ -36,5 +41,17 @@ public class LigacaoAguaSituacao implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Status getSituacaoFaturamento() {
+		return Status.parse(this.situacaoFaturamento);
+	}
+
+	public void setSituacaoFaturamento(Status situacaoFaturamento) {
+		this.situacaoFaturamento = situacaoFaturamento.getId();
+	}
+
+	public String toString() {
+		return "LigacaoAguaSituacao [id=" + id + ", descricao=" + descricao + ", situacaoFaturamento=" + situacaoFaturamento + "]";
 	}
 }

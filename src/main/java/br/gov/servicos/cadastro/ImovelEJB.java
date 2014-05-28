@@ -15,13 +15,21 @@ public class ImovelEJB{
 	private EntityManager entity;
 	
 	public List<Imovel> listar(long firstItem, long numItems){
-		return entity.createQuery("from Imovel where id < 13000", Imovel.class)
+		StringBuilder sql = new StringBuilder();
+		sql.append("select im from Imovel im ")
+			.append(" left join im.ligacaoAgua ligAgua " )
+			.append(" left join im.ligacaoAguaSituacao ligAguaSitu " )
+			.append(" left join im.ligacaoEsgotoSituacao ligEsgoSitu " )
+			.append(" left join ligAgua.hidrometroInstalacaoHistorico hist " )
+			.append(" where im.id < 5000 ");
+		
+		return entity.createQuery(sql.toString(), Imovel.class)
 				.setFirstResult((int) firstItem).setMaxResults((int) numItems)
 				.getResultList();
 	}
 	
 	public long quantidadeImoveis(){
-		return entity.createQuery("select count (i) from Imovel i where i.id < 13000", Long.class).getSingleResult();
+		return entity.createQuery("select count (i) from Imovel i where i.id < 5000", Long.class).getSingleResult();
 	}
 	
 	

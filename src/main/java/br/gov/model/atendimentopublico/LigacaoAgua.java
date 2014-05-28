@@ -52,4 +52,8 @@ public class LigacaoAgua {
 	public void setHidrometroInstalacaoHistorico(HidrometroInstalacaoHistorico hidrometroInstalacaoHistorico) {
 		this.hidrometroInstalacaoHistorico = hidrometroInstalacaoHistorico;
 	}
+
+	public String toString() {
+		return "LigacaoAgua [id=" + id + ", imovel=" + imovel + "]";
+	}
 }

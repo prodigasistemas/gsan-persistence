@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.gov.model.atendimentopublico.LigacaoAgua;
+import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
+import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
 
 @Entity
 @Table(name="imovel", schema="cadastro")
@@ -55,6 +57,14 @@ public class Imovel implements Serializable{
 	
 	@OneToOne(mappedBy="imovel")
 	private LigacaoAgua ligacaoAgua;
+	
+	@ManyToOne
+	@JoinColumn(name="last_id")
+	private LigacaoAguaSituacao ligacaoAguaSituacao;
+	
+	@ManyToOne
+	@JoinColumn(name="lest_id")
+	private LigacaoEsgotoSituacao ligacaoEsgotoSituacao;
 	
 	public Imovel() {
 	}
@@ -106,9 +116,24 @@ public class Imovel implements Serializable{
 	public void setLigacaoAgua(LigacaoAgua ligacaoAgua) {
 		this.ligacaoAgua = ligacaoAgua;
 	}
+	
+	public LigacaoAguaSituacao getLigacaoAguaSituacao() {
+		return ligacaoAguaSituacao;
+	}
 
-	@Override
+	public void setLigacaoAguaSituacao(LigacaoAguaSituacao ligacaoAguaSituacao) {
+		this.ligacaoAguaSituacao = ligacaoAguaSituacao;
+	}
+
+	public LigacaoEsgotoSituacao getLigacaoEsgotoSituacao() {
+		return ligacaoEsgotoSituacao;
+	}
+
+	public void setLigacaoEsgotoSituacao(LigacaoEsgotoSituacao ligacaoEsgotoSituacao) {
+		this.ligacaoEsgotoSituacao = ligacaoEsgotoSituacao;
+	}
+
 	public String toString() {
-		return "Imovel [numeroImovel=" + numeroImovel + "]";
+		return "Imovel [id=" + id + ", numeroImovel=" + numeroImovel + "]";
 	}
 }
