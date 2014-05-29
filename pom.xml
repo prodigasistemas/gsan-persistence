@@ -12,7 +12,24 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.wildfly>8.0.0.Final</version.wildfly>
+        <version.arquillian>1.1.4.Final</version.arquillian>
+        <wildfly.home>${project.basedir}/../../developer/wildfly-8.0.0.Final</wildfly.home>
+	    <wildfly.home.module>${project.basedir}/../../developer/wildfly-8.0.0.Final/modules</wildfly.home.module>
+	    <jboss.home>${wildfly.home}</jboss.home>
     </properties>
+    
+    <dependencyManagement>
+	    <dependencies>
+	        <dependency>
+	            <groupId>org.jboss.arquillian</groupId>
+	            <artifactId>arquillian-bom</artifactId>
+	            <version>1.1.4.Final</version>
+	            <scope>import</scope>
+	            <type>pom</type>
+	        </dependency>
+	    </dependencies>
+	</dependencyManagement>
 
     <dependencies>
 		<dependency>
@@ -38,7 +55,33 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>4.3.5.Final</version>
-		</dependency>        
+		</dependency>    
+		
+		<dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.1</version>
+            <scope>test</scope>
+        </dependency>    
+        
+        <dependency>
+		    <groupId>org.jboss.arquillian.junit</groupId>
+		    <artifactId>arquillian-junit-container</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jboss.arquillian.protocol</groupId>
+			<artifactId>arquillian-protocol-servlet</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.wildfly</groupId>
+			<artifactId>wildfly-arquillian-container-managed</artifactId>
+			<version>${version.wildfly}</version>
+		</dependency>
+
     </dependencies>
 
     <build>
@@ -54,6 +97,17 @@
 	                    <debug>true</debug>
 	                </configuration>
 	            </plugin>
+	            <plugin>
+				    <artifactId>maven-surefire-plugin</artifactId>
+				    <version>2.17</version>
+				    <configuration>
+					    <systemPropertyVariables>
+				            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+				            <jboss.home>${wildfly.home}</jboss.home>
+				            <module.path>${wildfly.home.module}</module.path>
+				        </systemPropertyVariables>
+			        </configuration>
+				</plugin>
 	            <plugin>
 	                <groupId>org.apache.maven.plugins</groupId>
 	                <artifactId>maven-ejb-plugin</artifactId>
