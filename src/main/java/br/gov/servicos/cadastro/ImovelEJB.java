@@ -14,14 +14,17 @@ public class ImovelEJB{
 	@PersistenceContext
 	private EntityManager entity;
 	
+	static String cond_imovel = "where im.id < 5308700 and im.id > 5308600";
+	
 	public List<Imovel> listar(long firstItem, long numItems){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select im from Imovel im ")
+			.append(" left join im.faturamentoSituacaoTipo fatSitTipo " )
 			.append(" left join im.ligacaoAgua ligAgua " )
 			.append(" left join im.ligacaoAguaSituacao ligAguaSitu " )
 			.append(" left join im.ligacaoEsgotoSituacao ligEsgoSitu " )
 			.append(" left join ligAgua.hidrometroInstalacaoHistorico hist " )
-			.append(" where im.id < 5000 ");
+			.append(cond_imovel);
 		
 		return entity.createQuery(sql.toString(), Imovel.class)
 				.setFirstResult((int) firstItem).setMaxResults((int) numItems)
@@ -29,7 +32,7 @@ public class ImovelEJB{
 	}
 	
 	public long quantidadeImoveis(){
-		return entity.createQuery("select count (i) from Imovel i where i.id < 5000", Long.class).getSingleResult();
+		return entity.createQuery("select count (i) from Imovel i " + cond_imovel, Long.class).getSingleResult();
 	}
 	
 	

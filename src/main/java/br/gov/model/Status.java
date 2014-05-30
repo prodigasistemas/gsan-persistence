@@ -1,20 +1,20 @@
 package br.gov.model;
 
 public enum Status {
-	ATIVO(1), INATIVO(2);
+	ATIVO( (short) 1), INATIVO( (short) 2);
 	
-	private int id;
+	private short id;
 	
-	Status(int s){
+	Status(short s){
 		this.id = s;
 	}
 	
-	public int getId(){
+	public short getId(){
 		return id;
 	}
 	
-	public static Status parse(int id) {
-        Status status = null; // Default
+	public static Status parse(short id) {
+        Status status = null;
         for (Status item : Status.values()) {
             if (item.getId() == id) {
                 status = item;

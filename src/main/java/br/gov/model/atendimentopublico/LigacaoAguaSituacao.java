@@ -22,7 +22,7 @@ public class LigacaoAguaSituacao implements Serializable {
 	private String descricao;
 	
 	@Column(name="last_icfaturamento")
-	private int situacaoFaturamento;
+	private short situacaoFaturamento;
 	
 	public LigacaoAguaSituacao() {
 	}

@@ -22,7 +22,7 @@ public class LigacaoEsgotoSituacao implements Serializable {
 	private String descricao;
 
 	@Column(name="lest_icfaturamento")
-	private int situacaoFaturamento;
+	private short situacaoFaturamento;
 
 	public LigacaoEsgotoSituacao() {
 	}

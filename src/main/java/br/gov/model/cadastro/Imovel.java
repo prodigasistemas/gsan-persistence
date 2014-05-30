@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import br.gov.model.atendimentopublico.LigacaoAgua;
 import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
 import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
+import br.gov.model.faturamento.FaturamentoSituacaoTipo;
 
 @Entity
 @Table(name="imovel", schema="cadastro")
@@ -65,6 +66,10 @@ public class Imovel implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="lest_id")
 	private LigacaoEsgotoSituacao ligacaoEsgotoSituacao;
+	
+	@ManyToOne
+	@JoinColumn(name="ftst_id")
+	private FaturamentoSituacaoTipo faturamentoSituacaoTipo;
 	
 	public Imovel() {
 	}
@@ -131,6 +136,14 @@ public class Imovel implements Serializable{
 
 	public void setLigacaoEsgotoSituacao(LigacaoEsgotoSituacao ligacaoEsgotoSituacao) {
 		this.ligacaoEsgotoSituacao = ligacaoEsgotoSituacao;
+	}
+	
+	public FaturamentoSituacaoTipo getFaturamentoSituacaoTipo() {
+		return faturamentoSituacaoTipo;
+	}
+
+	public void setFaturamentoSituacaoTipo(FaturamentoSituacaoTipo faturamentoSituacaoTipo) {
+		this.faturamentoSituacaoTipo = faturamentoSituacaoTipo;
 	}
 
 	public String toString() {
