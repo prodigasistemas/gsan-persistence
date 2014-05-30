@@ -1,6 +1,6 @@
 package br.gov.servicos.batch;
 
-import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.*;
 
 import java.util.List;
 
@@ -39,5 +39,7 @@ public class ProcessoEJBTest {
 		List<ProcessoIniciado> processosIniciados = processoEJB.buscarProcessosPorSituacao(ProcessoSituacao.EM_ESPERA);
 		
 		assertNotNull(processosIniciados);
+		assertTrue(processosIniciados.size() > 0);
+		assertTrue(processosIniciados.get(0).getSituacao() == ProcessoSituacao.EM_ESPERA.getId());
 	}
 }

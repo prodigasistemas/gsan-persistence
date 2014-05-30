@@ -14,9 +14,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.wildfly>8.0.0.Final</version.wildfly>
         <version.arquillian>1.1.4.Final</version.arquillian>
-        <wildfly.home>${project.basedir}/../../developer/wildfly-8.0.0.Final</wildfly.home>
-	    <wildfly.home.module>${project.basedir}/../../developer/wildfly-8.0.0.Final/modules</wildfly.home.module>
-	    <jboss.home>${wildfly.home}</jboss.home>
     </properties>
     
     <dependencyManagement>
@@ -70,11 +67,11 @@
 		    <scope>test</scope>
 		</dependency>
 		
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.jboss.arquillian.protocol</groupId>
 			<artifactId>arquillian-protocol-servlet</artifactId>
 			<scope>test</scope>
-		</dependency>
+		</dependency> -->
 		
 		<dependency>
 			<groupId>org.wildfly</groupId>
@@ -100,13 +97,6 @@
 	            <plugin>
 				    <artifactId>maven-surefire-plugin</artifactId>
 				    <version>2.17</version>
-				    <configuration>
-					    <systemPropertyVariables>
-				            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-				            <jboss.home>${wildfly.home}</jboss.home>
-				            <module.path>${wildfly.home.module}</module.path>
-				        </systemPropertyVariables>
-			        </configuration>
 				</plugin>
 	            <plugin>
 	                <groupId>org.apache.maven.plugins</groupId>
