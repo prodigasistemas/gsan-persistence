@@ -6,10 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="debito_a_cobrar", schema="faturamento")
-public class DebitoACobrar {
+@Table(name="credito_a_realizar", schema="faturamento")
+public class CreditoRealizar {
+	
 	@Id
-	@Column(name="dbac_id")
+	@Column(name="crar_id")
 	private Long id;
 
 }

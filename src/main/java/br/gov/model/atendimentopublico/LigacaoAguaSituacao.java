@@ -13,6 +13,8 @@ import br.gov.model.Status;
 @Table(name="ligacao_agua_situacao", schema="atendimentopublico")
 public class LigacaoAguaSituacao implements Serializable {
 	private static final long serialVersionUID = -4942264231639799945L;
+	
+	public static Integer LIGADO = new Integer(3);
 
 	@Id
 	@Column(name="last_id")

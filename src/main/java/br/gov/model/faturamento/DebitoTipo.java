@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.gov.model.Status;
+
 @Entity
 @Table(name="debito_tipo", schema="faturamento")
 public class DebitoTipo {
@@ -26,11 +28,11 @@ public class DebitoTipo {
 		this.id = id;
 	}
 
-	public short getIndicadorGeracaoConta() {
-		return indicadorGeracaoConta;
+	public Status getIndicadorGeracaoConta() {
+		return Status.parse(indicadorGeracaoConta);
 	}
 
-	public void setIndicadorGeracaoConta(short indicadorGeracaoConta) {
-		this.indicadorGeracaoConta = indicadorGeracaoConta;
+	public void setIndicadorGeracaoConta(Status ativo) {
+		this.indicadorGeracaoConta = ativo.getId();
 	}
 }

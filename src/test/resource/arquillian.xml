@@ -9,6 +9,7 @@
         <configuration>
             <property name="jbossHome">/Users/pigor/projects/COSANPA/developer/wildfly-8.0.0.Final</property>
             <property name="serverConfig">standalone-full.xml</property>
+            <property name="allowConnectingToRunningServer">true</property>
             <!-- uncomment below for debugging
             <property name="javaVmArguments">-Xmx512m -XX:MaxPermSize=128m -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8787</property>
             -->

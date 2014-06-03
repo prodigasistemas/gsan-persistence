@@ -70,6 +70,10 @@ public class Imovel implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="ftst_id")
 	private FaturamentoSituacaoTipo faturamentoSituacaoTipo;
+
+	@ManyToOne
+	@JoinColumn(name="imov_idimovelcondominio")
+	private Imovel imovelCondominio;
 	
 	public Imovel() {
 	}
@@ -148,5 +152,13 @@ public class Imovel implements Serializable{
 
 	public String toString() {
 		return "Imovel [id=" + id + ", numeroImovel=" + numeroImovel + "]";
+	}
+
+	public Imovel getImovelCondominio() {
+		return imovelCondominio;
+	}
+	
+	public void setImovelCondominio(Imovel imovel){
+		this.imovelCondominio = imovel;
 	}
 }
