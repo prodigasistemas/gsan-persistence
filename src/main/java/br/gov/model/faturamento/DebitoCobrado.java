@@ -1,6 +1,7 @@
 package br.gov.model.faturamento;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,28 +16,31 @@ import br.gov.model.financeiro.FinanciamentoTipo;
 import br.gov.model.financeiro.LancamentoItemContabil;
 
 @Entity
-@Table(name="debito_a_cobrar", schema="faturamento")
-public class DebitoCobrar implements IDebito{
-	@Id
-	@Column(name="dbac_id")
-	private Long id;
+@Table(name="debito_cobrado", schema="faturamento")
+public class DebitoCobrado implements IDebito{
 
+	@Id
+	@Column(name="dbcb_id")
+	private Long id;
+	
 	@ManyToOne
-	@JoinColumn(name="dbtp_id")
+	@JoinColumn(name="dbac_id")
+	private DebitoCobrarGeral debitoCobrarGeral;
+	
+	@Column(name="dbcb_tmultimaalteracao")
+	private Date ultimaAlteracao;
+	
+	@Column(name="dbcb_vlprestacao")
+	private BigDecimal valorPrestacao;
+
+	@Column(name="dbcb_nnprestacao")
+	private short numeroPrestacao;
+	
+	@Column(name="dbcb_nnprestacaodebito")
+	private short numeroPrestacaoDebito;
+
 	private DebitoTipo debitoTipo;
-	
-	@Column(name="dbac_vldebito")
-	private BigDecimal valorDebito;
-	
-	@Column(name="dbac_nnprestacaodebito")
-	private Short numeroPrestacaoDebito;
-	
-	@Column(name="dbac_nnprestacaocobradas")
-	private Short numeroPrestacaoCobradas;
-	
-	@Column(name="dbac_nnparcelabonus")
-	private Short numeroParcelaBonus;
-	
+
 	private LancamentoItemContabil lancamentoItemContabil;
 	
 	private Localidade localidade;
@@ -56,8 +60,10 @@ public class DebitoCobrar implements IDebito{
 	private Integer anoMesCobrancaDebito;
 
 	private FinanciamentoTipo financiamentoTipo;
-	
-	public DebitoCobrar(){}
+
+
+	public DebitoCobrado() {
+	}
 
 	public Long getId() {
 		return id;
@@ -65,6 +71,46 @@ public class DebitoCobrar implements IDebito{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public DebitoCobrarGeral getDebitoCobrarGeral() {
+		return debitoCobrarGeral;
+	}
+
+	public void setDebitoCobrarGeral(DebitoCobrarGeral debitoCobrarGeral) {
+		this.debitoCobrarGeral = debitoCobrarGeral;
+	}
+
+	public Date getUltimaAlteracao() {
+		return ultimaAlteracao;
+	}
+
+	public void setUltimaAlteracao(Date ultimaAlteracao) {
+		this.ultimaAlteracao = ultimaAlteracao;
+	}
+
+	public BigDecimal getValorPrestacao() {
+		return valorPrestacao;
+	}
+
+	public void setValorPrestacao(BigDecimal valorPrestacao) {
+		this.valorPrestacao = valorPrestacao;
+	}
+
+	public short getNumeroPrestacao() {
+		return numeroPrestacao;
+	}
+
+	public void setNumeroPrestacao(short numeroPrestacao) {
+		this.numeroPrestacao = numeroPrestacao;
+	}
+
+	public short getNumeroPrestacaoDebito() {
+		return numeroPrestacaoDebito;
+	}
+
+	public void setNumeroPrestacaoDebito(short numeroPrestacaoDebito) {
+		this.numeroPrestacaoDebito = numeroPrestacaoDebito;
 	}
 
 	public DebitoTipo getDebitoTipo() {
@@ -75,38 +121,6 @@ public class DebitoCobrar implements IDebito{
 		this.debitoTipo = debitoTipo;
 	}
 
-	public BigDecimal getValorDebito() {
-		return valorDebito;
-	}
-
-	public void setValorDebito(BigDecimal valorDebito) {
-		this.valorDebito = valorDebito;
-	}
-
-	public Short getNumeroPrestacaoDebito() {
-		return numeroPrestacaoDebito;
-	}
-
-	public void setNumeroPrestacaoDebito(Short numeroPrestacaoDebito) {
-		this.numeroPrestacaoDebito = numeroPrestacaoDebito;
-	}
-
-	public Short getNumeroPrestacaoCobradas() {
-		return numeroPrestacaoCobradas;
-	}
-
-	public void setNumeroPrestacaoCobradas(Short numeroPrestacaoCobradas) {
-		this.numeroPrestacaoCobradas = numeroPrestacaoCobradas;
-	}
-
-	public Short getNumeroParcelaBonus() {
-		return numeroParcelaBonus;
-	}
-
-	public void setNumeroParcelaBonus(Short numeroParcelaBonus) {
-		this.numeroParcelaBonus = numeroParcelaBonus;
-	}
-	
 	public LancamentoItemContabil getLancamentoItemContabil() {
 		return lancamentoItemContabil;
 	}
@@ -185,10 +199,5 @@ public class DebitoCobrar implements IDebito{
 
 	public void setFinanciamentoTipo(FinanciamentoTipo financiamentoTipo) {
 		this.financiamentoTipo = financiamentoTipo;
-	}
-
-	public String toString() {
-		return "DebitoCobrar [id=" + id + ", debitoTipo=" + debitoTipo + ", valorDebito=" + valorDebito + ", numeroPrestacaoDebito=" + numeroPrestacaoDebito
-				+ ", numeroPrestacaoCobradas=" + numeroPrestacaoCobradas + "]";
 	}
 }
