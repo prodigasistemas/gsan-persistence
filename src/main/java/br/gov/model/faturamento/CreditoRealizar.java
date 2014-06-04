@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.gov.model.cadastro.Localidade;
+import br.gov.model.financeiro.LancamentoItemContabil;
+
 @Entity
 @Table(name="credito_a_realizar", schema="faturamento")
 public class CreditoRealizar implements Serializable {
@@ -83,6 +86,14 @@ public class CreditoRealizar implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="crti_id")
 	private CreditoTipo creditoTipo;
+	
+	@ManyToOne
+	@JoinColumn(name="lict_id")
+	private LancamentoItemContabil lancamentoItemContabil;
+	
+	@ManyToOne
+	@JoinColumn(name="loca_id")
+	private Localidade localidade;
 
 	public CreditoRealizar(){}
 
@@ -236,5 +247,21 @@ public class CreditoRealizar implements Serializable {
 
 	public void setCreditoTipo(CreditoTipo creditoTipo) {
 		this.creditoTipo = creditoTipo;
+	}
+
+	public LancamentoItemContabil getLancamentoItemContabil() {
+		return lancamentoItemContabil;
+	}
+
+	public void setLancamentoItemContabil(LancamentoItemContabil lancamentoItemContabil) {
+		this.lancamentoItemContabil = lancamentoItemContabil;
+	}
+
+	public Localidade getLocalidade() {
+		return localidade;
+	}
+
+	public void setLocalidade(Localidade localidade) {
+		this.localidade = localidade;
 	}
 }

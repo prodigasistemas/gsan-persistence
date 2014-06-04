@@ -10,7 +10,11 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.gov.model.cadastro.Categoria;
 
 @Entity
 @Table(name="cred_realizado_catg", schema="faturamento")
@@ -28,11 +32,22 @@ public class CreditoRealizadoCategoria implements Serializable{
 	})
 	private CreditoRealizadoCategoriaPK pk;
 	
+	@Column(name="crcg_qteconomia")
 	private Integer quantidadeEconomia;
 	
+	@Column(name="crcg_vlcategoria")
 	private BigDecimal valorCategoria;
 	
+	@Column(name="crcg_tmultimaalteracao")
 	private Date ultimaAlteracao;
+	
+	@ManyToOne
+	@JoinColumn(name="crrz_id")
+	private CreditoRealizado creditoRealizado;
+	
+	@ManyToOne
+	@JoinColumn(name="catg_id")
+	private Categoria categoria;
 	
 	public CreditoRealizadoCategoria(){}
 	
@@ -80,5 +95,21 @@ public class CreditoRealizadoCategoria implements Serializable{
 
 	public void setUltimaAlteracao(Date ultimaAlteracao) {
 		this.ultimaAlteracao = ultimaAlteracao;
+	}
+
+	public CreditoRealizado getCreditoRealizado() {
+		return creditoRealizado;
+	}
+
+	public void setCreditoRealizado(CreditoRealizado creditoRealizado) {
+		this.creditoRealizado = creditoRealizado;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 }
