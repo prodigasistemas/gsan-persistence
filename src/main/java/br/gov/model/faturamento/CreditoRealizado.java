@@ -80,6 +80,14 @@ public class CreditoRealizado implements Serializable{
 	@JoinColumn(name="loca_id")
 	private Localidade localidade;
 	
+	@ManyToOne
+	@JoinColumn(name="crog_id")
+	private CreditoOrigem creditoOrigem;
+	
+	@ManyToOne
+	@JoinColumn(name="crar_idorigem")
+	private CreditoRealizarGeral creditoRealizarGeral;
+	
 	public CreditoRealizado(){}
 
 	public Long getId() {
@@ -208,5 +216,21 @@ public class CreditoRealizado implements Serializable{
 
 	public void setLocalidade(Localidade localidade) {
 		this.localidade = localidade;
+	}
+
+	public CreditoOrigem getCreditoOrigem() {
+		return creditoOrigem;
+	}
+
+	public void setCreditoOrigem(CreditoOrigem creditoOrigem) {
+		this.creditoOrigem = creditoOrigem;
+	}
+
+	public CreditoRealizarGeral getCreditoRealizarGeral() {
+		return creditoRealizarGeral;
+	}
+
+	public void setCreditoRealizarGeral(CreditoRealizarGeral creditoRealizarGeral) {
+		this.creditoRealizarGeral = creditoRealizarGeral;
 	}
 }
