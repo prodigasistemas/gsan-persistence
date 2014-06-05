@@ -11,7 +11,7 @@ import br.gov.model.faturamento.DebitoCobrar;
 import br.gov.model.faturamento.DebitoCreditoSituacao;
 
 @Stateless
-public class DebitoCobrarEJB {
+public class DebitoCobrarRepositorio {
 
 	@PersistenceContext
 	private EntityManager entity;

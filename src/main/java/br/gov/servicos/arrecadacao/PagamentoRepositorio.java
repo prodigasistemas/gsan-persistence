@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import br.gov.model.faturamento.DebitoCobrar;
 
 @Stateless
-public class PagamentoEJB {
+public class PagamentoRepositorio {
 
 	@PersistenceContext
 	private EntityManager entity;

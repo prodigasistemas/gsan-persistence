@@ -25,13 +25,13 @@ public class ProcessoEJBTest {
 	//@Deployment
     public static Archive<?> createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "test.jar")
-            .addPackage(ProcessoEJB.class.getPackage())
+            .addPackage(ProcessoRepositorio.class.getPackage())
             .addPackage(ProcessoIniciado.class.getPackage())
             .addAsResource("META-INF/persistence.xml");
     }
 	
 	//@Inject
-	ProcessoEJB processoEJB;
+	ProcessoRepositorio processoEJB;
 	
 	//@Test
 	public void buscarProcessosPorSituacao() throws Exception {

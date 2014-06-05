@@ -18,17 +18,17 @@ import br.gov.model.faturamento.DebitoCreditoSituacao;
 import br.gov.servicos.to.DebitoCobradoTO;
 
 @Stateless
-public class DebitoCobradoEJB {
+public class DebitoCobradoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
 	@EJB
-	private DebitoCobrarEJB debitoCobrarEJB;
+	private DebitoCobrarRepositorio debitoCobrarRepositorio;
 	
 	public DebitoCobradoTO gerarDebitoCobrado(Imovel imovel, int anoMesFaturamento){
 		DebitoCobradoTO to = new DebitoCobradoTO();
 		
-		Collection<DebitoCobrar> colecaoDebitosACobrar = debitoCobrarEJB.debitosCobrarPorImovelESituacao(imovel, DebitoCreditoSituacao.NORMAL, anoMesFaturamento);
+		Collection<DebitoCobrar> colecaoDebitosACobrar = debitoCobrarRepositorio.debitosCobrarPorImovelESituacao(imovel, DebitoCreditoSituacao.NORMAL, anoMesFaturamento);
 		
 		BigDecimal valorPrestacao = null;
 		

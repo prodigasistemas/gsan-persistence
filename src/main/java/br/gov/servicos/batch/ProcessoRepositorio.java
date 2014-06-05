@@ -12,7 +12,7 @@ import br.gov.model.batch.ProcessoIniciado;
 import br.gov.model.batch.ProcessoSituacao;
 
 @Stateless
-public class ProcessoEJB {
+public class ProcessoRepositorio {
 
 	@PersistenceContext
 	private EntityManager entity;

@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import br.gov.model.cadastro.Imovel;
 
 @Stateless
-public class ImovelEJB{
+public class ImovelRepositorio{
 
 	@PersistenceContext
 	private EntityManager entity;
