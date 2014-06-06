@@ -49,6 +49,18 @@ public class ImovelRepositorio{
 				.getResultList();
 	}
 	
+	public boolean existeImovel(Long idImovel) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select count (im) from Imovel im ")
+		.append("where im.id = :idImovel");
+		
+		Long qtd = entity.createQuery(sql.toString(), Long.class)
+			.setParameter("idImovel", idImovel)
+			.getSingleResult();
+		
+		return (qtd > 0) ? true : false; 
+	}	
+	
 	public boolean existeContaImovel(Long idImovel, Integer anoMesReferencia) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count (ct) from Conta ct ")

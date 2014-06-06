@@ -73,6 +73,28 @@
 			<version>${version.wildfly}</version>
 		</dependency>
 
+		<dependency>
+		    <groupId>org.jboss.arquillian.extension</groupId>
+		    <artifactId>arquillian-persistence-dbunit</artifactId>
+		    <version>1.0.0.Alpha7</version>
+		    <scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.arquillian.extension</groupId>
+			<artifactId>arquillian-persistence-core</artifactId>
+			<version>1.0.0.Alpha7</version>
+		    <scope>test</scope>
+		</dependency>
+				
+		<dependency>
+    		<groupId>org.hsqldb</groupId>
+    		<artifactId>hsqldb</artifactId>
+    		<version>2.2.9</version>
+    		<scope>test</scope>
+		</dependency>
+
+		
     </dependencies>
 
     <build>

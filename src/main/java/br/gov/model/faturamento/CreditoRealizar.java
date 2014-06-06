@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -99,8 +100,8 @@ public class CreditoRealizar implements Serializable {
 	@JoinColumn(name="crog_id")
 	private CreditoOrigem creditoOrigem;
 	
-	@ManyToOne
-	@JoinColumn(name="crar_idorigem")
+	@OneToOne
+	@JoinColumn(name="crar_id")
 	private CreditoRealizarGeral creditoRealizarGeral;
 
 	public CreditoRealizar(){}

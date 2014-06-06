@@ -23,6 +23,7 @@ public class CreditoRealizarGeral implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CREDITO_REALIZAR_GERAL")
 	@SequenceGenerator(name="SEQ_CREDITO_REALIZAR_GERAL", schema="faturamento", sequenceName="seq_credito_a_realizar_geral", allocationSize=1)
+	@Column(name="crar_id")
 	private Long id;
 	
 	@Column(name="cage_ichistorico")

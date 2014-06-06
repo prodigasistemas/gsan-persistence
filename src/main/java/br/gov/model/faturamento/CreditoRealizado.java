@@ -85,7 +85,7 @@ public class CreditoRealizado implements Serializable{
 	private CreditoOrigem creditoOrigem;
 	
 	@ManyToOne
-	@JoinColumn(name="crar_idorigem")
+	@JoinColumn(name="crar_id")
 	private CreditoRealizarGeral creditoRealizarGeral;
 	
 	public CreditoRealizado(){}

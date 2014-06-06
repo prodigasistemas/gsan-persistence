@@ -37,24 +37,38 @@ public class DebitoCobrar implements IDebito{
 	@Column(name="dbac_nnparcelabonus")
 	private Short numeroParcelaBonus;
 	
+	@ManyToOne
+	@JoinColumn(name="lict_id")
 	private LancamentoItemContabil lancamentoItemContabil;
 	
+	@ManyToOne
+	@JoinColumn(name="loca_id")
 	private Localidade localidade;
 	
+	@ManyToOne
+	@JoinColumn(name="qdra_id")
 	private Quadra quadra;
 	
+	@Column(name="dbac_cdsetorcomercial")
 	private Integer codigoSetorComercial;
 	
+	@Column(name="dbac_nnquadra")
 	private Integer numeroQuadra;
 	
+	@Column(name="dbac_nnlote")
 	private Short numeroLote;
 
+	@Column(name="dbac_nnsublote")
 	private Short numeroSubLote;
 
+	@Column(name="dbac_amreferenciadebito")
 	private Integer anoMesReferenciaDebito;
 
+	@Column(name="dbac_amcobrancadebito")
 	private Integer anoMesCobrancaDebito;
 
+	@ManyToOne
+	@JoinColumn(name="fntp_id")
 	private FinanciamentoTipo financiamentoTipo;
 	
 	public DebitoCobrar(){}
