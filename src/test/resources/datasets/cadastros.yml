@@ -1,0 +1,5 @@
+cadastro.localidade:
+  - loca_id: 1
+    loca_nmlocalidade: "Belem"
+cadastro.imovel:
+  - imov_id: 1

@@ -14,20 +14,31 @@ public class Localidade implements Serializable {
 
 	@Id
 	@Column(name="loca_id")
-	private Integer id;
+	private Long id;
 	
+	@Column(name="loca_nmlocalidade")
+	private String nome;
+
 	public Localidade() {
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public String toString() {
-		return "Localidade [id=" + id + "]";
+		return "Localidade [id=" + id + ", nome=" + nome + "]";
 	}
 }

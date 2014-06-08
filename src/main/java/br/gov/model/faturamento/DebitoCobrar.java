@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
 import br.gov.model.financeiro.FinanciamentoTipo;
@@ -70,6 +71,10 @@ public class DebitoCobrar implements IDebito{
 	@ManyToOne
 	@JoinColumn(name="fntp_id")
 	private FinanciamentoTipo financiamentoTipo;
+	
+	@ManyToOne
+	@JoinColumn(name="imov_id")
+	private Imovel imovel;
 	
 	public DebitoCobrar(){}
 
@@ -199,6 +204,14 @@ public class DebitoCobrar implements IDebito{
 
 	public void setFinanciamentoTipo(FinanciamentoTipo financiamentoTipo) {
 		this.financiamentoTipo = financiamentoTipo;
+	}
+	
+	public Imovel getImovel() {
+		return imovel;
+	}
+
+	public void setImovel(Imovel imovel) {
+		this.imovel = imovel;
 	}
 
 	public String toString() {

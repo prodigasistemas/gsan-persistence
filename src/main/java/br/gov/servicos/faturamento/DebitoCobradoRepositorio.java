@@ -1,6 +1,7 @@
 package br.gov.servicos.faturamento;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -32,10 +33,14 @@ public class DebitoCobradoRepositorio {
 		
 		BigDecimal valorPrestacao = null;
 		
+		BigDecimal valorDebito = new BigDecimal(0.0);
+		
+		Collection<DebitoCobrado> debitosCobrados = new ArrayList<DebitoCobrado>();
 		for (DebitoCobrar debitoACobrar : colecaoDebitosACobrar) {
 			valorPrestacao = debitoACobrar.getValorDebito().divide(new BigDecimal(debitoACobrar.getNumeroPrestacaoDebito()), 2, BigDecimal.ROUND_DOWN);
 			
 			valorPrestacao = valorPrestacao.add(valorResidual(valorPrestacao, debitoACobrar)).setScale(2);
+			valorDebito = valorDebito.add(valorPrestacao);
 			
 			DebitoCobrado debitoCobrado = new DebitoCobrado();
 			MergeProperties.mergeProperties(debitoCobrado, debitoACobrar);
@@ -47,7 +52,10 @@ public class DebitoCobradoRepositorio {
 			debitoCobrado.setValorPrestacao(valorPrestacao);
 			debitoCobrado.setNumeroPrestacao(debitoACobrar.getNumeroPrestacaoDebito());
 			debitoCobrado.setNumeroPrestacaoDebito((short) (debitoACobrar.getNumeroPrestacaoCobradas() + 1));
+			debitosCobrados.add(debitoCobrado);
 		}
+		to.setDebitosCobrados(debitosCobrados);
+		to.setValorDebito(valorDebito);
 		return to;
 	}
 

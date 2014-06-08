@@ -61,6 +61,7 @@
             <scope>test</scope>
         </dependency>    
         
+
         <dependency>
 		    <groupId>org.jboss.arquillian.junit</groupId>
 		    <artifactId>arquillian-junit-container</artifactId>
