@@ -29,7 +29,7 @@ public class DebitoCobradoRepositorio {
 	public DebitoCobradoTO gerarDebitoCobrado(Imovel imovel, int anoMesFaturamento){
 		DebitoCobradoTO to = new DebitoCobradoTO();
 		
-		Collection<DebitoCobrar> colecaoDebitosACobrar = debitoCobrarRepositorio.debitosCobrarPorImovelESituacao(imovel, DebitoCreditoSituacao.NORMAL, anoMesFaturamento);
+		Collection<DebitoCobrar> colecaoDebitosACobrar = debitoCobrarRepositorio.debitosCobrarPorImovelComPendenciaESemRevisao(imovel);
 		
 		BigDecimal valorPrestacao = null;
 		

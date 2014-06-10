@@ -17,6 +17,7 @@ public enum DebitoCreditoSituacao {
 	DEBITO_PRESCRITO_CONTAS_INCLUIDAS( (short) 12);
 	
 	private short id;
+	
 	private DebitoCreditoSituacao(short id) {
 		this.id = id;
 	}
@@ -24,17 +25,4 @@ public enum DebitoCreditoSituacao {
 	public short getId(){
 		return id;
 	}
-	
-	public static DebitoCreditoSituacao parse(short id) {
-        DebitoCreditoSituacao DebitoCreditoSituacao = null;
-        for (DebitoCreditoSituacao item : DebitoCreditoSituacao.values()) {
-            if (item.getId() == id) {
-                DebitoCreditoSituacao = item;
-                break;
-            }
-        }
-        return DebitoCreditoSituacao;
-    }	
-	
-
 }

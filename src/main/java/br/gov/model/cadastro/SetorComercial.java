@@ -1,7 +1,5 @@
 package br.gov.model.cadastro;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,8 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="setor_comercial", schema="cadastro")
-public class SetorComercial implements Serializable {
-	private static final long serialVersionUID = 2714822609212258673L;
+public class SetorComercial {
 
 	@Id
 	@Column(name="stcm_id")

@@ -1,6 +1,6 @@
 package br.gov.servicos.faturamento;
 
-import static junit.framework.Assert.assertEquals;
+import java.util.Collection;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -19,54 +19,43 @@ import org.junit.runner.RunWith;
 
 import br.gov.model.Status;
 import br.gov.model.atendimentopublico.LigacaoAgua;
+import br.gov.model.batch.Processo;
 import br.gov.model.cadastro.Imovel;
-import br.gov.model.cobranca.Parcelamento;
+import br.gov.model.faturamento.DebitoCobrar;
 import br.gov.model.faturamento.FaturamentoSituacaoTipo;
 import br.gov.model.financeiro.LancamentoItemContabil;
 import br.gov.model.micromedicao.Rota;
 import br.gov.servicos.cadastro.SistemaParametrosRepositorio;
+import br.gov.servicos.test.ShrinkWrapBuilder;
 import br.gov.servicos.to.DebitoCobradoTO;
 
 
-//@RunWith(Arquillian.class)
-public class DebitoCobradoTest {
+@RunWith(Arquillian.class)
+public class DebitoCobrarTest {
 		
-	//@Deployment
+	@Deployment
     public static Archive<?> createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "test.war")
-        	.addPackage(Parcelamento.class.getPackage())
-        	.addPackage(SistemaParametrosRepositorio.class.getPackage())
-            .addPackage(DebitoCobradoRepositorio.class.getPackage())
-            .addPackage(Imovel.class.getPackage())
-            .addPackage(Rota.class.getPackage())
-            .addPackage(LigacaoAgua.class.getPackage())
-            .addPackage(Status.class.getPackage())
-            .addPackage(FaturamentoSituacaoTipo.class.getPackage())
-            .addPackage(LancamentoItemContabil.class.getPackage())
-            .addPackage(DebitoCobradoTO.class.getPackage())
-            .addAsResource("persistence-test.xml", "META-INF/persistence.xml");
+		return ShrinkWrapBuilder.createDeployment();
     }
 	
-	//@Inject
-	DebitoCobradoRepositorio repositorio;
+	@Inject
+	DebitoCobrarRepositorio repositorio;
 	
-    //@PersistenceContext
-    EntityManager em;
-	
-	
-	//@Test
-	//@UsingDataSet({"cadastros.yml","debitosCobrar.yml"})
-	//@Transactional(TransactionMode.ROLLBACK)
+	@Test
+	@UsingDataSet({"cadastros.yml","debitosCobrar.yml"})
+	@Transactional(TransactionMode.ROLLBACK)
 	public void buscarImovelPorId2() throws Exception {
 		System.out.println("§§§§§§§§§§§§§§§§§§§ ********************************************************************* @@@@@@@@@@@@@@@@");
 		
 		Imovel i = new Imovel();
 		i.setId(1L);
 
-//		DebitoCobradoTO to = repositorio.gerarDebitoCobrado(i, 201403);
+		Collection<DebitoCobrar> debitos = repositorio.debitosCobrarPorImovelComPendenciaESemRevisao(i);
 		
-//		System.out.println("************ " + to.getValorDebito());
+		System.out.println("************ " + debitos);
 		
-//		assertEquals(19.50, to.getValorDebito().doubleValue());
+		for (DebitoCobrar debito : debitos) {
+			System.out.println(debito.getSituacaoAtual());
+		}
 	}
 }

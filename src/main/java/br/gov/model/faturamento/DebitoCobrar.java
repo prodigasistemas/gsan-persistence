@@ -1,9 +1,14 @@
 package br.gov.model.faturamento;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,6 +17,8 @@ import javax.persistence.Table;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
+import br.gov.model.cobranca.Parcelamento;
+import br.gov.model.converter.DebitoCreditoSituacaoConverter;
 import br.gov.model.financeiro.FinanciamentoTipo;
 import br.gov.model.financeiro.LancamentoItemContabil;
 
@@ -76,6 +83,21 @@ public class DebitoCobrar implements IDebito{
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 	
+	@Column(name="dcst_idatual")
+	@Enumerated(EnumType.ORDINAL)
+	//@Convert(converter=DebitoCreditoSituacaoConverter.class)
+	private DebitoCreditoSituacao situacaoAtual;
+	
+	@Column(name="dbac_dtrevisao")
+	private Date dataRevisao;
+	
+	@Column(name="cmrv_id")
+	private Integer contaMotivoRevisao;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="parc_id")
+	private Parcelamento parcelamento;	
+
 	public DebitoCobrar(){}
 
 	public Long getId() {
@@ -214,8 +236,50 @@ public class DebitoCobrar implements IDebito{
 		this.imovel = imovel;
 	}
 
+	public DebitoCreditoSituacao getSituacaoAtual() {
+		return situacaoAtual;
+	}
+
+	public void setSituacaoAtual(DebitoCreditoSituacao situacaoAtual) {
+		this.situacaoAtual = situacaoAtual;
+	}
+
+	public Date getDataRevisao() {
+		return dataRevisao;
+	}
+
+	public void setDataRevisao(Date dataRevisao) {
+		this.dataRevisao = dataRevisao;
+	}
+	
+	public ContaMotivoRevisao getContaMotivoRevisao() {
+		return ContaMotivoRevisao.parse(contaMotivoRevisao);
+	}
+
+	public void setContaMotivoRevisao(ContaMotivoRevisao contaMotivoRevisao) {
+		this.contaMotivoRevisao = contaMotivoRevisao.getId();
+	}
+
+	public Parcelamento getParcelamento() {
+		return parcelamento;
+	}
+
+	public void setParcelamento(Parcelamento parcelamento) {
+		this.parcelamento = parcelamento;
+	}
+
 	public String toString() {
 		return "DebitoCobrar [id=" + id + ", debitoTipo=" + debitoTipo + ", valorDebito=" + valorDebito + ", numeroPrestacaoDebito=" + numeroPrestacaoDebito
 				+ ", numeroPrestacaoCobradas=" + numeroPrestacaoCobradas + "]";
+	}
+
+	public boolean parcelamentoAVencer(int anoMesReferencia) {
+		return parcelamento != null 
+				&& parcelamento.getAnoMesReferenciaFaturamento() != null 
+				&& parcelamento.getAnoMesReferenciaFaturamento() >= anoMesReferencia;
+	}
+
+	public boolean primeiraParcela() {
+		return numeroPrestacaoCobradas == null || numeroPrestacaoCobradas == 0;
 	}
 }

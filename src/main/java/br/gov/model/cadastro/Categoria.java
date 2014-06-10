@@ -1,6 +1,5 @@
 package br.gov.model.cadastro;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
@@ -14,12 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="categoria", schema="cadastro")
-public class Categoria implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4694793573581056546L;
+public class Categoria{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CATEGORIA")

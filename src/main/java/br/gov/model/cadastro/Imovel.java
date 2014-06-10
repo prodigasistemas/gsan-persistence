@@ -1,7 +1,5 @@
 package br.gov.model.cadastro;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,8 +32,7 @@ import br.gov.model.faturamento.FaturamentoSituacaoTipo;
 				+ " WHERE rot.id = :rotaId ")
 }
 )
-public class Imovel implements Serializable{
-	private static final long serialVersionUID = 8944311080432329009L;
+public class Imovel{
 
 	@Id
 	@Column(name="imov_id")
