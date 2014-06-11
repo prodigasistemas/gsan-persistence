@@ -84,9 +84,12 @@ public class DebitoCobrar implements IDebito{
 	private Imovel imovel;
 	
 	@Column(name="dcst_idatual")
-	@Enumerated(EnumType.ORDINAL)
-	//@Convert(converter=DebitoCreditoSituacaoConverter.class)
-	private DebitoCreditoSituacao situacaoAtual;
+	private Short situacaoAtual;
+	
+	@Column(name="situacao")
+	@Convert(converter=DebitoCreditoSituacaoConverter.class)
+	private DebitoCreditoSituacao situacao;
+	
 	
 	@Column(name="dbac_dtrevisao")
 	private Date dataRevisao;
@@ -236,14 +239,6 @@ public class DebitoCobrar implements IDebito{
 		this.imovel = imovel;
 	}
 
-	public DebitoCreditoSituacao getSituacaoAtual() {
-		return situacaoAtual;
-	}
-
-	public void setSituacaoAtual(DebitoCreditoSituacao situacaoAtual) {
-		this.situacaoAtual = situacaoAtual;
-	}
-
 	public Date getDataRevisao() {
 		return dataRevisao;
 	}
@@ -266,6 +261,22 @@ public class DebitoCobrar implements IDebito{
 
 	public void setParcelamento(Parcelamento parcelamento) {
 		this.parcelamento = parcelamento;
+	}
+	
+	public Short getSituacaoAtual() {
+		return situacaoAtual;
+	}
+
+	public void setSituacaoAtual(Short situacaoAtual) {
+		this.situacaoAtual = situacaoAtual;
+	}
+
+	public DebitoCreditoSituacao getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(DebitoCreditoSituacao situacao) {
+		this.situacao = situacao;
 	}
 
 	public String toString() {
