@@ -5,13 +5,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
@@ -21,17 +17,9 @@ import br.gov.model.cadastro.Categoria;
 @Entity
 @Table(name="cred_realizado_catg", schema="faturamento")
 public class CreditoRealizadoCategoria implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1563994189436161644L;
 
 	@EmbeddedId
-	@AttributeOverrides( {
-	      @AttributeOverride(name = "creditoRealizadoId", column = @Column(name = "crrz_id", insertable=false, updatable = false)),
-	      @AttributeOverride(name = "categoriaId", column = @Column(name = "catg_id", insertable=false, updatable = false)) 
-	})
 	private CreditoRealizadoCategoriaPK pk;
 	
 	@Column(name="crcg_qteconomia")
