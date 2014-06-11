@@ -7,7 +7,7 @@
  
     <container qualifier="jboss" default="true">
         <configuration>
-            <property name="jbossHome">/desenvolvimento/servers/wildfly-8.0.0.Final</property>
+            <property name="jbossHome">/Users/pigor/projects/COSANPA/developer/wildfly-8.0.0.Final</property>
             <property name="serverConfig">standalone-full.xml</property>
             <property name="allowConnectingToRunningServer">true</property>
             <!-- uncomment below for debugging

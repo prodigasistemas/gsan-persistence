@@ -1,7 +1,9 @@
 package br.gov.servicos.to;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import br.gov.model.faturamento.CreditoRealizado;
@@ -10,25 +12,65 @@ import br.gov.model.faturamento.CreditoRealizar;
 import br.gov.model.faturamento.CreditoTipo;
 
 public class CreditoRealizadoTO {
-
-	public void setColecaoCreditoARealizar(Collection<CreditoRealizar> colecaoCreditosARealizarUpdate) {
-		// TODO Auto-generated method stub
-		
+	
+	private Collection<CreditoRealizar> colecaoCreditosARealizarUpdate;
+	private Map<CreditoRealizado, Collection<CreditoRealizadoCategoria>> mapCreditoRealizado;
+	private Map<CreditoTipo, BigDecimal> mapValoresPorTipoCredito;
+	private BigDecimal valorTotalCreditos;
+	
+	public CreditoRealizadoTO(){
+		colecaoCreditosARealizarUpdate = new ArrayList<CreditoRealizar>();
+		mapCreditoRealizado = new HashMap<CreditoRealizado, Collection<CreditoRealizadoCategoria>>();
+		mapValoresPorTipoCredito = new HashMap<CreditoTipo, BigDecimal>();
+		valorTotalCreditos = new BigDecimal("0.00");
 	}
-
-	public void setValorTotalCredito(BigDecimal valorTotalCreditos) {
-		// TODO Auto-generated method stub
-		
+	
+	public Collection<CreditoRealizar> getColecaoCreditosARealizarUpdate() {
+		return colecaoCreditosARealizarUpdate;
 	}
-
+	public void setColecaoCreditosARealizarUpdate(Collection<CreditoRealizar> colecaoCreditosARealizarUpdate) {
+		this.colecaoCreditosARealizarUpdate = colecaoCreditosARealizarUpdate;
+	}
+	public Map<CreditoRealizado, Collection<CreditoRealizadoCategoria>> getMapCreditoRealizado() {
+		return mapCreditoRealizado;
+	}
 	public void setMapCreditoRealizado(Map<CreditoRealizado, Collection<CreditoRealizadoCategoria>> mapCreditoRealizado) {
-		// TODO Auto-generated method stub
-		
+		this.mapCreditoRealizado = mapCreditoRealizado;
 	}
-
+	public Map<CreditoTipo, BigDecimal> getMapValoresPorTipoCredito() {
+		return mapValoresPorTipoCredito;
+	}
 	public void setMapValoresPorTipoCredito(Map<CreditoTipo, BigDecimal> mapValoresPorTipoCredito) {
-		// TODO Auto-generated method stub
-		
+		this.mapValoresPorTipoCredito = mapValoresPorTipoCredito;
+	}
+	public BigDecimal getValorTotalCreditos() {
+		return valorTotalCreditos;
+	}
+	public void setValorTotalCreditos(BigDecimal valorTotalCreditos) {
+		this.valorTotalCreditos = valorTotalCreditos;
+	}
+	
+	public void addCreditoRealizar(CreditoRealizar creditoRealizar){
+		colecaoCreditosARealizarUpdate.add(creditoRealizar);
+	}
+	
+	public void putCategoriasPorCreditoRealizado(CreditoRealizado creditoRealizado, Collection<CreditoRealizadoCategoria> colecaoCreditosRealizadoCategoria){
+		mapCreditoRealizado.put(creditoRealizado, colecaoCreditosRealizadoCategoria);
+	}
+	
+	public void putValoresPorCreditoTipo(CreditoTipo creditoTipo, BigDecimal valores){
+		mapValoresPorTipoCredito.put(creditoTipo, valores);
+	}
+	
+	public boolean possuiCreditoTipo(CreditoTipo creditoTipo){
+		return mapValoresPorTipoCredito.containsKey(creditoTipo);
 	}
 
+	public void somaValorTotalCreditos(BigDecimal valorCredito) {
+		if(valorTotalCreditos != null){
+			setValorTotalCreditos(valorTotalCreditos.add(valorCredito));
+		} else {
+			setValorTotalCreditos(valorCredito);
+		}
+	}
 }

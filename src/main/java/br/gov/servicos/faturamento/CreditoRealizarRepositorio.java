@@ -19,6 +19,11 @@ public class CreditoRealizarRepositorio {
 	public Collection<CreditoRealizar> pesquisarCreditoARealizar(Long id, DebitoCreditoSituacao normal, int anoMesFaturamento) {
 		return null;
 	}
+	
+	public Collection<CreditoRealizar> obterCreditoRealizarImovel(Long id, DebitoCreditoSituacao normal, Integer anoMesFaturamento) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public boolean existeCreditoComDevolucao(Collection<CreditoRealizar> creditosRealizar) {
 		boolean existeCreditoComDevolucao = false;

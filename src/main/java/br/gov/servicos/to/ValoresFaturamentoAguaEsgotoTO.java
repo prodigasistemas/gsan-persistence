@@ -8,7 +8,10 @@ public class ValoresFaturamentoAguaEsgotoTO {
 	
 	private BigDecimal valorTotalEsgoto;
 	
-	public ValoresFaturamentoAguaEsgotoTO(){}
+	public ValoresFaturamentoAguaEsgotoTO(){
+		this.valorTotalAgua = new BigDecimal("0.00");
+		this.valorTotalEsgoto = new BigDecimal("0.00");
+	}
 
 	public BigDecimal getValorTotalAgua() {
 		return valorTotalAgua;
