@@ -4,4 +4,4 @@ faturamento.debito_a_cobrar:
     dbac_nnprestacaodebito: 4
     dbac_nnprestacaocobradas: 3
     imov_id: 1
-    situacao: A
+    dcst_idatual: 4

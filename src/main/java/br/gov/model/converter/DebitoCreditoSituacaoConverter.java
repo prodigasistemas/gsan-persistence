@@ -6,34 +6,22 @@ import javax.persistence.Converter;
 import br.gov.model.faturamento.DebitoCreditoSituacao;
 
 @Converter
-public class DebitoCreditoSituacaoConverter implements AttributeConverter<DebitoCreditoSituacao, String>{
+public class DebitoCreditoSituacaoConverter implements AttributeConverter<DebitoCreditoSituacao, Short>{
 
-	public String convertToDatabaseColumn(DebitoCreditoSituacao attribute) {
+	public Short convertToDatabaseColumn(DebitoCreditoSituacao attribute) {
 		System.out.println("REETETETEZTEZTEZTEZTEZTEZTEZTEZTEZTEZTEZTEZTEZTEZTEZTEZT");
-		switch (attribute) {
-		case NORMAL:
-			return "N";
-		case ARRASTADA:
-			return "A";
-		case INCLUIDA:
-			return "I";
-		default:
-			return "Y";
-		}
+		return attribute.getId();
 	}
 
-	public DebitoCreditoSituacao convertToEntityAttribute(String dbData) {
-		System.out.println("VCXVCVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVXXVXC ------- " + dbData);
-		switch (dbData) {
-		case "N":
-			return DebitoCreditoSituacao.NORMAL;
-		case "A":
-			System.out.println("hyyhhyhyhyhyhhyhyhyhyhyhyhyhyhyhyhyhyhyhyhyhyhyhyhyh");
-			return DebitoCreditoSituacao.ARRASTADA;
-		case "I":
-			return DebitoCreditoSituacao.INCLUIDA;
-		default:
-			return DebitoCreditoSituacao.CANCELADA;
-		}
+	public DebitoCreditoSituacao convertToEntityAttribute(Short dbData) {
+		System.out.println("VCXVCVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVXXVXC");
+        DebitoCreditoSituacao DebitoCreditoSituacao = null;
+        for (DebitoCreditoSituacao item : DebitoCreditoSituacao.values()) {
+            if (item.getId() == dbData.shortValue()) {
+                DebitoCreditoSituacao = item;
+                break;
+            }
+        }
+        return DebitoCreditoSituacao;
 	}
 }

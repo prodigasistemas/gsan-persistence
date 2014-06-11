@@ -6,8 +6,6 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -84,12 +82,7 @@ public class DebitoCobrar implements IDebito{
 	private Imovel imovel;
 	
 	@Column(name="dcst_idatual")
-	private Short situacaoAtual;
-	
-	@Column(name="situacao")
-	@Convert(converter=DebitoCreditoSituacaoConverter.class)
-	private DebitoCreditoSituacao situacao;
-	
+	private DebitoCreditoSituacao situacaoAtual;
 	
 	@Column(name="dbac_dtrevisao")
 	private Date dataRevisao;
@@ -263,20 +256,12 @@ public class DebitoCobrar implements IDebito{
 		this.parcelamento = parcelamento;
 	}
 	
-	public Short getSituacaoAtual() {
+	public DebitoCreditoSituacao getSituacaoAtual() {
 		return situacaoAtual;
 	}
 
-	public void setSituacaoAtual(Short situacaoAtual) {
+	public void setSituacaoAtual(DebitoCreditoSituacao situacaoAtual) {
 		this.situacaoAtual = situacaoAtual;
-	}
-
-	public DebitoCreditoSituacao getSituacao() {
-		return situacao;
-	}
-
-	public void setSituacao(DebitoCreditoSituacao situacao) {
-		this.situacao = situacao;
 	}
 
 	public String toString() {

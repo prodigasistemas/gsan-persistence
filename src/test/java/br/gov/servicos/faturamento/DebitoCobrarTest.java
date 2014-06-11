@@ -55,7 +55,7 @@ public class DebitoCobrarTest {
 		System.out.println("************ " + debitos);
 		
 		for (DebitoCobrar debito : debitos) {
-			System.out.println(debito.getSituacao());
+			System.out.println(debito.getSituacaoAtual());
 		}
 	}
 }
