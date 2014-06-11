@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -16,7 +15,6 @@ import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
 import br.gov.model.cobranca.Parcelamento;
-import br.gov.model.converter.DebitoCreditoSituacaoConverter;
 import br.gov.model.financeiro.FinanciamentoTipo;
 import br.gov.model.financeiro.LancamentoItemContabil;
 
@@ -269,13 +267,14 @@ public class DebitoCobrar implements IDebito{
 				+ ", numeroPrestacaoCobradas=" + numeroPrestacaoCobradas + "]";
 	}
 
-	public boolean parcelamentoAVencer(int anoMesReferencia) {
+	public boolean emParcelamento(int anoMesReferencia) {
 		return parcelamento != null 
 				&& parcelamento.getAnoMesReferenciaFaturamento() != null 
-				&& parcelamento.getAnoMesReferenciaFaturamento() >= anoMesReferencia;
+				&& parcelamento.getAnoMesReferenciaFaturamento() >= anoMesReferencia
+				&& this.naPrimeiraParcela();
 	}
 
-	public boolean primeiraParcela() {
+	private boolean naPrimeiraParcela() {
 		return numeroPrestacaoCobradas == null || numeroPrestacaoCobradas == 0;
 	}
 }

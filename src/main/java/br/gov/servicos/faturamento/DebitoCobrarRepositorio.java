@@ -1,9 +1,7 @@
 package br.gov.servicos.faturamento;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,16 +9,12 @@ import javax.persistence.PersistenceContext;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.faturamento.DebitoCobrar;
 import br.gov.model.faturamento.DebitoCreditoSituacao;
-import br.gov.servicos.cadastro.SistemaParametrosRepositorio;
 
 @Stateless
 public class DebitoCobrarRepositorio {
 
 	@PersistenceContext
 	private EntityManager entity;
-	
-//	@EJB
-//	private SistemaParametrosRepositorio parametros;
 	
 	public Collection<DebitoCobrar> debitosCobrarPorImovelComPendenciaESemRevisao(Imovel imovel){
 		StringBuilder sql = new StringBuilder();
@@ -32,13 +26,10 @@ public class DebitoCobrarRepositorio {
 		.append(" and dc.contaMotivoRevisao is null")
 		.append(" and dc.situacaoAtual = :situacao");
 		
-		Collection<DebitoCobrar> lista = entity.createQuery(sql.toString(), DebitoCobrar.class)
+		Collection<DebitoCobrar> debitos = entity.createQuery(sql.toString(), DebitoCobrar.class)
 				.setParameter("idImovel", imovel.getId())
 				.setParameter("situacao", DebitoCreditoSituacao.NORMAL)
 				.getResultList();
-		
-		Collection<DebitoCobrar> debitos = new ArrayList<DebitoCobrar>();
-		
-		return lista;
+		return debitos;
 	}
 }
