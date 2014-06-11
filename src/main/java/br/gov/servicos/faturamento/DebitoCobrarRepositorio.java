@@ -29,24 +29,16 @@ public class DebitoCobrarRepositorio {
 		.append(" where dc.imovel.id = :idImovel ")
 		.append(" and dc.numeroPrestacaoCobradas < (dc.numeroPrestacaoDebito - coalesce(dc.numeroParcelaBonus, 0))")
 		.append(" and dc.dataRevisao is null")
-		.append(" and dc.contaMotivoRevisao is null");
-		//.append(" and dc.situacaoAtual = :situacao");
+		.append(" and dc.contaMotivoRevisao is null")
+		.append(" and dc.situacaoAtual = :situacao");
 		
 		Collection<DebitoCobrar> lista = entity.createQuery(sql.toString(), DebitoCobrar.class)
 				.setParameter("idImovel", imovel.getId())
-				//.setParameter("situacao", DebitoCreditoSituacao.NORMAL)
+				.setParameter("situacao", DebitoCreditoSituacao.NORMAL)
 				.getResultList();
 		
 		Collection<DebitoCobrar> debitos = new ArrayList<DebitoCobrar>();
 		
-/*		Integer anoMesFaturamento = parametros.getAnoMesFaturamento();
-		
-		for (DebitoCobrar debito : lista) {
-			if (!(debito.parcelamentoAVencer(anoMesFaturamento) && debito.primeiraParcela())){
-				debitos.add(debito);
-			}
-		}
-*/		
 		return lista;
 	}
 }
