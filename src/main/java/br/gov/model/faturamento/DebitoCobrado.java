@@ -34,10 +34,10 @@ public class DebitoCobrado implements IDebito{
 	private BigDecimal valorPrestacao;
 
 	@Column(name="dbcb_nnprestacao")
-	private short numeroPrestacao;
+	private Short numeroPrestacao;
 	
 	@Column(name="dbcb_nnprestacaodebito")
-	private short numeroPrestacaoDebito;
+	private Short numeroPrestacaoDebito;
 
 	@ManyToOne
 	@JoinColumn(name="dbtp_id")
@@ -113,19 +113,19 @@ public class DebitoCobrado implements IDebito{
 		this.valorPrestacao = valorPrestacao;
 	}
 
-	public short getNumeroPrestacao() {
+	public Short getNumeroPrestacao() {
 		return numeroPrestacao;
 	}
 
-	public void setNumeroPrestacao(short numeroPrestacao) {
+	public void setNumeroPrestacao(Short numeroPrestacao) {
 		this.numeroPrestacao = numeroPrestacao;
 	}
 
-	public short getNumeroPrestacaoDebito() {
+	public Short getNumeroPrestacaoDebito() {
 		return numeroPrestacaoDebito;
 	}
 
-	public void setNumeroPrestacaoDebito(short numeroPrestacaoDebito) {
+	public void setNumeroPrestacaoDebito(Short numeroPrestacaoDebito) {
 		this.numeroPrestacaoDebito = numeroPrestacaoDebito;
 	}
 

@@ -277,4 +277,27 @@ public class DebitoCobrar implements IDebito{
 	private boolean naPrimeiraParcela() {
 		return numeroPrestacaoCobradas == null || numeroPrestacaoCobradas == 0;
 	}
+
+	public BigDecimal getValorPrestacao() {
+		return getValorDebito().divide(new BigDecimal(getNumeroPrestacaoDebito()), 2, BigDecimal.ROUND_DOWN);
+	}
+	
+	public BigDecimal getResiduoPrestacao() {
+		short numeroParcelaBonus = getNumeroParcelaBonus() != null ? getNumeroParcelaBonus() : 0;
+		short numeroPrestacaoCobradas = getNumeroPrestacaoCobradas() != null ? getNumeroPrestacaoCobradas() : 0;
+		
+		BigDecimal residuo = new BigDecimal(0);
+		
+		// Caso seja a ultima prestacao
+		if (numeroPrestacaoCobradas == getNumeroPrestacaoDebito() - numeroParcelaBonus - 1) {
+			BigDecimal numeroPrestacaoDebito = new BigDecimal(getNumeroPrestacaoDebito());
+
+			BigDecimal multiplicacao = getValorPrestacao().multiply(numeroPrestacaoDebito).setScale(2);
+
+			residuo = getValorDebito().subtract(multiplicacao).setScale(2);
+		}
+		
+		return residuo;
+	}
+	
 }
