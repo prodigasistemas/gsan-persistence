@@ -7,3 +7,6 @@ cadastro.imovel:
 cadastro.sistema_parametros:
   - parm_id: 1
     parm_amreferenciafaturamento: 201403
+cadastro.categoria:
+  - catg_id: 1
+    catg_dscategoria: RESIDENCIAL    
