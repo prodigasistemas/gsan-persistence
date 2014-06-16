@@ -219,7 +219,11 @@ public class CreditoRealizar implements Serializable {
 	}
 
 	public Short getNumeroParcelaBonus() {
-		return numeroParcelaBonus;
+		if (numeroParcelaBonus != null) {
+			return numeroParcelaBonus;
+		} else {
+			return 0;
+		}
 	}
 
 	public void setNumeroParcelaBonus(Short numeroParcelaBonus) {

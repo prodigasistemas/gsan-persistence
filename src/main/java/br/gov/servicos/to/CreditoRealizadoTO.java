@@ -62,6 +62,16 @@ public class CreditoRealizadoTO {
 		mapValoresPorTipoCredito.put(creditoTipo, valores);
 	}
 	
+	public BigDecimal getValorCreditoTipo(CreditoTipo creditoTipo){
+		BigDecimal valor = getMapValoresPorTipoCredito().get(creditoTipo);
+		
+		if(valor == null){
+			return BigDecimal.ZERO;
+		} else {
+			return valor;
+		}
+	}
+	
 	public boolean possuiCreditoTipo(CreditoTipo creditoTipo){
 		return mapValoresPorTipoCredito.containsKey(creditoTipo);
 	}
