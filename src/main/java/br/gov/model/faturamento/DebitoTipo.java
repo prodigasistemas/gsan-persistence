@@ -35,4 +35,8 @@ public class DebitoTipo {
 	public void setIndicadorGeracaoConta(Status ativo) {
 		this.indicadorGeracaoConta = ativo.getId();
 	}
+
+	public int hashCode() {
+		return this.getId().intValue();
+	}
 }

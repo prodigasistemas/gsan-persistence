@@ -70,7 +70,10 @@ public class DebitoCobrar implements IDebito{
 
 	@Column(name="dbac_amcobrancadebito")
 	private Integer anoMesCobrancaDebito;
-
+	
+	@Column(name="dbac_amreferenciaprestacao")
+	private Integer anoMesReferenciaPrestacao;
+	
 	@ManyToOne
 	@JoinColumn(name="fntp_id")
 	private FinanciamentoTipo financiamentoTipo;
@@ -260,6 +263,14 @@ public class DebitoCobrar implements IDebito{
 
 	public void setSituacaoAtual(DebitoCreditoSituacao situacaoAtual) {
 		this.situacaoAtual = situacaoAtual;
+	}
+
+	public Integer getAnoMesReferenciaPrestacao() {
+		return anoMesReferenciaPrestacao;
+	}
+
+	public void setAnoMesReferenciaPrestacao(Integer anoMesReferenciaPrestacao) {
+		this.anoMesReferenciaPrestacao = anoMesReferenciaPrestacao;
 	}
 
 	public String toString() {
