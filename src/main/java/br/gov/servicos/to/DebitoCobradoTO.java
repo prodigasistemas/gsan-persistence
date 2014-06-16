@@ -3,30 +3,55 @@ package br.gov.servicos.to;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import br.gov.model.faturamento.DebitoCobrado;
+import br.gov.model.faturamento.DebitoCobradoCategoria;
+import br.gov.model.faturamento.DebitoCobrar;
+import br.gov.model.faturamento.DebitoTipo;
 
 public class DebitoCobradoTO implements Serializable{
 	private static final long serialVersionUID = 6206647943594574569L;
 
-	private Collection<DebitoCobrado> debitosCobrados = new ArrayList<DebitoCobrado>();
+	private List<DebitoCobrado> debitosCobrados = new ArrayList<DebitoCobrado>();
 	private BigDecimal valorDebito = new BigDecimal(0.0);
+	private List<DebitoCobradoCategoria> categorias          = new ArrayList<DebitoCobradoCategoria>();
+	private List<DebitoCobrar> debitosCobrarAtualizados      = new ArrayList<DebitoCobrar>();
+	private Map<DebitoTipo, BigDecimal> valoresPorTipoDebito = new HashMap<DebitoTipo, BigDecimal>();
 
-
-	public void setDebitosCobrados(Collection<DebitoCobrado> debitosCobrados) {
-		this.debitosCobrados = debitosCobrados;
+	public void addDebitoCobrado(DebitoCobrado debitoCobrado) {
+		this.debitosCobrados.add(debitoCobrado);
+		
+		BigDecimal valor = debitoCobrado.getValorPrestacao();
+		if (valoresPorTipoDebito.containsKey(debitoCobrado.getDebitoTipo())){
+			valor = valor.add(valoresPorTipoDebito.get(debitoCobrado.getDebitoTipo()));
+		}
+		valoresPorTipoDebito.put(debitoCobrado.getDebitoTipo(), valor);
 	}
 
-	public Collection<DebitoCobrado> getDebitosCobrados() {
+	public List<DebitoCobrado> getDebitosCobrados() {
 		return debitosCobrados;
-	}
-
-	public void setValorDebito(BigDecimal valorDebito) {
-		this.valorDebito = valorDebito;
 	}
 
 	public BigDecimal getValorDebito() {
 		return valorDebito;
+	}
+
+	public void addValorDebito(BigDecimal valor) {
+		valorDebito = valorDebito.add(valor);
+	}
+
+	public List<DebitoCobradoCategoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<DebitoCobradoCategoria> categorias) {
+		this.categorias = categorias;
+	}
+
+	public void addDebitoCobrarAtualizado(DebitoCobrar debitoACobrar) {
+		this.debitosCobrarAtualizados.add(debitoACobrar);
 	}
 }

@@ -1,0 +1,5 @@
+faturamento.deb_a_cobrar_catg:
+  - dbac_id: 1
+    catg_id: 1
+    dbcg_qteconomia: 1
+    dbcg_vlcategoria: 3.50

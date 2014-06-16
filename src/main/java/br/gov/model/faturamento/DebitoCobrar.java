@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -16,7 +15,6 @@ import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
 import br.gov.model.cobranca.Parcelamento;
-import br.gov.model.converter.DebitoCreditoSituacaoConverter;
 import br.gov.model.financeiro.FinanciamentoTipo;
 import br.gov.model.financeiro.LancamentoItemContabil;
 
@@ -72,7 +70,10 @@ public class DebitoCobrar implements IDebito{
 
 	@Column(name="dbac_amcobrancadebito")
 	private Integer anoMesCobrancaDebito;
-
+	
+	@Column(name="dbac_amreferenciaprestacao")
+	private Integer anoMesReferenciaPrestacao;
+	
 	@ManyToOne
 	@JoinColumn(name="fntp_id")
 	private FinanciamentoTipo financiamentoTipo;
@@ -264,18 +265,50 @@ public class DebitoCobrar implements IDebito{
 		this.situacaoAtual = situacaoAtual;
 	}
 
+	public Integer getAnoMesReferenciaPrestacao() {
+		return anoMesReferenciaPrestacao;
+	}
+
+	public void setAnoMesReferenciaPrestacao(Integer anoMesReferenciaPrestacao) {
+		this.anoMesReferenciaPrestacao = anoMesReferenciaPrestacao;
+	}
+
 	public String toString() {
 		return "DebitoCobrar [id=" + id + ", debitoTipo=" + debitoTipo + ", valorDebito=" + valorDebito + ", numeroPrestacaoDebito=" + numeroPrestacaoDebito
 				+ ", numeroPrestacaoCobradas=" + numeroPrestacaoCobradas + "]";
 	}
 
-	public boolean parcelamentoAVencer(int anoMesReferencia) {
+	public boolean emParcelamento(int anoMesReferencia) {
 		return parcelamento != null 
 				&& parcelamento.getAnoMesReferenciaFaturamento() != null 
-				&& parcelamento.getAnoMesReferenciaFaturamento() >= anoMesReferencia;
+				&& parcelamento.getAnoMesReferenciaFaturamento() >= anoMesReferencia
+				&& this.naPrimeiraParcela();
 	}
 
-	public boolean primeiraParcela() {
+	private boolean naPrimeiraParcela() {
 		return numeroPrestacaoCobradas == null || numeroPrestacaoCobradas == 0;
 	}
+
+	public BigDecimal getValorPrestacao() {
+		return getValorDebito().divide(new BigDecimal(getNumeroPrestacaoDebito()), 2, BigDecimal.ROUND_DOWN);
+	}
+	
+	public BigDecimal getResiduoPrestacao() {
+		short numeroParcelaBonus = getNumeroParcelaBonus() != null ? getNumeroParcelaBonus() : 0;
+		short numeroPrestacaoCobradas = getNumeroPrestacaoCobradas() != null ? getNumeroPrestacaoCobradas() : 0;
+		
+		BigDecimal residuo = new BigDecimal(0);
+		
+		// Caso seja a ultima prestacao
+		if (numeroPrestacaoCobradas == getNumeroPrestacaoDebito() - numeroParcelaBonus - 1) {
+			BigDecimal numeroPrestacaoDebito = new BigDecimal(getNumeroPrestacaoDebito());
+
+			BigDecimal multiplicacao = getValorPrestacao().multiply(numeroPrestacaoDebito).setScale(2);
+
+			residuo = getValorDebito().subtract(multiplicacao).setScale(2);
+		}
+		
+		return residuo;
+	}
+	
 }
