@@ -39,9 +39,6 @@ public class DebitoCobradoTO implements Serializable{
 		return valorDebito;
 	}
 
-	public void addValorDebito(BigDecimal valor) {
-		valorDebito = valorDebito.add(valor);
-	}
 
 	public List<DebitoCobradoCategoria> getCategorias() {
 		return categorias;
@@ -53,5 +50,10 @@ public class DebitoCobradoTO implements Serializable{
 
 	public void addDebitoCobrarAtualizado(DebitoCobrar debitoACobrar) {
 		this.debitosCobrarAtualizados.add(debitoACobrar);
+	}
+
+
+	public void addValorDebito(BigDecimal valor) {
+		valorDebito = valorDebito.add(valor);
 	}
 }

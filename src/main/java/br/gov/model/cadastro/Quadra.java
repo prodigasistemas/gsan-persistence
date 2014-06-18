@@ -18,6 +18,9 @@ public class Quadra {
 	@Column(name="qdra_id")
 	private Integer id;
 	
+	@Column(name="qdra_nnquadra")
+	private Integer numeroQuadra;
+	
 	@ManyToOne
 	@JoinColumn(name="rota_id")
 	private Rota rota;
@@ -39,6 +42,14 @@ public class Quadra {
 
 	public void setRota(Rota rota) {
 		this.rota = rota;
+	}
+
+	public Integer getNumeroQuadra() {
+		return numeroQuadra;
+	}
+
+	public void setNumeroQuadra(Integer numeroQuadra) {
+		this.numeroQuadra = numeroQuadra;
 	}
 
 	public String toString() {

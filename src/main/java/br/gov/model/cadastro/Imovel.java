@@ -53,6 +53,12 @@ public class Imovel{
 	@Column(name="imov_nnimovel")
 	private String numeroImovel;
 	
+	@Column(name="imov_nnlote")
+	private Short lote;
+	
+	@Column(name="imov_nnsublote")
+	private Short subLote;
+	
 	@OneToOne(mappedBy="imovel")
 	private LigacaoAgua ligacaoAgua;
 	
@@ -147,15 +153,31 @@ public class Imovel{
 		this.faturamentoSituacaoTipo = faturamentoSituacaoTipo;
 	}
 
-	public String toString() {
-		return "Imovel [id=" + id + ", numeroImovel=" + numeroImovel + "]";
-	}
-
 	public Imovel getImovelCondominio() {
 		return imovelCondominio;
 	}
 	
 	public void setImovelCondominio(Imovel imovel){
 		this.imovelCondominio = imovel;
+	}
+	
+	public Short getLote() {
+		return lote;
+	}
+
+	public void setLote(Short lote) {
+		this.lote = lote;
+	}
+
+	public Short getSubLote() {
+		return subLote;
+	}
+
+	public void setSubLote(Short subLote) {
+		this.subLote = subLote;
+	}
+
+	public String toString() {
+		return "Imovel [id=" + id + ", numeroImovel=" + numeroImovel + "]";
 	}
 }
