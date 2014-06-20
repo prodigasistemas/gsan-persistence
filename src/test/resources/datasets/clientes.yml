@@ -1,0 +1,44 @@
+cadastro.cliente_relacao_tipo:
+  - crtp_id: 3
+    crtp_dsclienterelacaotipo: "RESPONSAVEL"
+    crtp_icuso: 1
+
+cadastro.esfera_poder:
+  - epod_id: 1
+    epod_dsesferapoder: "MUNICIPAL"
+    epod_icuso: 1
+  - epod_id: 3
+    epod_dsesferapoder: "FEDERAL"
+    epod_icuso: 1
+
+cadastro.cliente_tipo:
+  - cltp_id: 1
+    cltp_dsclientetipo: "CONDOMINIO RESIDENCIAL"
+    cltp_icpessoafisicajuridica: 2
+    cltp_icuso: 1
+    epod_id: 3
+  - cltp_id: 2
+    cltp_dsclientetipo: "RESIDENCIAL"
+    cltp_icpessoafisicajuridica: 1
+    cltp_icuso: 1
+    epod_id: 1
+
+cadastro.cliente:
+  - clie_id: 1
+    clie_nmcliente: "Fulano de Tal"
+    clie_icuso: 1
+    cltp_id: 1
+  - clie_id: 2
+    clie_nmcliente: "Siclano de Tal"
+    clie_icuso: 1
+    cltp_id: 2
+
+cadastro.cliente_imovel:
+  - clim_id: 1
+    clie_id: 1
+    imov_id: 1
+    crtp_id: 3
+  - clim_id: 2
+    clie_id: 2
+    imov_id: 2
+    crtp_id: 3

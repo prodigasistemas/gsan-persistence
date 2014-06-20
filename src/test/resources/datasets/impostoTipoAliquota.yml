@@ -3,8 +3,6 @@ faturamento.imposto_tipo:
     imtp_dsimposto: "COFINS"
     imtp_dsabreviadoimposto: "COFINS"
     imtp_icuso: 1
-
-faturamento.imposto_tipo:
   - imtp_id: 2
     imtp_dsimposto: "PIS/PASEP"
     imtp_dsabreviadoimposto: "PIS/PASEP"
