@@ -14,7 +14,7 @@ import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
-import br.gov.model.util.PersistenceUtil;
+import br.gov.model.util.Utilitarios;
 
 @Entity
 @Table(name="conta", schema="faturamento")
@@ -100,7 +100,7 @@ public class Conta{
 		
 		referencia = builder.referencia;
 		
-		digitoVerificadorConta = PersistenceUtil.representacaoNumericaCodigoBarrasModulo10(referencia).shortValue();
+		digitoVerificadorConta = Utilitarios.representacaoNumericaCodigoBarrasModulo10(referencia).shortValue();
 		
 		indicadorCobrancaMulta = builder.indicadorCobrancaMulta;
 	}

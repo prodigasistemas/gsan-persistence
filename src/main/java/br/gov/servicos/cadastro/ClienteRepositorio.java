@@ -18,11 +18,11 @@ public class ClienteRepositorio {
 	public Cliente buscarClienteFederalResponsavelPorImovel(Long idImovel){
 		
 		StringBuilder sql = new StringBuilder();
-		sql.append("from ClienteImovel as clienteImovel ")
-			.append("inner join clienteImovel.clienteRelacaoTipo as clienteRelacaoTipo " )
-			.append("inner join fetch clienteImovel.cliente as cliente " )
-			.append("inner join clienteImovel.imovel as imovel " )
-			.append("inner join cliente.clienteTipo as clienteTipo " )
+		sql.append("from ClienteImovel clienteImovel ")
+			.append("inner join clienteImovel.imovel imovel " )
+			.append("inner join clienteImovel.clienteRelacaoTipo clienteRelacaoTipo " )
+			.append("inner join fetch clienteImovel.cliente cliente " )
+			.append("inner join cliente.clienteTipo clienteTipo " )
 			.append("where imovel.id = :idImovel AND ")
 			.append("clienteRelacaoTipo.id = :idResponsavel AND ")
 			.append("clienteRelacaoTipo.esferaPoder.id = :esferaPoder AND ")
@@ -32,8 +32,29 @@ public class ClienteRepositorio {
 									  .setParameter("idImovel", idImovel)
 									  .setParameter("idResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
 									  .setParameter("esferaPoder", EsferaPoder.FEDERAL)
+									  .setMaxResults(1)
 									  .getSingleResult();
 		
+		return clienteImovel.getCliente();
+	}
+
+	public Cliente buscarClienteResponsavelPorImovel(Long idImovel){
+		StringBuilder sql = new StringBuilder();
+		sql.append("from ClienteImovel clienteImovel ")
+			.append("inner join clienteImovel.imovel imovel " )
+			.append("inner join clienteImovel.clienteRelacaoTipo clienteRelacaoTipo " )
+			.append("inner join fetch clienteImovel.cliente cliente " )
+			.append("inner join cliente.clienteTipo clienteTipo " )
+			.append("where imovel.id = :idImovel AND ")
+			.append("clienteRelacaoTipo.id = :idResponsavel AND ")
+			.append("clienteImovel.dataFimRelacao is null ");
+		
+		ClienteImovel clienteImovel = entity.createQuery(sql.toString(), ClienteImovel.class)
+				  .setParameter("idImovel", idImovel)
+				  .setParameter("idResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
+				  .setMaxResults(1)
+				  .getSingleResult();
+
 		return clienteImovel.getCliente();
 	}
 }

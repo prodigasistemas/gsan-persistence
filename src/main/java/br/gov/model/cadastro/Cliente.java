@@ -41,7 +41,7 @@ public class Cliente implements Serializable {
 	private Date dataEmissaoRg;
 	
 	@Column(name="clie_ddvencimento")
-	private Date dataVencimento;
+	private Short diaVencimento;
 	
 	@Column(name="clie_dtnascimento")
 	private Date dataNascimento;
@@ -136,12 +136,12 @@ public class Cliente implements Serializable {
 		this.dataEmissaoRg = dataEmissaoRg;
 	}
 
-	public Date getDataVencimento() {
-		return dataVencimento;
+	public Short getDiaVencimento() {
+		return diaVencimento;
 	}
 
-	public void setDataVencimento(Date dataVencimento) {
-		this.dataVencimento = dataVencimento;
+	public void setDiaVencimento(Short dia) {
+		this.diaVencimento = dia;
 	}
 
 	public Date getDataNascimento() {
@@ -254,5 +254,9 @@ public class Cliente implements Serializable {
 
 	public void setClienteTipo(ClienteTipo clienteTipo) {
 		this.clienteTipo = clienteTipo;
+	}
+
+	public boolean existeDiaVencimento() {
+		return diaVencimento != null && diaVencimento.intValue() != 0;
 	}
 }
