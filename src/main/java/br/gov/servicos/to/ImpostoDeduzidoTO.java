@@ -7,7 +7,7 @@ public class ImpostoDeduzidoTO implements Serializable{
 	
 	private static final long serialVersionUID = 6804350081600254663L;
 
-	private Integer idImpostoTipo;
+	private Long idImpostoTipo;
 	
 	private BigDecimal valor;
 
@@ -29,7 +29,7 @@ public class ImpostoDeduzidoTO implements Serializable{
 		
 	}
 	
-	public ImpostoDeduzidoTO(Integer idImpostoTipo, BigDecimal valor, BigDecimal percentualAliquota) {
+	public ImpostoDeduzidoTO(Long idImpostoTipo, BigDecimal valor, BigDecimal percentualAliquota) {
 		this.idImpostoTipo = idImpostoTipo;
 		this.valor = valor;
 		this.percentualAliquota = percentualAliquota;
@@ -43,11 +43,11 @@ public class ImpostoDeduzidoTO implements Serializable{
 		this.descricaoImposto = descricaoImposto;
 	}
 
-	public Integer getIdImpostoTipo() {
+	public Long getIdImpostoTipo() {
 		return idImpostoTipo;
 	}
 
-	public void setIdImpostoTipo(Integer idImpostoTipo) {
+	public void setIdImpostoTipo(Long idImpostoTipo) {
 		this.idImpostoTipo = idImpostoTipo;
 	}
 

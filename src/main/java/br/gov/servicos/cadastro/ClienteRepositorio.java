@@ -15,7 +15,7 @@ public class ClienteRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public Cliente buscarClienteResponsavelPorImovel(Long idImovel){
+	public Cliente buscarClienteFederalResponsavelPorImovel(Long idImovel){
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("from ClienteImovel as clienteImovel ")
