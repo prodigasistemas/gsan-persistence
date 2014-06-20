@@ -59,6 +59,15 @@ public class Imovel{
 	@Column(name="imov_nnsublote")
 	private Short subLote;
 	
+	@Column(name="imov_ddvencimento")
+	private Short diaVencimento;
+	
+	@Column(name="imov_icemsextfatmt")
+	private Short indicadorEmissaoExtratoFaturamento;
+	
+	@Column(name="imov_icvencimentomesseguinte")
+	private Short indicadorVencimentoMesSeguinte;
+	
 	@OneToOne(mappedBy="imovel")
 	private LigacaoAgua ligacaoAgua;
 	
@@ -175,6 +184,38 @@ public class Imovel{
 
 	public void setSubLote(Short subLote) {
 		this.subLote = subLote;
+	}
+
+	public Short getDiaVencimento() {
+		return diaVencimento;
+	}
+
+	public void setDiaVencimento(Short diaVencimento) {
+		this.diaVencimento = diaVencimento;
+	}
+
+	public Short getIndicadorEmissaoExtratoFaturamento() {
+		return indicadorEmissaoExtratoFaturamento;
+	}
+
+	public void setIndicadorEmissaoExtratoFaturamento(Short indicadorEmissaoExtratoFaturamento) {
+		this.indicadorEmissaoExtratoFaturamento = indicadorEmissaoExtratoFaturamento;
+	}
+	
+	public Short getIndicadorVencimentoMesSeguinte() {
+		return indicadorVencimentoMesSeguinte;
+	}
+
+	public void setIndicadorVencimentoMesSeguinte(Short indicadorVencimentoMesSeguinte) {
+		this.indicadorVencimentoMesSeguinte = indicadorVencimentoMesSeguinte;
+	}
+
+	public boolean existeDiaVencimento(){
+		return diaVencimento != null && diaVencimento.intValue() != 0;
+	}
+	
+	public boolean emissaoExtratoFaturamento(){
+		return indicadorEmissaoExtratoFaturamento != null || indicadorEmissaoExtratoFaturamento == (short) 1;
 	}
 
 	public String toString() {

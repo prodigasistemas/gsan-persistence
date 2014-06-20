@@ -1,6 +1,9 @@
 package br.gov.model.util;
 
-public class PersistenceUtil {
+import java.util.Calendar;
+import java.util.Date;
+
+public class Utilitarios {
 	
 	public static Integer representacaoNumericaCodigoBarrasModulo10(Integer numero) {
 		int entrada = numero.intValue();
@@ -42,5 +45,12 @@ public class PersistenceUtil {
 		}
 
 		return new Integer(dac);
+	}
+	
+	public static short obterUltimoDiaMes(Date data) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(data);
+		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+		return (short) calendar.get(Calendar.DAY_OF_MONTH);
 	}
 }
