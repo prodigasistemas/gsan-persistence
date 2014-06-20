@@ -1,0 +1,17 @@
+faturamento.imposto_tipo:
+  - imtp_id: 1
+    imtp_dsimposto: "COFINS"
+    imtp_dsabreviadoimposto: "COFINS"
+    imtp_icuso: 1
+
+faturamento.imposto_tipo:
+  - imtp_id: 2
+    imtp_dsimposto: "PIS/PASEP"
+    imtp_dsabreviadoimposto: "PIS/PASEP"
+    imtp_icuso: 2
+
+faturamento.imposto_tipo_aliquota:
+  - imta_id: 1
+    imtp_id: 1
+    imta_amreferencia: 200001
+    imta_pcaliquota: 4.80
