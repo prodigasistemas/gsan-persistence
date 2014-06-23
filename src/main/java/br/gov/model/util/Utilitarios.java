@@ -53,4 +53,26 @@ public class Utilitarios {
 		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 		return (short) calendar.get(Calendar.DAY_OF_MONTH);
 	}
+	
+	private static Date adicionaCampoData(Date data, int campo, short qtd){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(data);
+		calendar.add(campo, qtd);
+		return calendar.getTime();
+	}
+	
+	public static Date adicionarMeses(Date data, short meses) {
+		return adicionaCampoData(data, Calendar.MONTH, meses);
+	}
+	
+	public static Date adicionarDias(Date data, short dias) {
+		return adicionaCampoData(data, Calendar.DAY_OF_MONTH, dias);
+	}
+	
+	public static Date atribuiDia(Date data, short dia) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(data);
+		calendar.set(Calendar.DAY_OF_MONTH, dia);
+		return calendar.getTime();
+	}
 }

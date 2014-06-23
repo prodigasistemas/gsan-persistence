@@ -12,5 +12,5 @@ public class SistemaParametrosRepositorio {
 	
 	public Integer getAnoMesFaturamento(){
 		return entity.createQuery("select anoMesFaturamento from SistemaParametros", Integer.class).getSingleResult();
-	}
+	}	
 }
