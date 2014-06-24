@@ -11,6 +11,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.gov.model.Status;
 import br.gov.model.atendimentopublico.LigacaoAgua;
 import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
 import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
@@ -86,6 +87,12 @@ public class Imovel{
 	@ManyToOne
 	@JoinColumn(name="imov_idimovelcondominio")
 	private Imovel imovelCondominio;
+	
+	@Column(name="icte_id")
+	private ImovelContaEnvio imovelContaEnvio;
+	
+	@Column(name="imov_icdebitoconta")
+	private Short indicadorDebitoConta;
 	
 	public Imovel() {
 	}
@@ -215,7 +222,23 @@ public class Imovel{
 	}
 	
 	public boolean emissaoExtratoFaturamento(){
-		return indicadorEmissaoExtratoFaturamento != null || indicadorEmissaoExtratoFaturamento == (short) 1;
+		return indicadorEmissaoExtratoFaturamento != null && indicadorEmissaoExtratoFaturamento == (short) 1;
+	}
+
+	public ImovelContaEnvio getImovelContaEnvio() {
+		return imovelContaEnvio;
+	}
+
+	public void setImovelContaEnvio(ImovelContaEnvio imovelContaEnvio) {
+		this.imovelContaEnvio = imovelContaEnvio;
+	}
+	
+	public Status getIndicadorDebitoConta() {
+		return Status.parse(indicadorDebitoConta);
+	}
+
+	public void setIndicadorDebitoConta(Status indicadorDebitoConta) {
+		this.indicadorDebitoConta = indicadorDebitoConta.getId();
 	}
 
 	public String toString() {

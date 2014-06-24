@@ -1,6 +1,6 @@
 package br.gov.model.faturamento;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,6 +50,9 @@ public class Conta{
 	
 	@Column(name="cnta_dtvencimentoconta")
 	private Date dataVencimentoConta;
+	
+	@Column(name="cnta_dtvencimentooriginal")
+	private Date dataVencimentoOriginal;
 	
 	@Column(name="cnta_nnconsumoagua")
 	private Integer consumoAgua;
@@ -103,6 +106,13 @@ public class Conta{
 		digitoVerificadorConta = Utilitarios.representacaoNumericaCodigoBarrasModulo10(referencia).shortValue();
 		
 		indicadorCobrancaMulta = builder.indicadorCobrancaMulta;
+		
+		dataVencimentoConta = builder.dataVencimentoConta;
+		dataVencimentoOriginal = builder.dataVencimentoConta;
+		consumoAgua = builder.consumoAguaEsgoto;
+		consumoRateioAgua = builder.consumoAguaEsgoto;
+		consumoEsgoto = builder.consumoAguaEsgoto;
+		consumoRateioEsgoto = builder.consumoAguaEsgoto;
 	}
 
 	public Long getId() {
@@ -137,11 +147,140 @@ public class Conta{
 		this.imovel = imovel;
 	}
 	
+	public Integer getCodigoSetorComercial() {
+		return codigoSetorComercial;
+	}
+
+	public void setCodigoSetorComercial(Integer codigoSetorComercial) {
+		this.codigoSetorComercial = codigoSetorComercial;
+	}
+
+	public Short getDigitoVerificadorConta() {
+		return digitoVerificadorConta;
+	}
+
+	public void setDigitoVerificadorConta(Short digitoVerificadorConta) {
+		this.digitoVerificadorConta = digitoVerificadorConta;
+	}
+
+	public Short getLote() {
+		return lote;
+	}
+
+	public void setLote(Short lote) {
+		this.lote = lote;
+	}
+
+	public Short getSubLote() {
+		return subLote;
+	}
+
+	public void setSubLote(Short subLote) {
+		this.subLote = subLote;
+	}
+
+	public Integer getNumeroQuadra() {
+		return numeroQuadra;
+	}
+
+	public void setNumeroQuadra(Integer numeroQuadra) {
+		this.numeroQuadra = numeroQuadra;
+	}
+
+	public Short getIndicadorCobrancaMulta() {
+		return indicadorCobrancaMulta;
+	}
+
+	public void setIndicadorCobrancaMulta(Short indicadorCobrancaMulta) {
+		this.indicadorCobrancaMulta = indicadorCobrancaMulta;
+	}
+
+	public Date getDataVencimentoConta() {
+		return dataVencimentoConta;
+	}
+
+	public void setDataVencimentoConta(Date dataVencimentoConta) {
+		this.dataVencimentoConta = dataVencimentoConta;
+	}
+
+	public Date getDataVencimentoOriginal() {
+		return dataVencimentoOriginal;
+	}
+
+	public void setDataVencimentoOriginal(Date dataVencimentoOriginal) {
+		this.dataVencimentoOriginal = dataVencimentoOriginal;
+	}
+
+	public Integer getConsumoAgua() {
+		return consumoAgua;
+	}
+
+	public void setConsumoAgua(Integer consumoAgua) {
+		this.consumoAgua = consumoAgua;
+	}
+
+	public Integer getConsumoEsgoto() {
+		return consumoEsgoto;
+	}
+
+	public void setConsumoEsgoto(Integer consumoEsgoto) {
+		this.consumoEsgoto = consumoEsgoto;
+	}
+
+	public Integer getConsumoRateioAgua() {
+		return consumoRateioAgua;
+	}
+
+	public void setConsumoRateioAgua(Integer consumoRateioAgua) {
+		this.consumoRateioAgua = consumoRateioAgua;
+	}
+
+	public Integer getConsumoRateioEsgoto() {
+		return consumoRateioEsgoto;
+	}
+
+	public void setConsumoRateioEsgoto(Integer consumoRateioEsgoto) {
+		this.consumoRateioEsgoto = consumoRateioEsgoto;
+	}
+
+	public LigacaoEsgotoSituacao getLigacaoEsgotoSituacao() {
+		return ligacaoEsgotoSituacao;
+	}
+
+	public void setLigacaoEsgotoSituacao(LigacaoEsgotoSituacao ligacaoEsgotoSituacao) {
+		this.ligacaoEsgotoSituacao = ligacaoEsgotoSituacao;
+	}
+
+	public LigacaoAguaSituacao getLigacaoAguaSituacao() {
+		return ligacaoAguaSituacao;
+	}
+
+	public void setLigacaoAguaSituacao(LigacaoAguaSituacao ligacaoAguaSituacao) {
+		this.ligacaoAguaSituacao = ligacaoAguaSituacao;
+	}
+
+	public Localidade getLocalidade() {
+		return localidade;
+	}
+
+	public void setLocalidade(Localidade localidade) {
+		this.localidade = localidade;
+	}
+
+	public Quadra getQuadra() {
+		return quadra;
+	}
+
+	public void setQuadra(Quadra quadra) {
+		this.quadra = quadra;
+	}
+
 	public static class Builder{
 		private Imovel imovel;
 		private Integer referencia;
 		private Short indicadorCobrancaMulta;
 		private Date dataVencimentoConta;
+		private Integer consumoAguaEsgoto = 0;
 		
 		public Builder imovel(Imovel i){
 			imovel = i;
@@ -160,7 +299,11 @@ public class Conta{
 		
 		public Builder vencimentoSemAntecipacaoFaturamento(){
 			indicadorCobrancaMulta = (short) 2;
-			
+			return this;
+		}
+		
+		public Builder dataVencimentoConta(Date data){
+			dataVencimentoConta = data;
 			return this;
 		}
 		
