@@ -22,6 +22,9 @@ public class SistemaParametros {
 	@Column(name="parm_nndiasadicionaiscorreios")
 	private Short numeroDiasAdicionaisCorreios;
 	
+	@Column(name="parm_nnmesesvalidadeconta")
+	private Short numeroMesesValidadeConta;
+	
 	public SistemaParametros() {
 	}
 
@@ -55,5 +58,13 @@ public class SistemaParametros {
 
 	public void setNumeroDiasAdicionaisCorreios(Short numeroDiasAdicionaisCorreios) {
 		this.numeroDiasAdicionaisCorreios = numeroDiasAdicionaisCorreios;
+	}
+
+	public Short getNumeroMesesValidadeConta() {
+		return numeroMesesValidadeConta;
+	}
+
+	public void setNumeroMesesValidadeConta(Short numeroMesesValidadeConta) {
+		this.numeroMesesValidadeConta = numeroMesesValidadeConta;
 	}
 }

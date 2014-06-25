@@ -14,7 +14,7 @@ import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
-import br.gov.model.util.Utilitarios;
+import static br.gov.model.util.Utilitarios.*;
 
 @Entity
 @Table(name="conta", schema="faturamento")
@@ -53,6 +53,9 @@ public class Conta{
 	
 	@Column(name="cnta_dtvencimentooriginal")
 	private Date dataVencimentoOriginal;
+	
+	@Column(name="cnta_dtvalidadeconta")
+	private Date dataValidadeConta;
 	
 	@Column(name="cnta_nnconsumoagua")
 	private Integer consumoAgua;
@@ -103,12 +106,13 @@ public class Conta{
 		
 		referencia = builder.referencia;
 		
-		digitoVerificadorConta = Utilitarios.representacaoNumericaCodigoBarrasModulo10(referencia).shortValue();
+		digitoVerificadorConta = representacaoNumericaCodigoBarrasModulo10(referencia).shortValue();
 		
 		indicadorCobrancaMulta = builder.indicadorCobrancaMulta;
 		
 		dataVencimentoConta = builder.dataVencimentoConta;
 		dataVencimentoOriginal = builder.dataVencimentoConta;
+		dataValidadeConta = builder.dataValidadeConta;
 		consumoAgua = builder.consumoAguaEsgoto;
 		consumoRateioAgua = builder.consumoAguaEsgoto;
 		consumoEsgoto = builder.consumoAguaEsgoto;
@@ -280,6 +284,7 @@ public class Conta{
 		private Integer referencia;
 		private Short indicadorCobrancaMulta;
 		private Date dataVencimentoConta;
+		private Date dataValidadeConta;
 		private Integer consumoAguaEsgoto = 0;
 		
 		public Builder imovel(Imovel i){
@@ -309,6 +314,11 @@ public class Conta{
 		
 		public Conta build(){
 			return new Conta(this);
+		}
+
+		public void validadeConta(Short numeroMesesValidadeConta) {
+			dataValidadeConta = adicionarMeses(dataValidadeConta, numeroMesesValidadeConta);
+			dataValidadeConta = atribuiDia(dataValidadeConta, obterUltimoDiaMes(dataValidadeConta));
 		}
 	}
 	
