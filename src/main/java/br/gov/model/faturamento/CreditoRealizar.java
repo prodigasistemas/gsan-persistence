@@ -15,7 +15,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
+import br.gov.model.cadastro.Quadra;
+import br.gov.model.cobranca.Parcelamento;
 import br.gov.model.financeiro.LancamentoItemContabil;
 
 @Entity
@@ -85,6 +88,10 @@ public class CreditoRealizar implements Serializable {
 	private BigDecimal valorResidualConcedidoMes;
 	
 	@ManyToOne
+	@JoinColumn(name="imov_id")
+	private Imovel imovel;
+	
+	@ManyToOne
 	@JoinColumn(name="crti_id")
 	private CreditoTipo creditoTipo;
 	
@@ -92,19 +99,37 @@ public class CreditoRealizar implements Serializable {
 	@JoinColumn(name="lict_id")
 	private LancamentoItemContabil lancamentoItemContabil;
 	
+	@Column(name="dcst_idatual")
+	private DebitoCreditoSituacao debitoCreditoSituacaoAtual;
+	
+	@Column(name="dcst_idanterior")
+	private DebitoCreditoSituacao debitoCreditoSituacaoAnterior;
+	
 	@ManyToOne
 	@JoinColumn(name="loca_id")
 	private Localidade localidade;
 	
 	@ManyToOne
+	@JoinColumn(name="qdra_id")
+	private Quadra quadra;
+	
+	@ManyToOne
 	@JoinColumn(name="crog_id")
 	private CreditoOrigem creditoOrigem;
+	
+	@ManyToOne
+	@JoinColumn(name="parc_id")
+	private Parcelamento parcelamento;
 	
 	@OneToOne
 	@JoinColumn(name="crar_id")
 	private CreditoRealizarGeral creditoRealizarGeral;
 
 	public CreditoRealizar(){}
+	
+	public CreditoRealizar(Long id){
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;
@@ -254,6 +279,14 @@ public class CreditoRealizar implements Serializable {
 		this.valorResidualConcedidoMes = valorResidualConcedidoMes;
 	}
 
+	public Imovel getImovel() {
+		return imovel;
+	}
+
+	public void setImovel(Imovel imovel) {
+		this.imovel = imovel;
+	}
+
 	public CreditoTipo getCreditoTipo() {
 		return creditoTipo;
 	}
@@ -269,6 +302,22 @@ public class CreditoRealizar implements Serializable {
 	public void setLancamentoItemContabil(LancamentoItemContabil lancamentoItemContabil) {
 		this.lancamentoItemContabil = lancamentoItemContabil;
 	}
+	
+	public DebitoCreditoSituacao getDebitoCreditoSituacaoAtual() {
+		return debitoCreditoSituacaoAtual;
+	}
+
+	public void setDebitoCreditoSituacaoAtual(DebitoCreditoSituacao debitoCreditoSituacaoAtual) {
+		this.debitoCreditoSituacaoAtual = debitoCreditoSituacaoAtual;
+	}
+
+	public DebitoCreditoSituacao getDebitoCreditoSituacaoAnterior() {
+		return debitoCreditoSituacaoAnterior;
+	}
+
+	public void setDebitoCreditoSituacaoAnterior(DebitoCreditoSituacao debitoCreditoSituacaoAnterior) {
+		this.debitoCreditoSituacaoAnterior = debitoCreditoSituacaoAnterior;
+	}
 
 	public Localidade getLocalidade() {
 		return localidade;
@@ -277,6 +326,14 @@ public class CreditoRealizar implements Serializable {
 	public void setLocalidade(Localidade localidade) {
 		this.localidade = localidade;
 	}
+	
+	public Quadra getQuadra() {
+		return quadra;
+	}
+
+	public void setQuadra(Quadra quadra) {
+		this.quadra = quadra;
+	}
 
 	public CreditoOrigem getCreditoOrigem() {
 		return creditoOrigem;
@@ -284,6 +341,14 @@ public class CreditoRealizar implements Serializable {
 
 	public void setCreditoOrigem(CreditoOrigem creditoOrigem) {
 		this.creditoOrigem = creditoOrigem;
+	}
+
+	public Parcelamento getParcelamento() {
+		return parcelamento;
+	}
+
+	public void setParcelamento(Parcelamento parcelamento) {
+		this.parcelamento = parcelamento;
 	}
 
 	public CreditoRealizarGeral getCreditoRealizarGeral() {

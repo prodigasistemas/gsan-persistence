@@ -17,6 +17,11 @@ public class DebitoCobrarCategoriaPK implements Serializable{
 	
 	public DebitoCobrarCategoriaPK() {
 	}
+	
+	public DebitoCobrarCategoriaPK(Long debitoCobrarId, Long categoriaId) {
+		this.debitoCobrarId = debitoCobrarId;
+		this.categoriaId = categoriaId;
+	}
 
 	public Long getDebitoCobrarId() {
 		return debitoCobrarId;

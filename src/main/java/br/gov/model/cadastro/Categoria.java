@@ -72,6 +72,10 @@ public class Categoria{
 	private Integer quantidadeEconomiasCategoria;
 	
 	public Categoria(){}
+	
+	public Categoria(Long id){
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;
