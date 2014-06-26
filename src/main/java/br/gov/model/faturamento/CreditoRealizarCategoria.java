@@ -4,23 +4,29 @@ import java.beans.Transient;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.gov.model.cadastro.Categoria;
 
 @Entity
 @Table(name="cred_a_realizar_catg", schema="faturamento")
 public class CreditoRealizarCategoria {
 	
 	@EmbeddedId
-	@AttributeOverrides( {
-	      @AttributeOverride(name = "creditoRealizarId", column = @Column(name = "crar_id")),
-	      @AttributeOverride(name = "categoriaId", column = @Column(name = "catg_id")) 
-	})
 	private CreditoRealizarCategoriaPK pk;
+	
+	@ManyToOne
+	@JoinColumn(name="crar_id", insertable = false, updatable = false)
+	private CreditoRealizar creditoRealizar;
+	
+	@ManyToOne
+	@JoinColumn(name="categ_id", insertable = false, updatable = false)
+	private Categoria categoria;
 	
 	@Column(name="cacg_qteconomia")
 	private Integer quantidadeEconomia;
@@ -51,8 +57,26 @@ public class CreditoRealizarCategoria {
 	}
 	
 	@Transient
+	public void setCreditoRealizarId(Long creditoRealizarId){
+		if (pk == null){
+			this.pk = new CreditoRealizarCategoriaPK();
+		}
+		
+		this.pk.setCreditoRealizarId(creditoRealizarId);
+	}
+	
+	@Transient
 	public Long getCategoriaId(){
 		return this.pk.getCategoriaId();
+	}
+	
+	@Transient
+	public void setCategoriaId(Long categoriaId){
+		if (pk == null){
+			this.pk = new CreditoRealizarCategoriaPK();
+		}
+		
+		this.pk.setCategoriaId(categoriaId);
 	}
 
 	public Integer getQuantidadeEconomia() {
@@ -77,5 +101,21 @@ public class CreditoRealizarCategoria {
 
 	public void setUltimaAlteracao(Date ultimaAlteracao) {
 		this.ultimaAlteracao = ultimaAlteracao;
+	}
+
+	public CreditoRealizar getCreditoRealizar() {
+		return creditoRealizar;
+	}
+
+	public void setCreditoRealizar(CreditoRealizar creditoRealizar) {
+		this.creditoRealizar = creditoRealizar;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 }

@@ -1,0 +1,9 @@
+cadastro.categoria:
+  - categ_id: 1
+    categ_dscategoria: "PUBLICO"
+
+faturamento.cred_a_realiz_categ:
+  - crar_id: 1
+    categ_id: 1
+    cacg_qteconomia: 0
+    cacg_vlcategoria: 0

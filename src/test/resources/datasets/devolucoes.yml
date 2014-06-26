@@ -1,0 +1,10 @@
+arrecadacao.devolucao:
+  - devl_id: 1
+    devl_vldevolucao: 10
+    crar_id: 1
+  - devl_id: 2
+    devl_vldevolucao: 10
+    crar_id: 2
+  - devl_id: 3
+    devl_vldevolucao: 10
+    crar_id: 2
