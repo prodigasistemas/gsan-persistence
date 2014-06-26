@@ -1,5 +1,12 @@
 package br.gov.model.faturamento;
 
+import static br.gov.model.util.Utilitarios.adicionarMeses;
+import static br.gov.model.util.Utilitarios.atribuiDia;
+import static br.gov.model.util.Utilitarios.obterUltimoDiaMes;
+import static br.gov.model.util.Utilitarios.representacaoNumericaCodigoBarrasModulo10;
+
+import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,7 +21,7 @@ import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
-import static br.gov.model.util.Utilitarios.*;
+import br.gov.model.faturamento.Conta.Builder;
 
 @Entity
 @Table(name="conta", schema="faturamento")
@@ -48,6 +55,9 @@ public class Conta{
 	@Column(name="cnta_iccobrancamulta")
 	private Short indicadorCobrancaMulta;
 	
+	@Column(name="cnta_icalteracaovencimento")
+	private Short indicadorAlteracaoVencimento;
+	
 	@Column(name="cnta_dtvencimentoconta")
 	private Date dataVencimentoConta;
 	
@@ -56,6 +66,9 @@ public class Conta{
 	
 	@Column(name="cnta_dtvalidadeconta")
 	private Date dataValidadeConta;
+	
+	@Column(name="cnta_dtemissao")
+	private Date dataEmissao;
 	
 	@Column(name="cnta_nnconsumoagua")
 	private Integer consumoAgua;
@@ -68,6 +81,27 @@ public class Conta{
 	
 	@Column(name="cnta_nnconsumorateioesgoto")
 	private Integer consumoRateioEsgoto;
+	
+	@Column(name="cnta_vlagua")
+	private BigDecimal valorAgua;
+	
+	@Column(name="cnta_vlesgoto")
+	private BigDecimal valorEsgoto;
+	
+	@Column(name="cnta_vlcreditos")
+	private BigDecimal valorCreditos;
+	
+	@Column(name="cnta_vldebitos")
+	private BigDecimal valorDebitos;
+	
+	@Column(name="cnta_vlimpostos")
+	private BigDecimal valorImposto;
+	
+	@Column(name="cnta_pcesgoto")
+	private BigDecimal percentualEsgoto;
+	
+	@Column(name="cnta_pccoleta")
+	private BigDecimal percentualColeta;
 	
 	@ManyToOne
 	@JoinColumn(name="lest_id")
@@ -105,18 +139,28 @@ public class Conta{
 		numeroQuadra = imovel.getQuadra().getNumeroQuadra();
 		
 		referencia = builder.referencia;
+		referenciaContabil = builder.referenciaContabil;
 		
 		digitoVerificadorConta = representacaoNumericaCodigoBarrasModulo10(referencia).shortValue();
 		
 		indicadorCobrancaMulta = builder.indicadorCobrancaMulta;
+		indicadorAlteracaoVencimento = builder.indicadorAlteracaoVencimento;
 		
 		dataVencimentoConta = builder.dataVencimentoConta;
 		dataVencimentoOriginal = builder.dataVencimentoConta;
 		dataValidadeConta = builder.dataValidadeConta;
+		dataEmissao = Calendar.getInstance().getTime();
 		consumoAgua = builder.consumoAguaEsgoto;
 		consumoRateioAgua = builder.consumoAguaEsgoto;
 		consumoEsgoto = builder.consumoAguaEsgoto;
 		consumoRateioEsgoto = builder.consumoAguaEsgoto;
+		percentualColeta = builder.percentualColeta;
+		percentualEsgoto = builder.percentualEsgoto;
+		valorAgua   = builder.valorAgua;
+		valorEsgoto = builder.valorEsgoto;
+		valorCreditos = builder.valorCreditos;
+		valorDebitos  = builder.valorDebitos;
+		valorImposto = builder.valorImposto;
 	}
 
 	public Long getId() {
@@ -282,10 +326,19 @@ public class Conta{
 	public static class Builder{
 		private Imovel imovel;
 		private Integer referencia;
+		private Integer referenciaContabil;
 		private Short indicadorCobrancaMulta;
 		private Date dataVencimentoConta;
 		private Date dataValidadeConta;
 		private Integer consumoAguaEsgoto = 0;
+		private Short indicadorAlteracaoVencimento;
+		private BigDecimal valorAgua;
+		private BigDecimal valorEsgoto;
+		private BigDecimal valorCreditos;
+		private BigDecimal valorDebitos;
+		private BigDecimal valorImposto;
+		private BigDecimal percentualEsgoto;
+		private BigDecimal percentualColeta;
 		
 		public Builder imovel(Imovel i){
 			imovel = i;
@@ -294,6 +347,11 @@ public class Conta{
 		
 		public Builder referenciaFaturamento(Integer r){
 			referencia = r;
+			return this;
+		}
+		
+		public Builder referenciaContabil(Integer r){
+			referenciaContabil = r;
 			return this;
 		}
 		
@@ -319,6 +377,46 @@ public class Conta{
 		public void validadeConta(Short numeroMesesValidadeConta) {
 			dataValidadeConta = adicionarMeses(dataValidadeConta, numeroMesesValidadeConta);
 			dataValidadeConta = atribuiDia(dataValidadeConta, obterUltimoDiaMes(dataValidadeConta));
+		}
+
+		public Builder indicadorAlteracaoVencimento(Short indicador) {
+			indicadorAlteracaoVencimento = indicador;
+			return this;
+		}
+
+		public Builder valorAgua(BigDecimal valor) {
+			valorAgua = valor;
+			return this;
+		}
+		
+		public Builder valorEsgoto(BigDecimal valor) {
+			valorEsgoto = valor;
+			return this;
+		}
+
+		public Builder valorCreditos(BigDecimal valor) {
+			valorCreditos = valor;
+			return this;
+		}
+		
+		public Builder valorDebitos(BigDecimal valor) {
+			valorDebitos = valor;
+			return this;
+		}
+
+		public Builder valorImposto(BigDecimal valor) {
+			valorImposto = valor;
+			return this;
+		}
+
+		public Builder percentualEsgoto(BigDecimal percentual) {
+			percentualEsgoto = percentual;
+			return this;
+		}
+		
+		public Builder percentualColeta(BigDecimal percentual) {
+			percentualColeta = percentual;
+			return this;
 		}
 	}
 	
