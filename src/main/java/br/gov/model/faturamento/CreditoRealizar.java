@@ -122,7 +122,7 @@ public class CreditoRealizar implements Serializable {
 	private Parcelamento parcelamento;
 	
 	@OneToOne
-	@JoinColumn(name="crar_id")
+	@JoinColumn(name="crar_id", referencedColumnName="crar_id")
 	private CreditoRealizarGeral creditoRealizarGeral;
 
 	public CreditoRealizar(){}

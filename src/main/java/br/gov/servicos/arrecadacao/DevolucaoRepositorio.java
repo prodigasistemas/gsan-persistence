@@ -1,6 +1,8 @@
 package br.gov.servicos.arrecadacao;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,12 +22,12 @@ public class DevolucaoRepositorio {
 	}
 	
 	public Collection<Devolucao> buscarDevolucaoPorCreditoRealizar(Collection<CreditoRealizar> creditosRealizar){
-		StringBuilder ids = new StringBuilder();
+		List<Long> ids = new ArrayList<Long>();
 
-		creditosRealizar.forEach( cr -> ids.append(cr.getId() + ","));
+		creditosRealizar.forEach( cr -> ids.add(cr.getId()));
 		
 		Collection<Devolucao> resultado = entity.createQuery("from Devolucao as devolucao where devolucao.creditoRealizar.id in (:ids)", Devolucao.class)
-												.setParameter("ids", ids.toString())
+												.setParameter("ids", ids)
 												.getResultList();
 		
 		return resultado;

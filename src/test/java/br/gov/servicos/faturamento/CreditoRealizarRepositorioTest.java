@@ -33,53 +33,53 @@ public class CreditoRealizarRepositorioTest {
 	private CreditoRealizarRepositorio repositorio;
 	
 	@Test
-	@UsingDataSet({"cadastros.yml", "creditosRealizar.yml"})
+	@UsingDataSet({"creditosRealizar.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void buscarImpostoTipoAtivosExistente(){
+	public void buscarCreditoRealizarPorImovelExistente(){
 		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1L, DebitoCreditoSituacao.NORMAL, 201404);
 		assertFalse(resultado.isEmpty());
 	}
 	
 	@Test
-	@UsingDataSet({"cadastros.yml", "creditosRealizar.yml"})
+	@UsingDataSet({"creditosRealizar.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void buscarImpostoTipoAtivosInexistente(){
+	public void buscarCreditoRealizarPorImovelInexistente(){
 		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(2L, DebitoCreditoSituacao.NORMAL, 201404);
 		
 		assertTrue(resultado.isEmpty());
 	}
 	
 	@Test
-	@UsingDataSet({"cadastros.yml", "creditosRealizar.yml"})
+	@UsingDataSet({"creditosRealizar.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void buscarImpostoTipoAtivosComImovelSemDebitoCreditoSituacao(){
+	public void buscarCreditoRealizarPorImovelSemDebitoCreditoSituacao(){
 		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1L, DebitoCreditoSituacao.CANCELADA, 201404);
 		
 		assertTrue(resultado.isEmpty());
 	}
 	
 	@Test
-	@UsingDataSet({"cadastros.yml", "creditosRealizar.yml"})
+	@UsingDataSet({"creditosRealizar.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void buscarImpostoTipoAtivosComNumeroPrestacaoRealizadaMenor(){
+	public void buscarCreditoRealizarPorImovelComNumeroPrestacaoRealizadaMenor(){
 		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1L, DebitoCreditoSituacao.NORMAL, 201404);
 		
 		assertFalse(resultado.isEmpty());
 	}
 	
 	@Test
-	@UsingDataSet({"cadastros.yml", "creditosRealizar.yml"})
+	@UsingDataSet({"creditosRealizar.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void buscarImpostoTipoAtivosComValorResidualMesAnteriorMaior(){
+	public void buscarCreditoRealizarPorImovelComValorResidualMesAnteriorMaior(){
 		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1L, DebitoCreditoSituacao.NORMAL, 201404);
 		
 		assertFalse(resultado.isEmpty());
 	}
 	
 	@Test
-	@UsingDataSet({"cadastros.yml", "creditosRealizar.yml"})
+	@UsingDataSet({"creditosRealizar.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void buscarImpostoTipoAtivosComParcelamentoSemAnoMesReferencia(){
+	public void buscarCreditoRealizarPorImovelComParcelamentoSemAnoMesReferencia(){
 		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1L, DebitoCreditoSituacao.NORMAL, 201406);
 		
 		assertTrue(resultado.isEmpty());

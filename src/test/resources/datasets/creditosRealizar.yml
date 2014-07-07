@@ -1,3 +1,13 @@
+cadastro.localidade:
+  - loca_id: 1
+    loca_nmlocalidade: "Belem"
+
+cadastro.quadra:
+  - qdra_id: 1
+
+cadastro.imovel:
+  - imov_id: 1
+
 faturamento.credito_tipo:
   - crti_id: 1
     crti_dscreditotipo: "NORMAL"
@@ -18,7 +28,7 @@ faturamento.credito_a_realizar_geral:
 
 cobranca.parcelamento:
   - parc_id: 1
-    parc_amreferenciafaturamento: 201406
+    parc_amreferenciafaturamento: 201403
 
 faturamento.credito_a_realizar:
   - crar_id: 1

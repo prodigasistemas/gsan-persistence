@@ -2,6 +2,7 @@ package br.gov.servicos.faturamento;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.faturamento.ImpostoTipoAliquota;
@@ -14,20 +15,22 @@ public class ImpostoTipoAliquotaRepositorio {
 
 	public ImpostoTipoAliquota buscarAliquotaImposto(Long idImpostoTipo, Integer anoMesReferencia) {
 
-		ImpostoTipoAliquota retorno = null;
-
-		StringBuilder consulta = new StringBuilder(); 
-		
-		consulta.append("from ImpostoTipoAliquota impostoTipoAliquota ")
-				.append("where impostoTipoAliquota.impostoTipoAliquota.id = :idImpostoTipo AND ")
-				.append("(impostoTipoAliquota.anoMesReferencia = :anoMesReferencia OR impostoTipoAliquota.anoMesReferencia < :anoMesReferencia) ")
-				.append("order by impostoTipoAliquota.anoMesReferencia ");
-		
-		retorno = entity.createQuery(consulta.toString(), ImpostoTipoAliquota.class)
-						.setParameter("idImpostoTipo", idImpostoTipo)
-						.setParameter("anoMesReferencia", anoMesReferencia)
-						.getSingleResult();
-
-		return retorno;
+		try{
+			StringBuilder consulta = new StringBuilder(); 
+			
+			consulta.append("from ImpostoTipoAliquota impostoTipoAliquota ")
+					.append("where impostoTipoAliquota.impostoTipo.id = :idImpostoTipo AND ")
+					.append("(impostoTipoAliquota.anoMesReferencia = :anoMesReferencia OR impostoTipoAliquota.anoMesReferencia < :anoMesReferencia) ")
+					.append("order by impostoTipoAliquota.anoMesReferencia ");
+			
+			ImpostoTipoAliquota retorno = entity.createQuery(consulta.toString(), ImpostoTipoAliquota.class)
+					.setParameter("idImpostoTipo", idImpostoTipo)
+					.setParameter("anoMesReferencia", anoMesReferencia)
+					.getSingleResult();
+			
+			return retorno;
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 }
