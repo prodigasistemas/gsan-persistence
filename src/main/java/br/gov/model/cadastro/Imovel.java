@@ -16,6 +16,7 @@ import br.gov.model.atendimentopublico.LigacaoAgua;
 import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
 import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
 import br.gov.model.faturamento.FaturamentoSituacaoTipo;
+import br.gov.model.micromedicao.HidrometroInstalacaoHistorico;
 
 @Entity
 @Table(name="imovel", schema="cadastro")
@@ -93,6 +94,10 @@ public class Imovel{
 	
 	@Column(name="imov_icdebitoconta")
 	private Short indicadorDebitoConta;
+	
+	@ManyToOne
+	@JoinColumn(name="hidi_id")
+	private HidrometroInstalacaoHistorico hidrometroInstalacaoHistorico;
 	
 	public Imovel() {
 	}
@@ -239,6 +244,18 @@ public class Imovel{
 
 	public void setIndicadorDebitoConta(Status indicadorDebitoConta) {
 		this.indicadorDebitoConta = indicadorDebitoConta.getId();
+	}
+
+	public HidrometroInstalacaoHistorico getHidrometroInstalacaoHistorico() {
+		return hidrometroInstalacaoHistorico;
+	}
+
+	public void setHidrometroInstalacaoHistorico(HidrometroInstalacaoHistorico hidrometroInstalacaoHistorico) {
+		this.hidrometroInstalacaoHistorico = hidrometroInstalacaoHistorico;
+	}
+
+	public void setIndicadorDebitoConta(Short indicadorDebitoConta) {
+		this.indicadorDebitoConta = indicadorDebitoConta;
 	}
 
 	public String toString() {

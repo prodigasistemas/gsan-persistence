@@ -21,7 +21,6 @@ import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
-import br.gov.model.faturamento.Conta.Builder;
 
 @Entity
 @Table(name="conta", schema="faturamento")

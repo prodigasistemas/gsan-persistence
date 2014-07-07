@@ -1,5 +1,6 @@
 package br.gov.model.cadastro;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
@@ -13,7 +14,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="categoria", schema="cadastro")
-public class Categoria{
+public class Categoria implements Serializable, ICategoria{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2892000798308722486L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CATEGORIA")
@@ -69,7 +75,7 @@ public class Categoria{
 	@Column(name="catg_icpermissaoespecial")
 	private Short indicadorPermissaoEspecial;
 	
-	private Integer quantidadeEconomiasCategoria;
+	private Integer quantidadeEconomias;
 	
 	public Categoria(){}
 	
@@ -213,11 +219,22 @@ public class Categoria{
 		this.indicadorPermissaoEspecial = indicadorPermissaoEspecial;
 	}
 
-	public Integer getQuantidadeEconomiasCategoria() {
-		return quantidadeEconomiasCategoria;
+	@Override
+	public Integer getQuantidadeEconomias() {
+		return quantidadeEconomias;
 	}
 
-	public void setQuantidadeEconomiasCategoria(Integer quantidadeEconomiasCategoria) {
-		this.quantidadeEconomiasCategoria = quantidadeEconomiasCategoria;
+	public void setQuantidadeEconomias(Integer quantidadeEconomias) {
+		this.quantidadeEconomias = quantidadeEconomias;
+	}
+	
+	@Override
+	public Categoria getCategoria(){
+		return this;
+	}
+	
+	@Override
+	public Subcategoria getSubcategoria(){
+		return Subcategoria.SUBCATEGORIA_ZERO;
 	}
 }

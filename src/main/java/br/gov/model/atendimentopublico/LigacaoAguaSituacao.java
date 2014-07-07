@@ -53,6 +53,10 @@ public class LigacaoAguaSituacao implements Serializable {
 		this.situacaoFaturamento = situacaoFaturamento.getId();
 	}
 
+	public void setSituacaoFaturamento(short situacaoFaturamento) {
+		this.situacaoFaturamento = situacaoFaturamento;
+	}
+
 	public String toString() {
 		return "LigacaoAguaSituacao [id=" + id + ", descricao=" + descricao + ", situacaoFaturamento=" + situacaoFaturamento + "]";
 	}

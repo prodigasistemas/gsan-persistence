@@ -8,9 +8,10 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.persistence.Cleanup;
+import org.jboss.arquillian.persistence.CleanupStrategy;
+import org.jboss.arquillian.persistence.TestExecutionPhase;
 import org.jboss.arquillian.persistence.UsingDataSet;
-import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
-import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.logging.Logger;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
@@ -36,7 +37,7 @@ public class RepositorioDebitoCobrarTest {
 	
 	@Test
 	@UsingDataSet({"cadastros.yml","debitosCobrar.yml"})
-	@Transactional(TransactionMode.ROLLBACK)
+	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void debitosCobrarVigentes() throws Exception {
 		logger.info("Verificar debitos a cobrar vigentes");
 		Imovel imovel = new Imovel();

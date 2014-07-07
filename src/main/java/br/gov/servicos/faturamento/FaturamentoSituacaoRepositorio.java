@@ -1,5 +1,6 @@
 package br.gov.servicos.faturamento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -13,6 +14,16 @@ public class FaturamentoSituacaoRepositorio {
 	
 	@PersistenceContext
 	private EntityManager em;
+	
+	public List<FaturamentoSituacaoHistorico> faturamentosHistoricoVigentesPorImovel(Long imovelId) {
+		List<FaturamentoSituacaoHistorico> retorno = situacoesEspeciaisFaturamentoVigentes(imovelId);
+		
+		if(retorno == null || retorno.isEmpty()) {
+			return new ArrayList<FaturamentoSituacaoHistorico>();
+		} else {
+			return retorno;
+		}
+	}
 	
 	public List<FaturamentoSituacaoHistorico> situacoesEspeciaisFaturamentoVigentes(long idImovel){
 		StringBuilder sql = new StringBuilder();

@@ -1,7 +1,6 @@
 package br.gov.servicos.faturamento;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,7 +8,6 @@ import javax.persistence.PersistenceContext;
 
 import br.gov.model.faturamento.CreditoRealizar;
 import br.gov.model.faturamento.DebitoCreditoSituacao;
-import br.gov.model.faturamento.DebitoTipo;
 
 @Stateless
 public class CreditoRealizarRepositorio {

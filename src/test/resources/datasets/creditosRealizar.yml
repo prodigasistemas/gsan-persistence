@@ -12,6 +12,9 @@ faturamento.credito_origem:
 
 faturamento.credito_a_realizar_geral:
   - crar_id: 1
+  - crar_id: 2
+  - crar_id: 3
+  - crar_id: 4
 
 cobranca.parcelamento:
   - parc_id: 1

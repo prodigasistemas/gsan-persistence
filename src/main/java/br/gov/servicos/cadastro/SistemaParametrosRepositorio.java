@@ -10,7 +10,11 @@ public class SistemaParametrosRepositorio {
 	@PersistenceContext
 	public EntityManager entity;
 	
-	public Integer getAnoMesFaturamento(){
+	public Integer getAnoMesFaturamento() {
 		return entity.createQuery("select anoMesFaturamento from SistemaParametros", Integer.class).getSingleResult();
 	}	
+	
+	public Short getIndicadorTarifaCategoria() {
+		return entity.createQuery("select indicadorTarifaCategoria from SistemaParametros", Short.class).getSingleResult();
+	}
 }

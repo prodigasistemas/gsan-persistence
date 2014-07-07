@@ -1,5 +1,7 @@
 package br.gov.model.cadastro;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,8 +9,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="sistema_parametros", schema="cadastro")
-public class SistemaParametros {
+public class SistemaParametros implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2506057341225497998L;
+
 	@Id
 	@Column(name="parm_id")
 	private Integer id;
@@ -24,6 +31,11 @@ public class SistemaParametros {
 	
 	@Column(name="parm_nnmesesvalidadeconta")
 	private Short numeroMesesValidadeConta;
+	
+	@Column(name="parm_ictarifacategoria")
+	private Short indicadorTarifaCategoria;
+	
+	public static Short INDICADOR_TARIFA_CATEGORIA = new Short("1");
 	
 	public SistemaParametros() {
 	}
@@ -66,5 +78,13 @@ public class SistemaParametros {
 
 	public void setNumeroMesesValidadeConta(Short numeroMesesValidadeConta) {
 		this.numeroMesesValidadeConta = numeroMesesValidadeConta;
+	}
+
+	public Short getIndicadorTarifaCategoria() {
+		return indicadorTarifaCategoria;
+	}
+
+	public void setIndicadorTarifaCategoria(Short indicadorTarifaCategoria) {
+		this.indicadorTarifaCategoria = indicadorTarifaCategoria;
 	}
 }

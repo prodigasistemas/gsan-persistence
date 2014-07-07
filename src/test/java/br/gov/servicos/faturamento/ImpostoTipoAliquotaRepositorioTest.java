@@ -7,9 +7,10 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.persistence.Cleanup;
+import org.jboss.arquillian.persistence.CleanupStrategy;
+import org.jboss.arquillian.persistence.TestExecutionPhase;
 import org.jboss.arquillian.persistence.UsingDataSet;
-import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
-import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +31,7 @@ public class ImpostoTipoAliquotaRepositorioTest {
 	
 	@Test
 	@UsingDataSet({"impostoTipoAliquota.yml"})
-	@Transactional(TransactionMode.ROLLBACK)
+	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarImpostoTipoAtivosInexistente(){
 		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(2L, 201405);
 		
@@ -39,7 +40,7 @@ public class ImpostoTipoAliquotaRepositorioTest {
 	
 	@Test
 	@UsingDataSet({"impostoTipoAliquota.yml"})
-	@Transactional(TransactionMode.ROLLBACK)
+	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarImpostoTipoAtivosExistente(){
 		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(1L, 201405);
 		
@@ -48,7 +49,7 @@ public class ImpostoTipoAliquotaRepositorioTest {
 	
 	@Test
 	@UsingDataSet({"impostoTipoAliquota.yml"})
-	@Transactional(TransactionMode.ROLLBACK)
+	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarImpostoTipoAtivosComAnoMesReferenciaMenor(){
 		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(1L, 190001);
 		
@@ -57,7 +58,7 @@ public class ImpostoTipoAliquotaRepositorioTest {
 	
 	@Test
 	@UsingDataSet({"impostoTipoAliquota.yml"})
-	@Transactional(TransactionMode.ROLLBACK)
+	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarImpostoTipoAtivosComImpostoTipoCOFINS(){
 		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(1L, 190001);
 		
