@@ -48,7 +48,8 @@ public class Conta{
 	@Column(name="dcst_idatual")
 	private Short debitoCreditoSituacaoAtual;
 	
-	@Column(name="dcst_idatual")
+	@ManyToOne
+	@JoinColumn(name="ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;
 		
 	@Column(name="cnta_nnleituraanterior")
