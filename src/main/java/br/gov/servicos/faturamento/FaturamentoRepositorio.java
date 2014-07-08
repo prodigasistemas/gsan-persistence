@@ -8,5 +8,11 @@ import javax.persistence.PersistenceContext;
 public class FaturamentoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
+
+	public Integer gerarSequencialContaBoleto() {
+		String consulta = "select faturamento.seq_conta_numero_boleto.nextval as sequencial from dual ";
+
+		return entity.createQuery(consulta, Integer.class).getSingleResult();
+	}
 	
 }

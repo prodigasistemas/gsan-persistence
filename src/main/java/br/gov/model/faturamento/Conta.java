@@ -609,6 +609,14 @@ public class Conta{
 	}
 
 	public BigDecimal calculaValorTotal() {
-		return null;
+		BigDecimal valorTotal = BigDecimal.ZERO;
+		
+		valorTotal = valorTotal.add(valorAgua     != null ? valorAgua    : BigDecimal.ZERO);
+		valorTotal = valorTotal.add(valorEsgoto   != null ? valorEsgoto  : BigDecimal.ZERO);
+		valorTotal = valorTotal.add(valorDebitos  != null ? valorDebitos : BigDecimal.ZERO);
+		valorTotal = valorTotal.add(valorCreditos != null ? valorCreditos: BigDecimal.ZERO);
+		valorTotal = valorTotal.add(valorImposto  != null ? valorImposto : BigDecimal.ZERO);
+
+		return valorTotal;
 	}
 }
