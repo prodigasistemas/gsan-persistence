@@ -11,10 +11,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="faturamento_grupo", schema="faturamento")
 public class FaturamentoGrupo implements Serializable{
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5765534563323141769L;
 
 	@Id

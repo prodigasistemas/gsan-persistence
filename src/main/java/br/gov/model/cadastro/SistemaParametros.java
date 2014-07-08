@@ -1,6 +1,7 @@
 package br.gov.model.cadastro;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,6 +35,9 @@ public class SistemaParametros implements Serializable {
 	
 	@Column(name="parm_ictarifacategoria")
 	private Short indicadorTarifaCategoria;
+	
+	@Column(name="parm_vlcontafichacomp")
+	private BigDecimal valorContaFichaComp;
 	
 	public static Short INDICADOR_TARIFA_CATEGORIA = new Short("1");
 	
@@ -86,5 +90,13 @@ public class SistemaParametros implements Serializable {
 
 	public void setIndicadorTarifaCategoria(Short indicadorTarifaCategoria) {
 		this.indicadorTarifaCategoria = indicadorTarifaCategoria;
+	}
+
+	public BigDecimal getValorContaFichaComp() {
+		return valorContaFichaComp;
+	}
+
+	public void setValorContaFichaComp(BigDecimal valorContaFichaComp) {
+		this.valorContaFichaComp = valorContaFichaComp;
 	}
 }

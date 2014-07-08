@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
@@ -21,6 +22,8 @@ import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
+import br.gov.model.micromedicao.MedicaoHistorico;
+import br.gov.model.micromedicao.Rota;
 
 @Entity
 @Table(name="conta", schema="faturamento")
@@ -41,7 +44,19 @@ public class Conta{
 	
 	@Column(name="cnta_dgverificadorconta")
 	private Short digitoVerificadorConta;
+	
+	@Column(name="dcst_idatual")
+	private Short debitoCreditoSituacaoAtual;
+	
+	@Column(name="dcst_idatual")
+	private FaturamentoGrupo faturamentoGrupo;
 		
+	@Column(name="cnta_nnleituraanterior")
+	private Integer leituraAnterior;
+	
+	@Column(name="cnta_nnleituraatual")
+	private Integer leituraAtual;
+	
 	@Column(name="lote")
 	private Short lote;
 	
@@ -50,6 +65,9 @@ public class Conta{
 	
 	@Column(name="cnta_nnquadra")
 	private Integer numeroQuadra;
+	
+	@Column(name="cnta_nnboleto")
+	private Integer numeroBoleto;
 	
 	@Column(name="cnta_iccobrancamulta")
 	private Short indicadorCobrancaMulta;
@@ -120,46 +138,56 @@ public class Conta{
 		
 	@ManyToOne
 	@JoinColumn(name="qdra_id")
-	private Quadra quadra;	
+	private Quadra quadra;
+	
+	@ManyToOne
+	@JoinColumn(name="rota_id")
+	private Rota rota;
+	
+	@OneToOne
+	@JoinColumn(name="cnta_id")
+	private ContaGeral contaGeral;
 		
 	public Conta() {
 	}
 
 	public Conta(Builder builder) {
 		
-		imovel = builder.imovel;
-		ligacaoAguaSituacao = imovel.getLigacaoAguaSituacao();
-		ligacaoEsgotoSituacao = imovel.getLigacaoEsgotoSituacao();
-		localidade = imovel.getLocalidade();
-		quadra = imovel.getQuadra();
-		subLote = imovel.getSubLote();
-		lote = imovel.getLote();
-		codigoSetorComercial = imovel.getSetorComercial().getCodigo();
-		numeroQuadra = imovel.getQuadra().getNumeroQuadra();
-		
-		referencia = builder.referencia;
-		referenciaContabil = builder.referenciaContabil;
-		
-		digitoVerificadorConta = representacaoNumericaCodigoBarrasModulo10(referencia).shortValue();
-		
-		indicadorCobrancaMulta = builder.indicadorCobrancaMulta;
+		codigoSetorComercial         = imovel.getSetorComercial().getCodigo();
+		consumoAgua                  = builder.consumoAguaEsgoto;
+		consumoRateioAgua            = builder.consumoAguaEsgoto;
+		consumoEsgoto                = builder.consumoAguaEsgoto;
+		consumoRateioEsgoto          = builder.consumoAguaEsgoto;
+		dataVencimentoConta          = builder.dataVencimentoConta;
+		dataVencimentoOriginal       = builder.dataVencimentoConta;
+		dataValidadeConta            = builder.dataValidadeConta;
+		dataEmissao                  = Calendar.getInstance().getTime();
+		debitoCreditoSituacaoAtual   = builder.debitoCreditoSituacaoAtual;
+		digitoVerificadorConta       = representacaoNumericaCodigoBarrasModulo10(referencia).shortValue();
+		faturamentoGrupo             = builder.faturamentoGrupo;
+		imovel                       = builder.imovel;
+		indicadorCobrancaMulta       = builder.indicadorCobrancaMulta;
 		indicadorAlteracaoVencimento = builder.indicadorAlteracaoVencimento;
+		leituraAnterior              = builder.medicaoHistorico != null ? builder.medicaoHistorico.getLeituraAnteriorFaturamento() : null;
+		leituraAtual                 = builder.medicaoHistorico != null ? builder.medicaoHistorico.getLeituraAtualFaturamento() : null;
+		percentualColeta             = builder.percentualColeta;
+		percentualEsgoto             = builder.percentualEsgoto;
+		referencia                   = builder.referencia;
+		referenciaContabil           = builder.referenciaContabil;
+		rota                         = builder.rota; 
+		valorAgua                    = builder.valorAgua;
+		valorEsgoto                  = builder.valorEsgoto;
+		valorCreditos                = builder.valorCreditos;
+		valorDebitos                 = builder.valorDebitos;
+		valorImposto                 = builder.valorImposto;
 		
-		dataVencimentoConta = builder.dataVencimentoConta;
-		dataVencimentoOriginal = builder.dataVencimentoConta;
-		dataValidadeConta = builder.dataValidadeConta;
-		dataEmissao = Calendar.getInstance().getTime();
-		consumoAgua = builder.consumoAguaEsgoto;
-		consumoRateioAgua = builder.consumoAguaEsgoto;
-		consumoEsgoto = builder.consumoAguaEsgoto;
-		consumoRateioEsgoto = builder.consumoAguaEsgoto;
-		percentualColeta = builder.percentualColeta;
-		percentualEsgoto = builder.percentualEsgoto;
-		valorAgua   = builder.valorAgua;
-		valorEsgoto = builder.valorEsgoto;
-		valorCreditos = builder.valorCreditos;
-		valorDebitos  = builder.valorDebitos;
-		valorImposto = builder.valorImposto;
+		ligacaoAguaSituacao        = imovel.getLigacaoAguaSituacao();
+		ligacaoEsgotoSituacao      = imovel.getLigacaoEsgotoSituacao();
+		localidade                 = imovel.getLocalidade();
+		numeroQuadra               = imovel.getQuadra().getNumeroQuadra();
+		lote                       = imovel.getLote();
+		quadra                     = imovel.getQuadra();
+		subLote                    = imovel.getSubLote();
 	}
 
 	public Long getId() {
@@ -323,21 +351,29 @@ public class Conta{
 	}
 
 	public static class Builder{
-		private Imovel imovel;
-		private Integer referencia;
-		private Integer referenciaContabil;
-		private Short indicadorCobrancaMulta;
-		private Date dataVencimentoConta;
-		private Date dataValidadeConta;
-		private Integer consumoAguaEsgoto = 0;
-		private Short indicadorAlteracaoVencimento;
-		private BigDecimal valorAgua;
-		private BigDecimal valorEsgoto;
-		private BigDecimal valorCreditos;
-		private BigDecimal valorDebitos;
-		private BigDecimal valorImposto;
-		private BigDecimal percentualEsgoto;
-		private BigDecimal percentualColeta;
+		private Integer          consumoAguaEsgoto = 0;
+		private Short            debitoCreditoSituacaoAtual;
+		private Date             dataVencimentoConta;
+		private Date             dataValidadeConta;
+		private FaturamentoGrupo faturamentoGrupo;
+		private Imovel           imovel;
+		private Short            indicadorCobrancaMulta;
+		private Short            indicadorAlteracaoVencimento;
+		private BigDecimal       percentualEsgoto;
+		private BigDecimal       percentualColeta;
+		private Integer          referencia;
+		private Integer          referenciaContabil;
+		private Rota             rota;
+		private BigDecimal       valorAgua;
+		private BigDecimal       valorEsgoto;
+		private BigDecimal       valorCreditos;
+		private BigDecimal       valorDebitos;
+		private BigDecimal       valorImposto;
+		private MedicaoHistorico medicaoHistorico;
+		
+		public Conta build(){
+			return new Conta(this);
+		}
 		
 		public Builder imovel(Imovel i){
 			imovel = i;
@@ -369,13 +405,10 @@ public class Conta{
 			return this;
 		}
 		
-		public Conta build(){
-			return new Conta(this);
-		}
-
-		public void validadeConta(Short numeroMesesValidadeConta) {
+		public Builder validadeConta(Short numeroMesesValidadeConta) {
 			dataValidadeConta = adicionarMeses(dataValidadeConta, numeroMesesValidadeConta);
 			dataValidadeConta = atribuiDia(dataValidadeConta, obterUltimoDiaMes(dataValidadeConta));
+			return this;
 		}
 
 		public Builder indicadorAlteracaoVencimento(Short indicador) {
@@ -417,9 +450,165 @@ public class Conta{
 			percentualColeta = percentual;
 			return this;
 		}
+
+		public Builder debitoCreditoSituacaoAtual(DebitoCreditoSituacao situacao) {
+			debitoCreditoSituacaoAtual = situacao.getId();
+			return this;
+		}
+
+		public Builder faturamentoGrupo(FaturamentoGrupo grupo) {
+			faturamentoGrupo = grupo;
+			return this;
+		}
+		
+		public Builder leiturasFaturamento(MedicaoHistorico medicao){
+			medicaoHistorico = medicao;
+			return this;
+		}
+
+		public Builder rota(Rota rota) {
+			this.rota = rota;
+			return this;
+		}
 	}
-	
-	public static void main(String[] args) {
-		new Conta.Builder().imovel(null).semCobrancaMulta().vencimentoSemAntecipacaoFaturamento().build();
+
+	public Short getDebitoCreditoSituacaoAtual() {
+		return debitoCreditoSituacaoAtual;
+	}
+
+	public void setDebitoCreditoSituacaoAtual(Short debitoCreditoSituacaoAtual) {
+		this.debitoCreditoSituacaoAtual = debitoCreditoSituacaoAtual;
+	}
+
+	public FaturamentoGrupo getFaturamentoGrupo() {
+		return faturamentoGrupo;
+	}
+
+	public void setFaturamentoGrupo(FaturamentoGrupo faturamentoGrupo) {
+		this.faturamentoGrupo = faturamentoGrupo;
+	}
+
+	public Integer getLeituraAnterior() {
+		return leituraAnterior;
+	}
+
+	public void setLeituraAnterior(Integer leituraAnterior) {
+		this.leituraAnterior = leituraAnterior;
+	}
+
+	public Integer getLeituraAtual() {
+		return leituraAtual;
+	}
+
+	public void setLeituraAtual(Integer leituraAtual) {
+		this.leituraAtual = leituraAtual;
+	}
+
+	public Integer getNumeroBoleto() {
+		return numeroBoleto;
+	}
+
+	public void setNumeroBoleto(Integer numeroBoleto) {
+		this.numeroBoleto = numeroBoleto;
+	}
+
+	public Short getIndicadorAlteracaoVencimento() {
+		return indicadorAlteracaoVencimento;
+	}
+
+	public void setIndicadorAlteracaoVencimento(Short indicadorAlteracaoVencimento) {
+		this.indicadorAlteracaoVencimento = indicadorAlteracaoVencimento;
+	}
+
+	public Date getDataValidadeConta() {
+		return dataValidadeConta;
+	}
+
+	public void setDataValidadeConta(Date dataValidadeConta) {
+		this.dataValidadeConta = dataValidadeConta;
+	}
+
+	public Date getDataEmissao() {
+		return dataEmissao;
+	}
+
+	public void setDataEmissao(Date dataEmissao) {
+		this.dataEmissao = dataEmissao;
+	}
+
+	public BigDecimal getValorAgua() {
+		return valorAgua;
+	}
+
+	public void setValorAgua(BigDecimal valorAgua) {
+		this.valorAgua = valorAgua;
+	}
+
+	public BigDecimal getValorEsgoto() {
+		return valorEsgoto;
+	}
+
+	public void setValorEsgoto(BigDecimal valorEsgoto) {
+		this.valorEsgoto = valorEsgoto;
+	}
+
+	public BigDecimal getValorCreditos() {
+		return valorCreditos;
+	}
+
+	public void setValorCreditos(BigDecimal valorCreditos) {
+		this.valorCreditos = valorCreditos;
+	}
+
+	public BigDecimal getValorDebitos() {
+		return valorDebitos;
+	}
+
+	public void setValorDebitos(BigDecimal valorDebitos) {
+		this.valorDebitos = valorDebitos;
+	}
+
+	public BigDecimal getValorImposto() {
+		return valorImposto;
+	}
+
+	public void setValorImposto(BigDecimal valorImposto) {
+		this.valorImposto = valorImposto;
+	}
+
+	public BigDecimal getPercentualEsgoto() {
+		return percentualEsgoto;
+	}
+
+	public void setPercentualEsgoto(BigDecimal percentualEsgoto) {
+		this.percentualEsgoto = percentualEsgoto;
+	}
+
+	public BigDecimal getPercentualColeta() {
+		return percentualColeta;
+	}
+
+	public void setPercentualColeta(BigDecimal percentualColeta) {
+		this.percentualColeta = percentualColeta;
+	}
+
+	public Rota getRota() {
+		return rota;
+	}
+
+	public void setRota(Rota rota) {
+		this.rota = rota;
+	}
+
+	public ContaGeral getContaGeral() {
+		return contaGeral;
+	}
+
+	public void setContaGeral(ContaGeral contaGeral) {
+		this.contaGeral = contaGeral;
+	}
+
+	public BigDecimal calculaValorTotal() {
+		return null;
 	}
 }
