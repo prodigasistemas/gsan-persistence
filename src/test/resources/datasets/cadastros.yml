@@ -4,6 +4,7 @@ cadastro.localidade:
 
 cadastro.imovel:
   - imov_id: 1
+  - imov_id: 2
   - imov_id: 5
 
 cadastro.sistema_parametros:

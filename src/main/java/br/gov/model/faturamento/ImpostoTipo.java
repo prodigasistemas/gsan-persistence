@@ -24,7 +24,7 @@ public class ImpostoTipo implements Serializable {
 	@Column(name="imtp_dsimposto")
 	private String descricaoImposto;
 	
-	@Column(name="imtp_dsabreviadoaimposto")
+	@Column(name="imtp_dsabreviadaimposto")
 	private String descricaoAbreviada;
 	
 	@Column(name="imtp_icuso")

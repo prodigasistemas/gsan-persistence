@@ -1,3 +1,14 @@
+cadastro.localidade:
+  - loca_id: 1
+    loca_nmlocalidade: "Belem"
+
+cadastro.quadra:
+  - qdra_id: 1
+
+cadastro.imovel:
+  - imov_id: 1
+  - imov_id: 3
+
 faturamento.credito_tipo:
   - crti_id: 1
     crti_dscreditotipo: "NORMAL"
@@ -18,7 +29,7 @@ faturamento.credito_a_realizar_geral:
 
 cobranca.parcelamento:
   - parc_id: 1
-    parc_amreferenciafaturamento: 201406
+    parc_amreferenciafaturamento: 201403
 
 faturamento.credito_a_realizar:
   - crar_id: 1
@@ -38,7 +49,7 @@ faturamento.credito_a_realizar:
     crar_vlcredito: 10
     crar_vlresidualmesanterior: 5
   - crar_id: 2
-    imov_id: 1
+    imov_id: 3
     qdra_id: 1
     loca_id: 1
     crti_id: 1
@@ -47,12 +58,12 @@ faturamento.credito_a_realizar:
     crar_id: 2
     parc_id: 1
     dcst_idatual: 0
-    crar_nnprestacaorealizadas: 5
+    crar_nnprestacaorealizadas: 0
     crar_nnparcelabonus: 0
     crar_nnprestacaocredito: 10
     crac_nnparcelasantecipadas: 0
     crar_vlcredito: 10
-    crar_vlresidualmesanterior: 0
+    crar_vlresidualmesanterior: 10
   - crar_id: 3
     imov_id: 1
     qdra_id: 1

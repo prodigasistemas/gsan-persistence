@@ -36,7 +36,7 @@ public class Devolucao implements Serializable{
 	private BigDecimal valorDevolucao;
 	
 	@Column(name="devl_amreferenciaarrecadacao")
-	private int anoMesReferenciaArrecadacao;
+	private Integer anoMesReferenciaArrecadacao;
 	
 	@Column(name="devl_dtdevolucao")
 	private Date dataDevolucao;
@@ -73,11 +73,11 @@ public class Devolucao implements Serializable{
 		this.valorDevolucao = valorDevolucao;
 	}
 
-	public int getAnoMesReferenciaArrecadacao() {
+	public Integer getAnoMesReferenciaArrecadacao() {
 		return anoMesReferenciaArrecadacao;
 	}
 
-	public void setAnoMesReferenciaArrecadacao(int anoMesReferenciaArrecadacao) {
+	public void setAnoMesReferenciaArrecadacao(Integer anoMesReferenciaArrecadacao) {
 		this.anoMesReferenciaArrecadacao = anoMesReferenciaArrecadacao;
 	}
 

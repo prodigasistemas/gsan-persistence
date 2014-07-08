@@ -30,7 +30,7 @@ public class ClienteRepositorioTest {
 	private ClienteRepositorio repositorio;
 	
 	@Test
-	@UsingDataSet({"clientes.yml"})
+	@UsingDataSet({"cadastros.yml", "clientes.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarClienteFederalResponsavelPorImovelComClienteFederal(){
 		Cliente cliente = repositorio.buscarClienteFederalResponsavelPorImovel(1L);
@@ -39,7 +39,7 @@ public class ClienteRepositorioTest {
 	}
 	
 	@Test
-	@UsingDataSet({"clientes.yml"})
+	@UsingDataSet({"cadastros.yml", "clientes.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarClienteFederalResponsavelPorImovelSemClienteFederal(){
 		Cliente cliente = repositorio.buscarClienteFederalResponsavelPorImovel(2L);

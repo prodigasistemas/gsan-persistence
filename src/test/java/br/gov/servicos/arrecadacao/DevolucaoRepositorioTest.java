@@ -33,17 +33,17 @@ public class DevolucaoRepositorioTest {
 	private DevolucaoRepositorio repositorio;
 	
 	@Test
-	@UsingDataSet({"cadastros.yml", "creditosRealizar.yml", "devolucoes.yml"})
+	@UsingDataSet({"devolucoes.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void naoExisteCreditoComDevolucao(){
+	public void existeCreditoComDevolucao(){
 		List<CreditoRealizar> creditosRealizar = Arrays.asList(new CreditoRealizar(1L), new CreditoRealizar(2L));
 		assertTrue(repositorio.existeCreditoComDevolucao(creditosRealizar));
 	}
 
 	@Test
-	@UsingDataSet({"cadastros.yml", "creditosRealizar.yml", "devolucoes.yml"})
+	@UsingDataSet({"devolucoes.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void existeCreditoComDevolucao(){
+	public void naoExisteCreditoComDevolucao(){
 		List<CreditoRealizar> creditosRealizar = Arrays.asList(new CreditoRealizar(10L), new CreditoRealizar(20L));
 		assertFalse(repositorio.existeCreditoComDevolucao(creditosRealizar));
 	}

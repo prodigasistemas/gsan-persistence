@@ -25,7 +25,7 @@ public class CreditoRealizarCategoria {
 	private CreditoRealizar creditoRealizar;
 	
 	@ManyToOne
-	@JoinColumn(name="categ_id", insertable = false, updatable = false)
+	@JoinColumn(name="catg_id", insertable = false, updatable = false)
 	private Categoria categoria;
 	
 	@Column(name="cacg_qteconomia")

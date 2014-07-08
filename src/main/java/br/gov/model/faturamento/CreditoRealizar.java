@@ -6,10 +6,13 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -99,9 +102,13 @@ public class CreditoRealizar implements Serializable {
 	@JoinColumn(name="lict_id")
 	private LancamentoItemContabil lancamentoItemContabil;
 	
+	@Enumerated(EnumType.ORDINAL)
+	@JoinTable(schema="faturamento", name="debito_credito_situacao")
 	@Column(name="dcst_idatual")
 	private DebitoCreditoSituacao debitoCreditoSituacaoAtual;
 	
+	@Enumerated(EnumType.ORDINAL)
+	@JoinTable(schema="faturamento", name="debito_credito_situacao")
 	@Column(name="dcst_idanterior")
 	private DebitoCreditoSituacao debitoCreditoSituacaoAnterior;
 	
@@ -122,7 +129,7 @@ public class CreditoRealizar implements Serializable {
 	private Parcelamento parcelamento;
 	
 	@OneToOne
-	@JoinColumn(name="crar_id")
+	@JoinColumn(name="crar_id", referencedColumnName="crar_id")
 	private CreditoRealizarGeral creditoRealizarGeral;
 
 	public CreditoRealizar(){}

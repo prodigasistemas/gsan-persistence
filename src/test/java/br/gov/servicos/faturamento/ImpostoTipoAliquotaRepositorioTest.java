@@ -60,7 +60,7 @@ public class ImpostoTipoAliquotaRepositorioTest {
 	@UsingDataSet({"impostoTipoAliquota.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarImpostoTipoAtivosComImpostoTipoCOFINS(){
-		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(1L, 190001);
+		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(1L, 201405);
 		
 		assertTrue(1L == resultado.getImpostoTipo().getId());
 	}
