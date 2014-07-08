@@ -32,7 +32,7 @@ public class CreditoRealizarRepositorio {
 					.append(" inner join crar.creditoRealizarGeral ")
 					.append(" left outer join crar.parcelamento parc ")
 					.append(" where  imov.id = :imovelId ")
-					.append("  and crar.debitoCreditoSituacaoAtual.id = :debitoCreditoSituacaoAtualId ")
+					.append("  and crar.debitoCreditoSituacaoAtual = :debitoCreditoSituacaoAtualId ")
 					.append("  and (crar.numeroPrestacaoRealizada < ")
 					.append("      (crar.numeroPrestacaoCredito - coalesce(crar.numeroParcelaBonus, 0)) ")
 					.append("      or crar.valorResidualMesAnterior > 0) ")
@@ -41,7 +41,7 @@ public class CreditoRealizarRepositorio {
 			
 			Collection<CreditoRealizar> retorno = entity.createQuery(consulta.toString(), CreditoRealizar.class)
 														.setParameter("imovelId", imovelId)
-														.setParameter("debitoCreditoSituacaoAtualId", new Long(debitoCreditoSituacaoAtual.getId()))
+														.setParameter("debitoCreditoSituacaoAtualId", debitoCreditoSituacaoAtual)
 														.setParameter("anoMesFaturamento", anoMesFaturamento)
 														.getResultList();
 			

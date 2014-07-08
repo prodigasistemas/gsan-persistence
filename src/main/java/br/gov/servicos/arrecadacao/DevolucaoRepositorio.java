@@ -26,7 +26,8 @@ public class DevolucaoRepositorio {
 
 		creditosRealizar.forEach( cr -> ids.add(cr.getId()));
 		
-		Collection<Devolucao> resultado = entity.createQuery("from Devolucao as devolucao where devolucao.creditoRealizar.id in (:ids)", Devolucao.class)
+		Collection<Devolucao> resultado = entity.createQuery("select devolucao from Devolucao as devolucao inner join devolucao.creditoRealizar crar "
+																+ "where crar.id in (:ids)", Devolucao.class)
 												.setParameter("ids", ids)
 												.getResultList();
 		

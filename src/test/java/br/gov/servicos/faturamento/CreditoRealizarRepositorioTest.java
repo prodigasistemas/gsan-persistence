@@ -80,7 +80,7 @@ public class CreditoRealizarRepositorioTest {
 	@UsingDataSet({"creditosRealizar.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarCreditoRealizarPorImovelComParcelamentoSemAnoMesReferencia(){
-		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1L, DebitoCreditoSituacao.NORMAL, 201406);
+		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(3L, DebitoCreditoSituacao.NORMAL, 201402);
 		
 		assertTrue(resultado.isEmpty());
 	}
