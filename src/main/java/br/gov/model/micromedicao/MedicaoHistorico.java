@@ -3,7 +3,11 @@ package br.gov.model.micromedicao;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.gov.model.atendimentopublico.LigacaoAgua;
 
 @Entity
 @Table(name="medicao_historico", schema="micromedicao")
@@ -20,6 +24,10 @@ public class MedicaoHistorico {
 
 	@Column(name = "mdhi_nnleituraatualfaturamento")
 	private Integer leituraAtualFaturamento;
+	
+	@ManyToOne
+	@JoinColumn(name="lagu_id")
+	private LigacaoAgua ligacaoAgua;
 	
 	public MedicaoHistorico() {
 	}
@@ -54,6 +62,14 @@ public class MedicaoHistorico {
 
 	public void setLeituraAtualFaturamento(Integer leituraAtualFaturamento) {
 		this.leituraAtualFaturamento = leituraAtualFaturamento;
+	}
+
+	public LigacaoAgua getLigacaoAgua() {
+		return ligacaoAgua;
+	}
+
+	public void setLigacaoAgua(LigacaoAgua ligacaoAgua) {
+		this.ligacaoAgua = ligacaoAgua;
 	}
 
 	public String toString() {

@@ -9,8 +9,10 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -48,10 +50,6 @@ public class Conta{
 	@Column(name="dcst_idatual")
 	private Short debitoCreditoSituacaoAtual;
 	
-	@ManyToOne
-	@JoinColumn(name="ftgr_id")
-	private FaturamentoGrupo faturamentoGrupo;
-		
 	@Column(name="cnta_nnleituraanterior")
 	private Integer leituraAnterior;
 	
@@ -121,28 +119,32 @@ public class Conta{
 	@Column(name="cnta_pccoleta")
 	private BigDecimal percentualColeta;
 	
-	@ManyToOne
-	@JoinColumn(name="lest_id")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ftgr_id", insertable=false, updatable=false)
+	private FaturamentoGrupo faturamentoGrupo;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="lest_id", insertable=false, updatable=false)
 	private LigacaoEsgotoSituacao ligacaoEsgotoSituacao;
 	
-	@ManyToOne
-	@JoinColumn(name="last_id")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="last_id", insertable=false, updatable=false)
 	private LigacaoAguaSituacao ligacaoAguaSituacao;
 
-	@ManyToOne
-	@JoinColumn(name = "imov_id")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "imov_id", insertable=false, updatable=false)
 	private Imovel imovel;
 
-	@ManyToOne
-	@JoinColumn(name="loca_id")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="loca_id", insertable=false, updatable=false)
 	private Localidade localidade;
 		
-	@ManyToOne
-	@JoinColumn(name="qdra_id")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="qdra_id", insertable=false, updatable=false)
 	private Quadra quadra;
 	
-	@ManyToOne
-	@JoinColumn(name="rota_id")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="rota_id", insertable=false, updatable=false)
 	private Rota rota;
 	
 	@OneToOne
@@ -153,8 +155,10 @@ public class Conta{
 	}
 
 	public Conta(Builder builder) {
+		imovel                       = builder.imovel;
+		referencia                   = builder.referencia;
 		
-		codigoSetorComercial         = imovel.getSetorComercial().getCodigo();
+		codigoSetorComercial         = imovel.getSetorComercial() != null ? imovel.getSetorComercial().getCodigo(): null;;
 		consumoAgua                  = builder.consumoAguaEsgoto;
 		consumoRateioAgua            = builder.consumoAguaEsgoto;
 		consumoEsgoto                = builder.consumoAguaEsgoto;
@@ -166,14 +170,12 @@ public class Conta{
 		debitoCreditoSituacaoAtual   = builder.debitoCreditoSituacaoAtual;
 		digitoVerificadorConta       = representacaoNumericaCodigoBarrasModulo10(referencia).shortValue();
 		faturamentoGrupo             = builder.faturamentoGrupo;
-		imovel                       = builder.imovel;
 		indicadorCobrancaMulta       = builder.indicadorCobrancaMulta;
 		indicadorAlteracaoVencimento = builder.indicadorAlteracaoVencimento;
 		leituraAnterior              = builder.medicaoHistorico != null ? builder.medicaoHistorico.getLeituraAnteriorFaturamento() : null;
 		leituraAtual                 = builder.medicaoHistorico != null ? builder.medicaoHistorico.getLeituraAtualFaturamento() : null;
 		percentualColeta             = builder.percentualColeta;
 		percentualEsgoto             = builder.percentualEsgoto;
-		referencia                   = builder.referencia;
 		referenciaContabil           = builder.referenciaContabil;
 		rota                         = builder.rota; 
 		valorAgua                    = builder.valorAgua;
@@ -355,7 +357,7 @@ public class Conta{
 		private Integer          consumoAguaEsgoto = 0;
 		private Short            debitoCreditoSituacaoAtual;
 		private Date             dataVencimentoConta;
-		private Date             dataValidadeConta;
+		private Date             dataValidadeConta = new Date();
 		private FaturamentoGrupo faturamentoGrupo;
 		private Imovel           imovel;
 		private Short            indicadorCobrancaMulta;

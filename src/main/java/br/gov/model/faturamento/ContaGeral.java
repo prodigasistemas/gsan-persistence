@@ -5,13 +5,19 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="conta_geral", schema="faturamento")
 public class ContaGeral {
+	
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CONTA_GERAL")
+	@SequenceGenerator(name="SEQ_CONTA_GERAL", schema="faturamento", sequenceName="seq_conta_geral", allocationSize=1)	
 	@Column(name = "cnta_id")
 	private Long id;
 

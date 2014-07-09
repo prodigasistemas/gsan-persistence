@@ -2,6 +2,7 @@ package br.gov.servicos.cadastro;
 
 import java.util.Collection;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,8 +20,15 @@ public class ImovelSubcategoriaRepositorio {
 	@EJB
 	private SistemaParametrosRepositorio sistemaParametrosRepositorio;
 
+	private SistemaParametros parametros;
+	
+	@PostConstruct
+	private void init(){
+		parametros = sistemaParametrosRepositorio.getSistemaParametros();
+	}
+	
 	public Collection<ImovelSubcategoriaTO> buscarQuantidadeEconomiasPorImovel(Long id) {
-		Short indicadorTarifaCategoria = sistemaParametrosRepositorio.getIndicadorTarifaCategoria();
+		Short indicadorTarifaCategoria = parametros.getIndicadorTarifaCategoria();
 
 		if (indicadorTarifaCategoria.equals(SistemaParametros.INDICADOR_TARIFA_CATEGORIA)) {
 			return buscarQuantidadeEconomiasCategoria(id);

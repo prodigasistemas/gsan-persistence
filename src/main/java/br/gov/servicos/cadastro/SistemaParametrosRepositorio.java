@@ -1,20 +1,28 @@
 package br.gov.servicos.cadastro;
 
-import javax.ejb.Stateless;
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@Stateless
+import br.gov.model.cadastro.SistemaParametros;
+
+@Singleton
 public class SistemaParametrosRepositorio {
 
 	@PersistenceContext
 	public EntityManager entity;
 	
-	public Integer getAnoMesFaturamento() {
-		return entity.createQuery("select anoMesFaturamento from SistemaParametros", Integer.class).getSingleResult();
-	}	
+	private SistemaParametros sistemaParametros;
 	
-	public Short getIndicadorTarifaCategoria() {
-		return entity.createQuery("select indicadorTarifaCategoria from SistemaParametros", Short.class).getSingleResult();
+	@PostConstruct
+	protected void init(){
+		if (sistemaParametros == null){
+			sistemaParametros = entity.createQuery("from SistemaParametros", SistemaParametros.class).getSingleResult();
+		}
+	}
+	
+	public SistemaParametros getSistemaParametros() {
+		return sistemaParametros;
 	}
 }

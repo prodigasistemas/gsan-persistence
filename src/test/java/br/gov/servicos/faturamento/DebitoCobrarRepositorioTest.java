@@ -23,9 +23,9 @@ import br.gov.servicos.test.ShrinkWrapBuilder;
 
 
 @RunWith(Arquillian.class)
-public class RepositorioDebitoCobrarTest {
+public class DebitoCobrarRepositorioTest {
 	
-	private static Logger logger = Logger.getLogger(RepositorioDebitoCobrarTest.class);
+	private static Logger logger = Logger.getLogger(DebitoCobrarRepositorioTest.class);
 		
 	@Deployment
     public static Archive<?> createDeployment() {

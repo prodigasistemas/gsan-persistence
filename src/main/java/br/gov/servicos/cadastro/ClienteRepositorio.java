@@ -59,7 +59,7 @@ public class ClienteRepositorio {
 			
 			ClienteImovel clienteImovel = entity.createQuery(sql.toString(), ClienteImovel.class)
 					.setParameter("idImovel", idImovel)
-					.setParameter("idResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
+					.setParameter("idResponsavel", ClienteRelacaoTipo.RESPONSAVEL.longValue())
 					.setMaxResults(1)
 					.getSingleResult();
 			
