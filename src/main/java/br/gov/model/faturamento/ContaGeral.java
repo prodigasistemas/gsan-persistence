@@ -24,9 +24,6 @@ public class ContaGeral {
 	@Column(name = "cntg_ichistorico")
 	private Short indicadorHistorico;
 	
-	@Column(name = "cntg_tmultimaalteracao")
-	private Date ultimaAlteracao;
-	
 	public ContaGeral() {
 	}
 
@@ -44,13 +41,5 @@ public class ContaGeral {
 
 	public void setIndicadorHistorico(Short indicadorHistorico) {
 		this.indicadorHistorico = indicadorHistorico;
-	}
-
-	public Date getUltimaAlteracao() {
-		return ultimaAlteracao;
-	}
-
-	public void setUltimaAlteracao(Date ultimaAlteracao) {
-		this.ultimaAlteracao = ultimaAlteracao;
 	}
 }
