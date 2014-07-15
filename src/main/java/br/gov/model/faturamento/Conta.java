@@ -5,6 +5,7 @@ import static br.gov.model.util.Utilitarios.atribuiDia;
 import static br.gov.model.util.Utilitarios.obterUltimoDiaMes;
 import static br.gov.model.util.Utilitarios.representacaoNumericaCodigoBarrasModulo10;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,7 +29,8 @@ import br.gov.model.micromedicao.Rota;
 
 @Entity
 @Table(name="conta", schema="faturamento")
-public class Conta{
+public class Conta implements Serializable{
+	private static final long serialVersionUID = -4771113564267091950L;
 
 	@Id
 	@Column(name = "cnta_id")
@@ -119,36 +121,40 @@ public class Conta{
 	private BigDecimal percentualColeta;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="ftgr_id", insertable=false, updatable=false)
+	@JoinColumn(name="ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="lest_id", insertable=false, updatable=false)
+	@JoinColumn(name="lest_id")
 	private LigacaoEsgotoSituacao ligacaoEsgotoSituacao;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="last_id", insertable=false, updatable=false)
+	@JoinColumn(name="last_id")
 	private LigacaoAguaSituacao ligacaoAguaSituacao;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "imov_id", insertable=false, updatable=false)
+	@JoinColumn(name = "imov_id")
 	private Imovel imovel;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="loca_id", insertable=false, updatable=false)
+	@JoinColumn(name="loca_id")
 	private Localidade localidade;
 		
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="qdra_id", insertable=false, updatable=false)
+	@JoinColumn(name="qdra_id")
 	private Quadra quadra;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="rota_id", insertable=false, updatable=false)
+	@JoinColumn(name="rota_id")
 	private Rota rota;
 	
 	@OneToOne
 	@JoinColumn(name="cnta_id")
 	private ContaGeral contaGeral;
+	
+	@ManyToOne
+	@JoinColumn(name="cstf_id")
+	private ConsumoTarifa consumoTarifa;
 		
 	public Conta() {
 	}
@@ -183,6 +189,7 @@ public class Conta{
 		valorDebitos                 = builder.valorDebitos;
 		valorImposto                 = builder.valorImposto;
 		
+		consumoTarifa              = imovel.getConsumoTarifa();
 		ligacaoAguaSituacao        = imovel.getLigacaoAguaSituacao();
 		ligacaoEsgotoSituacao      = imovel.getLigacaoEsgotoSituacao();
 		localidade                 = imovel.getLocalidade();
@@ -359,7 +366,7 @@ public class Conta{
 		private Date             dataValidadeConta = new Date();
 		private FaturamentoGrupo faturamentoGrupo;
 		private Imovel           imovel;
-		private Short            indicadorCobrancaMulta;
+		private Short            indicadorCobrancaMulta = (short) 2;
 		private Short            indicadorAlteracaoVencimento;
 		private BigDecimal       percentualEsgoto;
 		private BigDecimal       percentualColeta;
@@ -608,6 +615,14 @@ public class Conta{
 
 	public void setContaGeral(ContaGeral contaGeral) {
 		this.contaGeral = contaGeral;
+	}
+
+	public ConsumoTarifa getConsumoTarifa() {
+		return consumoTarifa;
+	}
+
+	public void setConsumoTarifa(ConsumoTarifa consumoTarifa) {
+		this.consumoTarifa = consumoTarifa;
 	}
 
 	public BigDecimal calculaValorTotal() {

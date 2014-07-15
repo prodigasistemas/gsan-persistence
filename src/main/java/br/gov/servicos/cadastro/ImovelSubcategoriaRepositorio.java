@@ -43,8 +43,12 @@ public class ImovelSubcategoriaRepositorio {
 
 		StringBuffer consulta = new StringBuffer();
 
-		consulta.append("select categoria.id, categoria.descricao, categoria.consumoEstouro, ")
-		.append("	categoria.vezesMediaEstouro, sum(imovelSubcategoria.quantidadeEconomias), ")
+		consulta.append("select new br.gov.servicos.to.ImovelSubcategoriaTO(")
+		.append("   categoria.id, ")
+		.append("   categoria.descricao, ")
+		.append("   categoria.consumoEstouro, ")
+		.append("	categoria.vezesMediaEstouro, ")
+		.append("   sum(imovelSubcategoria.quantidadeEconomias), ")
 		.append("	imovelSubcategoria.pk.imovelId, ")
 		.append("	categoria.consumoAlto, ")
 		.append("	categoria.mediaBaixoConsumo, ")
@@ -54,18 +58,16 @@ public class ImovelSubcategoriaRepositorio {
 		.append("	categoria.numeroConsumoMaximoEc, ")
 		.append("	categoria.indicadorCobrancaAcrescimos, ")
 		.append("	categoria.fatorEconomias, ")
-		.append("	categoria.categoriaTipo.id, ")
-		.append("	categoria.categoriaTipo.descricao, ")
-		.append("	categoria.numeroConsumoMaximoEc ")
-		.append("from ImovelSubcategoria imovelSubcategoria ")
+		.append("	categoria.categoriaTipo ")
+		.append(")")
+		.append(" from ImovelSubcategoria imovelSubcategoria ")
 		.append("	inner join imovelSubcategoria.subcategoria subcategoria ")
 		.append("	inner join subcategoria.categoria categoria ")
-		.append("	inner join categoria.categoriaTipo categoriaTipo ")
-		.append("where imovelSubcategoria.pk.imovelId = :imovelId ")
-		.append("group by categoria.id, categoria.descricao, categoria.consumoEstouro, categoria.vezesMediaEstouro, ")
+		.append(" where imovelSubcategoria.pk.imovelId = :imovelId ")
+		.append(" group by categoria.id, categoria.descricao, categoria.consumoEstouro, categoria.vezesMediaEstouro, ")
 		.append("	imovelSubcategoria.pk.imovelId, categoria.consumoAlto, categoria.mediaBaixoConsumo, categoria.vezesMediaAltoConsumo, ")
 		.append("	categoria.porcentagemMediaBaixoConsumo, categoria.descricaoAbreviada, categoria.numeroConsumoMaximoEc, ")
-		.append("	categoria.indicadorCobrancaAcrescimos, categoria.fatorEconomias, categoria.categoriaTipo.id, categoria.categoriaTipo.descricao ");
+		.append("	categoria.indicadorCobrancaAcrescimos, categoria.fatorEconomias, categoria.categoriaTipo");
 
 		retorno = entity.createQuery(consulta.toString(), ImovelSubcategoriaTO.class)
 				.setParameter("imovelId", imovelId).getResultList();

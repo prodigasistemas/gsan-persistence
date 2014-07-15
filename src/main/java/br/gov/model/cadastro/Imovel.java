@@ -6,8 +6,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -15,43 +13,18 @@ import br.gov.model.Status;
 import br.gov.model.atendimentopublico.LigacaoAgua;
 import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
 import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
+import br.gov.model.faturamento.ConsumoTarifa;
 import br.gov.model.faturamento.FaturamentoSituacaoTipo;
 import br.gov.model.micromedicao.HidrometroInstalacaoHistorico;
 
 @Entity
 @Table(name="imovel", schema="cadastro")
-@NamedQueries({
-	@NamedQuery(name="imovel.totalImoveisParaPreFaturamento"
-			,query="select count(im) from Imovel im "
-					+ " inner join im.quadra qua "
-					+ " inner join qua.rota rot "
-					+ " WHERE rot.id = :rotaId ")
-	,
-	@NamedQuery(name="imovel.pesquisarImovelParaPreFaturamento"
-		,query="select im from Imovel im "
-				+ " inner join im.quadra qua "
-				+ " inner join qua.rota rot "
-				+ " WHERE rot.id = :rotaId ")
-}
-)
 public class Imovel{
 
 	@Id
 	@Column(name="imov_id")
 	private Long id;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="loca_id")
-	private Localidade localidade;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="stcm_id")
-	private SetorComercial setorComercial;
-
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="qdra_id")
-	private Quadra quadra;
-	
+		
 	@Column(name="imov_nnimovel")
 	private String numeroImovel;
 	
@@ -70,6 +43,24 @@ public class Imovel{
 	@Column(name="imov_icvencimentomesseguinte")
 	private Short indicadorVencimentoMesSeguinte;
 	
+	@Column(name="icte_id")
+	private Short imovelContaEnvio;
+	
+	@Column(name="imov_icdebitoconta")
+	private Short indicadorDebitoConta;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="loca_id")
+	private Localidade localidade;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="stcm_id")
+	private SetorComercial setorComercial;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="qdra_id")
+	private Quadra quadra;
+
 	@OneToOne(mappedBy="imovel")
 	private LigacaoAgua ligacaoAgua;
 	
@@ -88,16 +79,14 @@ public class Imovel{
 	@ManyToOne
 	@JoinColumn(name="imov_idimovelcondominio")
 	private Imovel imovelCondominio;
-	
-	@Column(name="icte_id")
-	private ImovelContaEnvio imovelContaEnvio;
-	
-	@Column(name="imov_icdebitoconta")
-	private Short indicadorDebitoConta;
-	
+		
 	@ManyToOne
 	@JoinColumn(name="hidi_id")
 	private HidrometroInstalacaoHistorico hidrometroInstalacaoHistorico;
+	
+	@ManyToOne
+	@JoinColumn(name="cstf_id")
+	private ConsumoTarifa consumoTarifa;
 	
 	public Imovel() {
 	}
@@ -230,11 +219,11 @@ public class Imovel{
 		return indicadorEmissaoExtratoFaturamento != null && indicadorEmissaoExtratoFaturamento == (short) 1;
 	}
 
-	public ImovelContaEnvio getImovelContaEnvio() {
+	public Short getImovelContaEnvio() {
 		return imovelContaEnvio;
 	}
 
-	public void setImovelContaEnvio(ImovelContaEnvio imovelContaEnvio) {
+	public void setImovelContaEnvio(Short imovelContaEnvio) {
 		this.imovelContaEnvio = imovelContaEnvio;
 	}
 	
@@ -256,6 +245,14 @@ public class Imovel{
 
 	public void setIndicadorDebitoConta(Short indicadorDebitoConta) {
 		this.indicadorDebitoConta = indicadorDebitoConta;
+	}
+
+	public ConsumoTarifa getConsumoTarifa() {
+		return consumoTarifa;
+	}
+
+	public void setConsumoTarifa(ConsumoTarifa consumoTarifa) {
+		this.consumoTarifa = consumoTarifa;
 	}
 
 	public String toString() {

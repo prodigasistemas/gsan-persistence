@@ -13,6 +13,7 @@ public class ContaGeralRepositorio {
 
 	public Long salvar(ContaGeral contaGeral) {
 		entity.persist(contaGeral);
+		entity.flush();
 		return contaGeral.getId();
 	}
 }

@@ -14,37 +14,60 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	 */
 	private static final long serialVersionUID = 2664222681959912779L;
 	
+	private Long categoriaId;
+	private String categoriaDescricao;
+	private Integer consumoEstouro;
+	private BigDecimal vezesMediaEstouro;
+	private Long subcategoriaQuantidadeEconomias;
+	private Long imovelId;
+	private Integer consumoAlto;
+	private Integer mediaBaixoConsumo;
+	private BigDecimal vezesMediaAltoConsumo;
+	private BigDecimal porcentagemMediaBaixoConsumo;
+	private String categoriaDescricaoAbreviada;
+	private Integer numeroConsumoMaximoEc;
+	private Short indicadorCobrancaAcrescimos;
+	private Short fatorEconomias;
+	private Short categoriaTipoId;
+	
 	private Long subcategoriaId;
 	private Integer codigo;
 	private String subcategoriaDescricao;
 	private String subcategoriaDescricaoAbreviada;
-	private Integer subcategoriaQuantidadeEconomias;
 	private String codigoTarifaSocial;
 	private Short numeroFatorFiscalizacao;
 	private Short numeroIndicadorTarifaConsumo;
 	private Short indicadorSazonalidade;
 	
-	private Long categoriaId;
-	private String categoriaDescricao;
-	private String categoriaDescricaoAbreviada;
-	private Short fatorEconomias;
-	private Integer consumoEstouro;
-	private BigDecimal vezesMediaEstouro;
 	private Integer categoriaQuantidadeEconomias;
-	private Integer consumoAlto;
-	private Integer mediaBaixoConsumo;
-	private BigDecimal vezesMediaAltoConsumo;
-	private BigDecimal porcentagemMediaBaixoConsumo;
-	private Integer numeroConsumoMaximoEc;
-	private Short indicadorCobrancaAcrescimos;
 	
-	private Long categoriaTipoId;
 	private String categoriaTipoDescricao;
-	
-	private Long imovelId;
 	
 	public ImovelSubcategoriaTO(){}
 	
+	
+	public ImovelSubcategoriaTO(Long categoriaId, String categoriaDescricao, Integer consumoEstouro, BigDecimal vezesMediaEstouro,
+			Long subcategoriaQuantidadeEconomias, Long imovelId, Integer consumoAlto, Integer mediaBaixoConsumo, BigDecimal vezesMediaAltoConsumo,
+			BigDecimal porcentagemMediaBaixoConsumo, String categoriaDescricaoAbreviada, Integer numeroConsumoMaximoEc, Short indicadorCobrancaAcrescimos,
+			Short fatorEconomias, Short categoriaTipoId) {
+		this.categoriaId = categoriaId;
+		this.categoriaDescricao = categoriaDescricao;
+		this.consumoEstouro = consumoEstouro;
+		this.vezesMediaEstouro = vezesMediaEstouro;
+		this.subcategoriaQuantidadeEconomias = subcategoriaQuantidadeEconomias;
+		this.imovelId = imovelId;
+		this.consumoAlto = consumoAlto;
+		this.mediaBaixoConsumo = mediaBaixoConsumo;
+		this.vezesMediaAltoConsumo = vezesMediaAltoConsumo;
+		this.porcentagemMediaBaixoConsumo = porcentagemMediaBaixoConsumo;
+		this.categoriaDescricaoAbreviada = categoriaDescricaoAbreviada;
+		this.numeroConsumoMaximoEc = numeroConsumoMaximoEc;
+		this.indicadorCobrancaAcrescimos = indicadorCobrancaAcrescimos;
+		this.fatorEconomias = fatorEconomias;
+		this.categoriaTipoId = categoriaTipoId;
+	}
+
+
 	public void setId(Long id){
 		setCategoriaId(id);
 		setSubcategoriaId(id);
@@ -110,15 +133,15 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 		if (getSubcategoriaQuantidadeEconomias() == null) {
 			return getCategoriaQuantidadeEconomias();
 		} else {
-			return getSubcategoriaQuantidadeEconomias();
+			return getSubcategoriaQuantidadeEconomias().intValue();
 		}
 	}
 
-	public Integer getSubcategoriaQuantidadeEconomias() {
+	public Long getSubcategoriaQuantidadeEconomias() {
 		return subcategoriaQuantidadeEconomias;
 	}
 
-	public void setSubcategoriaQuantidadeEconomias(Integer subcategoriaQuantidadeEconomias) {
+	public void setSubcategoriaQuantidadeEconomias(Long subcategoriaQuantidadeEconomias) {
 		this.subcategoriaQuantidadeEconomias = subcategoriaQuantidadeEconomias;
 	}
 
@@ -258,11 +281,11 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 		this.indicadorCobrancaAcrescimos = indicadorCobrancaAcrescimos;
 	}
 
-	public Long getCategoriaTipoId() {
+	public Short getCategoriaTipoId() {
 		return categoriaTipoId;
 	}
 
-	public void setCategoriaTipoId(Long categoriaTipoId) {
+	public void setCategoriaTipoId(Short categoriaTipoId) {
 		this.categoriaTipoId = categoriaTipoId;
 	}
 

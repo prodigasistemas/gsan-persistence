@@ -75,6 +75,9 @@ public class Categoria implements Serializable, ICategoria{
 	@Column(name="catg_icpermissaoespecial")
 	private Short indicadorPermissaoEspecial;
 	
+	@Column(name="cgtp_id")
+	private Short categoriaTipo;
+	
 	private Integer quantidadeEconomias;
 	
 	public Categoria(){}
@@ -219,7 +222,6 @@ public class Categoria implements Serializable, ICategoria{
 		this.indicadorPermissaoEspecial = indicadorPermissaoEspecial;
 	}
 
-	@Override
 	public Integer getQuantidadeEconomias() {
 		return quantidadeEconomias;
 	}
@@ -228,12 +230,18 @@ public class Categoria implements Serializable, ICategoria{
 		this.quantidadeEconomias = quantidadeEconomias;
 	}
 	
-	@Override
+	public Short getCategoriaTipo() {
+		return categoriaTipo;
+	}
+
+	public void setCategoriaTipo(Short categoriaTipo) {
+		this.categoriaTipo = categoriaTipo;
+	}
+
 	public Categoria getCategoria(){
 		return this;
 	}
 	
-	@Override
 	public Subcategoria getSubcategoria(){
 		return Subcategoria.SUBCATEGORIA_ZERO;
 	}
