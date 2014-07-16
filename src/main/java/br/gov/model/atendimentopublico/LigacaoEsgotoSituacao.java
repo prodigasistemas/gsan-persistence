@@ -54,6 +54,6 @@ public class LigacaoEsgotoSituacao implements Serializable {
 	}
 
 	public String toString() {
-		return "LigacaoEsgotoSituacao [id=" + id + ", descricao=" + descricao + ", situacaoFaturamento=" + situacaoFaturamento + "]";
+		return "LigacaoEsgotoSituacao [id=" + id + ", descricao=" + descricao + "]";
 	}
 }

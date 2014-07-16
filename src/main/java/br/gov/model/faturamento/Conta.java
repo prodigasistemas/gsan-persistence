@@ -12,7 +12,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -120,31 +119,31 @@ public class Conta implements Serializable{
 	@Column(name="cnta_pccoleta")
 	private BigDecimal percentualColeta;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="lest_id")
 	private LigacaoEsgotoSituacao ligacaoEsgotoSituacao;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="last_id")
 	private LigacaoAguaSituacao ligacaoAguaSituacao;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "imov_id")
 	private Imovel imovel;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="loca_id")
 	private Localidade localidade;
 		
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="qdra_id")
 	private Quadra quadra;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="rota_id")
 	private Rota rota;
 	
@@ -635,5 +634,9 @@ public class Conta implements Serializable{
 		valorTotal = valorTotal.add(valorImposto  != null ? valorImposto : BigDecimal.ZERO);
 
 		return valorTotal;
+	}
+
+	public String toString() {
+		return "Conta [id=" + id + "]";
 	}
 }

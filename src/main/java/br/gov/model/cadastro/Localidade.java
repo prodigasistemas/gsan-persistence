@@ -10,10 +10,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="localidade", schema="cadastro")
 public class Localidade implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8168753906493746420L;
 
 	@Id

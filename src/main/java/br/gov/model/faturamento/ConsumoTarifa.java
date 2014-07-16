@@ -26,4 +26,8 @@ public class ConsumoTarifa implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public String toString() {
+		return "ConsumoTarifa [id=" + id + "]";
+	}
 }

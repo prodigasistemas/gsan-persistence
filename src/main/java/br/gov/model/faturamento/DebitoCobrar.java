@@ -5,7 +5,6 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -91,7 +90,7 @@ public class DebitoCobrar implements IDebito{
 	@Column(name="cmrv_id")
 	private Integer contaMotivoRevisao;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="parc_id")
 	private Parcelamento parcelamento;	
 

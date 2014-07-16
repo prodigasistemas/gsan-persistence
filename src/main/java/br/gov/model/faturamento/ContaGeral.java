@@ -1,8 +1,6 @@
 package br.gov.model.faturamento;
 
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,5 +39,9 @@ public class ContaGeral {
 
 	public void setIndicadorHistorico(Short indicadorHistorico) {
 		this.indicadorHistorico = indicadorHistorico;
+	}
+
+	public String toString() {
+		return "ContaGeral [id=" + id + "]";
 	}
 }

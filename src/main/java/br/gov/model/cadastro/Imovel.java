@@ -1,8 +1,9 @@
 package br.gov.model.cadastro;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +20,8 @@ import br.gov.model.micromedicao.HidrometroInstalacaoHistorico;
 
 @Entity
 @Table(name="imovel", schema="cadastro")
-public class Imovel{
+public class Imovel implements Serializable{
+	private static final long serialVersionUID = 1200767585478407463L;
 
 	@Id
 	@Column(name="imov_id")
@@ -49,15 +51,15 @@ public class Imovel{
 	@Column(name="imov_icdebitoconta")
 	private Short indicadorDebitoConta;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="loca_id")
 	private Localidade localidade;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="stcm_id")
 	private SetorComercial setorComercial;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="qdra_id")
 	private Quadra quadra;
 

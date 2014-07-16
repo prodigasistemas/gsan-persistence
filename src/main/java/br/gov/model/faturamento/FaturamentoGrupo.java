@@ -103,4 +103,8 @@ public class FaturamentoGrupo implements Serializable{
 	public void setIndicadorVencimentoMesFatura(Short indicadorVencimentoMesFatura) {
 		this.indicadorVencimentoMesFatura = indicadorVencimentoMesFatura;
 	}
+
+	public String toString() {
+		return "FaturamentoGrupo [id=" + id + "]";
+	}
 }
