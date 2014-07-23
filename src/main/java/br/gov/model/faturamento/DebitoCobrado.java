@@ -76,7 +76,10 @@ public class DebitoCobrado implements IDebito{
 	@ManyToOne
 	@JoinColumn(name="fntp_id")
 	private FinanciamentoTipo financiamentoTipo;
-
+	
+	@ManyToOne
+	@JoinColumn(name="cnta_id")
+	private Conta conta;
 
 	public DebitoCobrado() {
 	}
@@ -215,5 +218,13 @@ public class DebitoCobrado implements IDebito{
 
 	public void setFinanciamentoTipo(FinanciamentoTipo financiamentoTipo) {
 		this.financiamentoTipo = financiamentoTipo;
+	}
+
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 }

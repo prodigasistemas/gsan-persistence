@@ -16,10 +16,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="subcategoria", schema="cadastro")
 public class Subcategoria implements Serializable, ICategoria {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8583209465706655041L;
 
 	@Id

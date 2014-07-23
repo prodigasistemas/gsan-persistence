@@ -8,18 +8,12 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="conta_categoria", schema="faturamento")
 public class ContaCategoria implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6419566037598200012L;
 
 	@EmbeddedId
@@ -55,12 +49,7 @@ public class ContaCategoria implements Serializable{
 	@Column(name="ctcg_nnconsumominimoesgoto")
 	private Integer consumoMinimoEsgoto;
 	
-	@OneToMany
-	@JoinColumns({
-		@JoinColumn(name="cnta_id", referencedColumnName="cnta_id"),
-		@JoinColumn(name="catg_id", referencedColumnName="catg_id"),
-		@JoinColumn(name="scat_id", referencedColumnName="scat_id")
-	})
+	@OneToMany(mappedBy="contaCategoria")
     private Set<ContaCategoriaConsumoFaixa> contaCategoriaConsumoFaixas;
 	
 	public ContaCategoria(){}

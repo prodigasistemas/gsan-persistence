@@ -1,0 +1,9 @@
+faturamento.conta:
+  - cnta_id: 1
+  - cnta_id: 2
+  - cnta_id: 3
+  - cnta_id: 4
+
+faturamento.debito_cobrado:
+  - dbcb_id: 2
+    cnta_id: 2
