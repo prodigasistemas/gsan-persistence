@@ -1,0 +1,11 @@
+faturamento.conta:
+  - cnta_id: 1
+  - cnta_id: 2
+  - cnta_id: 3
+  - cnta_id: 4
+
+faturamento.conta_impostos_deduzidos:
+  - cnid_id: 5
+    cnta_id: 2
+  - cnid_id: 6
+    cnta_id: 2

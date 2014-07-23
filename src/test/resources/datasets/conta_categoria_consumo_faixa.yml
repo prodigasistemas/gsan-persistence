@@ -1,0 +1,46 @@
+cadastro.categoria:
+  - catg_id: 1
+
+cadastro.subcategoria:
+  - scat_id: 1
+    catg_id: 1
+
+faturamento.conta:
+  - cnta_id: 1
+  - cnta_id: 2
+  - cnta_id: 3
+  - cnta_id: 4
+
+faturamento.conta_categoria:
+  - cnta_id: 1
+    catg_id: 1
+    scat_id: 1
+  - cnta_id: 2
+    catg_id: 1
+    scat_id: 1
+
+faturamento.conta_catg_cons_fx:
+  - cccf_id: 1
+    cnta_id: 1
+    catg_id: 1
+    scat_id: 1
+  - cccf_id: 2
+    cnta_id: 1
+    catg_id: 1
+    scat_id: 1
+  - cccf_id: 3
+    cnta_id: 1
+    catg_id: 1
+    scat_id: 1
+  - cccf_id: 4
+    cnta_id: 1
+    catg_id: 1
+    scat_id: 1
+  - cccf_id: 5
+    cnta_id: 2
+    catg_id: 1
+    scat_id: 1
+  - cccf_id: 6
+    cnta_id: 2
+    catg_id: 1
+    scat_id: 1

@@ -1,0 +1,28 @@
+cadastro.categoria:
+  - catg_id: 1
+
+faturamento.conta:
+  - cnta_id: 1
+  - cnta_id: 2
+  - cnta_id: 3
+  - cnta_id: 4
+
+faturamento.credito_realizado:
+  - crrz_id: 1
+    cnta_id: 1
+  - crrz_id: 2
+    cnta_id: 2
+  - crrz_id: 3
+    cnta_id: 3
+  - crrz_id: 4
+    cnta_id: 4
+
+faturamento.cred_realizado_catg:
+  - crrz_id: 1
+    catg_id: 1
+  - crrz_id: 2
+    catg_id: 1
+  - crrz_id: 3
+    catg_id: 1
+  - crrz_id: 4
+    catg_id: 1

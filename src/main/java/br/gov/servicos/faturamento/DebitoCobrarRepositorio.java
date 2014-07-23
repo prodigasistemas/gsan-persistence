@@ -1,6 +1,7 @@
 package br.gov.servicos.faturamento;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -31,5 +32,21 @@ public class DebitoCobrarRepositorio {
 				.setParameter("situacao", DebitoCreditoSituacao.NORMAL)
 				.getResultList();
 		return debitos;
+	}
+	
+	public void atualizarReferenciaEGrupoFaturamento(Integer referencia, Integer grupoFaturamento, List<Long> idsImoveis){
+		if (idsImoveis != null && idsImoveis.size() > 0){
+			StringBuilder sql = new StringBuilder();
+			sql.append(" update faturamento.debito_a_cobrar ")
+			.append(" set dbac_nnprestacaocobradas = dbac_nnprestacaocobradas - 1 ")
+			.append(" where dbac_amreferenciaprestacao >= :referencia ")
+			.append(" and dbac_nnprestacaocobradas > 0 ")
+			.append(" and imov_id in (:ids)");
+			
+			entity.createNativeQuery(sql.toString())
+			.setParameter("referencia", referencia)
+			.setParameter("ids", idsImoveis)
+			.executeUpdate();
+		}
 	}
 }

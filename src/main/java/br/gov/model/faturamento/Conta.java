@@ -154,7 +154,7 @@ public class Conta implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="cstf_id")
 	private ConsumoTarifa consumoTarifa;
-		
+	
 	public Conta() {
 	}
 
@@ -196,6 +196,140 @@ public class Conta implements Serializable{
 		lote                       = imovel.getLote();
 		quadra                     = imovel.getQuadra();
 		subLote                    = imovel.getSubLote();
+	}
+
+	public BigDecimal calculaValorTotal() {
+		BigDecimal valorTotal = BigDecimal.ZERO;
+		
+		valorTotal = valorTotal.add(valorAgua     != null ? valorAgua    : BigDecimal.ZERO);
+		valorTotal = valorTotal.add(valorEsgoto   != null ? valorEsgoto  : BigDecimal.ZERO);
+		valorTotal = valorTotal.add(valorDebitos  != null ? valorDebitos : BigDecimal.ZERO);
+		valorTotal = valorTotal.add(valorCreditos != null ? valorCreditos: BigDecimal.ZERO);
+		valorTotal = valorTotal.add(valorImposto  != null ? valorImposto : BigDecimal.ZERO);
+
+		return valorTotal;
+	}
+
+	public static class Builder{
+		private Integer          consumoAguaEsgoto = 0;
+		private Short            debitoCreditoSituacaoAtual;
+		private Date             dataVencimentoConta;
+		private Date             dataValidadeConta = new Date();
+		private FaturamentoGrupo faturamentoGrupo;
+		private Imovel           imovel;
+		private Short            indicadorCobrancaMulta = (short) 2;
+		private Short            indicadorAlteracaoVencimento;
+		private BigDecimal       percentualEsgoto;
+		private BigDecimal       percentualColeta;
+		private Integer          referencia;
+		private Integer          referenciaContabil;
+		private Rota             rota;
+		private BigDecimal       valorAgua;
+		private BigDecimal       valorEsgoto;
+		private BigDecimal       valorCreditos;
+		private BigDecimal       valorDebitos;
+		private BigDecimal       valorImposto;
+		private MedicaoHistorico medicaoHistorico;
+		
+		public Conta build(){
+			return new Conta(this);
+		}
+		
+		public Builder imovel(Imovel i){
+			imovel = i;
+			return this;
+		}
+		
+		public Builder referenciaFaturamento(Integer r){
+			referencia = r;
+			return this;
+		}
+		
+		public Builder referenciaContabil(Integer r){
+			referenciaContabil = r;
+			return this;
+		}
+		
+		public Builder semCobrancaMulta(){
+			indicadorCobrancaMulta = (short) 2;
+			return this;
+		}
+		
+		public Builder vencimentoSemAntecipacaoFaturamento(){
+			indicadorCobrancaMulta = (short) 2;
+			return this;
+		}
+		
+		public Builder dataVencimentoConta(Date data){
+			dataVencimentoConta = data;
+			return this;
+		}
+		
+		public Builder validadeConta(Short numeroMesesValidadeConta) {
+			dataValidadeConta = adicionarMeses(dataValidadeConta, numeroMesesValidadeConta);
+			dataValidadeConta = atribuiDia(dataValidadeConta, obterUltimoDiaMes(dataValidadeConta));
+			return this;
+		}
+
+		public Builder indicadorAlteracaoVencimento(Short indicador) {
+			indicadorAlteracaoVencimento = indicador;
+			return this;
+		}
+
+		public Builder valorAgua(BigDecimal valor) {
+			valorAgua = valor;
+			return this;
+		}
+		
+		public Builder valorEsgoto(BigDecimal valor) {
+			valorEsgoto = valor;
+			return this;
+		}
+
+		public Builder valorCreditos(BigDecimal valor) {
+			valorCreditos = valor;
+			return this;
+		}
+		
+		public Builder valorDebitos(BigDecimal valor) {
+			valorDebitos = valor;
+			return this;
+		}
+
+		public Builder valorImposto(BigDecimal valor) {
+			valorImposto = valor;
+			return this;
+		}
+
+		public Builder percentualEsgoto(BigDecimal percentual) {
+			percentualEsgoto = percentual;
+			return this;
+		}
+		
+		public Builder percentualColeta(BigDecimal percentual) {
+			percentualColeta = percentual;
+			return this;
+		}
+
+		public Builder debitoCreditoSituacaoAtual(DebitoCreditoSituacao situacao) {
+			debitoCreditoSituacaoAtual = situacao.getId();
+			return this;
+		}
+
+		public Builder faturamentoGrupo(FaturamentoGrupo grupo) {
+			faturamentoGrupo = grupo;
+			return this;
+		}
+		
+		public Builder leiturasFaturamento(MedicaoHistorico medicao){
+			medicaoHistorico = medicao;
+			return this;
+		}
+
+		public Builder rota(Rota rota) {
+			this.rota = rota;
+			return this;
+		}
 	}
 
 	public Long getId() {
@@ -358,128 +492,6 @@ public class Conta implements Serializable{
 		this.quadra = quadra;
 	}
 
-	public static class Builder{
-		private Integer          consumoAguaEsgoto = 0;
-		private Short            debitoCreditoSituacaoAtual;
-		private Date             dataVencimentoConta;
-		private Date             dataValidadeConta = new Date();
-		private FaturamentoGrupo faturamentoGrupo;
-		private Imovel           imovel;
-		private Short            indicadorCobrancaMulta = (short) 2;
-		private Short            indicadorAlteracaoVencimento;
-		private BigDecimal       percentualEsgoto;
-		private BigDecimal       percentualColeta;
-		private Integer          referencia;
-		private Integer          referenciaContabil;
-		private Rota             rota;
-		private BigDecimal       valorAgua;
-		private BigDecimal       valorEsgoto;
-		private BigDecimal       valorCreditos;
-		private BigDecimal       valorDebitos;
-		private BigDecimal       valorImposto;
-		private MedicaoHistorico medicaoHistorico;
-		
-		public Conta build(){
-			return new Conta(this);
-		}
-		
-		public Builder imovel(Imovel i){
-			imovel = i;
-			return this;
-		}
-		
-		public Builder referenciaFaturamento(Integer r){
-			referencia = r;
-			return this;
-		}
-		
-		public Builder referenciaContabil(Integer r){
-			referenciaContabil = r;
-			return this;
-		}
-		
-		public Builder semCobrancaMulta(){
-			indicadorCobrancaMulta = (short) 2;
-			return this;
-		}
-		
-		public Builder vencimentoSemAntecipacaoFaturamento(){
-			indicadorCobrancaMulta = (short) 2;
-			return this;
-		}
-		
-		public Builder dataVencimentoConta(Date data){
-			dataVencimentoConta = data;
-			return this;
-		}
-		
-		public Builder validadeConta(Short numeroMesesValidadeConta) {
-			dataValidadeConta = adicionarMeses(dataValidadeConta, numeroMesesValidadeConta);
-			dataValidadeConta = atribuiDia(dataValidadeConta, obterUltimoDiaMes(dataValidadeConta));
-			return this;
-		}
-
-		public Builder indicadorAlteracaoVencimento(Short indicador) {
-			indicadorAlteracaoVencimento = indicador;
-			return this;
-		}
-
-		public Builder valorAgua(BigDecimal valor) {
-			valorAgua = valor;
-			return this;
-		}
-		
-		public Builder valorEsgoto(BigDecimal valor) {
-			valorEsgoto = valor;
-			return this;
-		}
-
-		public Builder valorCreditos(BigDecimal valor) {
-			valorCreditos = valor;
-			return this;
-		}
-		
-		public Builder valorDebitos(BigDecimal valor) {
-			valorDebitos = valor;
-			return this;
-		}
-
-		public Builder valorImposto(BigDecimal valor) {
-			valorImposto = valor;
-			return this;
-		}
-
-		public Builder percentualEsgoto(BigDecimal percentual) {
-			percentualEsgoto = percentual;
-			return this;
-		}
-		
-		public Builder percentualColeta(BigDecimal percentual) {
-			percentualColeta = percentual;
-			return this;
-		}
-
-		public Builder debitoCreditoSituacaoAtual(DebitoCreditoSituacao situacao) {
-			debitoCreditoSituacaoAtual = situacao.getId();
-			return this;
-		}
-
-		public Builder faturamentoGrupo(FaturamentoGrupo grupo) {
-			faturamentoGrupo = grupo;
-			return this;
-		}
-		
-		public Builder leiturasFaturamento(MedicaoHistorico medicao){
-			medicaoHistorico = medicao;
-			return this;
-		}
-
-		public Builder rota(Rota rota) {
-			this.rota = rota;
-			return this;
-		}
-	}
-
 	public Short getDebitoCreditoSituacaoAtual() {
 		return debitoCreditoSituacaoAtual;
 	}
@@ -622,18 +634,6 @@ public class Conta implements Serializable{
 
 	public void setConsumoTarifa(ConsumoTarifa consumoTarifa) {
 		this.consumoTarifa = consumoTarifa;
-	}
-
-	public BigDecimal calculaValorTotal() {
-		BigDecimal valorTotal = BigDecimal.ZERO;
-		
-		valorTotal = valorTotal.add(valorAgua     != null ? valorAgua    : BigDecimal.ZERO);
-		valorTotal = valorTotal.add(valorEsgoto   != null ? valorEsgoto  : BigDecimal.ZERO);
-		valorTotal = valorTotal.add(valorDebitos  != null ? valorDebitos : BigDecimal.ZERO);
-		valorTotal = valorTotal.add(valorCreditos != null ? valorCreditos: BigDecimal.ZERO);
-		valorTotal = valorTotal.add(valorImposto  != null ? valorImposto : BigDecimal.ZERO);
-
-		return valorTotal;
 	}
 
 	public String toString() {

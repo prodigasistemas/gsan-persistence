@@ -1,0 +1,25 @@
+faturamento.conta:
+  - cnta_id: 1
+  - cnta_id: 2
+  - cnta_id: 3
+  - cnta_id: 4
+
+faturamento.debito_cobrado:
+  - dbcb_id: 1
+    cnta_id: 1
+  - dbcb_id: 2
+    cnta_id: 2
+  - dbcb_id: 3
+    cnta_id: 3
+  - dbcb_id: 4
+    cnta_id: 4
+
+faturamento.debito_cobrado_categoria:
+  - dbcb_id: 1
+    catg_id: 1
+  - dbcb_id: 2
+    catg_id: 1
+  - dbcb_id: 3
+    catg_id: 1
+  - dbcb_id: 4
+    catg_id: 1

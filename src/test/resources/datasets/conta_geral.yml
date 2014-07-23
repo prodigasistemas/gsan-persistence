@@ -1,0 +1,9 @@
+faturamento.conta_geral:
+  - cnta_id: 1
+    cntg_ichistorico: 1
+  - cnta_id: 2
+    cntg_ichistorico: 1
+  - cnta_id: 3
+    cntg_ichistorico: 1
+  - cnta_id: 4
+    cntg_ichistorico: 1

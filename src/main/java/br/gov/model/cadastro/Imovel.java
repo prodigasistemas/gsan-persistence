@@ -17,6 +17,7 @@ import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
 import br.gov.model.faturamento.ConsumoTarifa;
 import br.gov.model.faturamento.FaturamentoSituacaoTipo;
 import br.gov.model.micromedicao.HidrometroInstalacaoHistorico;
+import br.gov.model.micromedicao.Rota;
 
 @Entity
 @Table(name="imovel", schema="cadastro")
@@ -90,6 +91,10 @@ public class Imovel implements Serializable{
 	@JoinColumn(name="cstf_id")
 	private ConsumoTarifa consumoTarifa;
 	
+	@ManyToOne
+	@JoinColumn(name="rota_idalternativa")
+	private Rota rotaAlternativa;
+
 	public Imovel() {
 	}
 
@@ -255,6 +260,14 @@ public class Imovel implements Serializable{
 
 	public void setConsumoTarifa(ConsumoTarifa consumoTarifa) {
 		this.consumoTarifa = consumoTarifa;
+	}
+
+	public Rota getRotaAlternativa() {
+		return rotaAlternativa;
+	}
+
+	public void setRotaAlternativa(Rota rotaAlternativa) {
+		this.rotaAlternativa = rotaAlternativa;
 	}
 
 	public String toString() {

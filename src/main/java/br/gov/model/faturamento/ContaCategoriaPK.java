@@ -7,10 +7,6 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class ContaCategoriaPK implements Serializable {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3831797635543265756L;
 
 	@Column(name="cnta_id")

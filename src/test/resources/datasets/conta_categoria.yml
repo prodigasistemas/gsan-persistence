@@ -1,0 +1,29 @@
+cadastro.categoria:
+  - catg_id: 1
+  - catg_id: 2
+
+cadastro.subcategoria:
+  - scat_id: 1
+    catg_id: 1
+  - scat_id: 2
+    catg_id: 2
+
+faturamento.conta:
+  - cnta_id: 1
+  - cnta_id: 2
+  - cnta_id: 3
+  - cnta_id: 4
+
+faturamento.conta_categoria:
+  - cnta_id: 1
+    catg_id: 1
+    scat_id: 1
+  - cnta_id: 2
+    catg_id: 2
+    scat_id: 2
+  - cnta_id: 3
+    catg_id: 1
+    scat_id: 1
+  - cnta_id: 4
+    catg_id: 2
+    scat_id: 2

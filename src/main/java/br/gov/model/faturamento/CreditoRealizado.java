@@ -20,10 +20,6 @@ import br.gov.model.financeiro.LancamentoItemContabil;
 @Entity
 @Table(name="credito_realizado", schema="faturamento")
 public class CreditoRealizado implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3753315268533148395L;
 
 	@Id
@@ -87,6 +83,10 @@ public class CreditoRealizado implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="crar_id")
 	private CreditoRealizarGeral creditoRealizarGeral;
+	
+	@ManyToOne
+	@JoinColumn(name="cnta_id")
+	private Conta conta;
 	
 	public CreditoRealizado(){}
 
@@ -232,5 +232,17 @@ public class CreditoRealizado implements Serializable{
 
 	public void setCreditoRealizarGeral(CreditoRealizarGeral creditoRealizarGeral) {
 		this.creditoRealizarGeral = creditoRealizarGeral;
+	}
+
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
+	}
+
+	public String toString() {
+		return "CreditoRealizado [id=" + id + "]";
 	}
 }
