@@ -1,4 +1,4 @@
-package br.gov.servicos.arrecadacao;
+package br.gov.servicos.cobranca.parcelamento;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +16,11 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import br.gov.servicos.cobranca.parcelamento.ParcelamentoItemRepositorio;
 import br.gov.servicos.test.ShrinkWrapBuilder;
 
 @RunWith(Arquillian.class)
-public class DebitoAutomaticoMovimentoRepositorioTest {
+public class ParcelamentoItemRepositorioTest {
 
 	@Deployment
     public static Archive<?> createDeployment() {
@@ -27,17 +28,16 @@ public class DebitoAutomaticoMovimentoRepositorioTest {
     }
 	
 	@Inject
-	private DebitoAutomaticoMovimentoRepositorio repositorio;
+	private ParcelamentoItemRepositorio repositorio;
 	
 	@Test
-	@UsingDataSet({"debito_automatico_movimento.yml"})
-	@ShouldMatchDataSet("debito_automatico_movimento_expected.yml")
+	@UsingDataSet({"parcelamento_item.yml"})
+	@ShouldMatchDataSet("parcelamento_item_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void apagarMovimentoDebitoAutomatico(){
+	public void apagarParcelamentosDasContas(){
 		List<Long> ids = new ArrayList<Long>();
 		ids.add(1L);
-		ids.add(3L);
 		ids.add(4L);
-		repositorio.apagarMovimentosDebitoAutomaticoDasConta(ids);
+		repositorio.eliminarParcelamentosDeContas(ids);
 	}
 }

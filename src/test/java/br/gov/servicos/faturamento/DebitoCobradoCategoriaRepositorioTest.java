@@ -36,16 +36,13 @@ public class DebitoCobradoCategoriaRepositorioTest {
 	@UsingDataSet({"debito_cobrado_categoria.yml"})
 	@ShouldMatchDataSet("debito_cobrado_categoria_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void apagarContasImpressao(){
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+	public void apagarCategoriasDebitosCobrados(){
 		List<Long> ids = new ArrayList<Long>();
 		ids.add(1L);
 		ids.add(2L);
 		ids.add(4L);
 		
 		List<Long> idsDebitos = repositorio.debitosCobradosDasContas(ids);
-		
-		System.out.println(idsDebitos);
 		
 		categoriaRepositorio.apagarCategoriasdosDebitosCobrados(idsDebitos);
 	}

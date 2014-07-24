@@ -33,8 +33,7 @@ public class CreditoRealizadoRepositorioTest {
 	@UsingDataSet({"credito_realizado.yml"})
 	@ShouldMatchDataSet("credito_realizado_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void apagarContasImpressao(){
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+	public void apagarCreditosRealizados(){
 		List<Long> ids = new ArrayList<Long>();
 		ids.add(1L);
 		ids.add(3L);

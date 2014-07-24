@@ -34,7 +34,6 @@ public class ContaImpostosDeduzidosRepositorioTest {
 	@ShouldMatchDataSet("conta_impostos_deduzidos_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void apagarImpostosDeduzidos(){
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		List<Long> ids = new ArrayList<Long>();
 		ids.add(1L);
 		repositorio.apagarImpostosDeduzidosDeContas(ids);

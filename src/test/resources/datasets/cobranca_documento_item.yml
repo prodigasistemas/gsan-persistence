@@ -1,0 +1,26 @@
+faturamento.conta_geral:
+  - cnta_id: 1
+  - cnta_id: 2
+  - cnta_id: 3
+  - cnta_id: 4
+  - cnta_id: 5
+
+cobranca.cobranca_documento_item:
+  - cdit_id: 1
+    cnta_id: 1
+  - cdit_id: 2
+    cnta_id: 1
+  - cdit_id: 3
+    cnta_id: 1
+  - cdit_id: 4
+    cnta_id: 1
+  - cdit_id: 5
+    cnta_id: 2
+  - cdit_id: 6
+    cnta_id: 3
+  - cdit_id: 7
+    cnta_id: 4
+  - cdit_id: 8
+    cnta_id: 5
+  - cdit_id: 9
+    cnta_id: 5

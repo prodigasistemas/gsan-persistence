@@ -34,7 +34,6 @@ public class ContaImpressaoRepositorioTest {
 	@ShouldMatchDataSet("contas_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void apagarContasImpressao(){
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		List<Long> ids = new ArrayList<Long>();
 		ids.add(2L);
 		ids.add(4L);

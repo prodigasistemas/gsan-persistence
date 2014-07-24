@@ -1,6 +1,7 @@
-package br.gov.servicos.arrecadacao;
+package br.gov.servicos.arrecadacao.pagamento;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,4 +20,12 @@ public class PagamentoRepositorio {
 		// ...
 		return existeDebitoSemPagamento;
 	}
+
+	public void apagarPagamentosDasConta(List<Long> ids){
+		String delete = "update arrecadacao.pagamento set cnta_id = null where cnta_id in (:ids)";
+		
+		entity.createNativeQuery(delete)
+		.setParameter("ids", ids)
+		.executeUpdate();
+	}	
 }

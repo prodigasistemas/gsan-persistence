@@ -24,6 +24,14 @@ public class ContaRepositorio {
 		}
 	}
 	
+	public void apagar(List<Long> ids) {
+		String delete = "delete from faturamento.conta where cnta_id in (:ids)";
+		
+		entity.createNativeQuery(delete)
+		.setParameter("ids", ids)
+		.executeUpdate();
+	}
+	
 	public List<String> idsContasDeImovelSemRotaAlternativa(Integer idRota, Integer referencia, Short debitoCreditoSistuacao){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select cnta.cnta_id ")

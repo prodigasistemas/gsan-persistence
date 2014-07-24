@@ -34,7 +34,6 @@ public class ClienteContaRepositorioTest {
 	@ShouldMatchDataSet("cliente_conta_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void apagarClienteConta(){
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		List<Long> ids = new ArrayList<Long>();
 		ids.add(1L);
 		ids.add(3L);

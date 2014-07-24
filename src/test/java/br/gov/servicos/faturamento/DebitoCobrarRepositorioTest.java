@@ -60,11 +60,7 @@ public class DebitoCobrarRepositorioTest {
 	@ShouldMatchDataSet("debito_cobrar_atualizacao_contas_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void atualizarParaImoveisDeContasSemRotaAlternativa() throws Exception{
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		
 		List<Long> imoveis = contaRepositorio.imoveisDeContasSemRotaAlternativa(1, 201404, (short) 3);
-
-		System.out.println(imoveis);
 		
 		repositorio.atualizarReferenciaEGrupoFaturamento(201404, 1, imoveis);
 		
@@ -75,11 +71,7 @@ public class DebitoCobrarRepositorioTest {
 	@ShouldMatchDataSet("debito_cobrar_atualizacao_contas_alternativas_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void atualizarParaImoveisDeContasComRotaAlternativa() throws Exception{
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		
 		List<Long> imoveis = contaRepositorio.imoveisDeContasComRotaAlternativa(2, 201404, (short) 3);
-		
-		System.out.println(imoveis);
 		
 		repositorio.atualizarReferenciaEGrupoFaturamento(201404, 1, imoveis);
 		

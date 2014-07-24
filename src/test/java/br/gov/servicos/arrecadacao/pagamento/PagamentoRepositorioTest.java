@@ -1,4 +1,4 @@
-package br.gov.servicos.arrecadacao;
+package br.gov.servicos.arrecadacao.pagamento;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 import br.gov.servicos.test.ShrinkWrapBuilder;
 
 @RunWith(Arquillian.class)
-public class DebitoAutomaticoMovimentoRepositorioTest {
+public class PagamentoRepositorioTest {
 
 	@Deployment
     public static Archive<?> createDeployment() {
@@ -27,17 +27,17 @@ public class DebitoAutomaticoMovimentoRepositorioTest {
     }
 	
 	@Inject
-	private DebitoAutomaticoMovimentoRepositorio repositorio;
+	private PagamentoRepositorio repositorio;
 	
 	@Test
-	@UsingDataSet({"debito_automatico_movimento.yml"})
-	@ShouldMatchDataSet("debito_automatico_movimento_expected.yml")
+	@UsingDataSet({"pagamento.yml"})
+	@ShouldMatchDataSet("pagamento_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void apagarMovimentoDebitoAutomatico(){
+	public void apagarPagamentos(){
 		List<Long> ids = new ArrayList<Long>();
 		ids.add(1L);
 		ids.add(3L);
 		ids.add(4L);
-		repositorio.apagarMovimentosDebitoAutomaticoDasConta(ids);
+		repositorio.apagarPagamentosDasConta(ids);
 	}
 }

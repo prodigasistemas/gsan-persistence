@@ -1,0 +1,26 @@
+faturamento.conta_geral:
+  - cnta_id: 1
+  - cnta_id: 2
+  - cnta_id: 3
+  - cnta_id: 4
+  - cnta_id: 5
+
+cobranca.parcelamento_item:
+  - pcit_id: 1
+    cnta_id: 1
+  - pcit_id: 2
+    cnta_id: 1
+  - pcit_id: 3
+    cnta_id: 1
+  - pcit_id: 4
+    cnta_id: 1
+  - pcit_id: 5
+    cnta_id: 2
+  - pcit_id: 6
+    cnta_id: 3
+  - pcit_id: 7
+    cnta_id: 4
+  - pcit_id: 8
+    cnta_id: 5
+  - pcit_id: 9
+    cnta_id: 5

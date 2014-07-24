@@ -33,8 +33,7 @@ public class ContaCategoriaRepositorioTest {
 	@UsingDataSet({"conta_categoria.yml"})
 	@ShouldMatchDataSet("conta_categoria_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void apagarContasImpressao(){
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+	public void apagarCategoriasDasContas(){
 		List<Long> ids = new ArrayList<Long>();
 		ids.add(1L);
 		ids.add(2L);

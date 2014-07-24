@@ -1,0 +1,26 @@
+faturamento.conta_geral:
+  - cnta_id: 1
+  - cnta_id: 2
+  - cnta_id: 3
+  - cnta_id: 4
+  - cnta_id: 5
+
+arrecadacao.pagamento:
+  - pgmt_id: 1
+    cnta_id: 1
+  - pgmt_id: 2
+    cnta_id: 1
+  - pgmt_id: 3
+    cnta_id: 1
+  - pgmt_id: 4
+    cnta_id: 1
+  - pgmt_id: 5
+    cnta_id: 2
+  - pgmt_id: 6
+    cnta_id: 3
+  - pgmt_id: 7
+    cnta_id: 4
+  - pgmt_id: 8
+    cnta_id: 5
+  - pgmt_id: 9
+    cnta_id: 5

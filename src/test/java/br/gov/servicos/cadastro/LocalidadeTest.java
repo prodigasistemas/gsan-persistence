@@ -33,14 +33,7 @@ public class LocalidadeTest {
 	@UsingDataSet("cadastros.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarImovelPorId2() throws Exception {
-		System.out.println(" ********************************************************************* ");
-		
-		StringBuilder sql = new StringBuilder();
-		sql.append("select lo from Localidade lo ");
-		
 		Localidade lo = localidadeRepositorio.find(1L);
-		
-		System.out.println("************ " + lo.getNome());
 		
 		assertEquals("Belem", lo.getNome());
 	}
