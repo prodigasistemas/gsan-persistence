@@ -13,12 +13,12 @@ public class CreditoRealizadoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public List<Long> creditosRealizadosDasContas(List<Long> ids){
+	public List<Long> creditosRealizadosDasContas(List<Long> idsContas){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select crrz_id from faturamento.credito_realizado where cnta_id in (:ids) ");
 		
 		List lista = entity.createNativeQuery(sql.toString())
-				.setParameter("ids", ids)
+				.setParameter("ids", idsContas)
 				.getResultList();
 		
 		List<Long> result = new ArrayList<Long>();
@@ -28,11 +28,11 @@ public class CreditoRealizadoRepositorio {
 		return result;		
 	}
 	
-	public void apagarCreditosRealizadosDasContas(List<Long> ids){
+	public void apagarCreditosRealizadosDasContas(List<Long> idsContas){
 		String delete = "delete from faturamento.credito_realizado where cnta_id in (:ids)";
 		
 		entity.createNativeQuery(delete)
-		.setParameter("ids", ids)
+		.setParameter("ids", idsContas)
 		.executeUpdate();
 	}		
 }

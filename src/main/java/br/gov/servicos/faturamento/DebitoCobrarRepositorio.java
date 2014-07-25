@@ -34,7 +34,7 @@ public class DebitoCobrarRepositorio {
 		return debitos;
 	}
 	
-	public void atualizarReferenciaEGrupoFaturamento(Integer referencia, Integer grupoFaturamento, List<Long> idsImoveis){
+	public void reduzirParcelasCobradas(Integer referencia, Integer grupoFaturamento, List<Long> idsImoveis){
 		if (idsImoveis != null && idsImoveis.size() > 0){
 			StringBuilder sql = new StringBuilder();
 			sql.append(" update faturamento.debito_a_cobrar ")

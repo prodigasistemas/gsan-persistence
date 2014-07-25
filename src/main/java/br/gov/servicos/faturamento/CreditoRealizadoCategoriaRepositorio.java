@@ -12,11 +12,11 @@ public class CreditoRealizadoCategoriaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public void apagarCategoriasDosCreditosRealizados(List<Long> ids){
+	public void apagarCategoriasDosCreditosRealizados(List<Long> idsCreditosRealizados){
 		String delete = "delete from faturamento.cred_realizado_catg where crrz_id in (:ids)";
 		
 		entity.createNativeQuery(delete)
-		.setParameter("ids", ids)
+		.setParameter("ids", idsCreditosRealizados)
 		.executeUpdate();
 	}		
 }

@@ -38,16 +38,20 @@ faturamento.conta:
     cnta_amreferenciaconta: 201404
     ftgr_id: 1
 
-faturamento.debito_a_cobrar:
-  - dbac_id: 1
+faturamento.credito_a_realizar:
+  - crar_id: 1
     imov_id: 1
-    dbac_nnprestacaocobradas: 3
-    dbac_amreferenciaprestacao: 201405
-  - dbac_id: 2
+    crar_nnprestacaorealizadas: 4
+    crar_amreferenciaprestacao: 201405
+    crar_nnprestacaocredito: 2
+  - crar_id: 2
     imov_id: 1
-    dbac_nnprestacaocobradas: 6
-    dbac_amreferenciaprestacao: 201405
-  - dbac_id: 3
+    crar_nnprestacaorealizadas: 7
+    crar_amreferenciaprestacao: 201405
+    crar_nnprestacaocredito: 1
+    crar_vlresidualmesanterior: 0.00
+  - crar_id: 3
     imov_id: 2
-    dbac_nnprestacaocobradas: 7
-    dbac_amreferenciaprestacao: 201405
+    crar_nnprestacaorealizadas: 7
+    crar_vlresidualmesanterior: 600
+    crar_amreferenciaprestacao: 201405

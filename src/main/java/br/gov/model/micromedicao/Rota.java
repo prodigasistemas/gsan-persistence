@@ -20,6 +20,9 @@ public class Rota implements Serializable {
 	@Column(name="lttp_id")
 	private Short leituraTipo;
 	
+	@Column(name="rota_icalternativa")
+	private Short indicadorRotaAlternativa;
+	
 	public Rota() {
 	}
 
@@ -37,6 +40,18 @@ public class Rota implements Serializable {
 
 	public void setLeituraTipo(Short leituraTipo) {
 		this.leituraTipo = leituraTipo;
+	}
+	
+	public Short getIndicadorRotaAlternativa() {
+		return indicadorRotaAlternativa;
+	}
+
+	public void setIndicadorRotaAlternativa(Short indicadorRotaAlternativa) {
+		this.indicadorRotaAlternativa = indicadorRotaAlternativa;
+	}
+	
+	public boolean isAlternativa(){
+		return indicadorRotaAlternativa != null && indicadorRotaAlternativa == (short) 1;
 	}
 
 	public String toString() {

@@ -15,23 +15,30 @@ cadastro.imovel:
     qdra_id: 2
     rota_idalternativa: 2
 
+faturamento.faturamento_grupo:
+  - ftgr_id: 1
+
 faturamento.conta:
   - cnta_id: 1
     imov_id: 1
     dcst_idatual: 3
     cnta_amreferenciaconta: 201404
+    ftgr_id: 1
   - cnta_id: 2
     imov_id: 2
     dcst_idatual: 3
     cnta_amreferenciaconta: 201404
+    ftgr_id: 1
   - cnta_id: 3
     imov_id: 2
     dcst_idatual: 3
     cnta_amreferenciaconta: 201404
+    ftgr_id: 1
   - cnta_id: 4
     imov_id: 2
     dcst_idatual: 3
     cnta_amreferenciaconta: 201404
+    ftgr_id: 1
 
 faturamento.mov_conta_prefaturada:
   - mcpf_id: 1

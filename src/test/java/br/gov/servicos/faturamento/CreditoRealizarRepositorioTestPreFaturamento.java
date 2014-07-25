@@ -1,8 +1,5 @@
 package br.gov.servicos.faturamento;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,7 +18,7 @@ import org.junit.runner.RunWith;
 import br.gov.servicos.test.ShrinkWrapBuilder;
 
 @RunWith(Arquillian.class)
-public class ContaRepositorioTest {
+public class CreditoRealizarRepositorioTestPreFaturamento {
 
 	@Deployment
     public static Archive<?> createDeployment() {
@@ -29,35 +26,29 @@ public class ContaRepositorioTest {
     }
 	
 	@Inject
-	private ContaRepositorio repositorio;
+	private CreditoRealizarRepositorio repositorio;
 	
+	@Inject
+	ContaRepositorio contaRepositorio;
+
 	@Test
-	@UsingDataSet({"contas.yml"})
+	@UsingDataSet("credito_realizar_atualizacao.yml")
+	@ShouldMatchDataSet("credito_realizar_atualizacao_parcelas_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void idsContasDeImovelSemRotaAlternativa(){
-		List<Long> resultado = repositorio.idsContasDeImovelSemRotaAlternativa(1, 201404, (short) 3, 1);
+	public void atualizarParaImoveisDeContasSemRotaAlternativa() throws Exception{
+		List<Long> imoveis = contaRepositorio.imoveisDeContasSemRotaAlternativa(1, 201404, (short) 3, 1);
 		
-		assertEquals(1L, resultado.get(0).longValue());
+		repositorio.atualizarParcelas(201404, imoveis);
+		
 	}
 	
 	@Test
-	@UsingDataSet({"contas.yml"})
+	@UsingDataSet("credito_realizar_atualizacao.yml")
+	@ShouldMatchDataSet("credito_realizar_atualizacao_residuo_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void idsContasDeImovelComRotaAlternativa(){
-		List<Long> resultado = repositorio.idsContasDeImovelComRotaAlternativa(2, 201404, (short) 3, 1);
+	public void atualizarParaImoveisDeContasComRotaAlternativa() throws Exception{
+		List<Long> imoveis = contaRepositorio.imoveisDeContasComRotaAlternativa(2, 201404, (short) 3, 1);
 		
-		assertEquals(2L, resultado.get(0).longValue());
-	}
-	
-	@Test
-	@UsingDataSet("contas_apagar.yml")
-	@ShouldMatchDataSet("contas_apagar_expected.yml")
-	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void apagarContas(){
-		List<Long> ids = new ArrayList<Long>();
-		ids.add(1L);
-		ids.add(3L);
-		ids.add(5L);
-		repositorio.apagar(ids);
+		repositorio.atualizarValorResidual(imoveis);
 	}
 }
