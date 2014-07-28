@@ -15,4 +15,10 @@ public class RotaRepositorio {
 	public Rota findById(Integer id){
 		return entity.find(Rota.class, id);
 	}
+	
+	public boolean isRotaAlternativa(Integer id){
+		Rota rota = findById(id);
+		
+		return rota.isAlternativa();
+	}
 }

@@ -1,0 +1,34 @@
+micromedicao.rota:
+  - rota_id: 1
+
+cadastro.quadra:
+  - qdra_id: 1
+    rota_id: 1
+
+cadastro.setor_comercial:
+  - stcm_id: 1
+
+cadastro.localidade:
+  - loca_id: 1
+    loca_nmlocalidade: "Belem"
+
+cadastro.imovel_perfil:
+  - iper_id: 1
+    iper_icgerardadosleitura: 1
+
+cadastro.imovel:
+  - imov_id: 1
+    stcm_id: 1
+    qdra_id: 1
+    iper_id: 1
+    imov_icimovelcondominio: 0
+    imov_icexclusao: 0
+  - imov_id: 2
+    stcm_id: 1
+    qdra_id: 1
+    iper_id: 1
+    imov_icimovelcondominio: 0
+    imov_icexclusao: 0
+  - imov_id: 3
+    stcm_id: 1
+    qdra_id: 1

@@ -13,10 +13,12 @@ public class CreditoRealizadoCategoriaRepositorio {
 	private EntityManager entity;
 	
 	public void apagarCategoriasDosCreditosRealizados(List<Long> idsCreditosRealizados){
-		String delete = "delete from faturamento.cred_realizado_catg where crrz_id in (:ids)";
-		
-		entity.createNativeQuery(delete)
-		.setParameter("ids", idsCreditosRealizados)
-		.executeUpdate();
+		if (idsCreditosRealizados != null && idsCreditosRealizados.size() > 0){
+			String delete = "delete from faturamento.cred_realizado_catg where crrz_id in (:ids)";
+			
+			entity.createNativeQuery(delete)
+			.setParameter("ids", idsCreditosRealizados)
+			.executeUpdate();
+		}
 	}		
 }

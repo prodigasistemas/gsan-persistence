@@ -13,6 +13,7 @@ import org.jboss.arquillian.persistence.UsingDataSet;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.junit.Assert.*;
 
 import br.gov.model.cadastro.Imovel;
 import br.gov.servicos.test.ShrinkWrapBuilder;
@@ -30,13 +31,20 @@ public class ImovelRepositorioTest {
 	ImovelRepositorio repositorio;
 	
 	@Test
-	@UsingDataSet("imoveis.yml")
+	@UsingDataSet("imoveis_prefaturamento_sem_rota_alternativa.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void buscarImovelPorId() throws Exception {
-		List<Imovel> lista = repositorio.imoveisParaPreFaturamento(1, 0, 6000);
+	public void imoveisParaPreFaturamentoSemRotaAlternativa() throws Exception {
+		List<Imovel> lista = repositorio.imoveisParaPreFaturamentoSemRotaAlternativa(1, 0, 6000);
 		
-		for (Imovel imovel : lista) {
-			System.out.println(imovel.getSetorComercial().getCodigo());
-		}
+		assertEquals(2, lista.size());
 	}
+	
+	@Test
+	@UsingDataSet("imoveis_prefaturamento_com_rota_alternativa.yml")
+	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
+	public void imoveisParaPreFaturamentoComRotaAlternativa() throws Exception {
+		List<Imovel> lista = repositorio.imoveisParaPreFaturamentoComRotaAlternativa(2, 0, 6000);
+		
+		assertEquals(3, lista.size());
+	}	
 }

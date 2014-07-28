@@ -43,6 +43,12 @@ public class Imovel implements Serializable{
 	@Column(name="imov_icemsextfatmt")
 	private Short indicadorEmissaoExtratoFaturamento;
 	
+	@Column(name="imov_icexclusao")
+	private Short indicadorExclusao;
+	
+	@Column(name="imov_icimovelcondominio")
+	private Short indicadorImovelCondominio;
+	
 	@Column(name="imov_icvencimentomesseguinte")
 	private Short indicadorVencimentoMesSeguinte;
 	
@@ -92,8 +98,12 @@ public class Imovel implements Serializable{
 	private ConsumoTarifa consumoTarifa;
 	
 	@ManyToOne
-	@JoinColumn(name="rota_idalternativa")
+	@JoinColumn(name="rota_idalternativa", referencedColumnName="rota_id")
 	private Rota rotaAlternativa;
+	
+	@ManyToOne
+	@JoinColumn(name="iper_id")
+	private ImovelPerfil imovelPerfil;
 
 	public Imovel() {
 	}
@@ -268,6 +278,30 @@ public class Imovel implements Serializable{
 
 	public void setRotaAlternativa(Rota rotaAlternativa) {
 		this.rotaAlternativa = rotaAlternativa;
+	}
+
+	public Short getIndicadorExclusao() {
+		return indicadorExclusao;
+	}
+
+	public void setIndicadorExclusao(Short indicadorExclusao) {
+		this.indicadorExclusao = indicadorExclusao;
+	}
+
+	public Short getIndicadorImovelCondominio() {
+		return indicadorImovelCondominio;
+	}
+
+	public void setIndicadorImovelCondominio(Short indicadorImovelCondominio) {
+		this.indicadorImovelCondominio = indicadorImovelCondominio;
+	}
+
+	public ImovelPerfil getImovelPerfil() {
+		return imovelPerfil;
+	}
+
+	public void setImovelPerfil(ImovelPerfil imovelPerfil) {
+		this.imovelPerfil = imovelPerfil;
 	}
 
 	public String toString() {
