@@ -16,7 +16,7 @@ public class ImovelRepositorio{
 	
 	public long totalImoveisParaPreFaturamentoSemRotaAlternativa(int idRota){
 		StringBuilder sql = new StringBuilder();
-		sql.append("select count(imovel) ").append(consultaImoveisSemRotaAlternativa());
+		sql.append("select count(imovel) ").append(consultaImoveisSemRotaAlternativa(false));
 		
 		return entity.createQuery(sql.toString(), Long.class)
 				.setParameter("rotaId", idRota)
@@ -25,7 +25,7 @@ public class ImovelRepositorio{
 	
 	public long totalImoveisParaPreFaturamentoComRotaAlternativa(int idRota){
 		StringBuilder sql = new StringBuilder();
-		sql.append("select count(imovel) ").append(consultaImoveisComRotaAlternativa());
+		sql.append("select count(imovel) ").append(consultaImoveisComRotaAlternativa(false));
 		
 		return entity.createQuery(sql.toString(), Long.class)
 				.setParameter("rotaId", idRota)
@@ -34,7 +34,7 @@ public class ImovelRepositorio{
 	
 	public List<Imovel> imoveisParaPreFaturamentoSemRotaAlternativa(int idRota, int firstItem, int numItems) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select imovel ").append(consultaImoveisSemRotaAlternativa());
+		sql.append("select imovel ").append(consultaImoveisSemRotaAlternativa(true));
 		
 		return entity.createQuery(sql.toString(), Imovel.class)
 				.setParameter("rotaId", idRota)
@@ -44,7 +44,7 @@ public class ImovelRepositorio{
 		
 	public List<Imovel> imoveisParaPreFaturamentoComRotaAlternativa(int idRota, int firstItem, int numItems) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select imovel ").append(consultaImoveisComRotaAlternativa());
+		sql.append("select imovel ").append(consultaImoveisComRotaAlternativa(true));
 		
 		return entity.createQuery(sql.toString(), Imovel.class)
 				.setParameter("rotaId", idRota)
@@ -85,12 +85,12 @@ public class ImovelRepositorio{
 		return (qtd > 0) ? true : false; 
 	}
 
-	private StringBuilder consultaImoveisComRotaAlternativa(){
+	private StringBuilder consultaImoveisComRotaAlternativa(boolean eager){
 		StringBuilder sql = new StringBuilder();
 		sql.append("from Imovel imovel ")
 		.append(" inner join imovel.rotaAlternativa rotaAlternativa ")
-		.append(" inner join fetch imovel.setorComercial setor ")
-		.append(" inner join fetch imovel.quadra quadra ")
+		.append(" inner join ").append(eager ?" fetch ": "").append(" imovel.setorComercial setor ")
+		.append(" inner join ").append(eager ?" fetch ": "").append(" imovel.quadra quadra ")
 		.append(" inner join quadra.rota rota ")
 		.append(" left join imovel.imovelPerfil imovelPerfil ")
 		.append(" WHERE rotaAlternativa.id = :rotaId ")
@@ -101,11 +101,11 @@ public class ImovelRepositorio{
 		return sql;
 	}
 
-	private StringBuilder consultaImoveisSemRotaAlternativa(){
+	private StringBuilder consultaImoveisSemRotaAlternativa(boolean eager){
 		StringBuilder sql = new StringBuilder();
 		sql.append("from Imovel imovel ")
-		.append(" inner join fetch imovel.setorComercial setor ")
-		.append(" inner join fetch imovel.quadra quadra ")
+		.append(" inner join ").append(eager ?" fetch ": "").append(" imovel.setorComercial setor ")
+		.append(" inner join ").append(eager ?" fetch ": "").append(" imovel.quadra quadra ")
 		.append(" inner join quadra.rota rota ")
 		.append(" left join imovel.imovelPerfil imovelPerfil ")
 		.append(" WHERE rota.id = :rotaId ")

@@ -22,7 +22,7 @@ public class MovimentoContaPrefaturada {
 	
 	@ManyToOne
 	@JoinColumn(name="cnta_id")
-	private Conta conta;
+	private ContaGeral conta;
 
 	public Integer getId() {
 		return id;
@@ -32,11 +32,11 @@ public class MovimentoContaPrefaturada {
 		this.id = id;
 	}
 
-	public Conta getConta() {
+	public ContaGeral getConta() {
 		return conta;
 	}
 
-	public void setConta(Conta conta) {
+	public void setConta(ContaGeral conta) {
 		this.conta = conta;
 	}
 }

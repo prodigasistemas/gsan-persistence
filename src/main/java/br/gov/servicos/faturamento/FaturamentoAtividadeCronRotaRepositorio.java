@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.exception.CronogramaFaturamentoRotaInexistente;
 import br.gov.model.faturamento.FaturamentoAtividade;
 import br.gov.servicos.to.CronogramaFaturamentoRotaTO;
 
@@ -35,7 +36,7 @@ public class FaturamentoAtividadeCronRotaRepositorio {
 			.setParameter("anoMesReferencia", anoMesReferencia)
 			.setMaxResults(1).getSingleResult();
 		} catch (NoResultException e) {
-			return null;
+			throw new CronogramaFaturamentoRotaInexistente(e, idRota, idFaturamentoGrupo, anoMesReferencia);
 		}
 	}
 }

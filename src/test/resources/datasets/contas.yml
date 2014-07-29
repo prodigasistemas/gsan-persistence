@@ -18,6 +18,12 @@ cadastro.imovel:
 faturamento.faturamento_grupo:
   - ftgr_id: 1
 
+faturamento.conta_geral:
+  - cnta_id: 1
+  - cnta_id: 2
+  - cnta_id: 3
+  - cnta_id: 4
+
 faturamento.conta:
   - cnta_id: 1
     imov_id: 1
