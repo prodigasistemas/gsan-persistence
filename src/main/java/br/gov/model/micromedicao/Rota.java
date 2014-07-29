@@ -5,7 +5,11 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.gov.model.faturamento.FaturamentoGrupo;
 
 
 @Entity
@@ -22,6 +26,10 @@ public class Rota implements Serializable {
 	
 	@Column(name="rota_icalternativa")
 	private Short indicadorRotaAlternativa;
+	
+	@ManyToOne
+	@JoinColumn(name="ftgr_id")
+	private FaturamentoGrupo faturamentoGrupo;
 	
 	public Rota() {
 	}
@@ -52,6 +60,14 @@ public class Rota implements Serializable {
 	
 	public boolean isAlternativa(){
 		return indicadorRotaAlternativa != null && indicadorRotaAlternativa == (short) 1;
+	}
+
+	public FaturamentoGrupo getFaturamentoGrupo() {
+		return faturamentoGrupo;
+	}
+
+	public void setFaturamentoGrupo(FaturamentoGrupo faturamentoGrupo) {
+		this.faturamentoGrupo = faturamentoGrupo;
 	}
 
 	public String toString() {

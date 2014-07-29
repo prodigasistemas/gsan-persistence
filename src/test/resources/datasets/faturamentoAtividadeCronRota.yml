@@ -1,0 +1,49 @@
+micromedicao.rota:
+  - rota_id: 1
+
+cadastro.quadra:
+  - qdra_id: 1
+    rota_id: 1
+
+cadastro.setor_comercial:
+  - stcm_id: 1
+
+cadastro.imovel:
+  - imov_id: 1
+    stcm_id: 1
+    qdra_id: 1
+  - imov_id: 2
+    stcm_id: 1
+    qdra_id: 1
+  - imov_id: 5
+    stcm_id: 1
+    qdra_id: 1
+
+faturamento.faturamento_atividade:
+  - ftat_id: 1
+
+faturamento.faturamento_grupo:
+  - ftgr_id: 1
+
+faturamento.fatur_grupo_crg_mensal:
+  - ftcm_id: 1
+    ftgr_id: 1
+  - ftcm_id: 2
+    ftgr_id: 1
+    ftcm_amreferencia: 201405
+
+faturamento.fatur_ativ_cronograma:
+  - ftac_id: 1
+    ftat_id: 1
+    ftcm_id: 1
+  - ftac_id: 2
+    ftat_id: 1
+    ftcm_id: 2
+
+faturamento.fatur_ativ_cron_rota:
+  - ftac_id: 1
+    rota_id: 1
+    facr_dtcontavencimento: 2014-05-01
+  - ftac_id: 2
+    rota_id: 1
+    facr_dtcontavencimento: 2014-06-01

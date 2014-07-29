@@ -15,7 +15,7 @@ public class FaturamentoGrupo implements Serializable{
 
 	@Id
 	@Column(name="ftgr_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="ftgr_dsfaturamentogrupo")
 	private String descricao;
@@ -40,11 +40,11 @@ public class FaturamentoGrupo implements Serializable{
 
 	public FaturamentoGrupo(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
