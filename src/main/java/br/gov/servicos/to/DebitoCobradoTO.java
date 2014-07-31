@@ -16,7 +16,7 @@ public class DebitoCobradoTO implements Serializable{
 	private static final long serialVersionUID = 6206647943594574569L;
 
 	private List<DebitoCobrado> debitosCobrados = new ArrayList<DebitoCobrado>();
-	private BigDecimal valorDebito = new BigDecimal(0.0);
+	private BigDecimal valorTotalDebito = BigDecimal.ZERO;
 	private List<DebitoCobradoCategoria> categorias          = new ArrayList<DebitoCobradoCategoria>();
 	private List<DebitoCobrar> debitosCobrarAtualizados      = new ArrayList<DebitoCobrar>();
 	private Map<DebitoTipo, BigDecimal> valoresPorTipoDebito = new HashMap<DebitoTipo, BigDecimal>();
@@ -35,8 +35,8 @@ public class DebitoCobradoTO implements Serializable{
 		return debitosCobrados;
 	}
 
-	public BigDecimal getValorDebito() {
-		return valorDebito;
+	public BigDecimal getValorTotalDebito() {
+		return valorTotalDebito;
 	}
 
 
@@ -54,6 +54,6 @@ public class DebitoCobradoTO implements Serializable{
 
 
 	public void addValorDebito(BigDecimal valor) {
-		valorDebito = valorDebito.add(valor);
+		valorTotalDebito = valorTotalDebito.add(valor);
 	}
 }

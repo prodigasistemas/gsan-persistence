@@ -21,8 +21,10 @@ import javax.persistence.Table;
 import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
 import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
 import br.gov.model.cadastro.Imovel;
+import br.gov.model.cadastro.ImovelPerfil;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
+import br.gov.model.exception.DataVencimentoContaInvalido;
 import br.gov.model.micromedicao.MedicaoHistorico;
 import br.gov.model.micromedicao.Rota;
 
@@ -56,7 +58,7 @@ public class Conta implements Serializable{
 	@Column(name="cnta_nnleituraatual")
 	private Integer leituraAtual;
 	
-	@Column(name="lote")
+	@Column(name="cnta_nnlote")
 	private Short lote;
 	
 	@Column(name="cnta_nnsublote")
@@ -70,6 +72,9 @@ public class Conta implements Serializable{
 	
 	@Column(name="cnta_iccobrancamulta")
 	private Short indicadorCobrancaMulta;
+	
+	@Column(name="cnta_icdebitoconta")
+	private Short indicadorDebitoConta;
 	
 	@Column(name="cnta_icalteracaovencimento")
 	private Short indicadorAlteracaoVencimento;
@@ -98,6 +103,9 @@ public class Conta implements Serializable{
 	@Column(name="cnta_nnconsumorateioesgoto")
 	private Integer consumoRateioEsgoto;
 	
+	@Column(name="cnta_nnretificacao")
+	private Integer numeroRetificacoes;
+	
 	@Column(name="cnta_vlagua")
 	private BigDecimal valorAgua;
 	
@@ -119,6 +127,12 @@ public class Conta implements Serializable{
 	@Column(name="cnta_pccoleta")
 	private BigDecimal percentualColeta;
 	
+	@Column(name="cnta_vlrateioagua")
+	private BigDecimal valorRateioAgua;
+	
+	@Column(name="cnta_vlrateioesgoto")
+	private BigDecimal valorRateioEsgoto;
+		
 	@ManyToOne
 	@JoinColumn(name="ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;
@@ -155,6 +169,10 @@ public class Conta implements Serializable{
 	@JoinColumn(name="cstf_id")
 	private ConsumoTarifa consumoTarifa;
 	
+	@ManyToOne
+	@JoinColumn(name="iper_id")
+	private ImovelPerfil imovelPerfil;
+	
 	public Conta() {
 	}
 
@@ -189,10 +207,12 @@ public class Conta implements Serializable{
 		valorImposto                 = builder.valorImposto;
 		
 		consumoTarifa              = imovel.getConsumoTarifa();
+		imovelPerfil               = imovel.getImovelPerfil();
+		indicadorDebitoConta       = imovel.getIndicadorDebitoConta();
 		ligacaoAguaSituacao        = imovel.getLigacaoAguaSituacao();
 		ligacaoEsgotoSituacao      = imovel.getLigacaoEsgotoSituacao();
 		localidade                 = imovel.getLocalidade();
-		numeroQuadra               = imovel.getQuadra().getNumeroQuadra();
+		numeroQuadra               = imovel.getQuadra() != null ? imovel.getQuadra().getNumeroQuadra() : null;
 		lote                       = imovel.getLote();
 		quadra                     = imovel.getQuadra();
 		subLote                    = imovel.getSubLote();
@@ -266,7 +286,9 @@ public class Conta implements Serializable{
 		}
 		
 		public Builder validadeConta(Short numeroMesesValidadeConta) {
-			dataValidadeConta = adicionarMeses(dataValidadeConta, numeroMesesValidadeConta);
+			if (dataVencimentoConta == null)
+				throw new DataVencimentoContaInvalido();
+			dataValidadeConta = adicionarMeses(dataVencimentoConta, numeroMesesValidadeConta);
 			dataValidadeConta = atribuiDia(dataValidadeConta, obterUltimoDiaMes(dataValidadeConta));
 			return this;
 		}
@@ -634,6 +656,30 @@ public class Conta implements Serializable{
 
 	public void setConsumoTarifa(ConsumoTarifa consumoTarifa) {
 		this.consumoTarifa = consumoTarifa;
+	}
+
+	public Short getIndicadorDebitoConta() {
+		return indicadorDebitoConta;
+	}
+
+	public void setIndicadorDebitoConta(Short indicadorDebitoConta) {
+		this.indicadorDebitoConta = indicadorDebitoConta;
+	}
+
+	public ImovelPerfil getImovelPerfil() {
+		return imovelPerfil;
+	}
+
+	public void setImovelPerfil(ImovelPerfil imovelPerfil) {
+		this.imovelPerfil = imovelPerfil;
+	}
+
+	public Integer getNumeroRetificacoes() {
+		return numeroRetificacoes;
+	}
+
+	public void setNumeroRetificacoes(Integer numeroRetificacoes) {
+		this.numeroRetificacoes = numeroRetificacoes;
 	}
 
 	public String toString() {

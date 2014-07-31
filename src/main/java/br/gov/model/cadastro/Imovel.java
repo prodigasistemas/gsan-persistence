@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import br.gov.model.Status;
 import br.gov.model.atendimentopublico.LigacaoAgua;
 import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
 import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
@@ -244,12 +243,8 @@ public class Imovel implements Serializable{
 		this.imovelContaEnvio = imovelContaEnvio;
 	}
 	
-	public Status getIndicadorDebitoConta() {
-		return Status.parse(indicadorDebitoConta);
-	}
-
-	public void setIndicadorDebitoConta(Status indicadorDebitoConta) {
-		this.indicadorDebitoConta = indicadorDebitoConta.getId();
+	public Short getIndicadorDebitoConta() {
+		return indicadorDebitoConta;
 	}
 
 	public HidrometroInstalacaoHistorico getHidrometroInstalacaoHistorico() {
