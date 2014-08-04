@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.faturamento.CreditoRealizar;
@@ -20,38 +19,31 @@ public class CreditoRealizarRepositorio {
 	private EntityManager entity;
 
 	public Collection<CreditoRealizar> buscarCreditoRealizarPorImovel(Long imovelId, DebitoCreditoSituacao debitoCreditoSituacaoAtual, int anoMesFaturamento) {
-
-		try{
-			StringBuilder consulta = new StringBuilder();
-			
-			consulta.append(" select crar ")
-					.append(" from CreditoRealizar as crar ")
-					.append(" inner join crar.imovel as imov ")
-					.append(" inner join crar.quadra ")
-					.append(" inner join crar.localidade ")
-					.append(" inner join crar.creditoTipo ")
-					.append(" inner join crar.lancamentoItemContabil ")
-					.append(" inner join crar.creditoOrigem ")
-					.append(" inner join crar.creditoRealizarGeral ")
-					.append(" left outer join crar.parcelamento parc ")
-					.append(" where  imov.id = :imovelId ")
-					.append("  and crar.debitoCreditoSituacaoAtual = :debitoCreditoSituacaoAtualId ")
-					.append("  and (crar.numeroPrestacaoRealizada < ")
-					.append("      (crar.numeroPrestacaoCredito - coalesce(crar.numeroParcelaBonus, 0)) ")
-					.append("      or crar.valorResidualMesAnterior > 0) ")
-					.append("  and (parc.id is null or crar.numeroPrestacaoRealizada > 0 or (parc.id is not null ")
-					.append("       and crar.numeroPrestacaoRealizada = 0 and parc.anoMesReferenciaFaturamento < :anoMesFaturamento) ) ");
-			
-			Collection<CreditoRealizar> retorno = entity.createQuery(consulta.toString(), CreditoRealizar.class)
-														.setParameter("imovelId", imovelId)
-														.setParameter("debitoCreditoSituacaoAtualId", debitoCreditoSituacaoAtual)
-														.setParameter("anoMesFaturamento", anoMesFaturamento)
-														.getResultList();
-			
-			return retorno;
-		} catch (NoResultException e) {
-			return null;
-		}
+		StringBuilder consulta = new StringBuilder();
+		
+		consulta.append(" select crar ")
+				.append(" from CreditoRealizar as crar ")
+				.append(" inner join crar.imovel as imov ")
+				.append(" inner join crar.quadra ")
+				.append(" inner join crar.localidade ")
+				.append(" inner join crar.creditoTipo ")
+				.append(" inner join crar.lancamentoItemContabil ")
+				.append(" inner join crar.creditoOrigem ")
+				.append(" inner join crar.creditoRealizarGeral ")
+				.append(" left outer join crar.parcelamento parc ")
+				.append(" where  imov.id = :imovelId ")
+				.append("  and crar.debitoCreditoSituacaoAtual = :debitoCreditoSituacaoAtualId ")
+				.append("  and (crar.numeroPrestacaoRealizada < ")
+				.append("      (crar.numeroPrestacaoCredito - coalesce(crar.numeroParcelaBonus, 0)) ")
+				.append("      or crar.valorResidualMesAnterior > 0) ")
+				.append("  and (parc.id is null or crar.numeroPrestacaoRealizada > 0 or (parc.id is not null ")
+				.append("       and crar.numeroPrestacaoRealizada = 0 and parc.anoMesReferenciaFaturamento < :anoMesFaturamento) ) ");
+		
+		return entity.createQuery(consulta.toString(), CreditoRealizar.class)
+													.setParameter("imovelId", imovelId)
+													.setParameter("debitoCreditoSituacaoAtualId", debitoCreditoSituacaoAtual)
+													.setParameter("anoMesFaturamento", anoMesFaturamento)
+													.getResultList();
 	}
 	
 	public void atualizarParcelas(Integer referencia, List<Long> idsImoveis){

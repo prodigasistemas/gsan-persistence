@@ -22,7 +22,7 @@ public class CreditoRealizadoTO {
 		colecaoCreditosARealizarUpdate = new ArrayList<CreditoRealizar>();
 		mapCreditoRealizado = new HashMap<CreditoRealizado, Collection<CreditoRealizadoCategoria>>();
 		mapValoresPorTipoCredito = new HashMap<CreditoTipo, BigDecimal>();
-		valorTotalCreditos = new BigDecimal("0.00");
+		valorTotalCreditos = BigDecimal.ZERO;
 	}
 	
 	public Collection<CreditoRealizar> getColecaoCreditosARealizarUpdate() {
@@ -77,10 +77,6 @@ public class CreditoRealizadoTO {
 	}
 
 	public void somaValorTotalCreditos(BigDecimal valorCredito) {
-		if(valorTotalCreditos != null){
-			setValorTotalCreditos(valorTotalCreditos.add(valorCredito));
-		} else {
-			setValorTotalCreditos(valorCredito);
-		}
+		setValorTotalCreditos(valorTotalCreditos.add(valorCredito));
 	}
 }

@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.gov.model.Status;
 import br.gov.model.atendimentopublico.LigacaoAgua;
 import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
 import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
@@ -301,5 +302,16 @@ public class Imovel implements Serializable{
 
 	public String toString() {
 		return "Imovel [id=" + id + ", numeroImovel=" + numeroImovel + "]";
+	}
+
+	public boolean responsavelRecebeConta() {
+		return imovelContaEnvio != null &&
+		       (imovelContaEnvio == ImovelContaEnvio.ENVIAR_CLIENTE_RESPONSAVEL.getId() 
+		 	 || imovelContaEnvio == ImovelContaEnvio.NAO_PAGAVEL_IMOVEL_PAGAVEL_RESPONSAVEL.getId()
+		 	   );
+	}
+
+	public boolean debitoEmConta() {
+		return indicadorDebitoConta != null && indicadorDebitoConta == Status.ATIVO.getId();
 	}
 }

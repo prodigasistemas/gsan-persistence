@@ -15,7 +15,7 @@ public class ContaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public void salvar(Conta conta) throws Exception{
+	public void salvar(Conta conta) {
 		try {
 			entity.persist(conta);
 			entity.flush();

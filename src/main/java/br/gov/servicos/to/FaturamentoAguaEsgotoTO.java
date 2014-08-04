@@ -46,7 +46,6 @@ public class FaturamentoAguaEsgotoTO {
 		this.consumoRateioEsgoto = 0;
 		this.valorTotalEsgoto = BigDecimal.ZERO;
 		this.percentualEsgoto = BigDecimal.ZERO;
-		this.percentualColetaEsgoto = BigDecimal.ZERO;
 	}
 
 	public Short getIndicadorFaturamentoAgua() {

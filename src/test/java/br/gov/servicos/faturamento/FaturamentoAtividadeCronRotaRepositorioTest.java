@@ -14,7 +14,9 @@ import org.jboss.arquillian.persistence.CleanupStrategy;
 import org.jboss.arquillian.persistence.TestExecutionPhase;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.jboss.shrinkwrap.api.Archive;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import br.gov.servicos.test.ShrinkWrapBuilder;
@@ -31,19 +33,21 @@ public class FaturamentoAtividadeCronRotaRepositorioTest {
 	@Inject
 	FaturamentoAtividadeCronRotaRepositorio repositorio;
 	
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+	
 	@Test
 	@UsingDataSet("faturamentoAtividadeCronRota.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void faturamentoAtividadeCronRotaNulo() throws Exception {
-		CronogramaFaturamentoRotaTO result = repositorio.pesquisaFaturamentoAtividadeCronogramaRota(1, 1, 201404);
-		
-		assertEquals(null, result);
+	public void faturamentoAtividadeCronRotaNulo() {
+		thrown.expectMessage("Cronograma de faturamento inexistente");
+		repositorio.pesquisaFaturamentoAtividadeCronogramaRota(1, 1, 201404);
 	}
 	
 	@Test
 	@UsingDataSet("faturamentoAtividadeCronRota.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void faturamentoAtividadeCronRota() throws Exception {
+	public void faturamentoAtividadeCronRota() {
 		CronogramaFaturamentoRotaTO result = repositorio.pesquisaFaturamentoAtividadeCronogramaRota(1, 1, 201405);
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		
