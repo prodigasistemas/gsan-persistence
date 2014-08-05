@@ -77,6 +77,6 @@ public class CreditoRealizadoTO {
 	}
 
 	public void somaValorTotalCreditos(BigDecimal valorCredito) {
-		setValorTotalCreditos(valorTotalCreditos.add(valorCredito));
+		setValorTotalCreditos(valorTotalCreditos == null ? valorCredito : valorTotalCreditos.add(valorCredito));
 	}
 }

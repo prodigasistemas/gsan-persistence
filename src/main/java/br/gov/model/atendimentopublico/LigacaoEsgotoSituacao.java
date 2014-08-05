@@ -14,7 +14,8 @@ import br.gov.model.Status;
 public class LigacaoEsgotoSituacao implements Serializable {
 	private static final long serialVersionUID = -4942264231639799945L;
 
-	public static Integer LIGADO = new Integer(3);
+	public static Integer LIGADO    = new Integer(3);
+	public static Integer POTENCIAL = new Integer(1);
 	
 	@Id
 	@Column(name="lest_id")

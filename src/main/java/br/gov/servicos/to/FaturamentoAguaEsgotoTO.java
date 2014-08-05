@@ -35,6 +35,8 @@ public class FaturamentoAguaEsgotoTO {
 	private Collection colecaoCalcularValoresAguaEsgotoHelper;
 
 	private BigDecimal percentualColetaEsgoto;
+
+	private boolean aguaEsgotoZerados;
 	
 	public FaturamentoAguaEsgotoTO(){
 		this.consumoFaturadoAgua = 0;
@@ -158,5 +160,13 @@ public class FaturamentoAguaEsgotoTO {
 
 	public void setPercentualColetaEsgoto(BigDecimal percentualColetaEsgoto) {
 		this.percentualColetaEsgoto = percentualColetaEsgoto;
+	}
+
+	public boolean isAguaEsgotoZerados() {
+		return aguaEsgotoZerados;
+	}
+
+	public void setAguaEsgotoZerados(boolean b) {
+		this.aguaEsgotoZerados = b;
 	}
 }

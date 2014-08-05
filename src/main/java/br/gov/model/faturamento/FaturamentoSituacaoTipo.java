@@ -16,10 +16,10 @@ public class FaturamentoSituacaoTipo {
 	private Long id;
 	
     @Column(name="ftst_icfaturamentoparalisacao")
-	private short paralisacaoFaturamento;
+	private Short paralisacaoFaturamento;
 
     @Column(name="ftst_icvalidoagua")
-    private short validoAgua;
+    private Short validoAgua;
     
     public FaturamentoSituacaoTipo() {
 	}
@@ -32,20 +32,20 @@ public class FaturamentoSituacaoTipo {
 		this.id = id;
 	}
 
-	public Status getParalisacaoFaturamento() {
-		return Status.parse(paralisacaoFaturamento);
+	public Short getParalisacaoFaturamento() {
+		return paralisacaoFaturamento;
 	}
 
-	public void setParalisacaoFaturamento(Status paralisacaoFaturamento) {
-		this.paralisacaoFaturamento = paralisacaoFaturamento.getId();
+	public void setParalisacaoFaturamento(Short paralisacaoFaturamento) {
+		this.paralisacaoFaturamento = paralisacaoFaturamento;
 	}
 	
-	public Status getValidoAgua() {
-		return Status.parse(validoAgua);
+	public Short getValidoAgua() {
+		return validoAgua;
 	}
 
-	public void setvalidoAgua(Status validoAgua) {
-		this.validoAgua = validoAgua.getId();
+	public void setValidoAgua(Short validoAgua) {
+		this.validoAgua = validoAgua;
 	}
 
 	public String toString() {

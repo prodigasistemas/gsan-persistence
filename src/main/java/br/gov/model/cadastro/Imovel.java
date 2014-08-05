@@ -314,4 +314,32 @@ public class Imovel implements Serializable{
 	public boolean debitoEmConta() {
 		return indicadorDebitoConta != null && indicadorDebitoConta == Status.ATIVO.getId();
 	}
+
+	public  boolean aguaEsgotoLigados() {
+		return ligacaoAguaSituacao != null
+				&& ligacaoAguaSituacao.getId().equals(LigacaoAguaSituacao.LIGADO)
+				&& ligacaoEsgotoSituacao != null
+				&& ligacaoEsgotoSituacao.getId().equals(LigacaoEsgotoSituacao.LIGADO);
+	}		
+
+	public boolean aguaLigada() {
+		return ligacaoAguaSituacao.getId().equals(LigacaoAguaSituacao.LIGADO);
+	}
+
+	public boolean esgotoLigado() {
+		return ligacaoEsgotoSituacao.getId().equals(LigacaoEsgotoSituacao.LIGADO);
+	}
+
+	public boolean pertenceACondominio() {
+		return imovelCondominio != null;
+	}
+
+	public boolean paralisacaoFaturamento() {
+		return faturamentoSituacaoTipo != null && faturamentoSituacaoTipo.getParalisacaoFaturamento() == Status.ATIVO.getId();
+	}
+
+	public boolean faturamentoAguaValido() {
+		return faturamentoSituacaoTipo != null &&  faturamentoSituacaoTipo.getValidoAgua() == Status.ATIVO.getId();
+	}
+
 }
