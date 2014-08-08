@@ -13,6 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.gov.model.faturamento.ContaGeral;
+import br.gov.model.faturamento.DebitoCobrarGeral;
 
 @Entity
 @Table(name="pagamento", schema="arrecadacao")
@@ -28,6 +29,10 @@ public class Pagamento implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="cnta_id")
 	private ContaGeral contaGeral;
+	
+	@ManyToOne
+	@JoinColumn(name="dbac_id")
+	private DebitoCobrarGeral debitoCobrarGeral;
 	
 	public Pagamento() {
 	}
@@ -46,5 +51,13 @@ public class Pagamento implements Serializable{
 
 	public void setContaGeral(ContaGeral contaGeral) {
 		this.contaGeral = contaGeral;
+	}
+
+	public DebitoCobrarGeral getDebitoCobrarGeral() {
+		return debitoCobrarGeral;
+	}
+
+	public void setDebitoCobrarGeral(DebitoCobrarGeral debitoCobrarGeral) {
+		this.debitoCobrarGeral = debitoCobrarGeral;
 	}
 }

@@ -11,14 +11,14 @@ import br.gov.model.faturamento.CreditoRealizadoCategoria;
 import br.gov.model.faturamento.CreditoRealizar;
 import br.gov.model.faturamento.CreditoTipo;
 
-public class CreditoRealizadoTO {
+public class CreditosContaTO {
 	
 	private Collection<CreditoRealizar> colecaoCreditosARealizarUpdate;
 	private Map<CreditoRealizado, Collection<CreditoRealizadoCategoria>> mapCreditoRealizado;
 	private Map<CreditoTipo, BigDecimal> mapValoresPorTipoCredito;
 	private BigDecimal valorTotalCreditos;
 	
-	public CreditoRealizadoTO(){
+	public CreditosContaTO(){
 		colecaoCreditosARealizarUpdate = new ArrayList<CreditoRealizar>();
 		mapCreditoRealizado = new HashMap<CreditoRealizado, Collection<CreditoRealizadoCategoria>>();
 		mapValoresPorTipoCredito = new HashMap<CreditoTipo, BigDecimal>();

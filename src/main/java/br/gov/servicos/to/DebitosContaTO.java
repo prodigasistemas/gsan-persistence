@@ -12,7 +12,7 @@ import br.gov.model.faturamento.DebitoCobradoCategoria;
 import br.gov.model.faturamento.DebitoCobrar;
 import br.gov.model.faturamento.DebitoTipo;
 
-public class DebitoCobradoTO implements Serializable{
+public class DebitosContaTO implements Serializable{
 	private static final long serialVersionUID = 6206647943594574569L;
 
 	private List<DebitoCobrado> debitosCobrados = new ArrayList<DebitoCobrado>();

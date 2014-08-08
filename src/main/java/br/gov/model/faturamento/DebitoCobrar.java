@@ -20,6 +20,7 @@ import br.gov.model.financeiro.LancamentoItemContabil;
 @Entity
 @Table(name="debito_a_cobrar", schema="faturamento")
 public class DebitoCobrar implements IDebito{
+	
 	@Id
 	@Column(name="dbac_id")
 	private Long id;

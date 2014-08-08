@@ -1,6 +1,9 @@
 package br.gov.servicos.arrecadacao.pagamento;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,13 +19,14 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import br.gov.model.faturamento.DebitoCobrar;
 import br.gov.servicos.test.ShrinkWrapBuilder;
 
 @RunWith(Arquillian.class)
 public class PagamentoRepositorioTest {
 
 	@Deployment
-    public static Archive<?> createDeployment() {
+    public static Archive<?> deploy() {
 		return ShrinkWrapBuilder.createDeployment();
     }
 	
@@ -40,4 +44,41 @@ public class PagamentoRepositorioTest {
 		ids.add(4L);
 		repositorio.apagarPagamentosDasConta(ids);
 	}
+	
+	@Test
+	@UsingDataSet("pagamento_debito_cobrar.yml")
+	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
+	public void naoExisteDebitoSemPagamento(){
+		Collection<DebitoCobrar> debitos = new ArrayList<DebitoCobrar>();
+		DebitoCobrar debito = new DebitoCobrar();
+		debito.setId(1L);
+		debitos.add(debito);
+		debito = new DebitoCobrar();
+		debito.setId(2L);
+		debitos.add(debito);
+
+		assertEquals(false, repositorio.existeDebitoSemPagamento(debitos));
+	}
+	
+	@Test
+	@UsingDataSet("pagamento_debito_cobrar.yml")
+	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
+	public void existeDebitoSemPagamento(){
+		Collection<DebitoCobrar> debitos = new ArrayList<DebitoCobrar>();
+		DebitoCobrar debito = new DebitoCobrar();
+		debito.setId(1L);
+		debitos.add(debito);
+		debito = new DebitoCobrar();
+		debito.setId(2L);
+		debitos.add(debito);
+		debito = new DebitoCobrar();
+		debito.setId(3L);
+		debitos.add(debito);
+		debito = new DebitoCobrar();
+		debito.setId(4L);
+		debitos.add(debito);
+		
+		assertEquals(true, repositorio.existeDebitoSemPagamento(debitos));
+	}
+	
 }

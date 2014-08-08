@@ -10,7 +10,7 @@ public class CreditoRealizadoTOTest {
 
 	@Test
 	public void somaValorTotalCreditosComValorTotalNulo() {
-		CreditoRealizadoTO creditoRealizadoTO = new CreditoRealizadoTO();
+		CreditosContaTO creditoRealizadoTO = new CreditosContaTO();
 		creditoRealizadoTO.setValorTotalCreditos(null);
 		
 		creditoRealizadoTO.somaValorTotalCreditos(new BigDecimal("1.00"));
@@ -20,7 +20,7 @@ public class CreditoRealizadoTOTest {
 	
 	@Test
 	public void somaValorTotalCreditosComValorTotalMaiorQueZero() {
-		CreditoRealizadoTO creditoRealizadoTO = new CreditoRealizadoTO();
+		CreditosContaTO creditoRealizadoTO = new CreditosContaTO();
 		creditoRealizadoTO.setValorTotalCreditos(new BigDecimal("1.00"));
 		
 		creditoRealizadoTO.somaValorTotalCreditos(new BigDecimal("1.00"));

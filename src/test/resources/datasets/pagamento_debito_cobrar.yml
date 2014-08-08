@@ -1,0 +1,20 @@
+faturamento.debito_a_cobrar_geral:
+  - dbac_id: 1
+  - dbac_id: 2
+  - dbac_id: 3
+  - dbac_id: 4
+  - dbac_id: 5
+
+arrecadacao.pagamento:
+  - pgmt_id: 1
+    dbac_id: 1
+  - pgmt_id: 2
+    dbac_id: 2
+  - pgmt_id: 3
+    dbac_id: 3
+  - pgmt_id: 4
+  - pgmt_id: 5
+  - pgmt_id: 6
+  - pgmt_id: 7
+  - pgmt_id: 8
+  - pgmt_id: 9
