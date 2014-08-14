@@ -15,18 +15,29 @@ public class PagamentoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public boolean existeDebitoSemPagamento(Collection<DebitoCobrar> debitosCobrar) {
-		boolean existeDebitoSemPagamento = false;
+	public boolean debitoSemPagamento(Long idDebito) {
+		boolean debitoSemPagamento = false;
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(pg) from Pagamento pg")
-			.append(" where pg.debitoCobrarGeral.id = :idDebito");
+		.append(" where pg.debitoCobrarGeral.id = :idDebito");
+		
+		long count = entity.createQuery(sql.toString(), Long.class)
+				.setParameter("idDebito", idDebito)
+				.getSingleResult();
+
+		if (count == 0){
+			debitoSemPagamento = true;
+		}
+		
+		return debitoSemPagamento;
+	}
+	
+	public boolean existeDebitoSemPagamento(Collection<DebitoCobrar> debitosCobrar) {
+		boolean existeDebitoSemPagamento = false;
 		
 		for (DebitoCobrar debitoCobrar : debitosCobrar) {
-			long count = entity.createQuery(sql.toString(), Long.class)
-					.setParameter("idDebito", debitoCobrar.getId())
-					.getSingleResult();
-			if (count == 0){
+			if (debitoSemPagamento(debitoCobrar.getId())){
 				existeDebitoSemPagamento = true;
 				break;
 			}

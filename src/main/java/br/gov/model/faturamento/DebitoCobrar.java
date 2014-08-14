@@ -278,7 +278,7 @@ public class DebitoCobrar implements IDebito{
 				+ ", numeroPrestacaoCobradas=" + numeroPrestacaoCobradas + "]";
 	}
 
-	public boolean emParcelamento(int anoMesReferencia) {
+	public boolean pertenceParcelamento(int anoMesReferencia) {
 		return parcelamento != null 
 				&& parcelamento.getAnoMesReferenciaFaturamento() != null 
 				&& parcelamento.getAnoMesReferenciaFaturamento() >= anoMesReferencia
@@ -310,5 +310,4 @@ public class DebitoCobrar implements IDebito{
 		
 		return residuo;
 	}
-	
 }
