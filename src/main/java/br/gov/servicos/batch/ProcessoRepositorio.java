@@ -29,8 +29,7 @@ public class ProcessoRepositorio {
 	}
 	
 	public List<ProcessoIniciado> buscarProcessosPorSituacao(ProcessoSituacao situacao){
-		//TODO Retirar o id do processo de teste 
-		return entity.createQuery("from ProcessoIniciado where situacao = :idSituacao and processo.id = 509 order by prioridade desc", ProcessoIniciado.class)
+		return entity.createQuery("from ProcessoIniciado where situacao = :idSituacao order by prioridade desc", ProcessoIniciado.class)
 						.setParameter("idSituacao", situacao.getId())
 						.getResultList();
 	}
@@ -44,16 +43,14 @@ public class ProcessoRepositorio {
 	}
 	
 	public int buscarLimitePorProcesso(Processo processo){
-		return entity.createQuery("select limite from Processo where id = :id", Integer.class)
+		return entity.createQuery("select coalesce(limite, 0) from Processo where id = :id", Integer.class)
 						.setParameter("id", processo.getId())
 						.getSingleResult();
 	}
 	
 	public List<ProcessoIniciado> buscarProcessosPorSituacao(Processo processo, ProcessoSituacao situacao) {
-		//TODO Retirar o id do processo de teste
 		return entity.createQuery("from ProcessoIniciado where processo.id = :processoId and situacao = :situacao", ProcessoIniciado.class)
-//						.setParameter("processoId", processo.getId())
-						.setParameter("processoId", 509l)
+						.setParameter("processoId", processo.getId())
 						.setParameter("situacao", situacao.getId())
 						.getResultList();
 	}
