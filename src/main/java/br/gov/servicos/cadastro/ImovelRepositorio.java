@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.cadastro.ClienteRelacaoTipo;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.exception.ErroPesquisaContaImovel;
 
@@ -85,6 +86,122 @@ public class ImovelRepositorio{
 		return (qtd > 0) ? true : false; 
 	}
 
+	public List<Imovel> imoveisParaGerarArquivoTextoFaturamento(Integer idRota, int registroInicial, int quantidadeRegistros) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select imovel ")
+		.append(" FROM Imovel imovel ")
+		.append(" INNER JOIN imovel.localidade localidade ")
+		.append(" INNER JOIN localidade.gerenciaRegional gerenciaRegional ")
+		.append(" INNER JOIN imovel.setorComercial setorComercial ")
+		.append(" INNER JOIN imovel.quadra quadra ")
+		.append(" INNER JOIN quadra.rota rota ")
+		.append(" INNER JOIN imovel.ligacaoAguaSituacao ligacaoAguaSituacao ")
+		.append(" INNER JOIN imovel.ligacaoEsgotoSituacao ligacaoEsgotoSituacao ")
+		.append(" INNER JOIN imovel.imovelPerfil imovelPerfil ")
+		.append(" INNER JOIN imovel.consumoTarifa consumoTarifa ")
+		.append(" LEFT JOIN imovel.quadraFace quadraFace ")
+		.append(" LEFT JOIN imovel.ligacaoAgua ligacaoAgua ")
+		.append(" LEFT JOIN ligacaoAgua.hidrometroInstalacaoHistorico hidAgua ")
+		.append(" LEFT JOIN hidAgua.hidrometroLocalInstalacao hidLocInsAgua ")
+		.append(" LEFT JOIN hidAgua.hidrometroProtecao hidProtAgua ")
+		.append(" LEFT JOIN imovel.hidrometroInstalacaoHistorico hidPoco ")
+		.append(" LEFT JOIN hidPoco.hidrometroLocalInstalacao hidLocInsPoco ")
+		.append(" LEFT JOIN hidPoco.hidrometroProtecao hidProtPoco ")
+		.append(" LEFT JOIN imovel.ligacaoEsgoto ligacaoEsgoto ")
+		.append(" LEFT JOIN imovel.faturamentoSituacaoTipo faturamentoSituacaoTipo ")
+		.append(" LEFT JOIN imovel.imovelCondominio imovelCondominio ")
+		.append(" LEFT JOIN imovel.clienteImoveis clienteImoveisUsuario WITH ")
+		.append("   (clienteImoveisUsuario.clienteRelacaoTipo.id = :idClienteRelacaoTipoUsuario)")
+		.append(" AND clienteImoveisUsuario.dataFimRelacao IS NULL ")
+		.append(" LEFT JOIN clienteImoveisUsuario.cliente clienteUsuario ")
+		.append(" LEFT JOIN imovel.clienteImoveis clienteImoveisReponsavel WITH ")
+		.append("   (clienteImoveisReponsavel.clienteRelacaoTipo.id = :idClienteRelacaoTipoResponsavel)")
+		.append(" AND clienteImoveisReponsavel.dataFimRelacao IS NULL ")
+		.append(" LEFT JOIN clienteImoveisReponsavel.cliente clienteResposanvel ")
+		.append(" LEFT JOIN rota.leiturista leiturista ")
+		.append(" LEFT JOIN rota.empresa empresa ")
+		.append(" LEFT JOIN leiturista.usuario usu ")
+		.append(" LEFT JOIN imovel.logradouroBairro logradouroBairro ")
+		.append(" LEFT JOIN logradouroBairro.logradouro logradouro ")
+		.append(" LEFT JOIN logradouroBairro.bairro bairro ")
+		.append(" LEFT JOIN imovel.rotaAlternativa rtAlternativa ")
+		.append(" WHERE  ")
+		.append("   imovelPerfil.indicadorGerarDadosLeitura = 1 ")
+		.append("   AND imovel.indicadorExclusao <> :idExclusao ")
+		.append("   AND rota.id = :idRota")
+		.append("   AND imovel.rotaAlternativa is null ")
+		.append("   AND imovel.imovelCondominio is null ")
+		.append("   ORDER BY imovel.indicadorImovelCondominio, localidade.id, setorComercial.codigo, quadra.numeroQuadra, imovel.lote, imovel.subLote ");
+
+		return entity.createQuery(sql.toString(), Imovel.class)
+				.setParameter("idRota", idRota)
+				.setParameter("idClienteRelacaoTipoUsuario", ClienteRelacaoTipo.USUARIO)
+				.setParameter("idClienteRelacaoTipoResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
+				.setParameter("idExclusao", Imovel.IMOVEL_EXCLUIDO)
+				.setFirstResult(registroInicial)
+				.setMaxResults(quantidadeRegistros)
+				.getResultList();
+	}
+	
+	public List<Imovel> imoveisParaGerarArquivoTextoFaturamentoPorRotaAlternativa(Integer idRota, int registroInicial, int quantidadeRegistros){
+		StringBuilder sql = new StringBuilder();
+		sql.append("select imovel ")
+		.append(" FROM Imovel imovel ")
+		.append(" INNER JOIN imovel.rotaAlternativa rotaAlternativa ")
+		.append(" INNER JOIN imovel.localidade localidade ")
+		.append(" INNER JOIN localidade.gerenciaRegional gerenciaRegional ")
+		.append(" INNER JOIN imovel.setorComercial setorComercial ")
+		.append(" INNER JOIN imovel.quadra quadra ")
+		.append(" INNER JOIN quadra.rota rota ")
+		.append(" INNER JOIN imovel.ligacaoAguaSituacao ligacaoAguaSituacao ")
+		.append(" INNER JOIN imovel.ligacaoEsgotoSituacao ligacaoEsgotoSituacao ")
+		.append(" INNER JOIN imovel.imovelPerfil imovelPerfil ")
+		.append(" INNER JOIN imovel.consumoTarifa consumoTarifa ")
+		.append(" LEFT JOIN imovel.quadraFace quadraFace ")
+		.append(" LEFT JOIN imovel.ligacaoAgua ligacaoAgua ")
+		.append(" LEFT JOIN ligacaoAgua.hidrometroInstalacaoHistorico hidAgua ")
+		.append(" LEFT JOIN hidAgua.hidrometroLocalInstalacao hidLocInsAgua ")
+		.append(" LEFT JOIN hidAgua.hidrometroProtecao hidProtAgua ")
+		.append(" LEFT JOIN imovel.hidrometroInstalacaoHistorico hidPoco ")
+		.append(" LEFT JOIN hidPoco.hidrometroLocalInstalacao hidLocInsPoco ")
+		.append(" LEFT JOIN hidPoco.hidrometroProtecao hidProtPoco ")
+		.append(" LEFT JOIN imovel.ligacaoEsgoto ligacaoEsgoto ")
+		.append(" LEFT JOIN imovel.faturamentoSituacaoTipo faturamentoSituacaoTipo ")
+		.append(" LEFT JOIN imovel.imovelCondominio imovelCondominio ")
+		.append(" LEFT JOIN imovel.clienteImoveis clienteImoveisUsuario WITH ")
+		.append("   (clienteImoveisUsuario.clienteRelacaoTipo.id = :idClienteRelacaoTipoUsuario)")
+		.append(" AND clienteImoveisUsuario.dataFimRelacao IS NULL ")
+		.append(" LEFT JOIN clienteImoveisUsuario.cliente clienteUsuario ")
+		.append(" LEFT JOIN imovel.clienteImoveis clienteImoveisReponsavel WITH ")
+		.append("   (clienteImoveisReponsavel.clienteRelacaoTipo.id = :idClienteRelacaoTipoResponsavel)")
+		.append(" AND clienteImoveisReponsavel.dataFimRelacao IS NULL ")
+		.append(" LEFT JOIN clienteImoveisReponsavel.cliente clienteResposanvel ")
+		.append(" LEFT JOIN rotaAlternativa.leiturista leiturista ")
+		.append(" LEFT JOIN rotaAlternativa.empresa empresa ")
+		.append(" LEFT JOIN leiturista.usuario usu ")
+		.append(" LEFT JOIN imovel.logradouroBairro logradouroBairro ")
+		.append(" LEFT JOIN logradouroBairro.logradouro logradouro ")
+		.append(" LEFT JOIN logradouroBairro.bairro bairro ")
+		.append(" WHERE  ")
+		.append("   imovelPerfil.indicadorGerarDadosLeitura = 1 ")
+		.append("   AND imovel.indicadorExclusao <> :idExclusao ")
+		.append("   AND rotaAlternativa.id = :idRota")
+		.append("   AND imovel.imovelCondominio is null ")
+		.append(" ORDER BY imovel.numeroSequencialRota, imovel.lote, imovel.subLote ");
+		
+		return entity.createQuery(sql.toString(), Imovel.class)
+				.setParameter("idRota", idRota)
+				.setParameter("idClienteRelacaoTipoUsuario", ClienteRelacaoTipo.USUARIO)
+				.setParameter("idClienteRelacaoTipoResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
+				.setParameter("idExclusao", Imovel.IMOVEL_EXCLUIDO)
+				.setFirstResult(registroInicial)
+				.setMaxResults(quantidadeRegistros)
+				.getResultList();
+	}
+
+	/***********************************************
+	 *************** PRIVATE METHODS ***************
+	 ***********************************************/
 	private StringBuilder consultaImoveisComRotaAlternativa(boolean eager){
 		StringBuilder sql = new StringBuilder();
 		sql.append("from Imovel imovel ")
@@ -116,6 +233,4 @@ public class ImovelRepositorio{
 		
 		return sql;
 	}
-	
-	
 }

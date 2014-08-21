@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,19 +16,23 @@ public class Localidade implements Serializable{
 
 	@Id
 	@Column(name="loca_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="loca_nmlocalidade")
 	private String nome;
+	
+	@ManyToOne
+	@JoinColumn(name="greg_id")
+	private GerenciaRegional gerenciaRegional;
 
 	public Localidade() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -36,6 +42,14 @@ public class Localidade implements Serializable{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public GerenciaRegional getGerenciaRegional() {
+		return gerenciaRegional;
+	}
+
+	public void setGerenciaRegional(GerenciaRegional gerenciaRegional) {
+		this.gerenciaRegional = gerenciaRegional;
 	}
 
 	public String toString() {

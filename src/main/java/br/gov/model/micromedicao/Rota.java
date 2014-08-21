@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.gov.model.Status;
+import br.gov.model.cadastro.Empresa;
 import br.gov.model.faturamento.FaturamentoGrupo;
 
 
@@ -31,9 +33,24 @@ public class Rota implements Serializable {
 	@JoinColumn(name="ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;
 	
+	@ManyToOne
+	@JoinColumn(name="leit_id")
+	private Leiturista leiturista;
+	
+	@ManyToOne
+	@JoinColumn(name="empr_id")
+	private Empresa empresa;
+	
 	public Rota() {
 	}
 
+	public boolean alternativa() {
+		return indicadorRotaAlternativa != null && indicadorRotaAlternativa == Status.ATIVO.getId();
+	}
+
+/**********************************************
+ ************ GETTERS AND SETTERS ************* 
+ **********************************************/
 	public Integer getId() {
 		return id;
 	}
@@ -68,6 +85,22 @@ public class Rota implements Serializable {
 
 	public void setFaturamentoGrupo(FaturamentoGrupo faturamentoGrupo) {
 		this.faturamentoGrupo = faturamentoGrupo;
+	}
+
+	public Leiturista getLeiturista() {
+		return leiturista;
+	}
+
+	public void setLeiturista(Leiturista leiturista) {
+		this.leiturista = leiturista;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	public String toString() {

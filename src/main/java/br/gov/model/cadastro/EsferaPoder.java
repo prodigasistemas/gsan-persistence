@@ -17,16 +17,16 @@ public class EsferaPoder implements Serializable{
 
 	private static final long serialVersionUID = -4566136566407546233L;
 	
-	public final static Short MUNICIPAL = new Short("1");
-    public final static Short ESTADUAL = new Short("2");
-    public final static Short FEDERAL = new Short("3");
-    public final static Short PARTICULAR = new Short("4");
+	public final static Integer MUNICIPAL  = Integer.valueOf("1");
+    public final static Integer ESTADUAL   = Integer.valueOf("2");
+    public final static Integer FEDERAL    = Integer.valueOf("3");
+    public final static Integer PARTICULAR = Integer.valueOf("4");
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_ESFERA_PODER")
 	@SequenceGenerator(name="SEQ_ESFERA_PODER", schema="cadastro", sequenceName="seq_esfera_poder", allocationSize=1)
 	@Column(name="epod_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="epod_dsesferapoder")
 	private String descricao;
@@ -45,11 +45,11 @@ public class EsferaPoder implements Serializable{
 	
 	public EsferaPoder(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -1,18 +1,21 @@
 package br.gov.model.cadastro;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.gov.model.Status;
 import br.gov.model.atendimentopublico.LigacaoAgua;
 import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
+import br.gov.model.atendimentopublico.LigacaoEsgoto;
 import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
 import br.gov.model.faturamento.ConsumoTarifa;
 import br.gov.model.faturamento.FaturamentoSituacaoTipo;
@@ -24,12 +27,17 @@ import br.gov.model.micromedicao.Rota;
 public class Imovel implements Serializable{
 	private static final long serialVersionUID = 1200767585478407463L;
 
+	public final static Short IMOVEL_EXCLUIDO = Short.valueOf("1");
+
 	@Id
 	@Column(name="imov_id")
 	private Long id;
 		
 	@Column(name="imov_nnimovel")
 	private String numeroImovel;
+	
+	@Column(name="imov_nnsequencialrota")
+	private Integer numeroSequencialRota;
 	
 	@Column(name="imov_nnlote")
 	private Short lote;
@@ -58,6 +66,9 @@ public class Imovel implements Serializable{
 	@Column(name="imov_icdebitoconta")
 	private Short indicadorDebitoConta;
 	
+	@Column(name="poco_id")
+	private Short pocoTipo;
+	
 	@ManyToOne
 	@JoinColumn(name="loca_id")
 	private Localidade localidade;
@@ -70,8 +81,15 @@ public class Imovel implements Serializable{
 	@JoinColumn(name="qdra_id")
 	private Quadra quadra;
 
+	@ManyToOne
+	@JoinColumn(name="qdfa_id")
+	private QuadraFace quadraFace;
+	
 	@OneToOne(mappedBy="imovel")
 	private LigacaoAgua ligacaoAgua;
+	
+	@OneToOne(mappedBy="imovel")
+	private LigacaoEsgoto ligacaoEsgoto;
 	
 	@ManyToOne
 	@JoinColumn(name="last_id")
@@ -104,10 +122,78 @@ public class Imovel implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="iper_id")
 	private ImovelPerfil imovelPerfil;
+	
+	@OneToMany(mappedBy="imovel")
+	private List<ClienteImovel> clienteImoveis;
 
+	@ManyToOne
+	@JoinColumn(name="lgbr_id")
+	private LogradouroBairro logradouroBairro;
+	
 	public Imovel() {
 	}
 
+	public boolean responsavelRecebeConta() {
+		return imovelContaEnvio != null &&
+		       (imovelContaEnvio == ImovelContaEnvio.ENVIAR_CLIENTE_RESPONSAVEL.getId() 
+		 	 || imovelContaEnvio == ImovelContaEnvio.NAO_PAGAVEL_IMOVEL_PAGAVEL_RESPONSAVEL.getId()
+		 	   );
+	}
+
+	public boolean debitoEmConta() {
+		return indicadorDebitoConta != null && indicadorDebitoConta == Status.ATIVO.getId();
+	}
+
+	public  boolean aguaEsgotoLigados() {
+		return ligacaoAguaSituacao != null
+				&& ligacaoAguaSituacao.getId().equals(LigacaoAguaSituacao.LIGADO)
+				&& ligacaoEsgotoSituacao != null
+				&& ligacaoEsgotoSituacao.getId().equals(LigacaoEsgotoSituacao.LIGADO);
+	}		
+
+	public boolean aguaLigada() {
+		return ligacaoAguaSituacao.getId().equals(LigacaoAguaSituacao.LIGADO);
+	}
+
+	public boolean esgotoLigado() {
+		return ligacaoEsgotoSituacao.getId().equals(LigacaoEsgotoSituacao.LIGADO);
+	}
+
+	public boolean pertenceACondominio() {
+		return imovelCondominio != null;
+	}
+	
+	public boolean indicaQuePertenceACondominio() {
+		return indicadorImovelCondominio != null && indicadorImovelCondominio == Status.ATIVO.getId();
+	}
+
+	public boolean paralisacaoFaturamento() {
+		return faturamentoSituacaoTipo != null && faturamentoSituacaoTipo.getParalisacaoFaturamento() == Status.ATIVO.getId();
+	}
+
+	public boolean faturamentoAguaValido() {
+		return faturamentoSituacaoTipo != null &&  faturamentoSituacaoTipo.getValidoAgua() == Status.ATIVO.getId();
+	}
+
+	public boolean existeDiaVencimento(){
+		return diaVencimento != null && diaVencimento.intValue() != 0;
+	}
+	
+	public boolean emissaoExtratoFaturamento(){
+		return indicadorEmissaoExtratoFaturamento != null && indicadorEmissaoExtratoFaturamento == (short) 1;
+	}
+	
+	public boolean existeHidrometroAgua(){
+		return ligacaoAgua != null && ligacaoAgua.getHidrometroInstalacaoHistorico() != null;
+	}
+
+	public boolean existeHidrometroPoco(){
+		return hidrometroInstalacaoHistorico != null;
+	}
+	
+	/**********************************************
+	 ************ GETTERS AND SETTERS ************* 
+	 **********************************************/
 	public Long getId() {
 		return id;
 	}
@@ -140,12 +226,28 @@ public class Imovel implements Serializable{
 		this.quadra = quadra;
 	}
 
+	public QuadraFace getQuadraFace() {
+		return quadraFace;
+	}
+
+	public void setQuadraFace(QuadraFace quadraFace) {
+		this.quadraFace = quadraFace;
+	}
+
 	public String getNumeroImovel() {
 		return numeroImovel;
 	}
 
 	public void setNumeroImovel(String numeroImovel) {
 		this.numeroImovel = numeroImovel;
+	}
+
+	public Integer getNumeroSequencialRota() {
+		return numeroSequencialRota;
+	}
+
+	public void setNumeroSequencialRota(Integer numeroSequencialRota) {
+		this.numeroSequencialRota = numeroSequencialRota;
 	}
 
 	public LigacaoAgua getLigacaoAgua() {
@@ -156,6 +258,14 @@ public class Imovel implements Serializable{
 		this.ligacaoAgua = ligacaoAgua;
 	}
 	
+	public LigacaoEsgoto getLigacaoEsgoto() {
+		return ligacaoEsgoto;
+	}
+
+	public void setLigacaoEsgoto(LigacaoEsgoto ligacaoEsgoto) {
+		this.ligacaoEsgoto = ligacaoEsgoto;
+	}
+
 	public LigacaoAguaSituacao getLigacaoAguaSituacao() {
 		return ligacaoAguaSituacao;
 	}
@@ -228,14 +338,6 @@ public class Imovel implements Serializable{
 		this.indicadorVencimentoMesSeguinte = indicadorVencimentoMesSeguinte;
 	}
 
-	public boolean existeDiaVencimento(){
-		return diaVencimento != null && diaVencimento.intValue() != 0;
-	}
-	
-	public boolean emissaoExtratoFaturamento(){
-		return indicadorEmissaoExtratoFaturamento != null && indicadorEmissaoExtratoFaturamento == (short) 1;
-	}
-
 	public Short getImovelContaEnvio() {
 		return imovelContaEnvio;
 	}
@@ -248,16 +350,24 @@ public class Imovel implements Serializable{
 		return indicadorDebitoConta;
 	}
 
+	public void setIndicadorDebitoConta(Short indicadorDebitoConta) {
+		this.indicadorDebitoConta = indicadorDebitoConta;
+	}
+	
+	public Short getPocoTipo() {
+		return pocoTipo;
+	}
+
+	public void setPocoTipo(Short pocoTipo) {
+		this.pocoTipo = pocoTipo;
+	}
+
 	public HidrometroInstalacaoHistorico getHidrometroInstalacaoHistorico() {
 		return hidrometroInstalacaoHistorico;
 	}
 
 	public void setHidrometroInstalacaoHistorico(HidrometroInstalacaoHistorico hidrometroInstalacaoHistorico) {
 		this.hidrometroInstalacaoHistorico = hidrometroInstalacaoHistorico;
-	}
-
-	public void setIndicadorDebitoConta(Short indicadorDebitoConta) {
-		this.indicadorDebitoConta = indicadorDebitoConta;
 	}
 
 	public ConsumoTarifa getConsumoTarifa() {
@@ -300,46 +410,24 @@ public class Imovel implements Serializable{
 		this.imovelPerfil = imovelPerfil;
 	}
 
+	public List<ClienteImovel> getClienteImoveis() {
+		return clienteImoveis;
+	}
+
+	public void setClienteImoveis(List<ClienteImovel> clienteImoveis) {
+		this.clienteImoveis = clienteImoveis;
+	}
+
+	public LogradouroBairro getLogradouroBairro() {
+		return logradouroBairro;
+	}
+
+	public void setLogradouroBairro(LogradouroBairro logradouroBairro) {
+		this.logradouroBairro = logradouroBairro;
+	}
+	
 	public String toString() {
 		return "Imovel [id=" + id + ", numeroImovel=" + numeroImovel + "]";
-	}
-
-	public boolean responsavelRecebeConta() {
-		return imovelContaEnvio != null &&
-		       (imovelContaEnvio == ImovelContaEnvio.ENVIAR_CLIENTE_RESPONSAVEL.getId() 
-		 	 || imovelContaEnvio == ImovelContaEnvio.NAO_PAGAVEL_IMOVEL_PAGAVEL_RESPONSAVEL.getId()
-		 	   );
-	}
-
-	public boolean debitoEmConta() {
-		return indicadorDebitoConta != null && indicadorDebitoConta == Status.ATIVO.getId();
-	}
-
-	public  boolean aguaEsgotoLigados() {
-		return ligacaoAguaSituacao != null
-				&& ligacaoAguaSituacao.getId().equals(LigacaoAguaSituacao.LIGADO)
-				&& ligacaoEsgotoSituacao != null
-				&& ligacaoEsgotoSituacao.getId().equals(LigacaoEsgotoSituacao.LIGADO);
-	}		
-
-	public boolean aguaLigada() {
-		return ligacaoAguaSituacao.getId().equals(LigacaoAguaSituacao.LIGADO);
-	}
-
-	public boolean esgotoLigado() {
-		return ligacaoEsgotoSituacao.getId().equals(LigacaoEsgotoSituacao.LIGADO);
-	}
-
-	public boolean pertenceACondominio() {
-		return imovelCondominio != null;
-	}
-
-	public boolean paralisacaoFaturamento() {
-		return faturamentoSituacaoTipo != null && faturamentoSituacaoTipo.getParalisacaoFaturamento() == Status.ATIVO.getId();
-	}
-
-	public boolean faturamentoAguaValido() {
-		return faturamentoSituacaoTipo != null &&  faturamentoSituacaoTipo.getValidoAgua() == Status.ATIVO.getId();
 	}
 
 }

@@ -33,8 +33,8 @@ public class ClienteRepositorio {
 			
 			ClienteImovel clienteImovel = entity.createQuery(sql.toString(), ClienteImovel.class)
 					.setParameter("idImovel", idImovel)
-					.setParameter("idResponsavel", ClienteRelacaoTipo.RESPONSAVEL.longValue())
-					.setParameter("esferaPoder", EsferaPoder.FEDERAL.longValue())
+					.setParameter("idResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
+					.setParameter("esferaPoder", EsferaPoder.FEDERAL)
 					.setMaxResults(1)
 					.getSingleResult();
 			
@@ -59,7 +59,7 @@ public class ClienteRepositorio {
 			
 			ClienteImovel clienteImovel = entity.createQuery(sql.toString(), ClienteImovel.class)
 					.setParameter("idImovel", idImovel)
-					.setParameter("idResponsavel", ClienteRelacaoTipo.RESPONSAVEL.longValue())
+					.setParameter("idResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
 					.setMaxResults(1)
 					.getSingleResult();
 			

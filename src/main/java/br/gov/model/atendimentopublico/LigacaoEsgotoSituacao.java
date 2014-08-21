@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import br.gov.model.Status;
-
 @Entity
 @Table(name="ligacao_esgoto_situacao", schema="atendimentopublico")
 public class LigacaoEsgotoSituacao implements Serializable {
@@ -25,7 +23,7 @@ public class LigacaoEsgotoSituacao implements Serializable {
 	private String descricao;
 
 	@Column(name="lest_icfaturamento")
-	private short situacaoFaturamento;
+	private Short situacaoFaturamento;
 
 	public LigacaoEsgotoSituacao() {
 	}
@@ -46,12 +44,12 @@ public class LigacaoEsgotoSituacao implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Status getSituacaoFaturamento() {
-		return Status.parse(this.situacaoFaturamento);
+	public Short getSituacaoFaturamento() {
+		return this.situacaoFaturamento;
 	}
 
-	public void setSituacaoFaturamento(Status situacaoFaturamento) {
-		this.situacaoFaturamento = situacaoFaturamento.getId();
+	public void setSituacaoFaturamento(Short situacaoFaturamento) {
+		this.situacaoFaturamento = situacaoFaturamento;
 	}
 
 	public String toString() {

@@ -46,5 +46,23 @@ public class ImovelRepositorioTest {
 		List<Imovel> lista = repositorio.imoveisParaPreFaturamentoComRotaAlternativa(2, 0, 6000);
 		
 		assertEquals(3, lista.size());
+	}
+	
+	@Test
+	@UsingDataSet("imoveis_gerar_arquivo_texto_faturamento.yml")
+	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
+	public void imoveisGerarArquivoTextoFaturamento() throws Exception {
+		List<Imovel> lista = repositorio.imoveisParaGerarArquivoTextoFaturamento(1, 0, 10);
+		
+		assertEquals(1, lista.size());
+	}
+	
+	@Test
+	@UsingDataSet("imoveis_gerar_arquivo_texto_faturamento.yml")
+	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
+	public void imoveisGerarArquivoTextoFaturamentoPorRotaAlternativa() throws Exception {
+		List<Imovel> lista = repositorio.imoveisParaGerarArquivoTextoFaturamentoPorRotaAlternativa(5, 0, 10);
+		
+		assertEquals(1, lista.size());
 	}	
 }

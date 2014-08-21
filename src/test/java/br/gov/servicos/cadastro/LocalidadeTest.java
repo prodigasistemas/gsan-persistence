@@ -33,7 +33,7 @@ public class LocalidadeTest {
 	@UsingDataSet("cadastros.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarImovelPorId2() throws Exception {
-		Localidade lo = localidadeRepositorio.find(1L);
+		Localidade lo = localidadeRepositorio.find(1);
 		
 		assertEquals("Belem", lo.getNome());
 	}

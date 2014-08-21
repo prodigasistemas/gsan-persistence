@@ -12,8 +12,8 @@ import javax.persistence.Table;
 public class LigacaoAguaSituacao implements Serializable {
 	private static final long serialVersionUID = -4942264231639799945L;
 	
-	public static Integer LIGADO    = new Integer(3);
-	public static Integer POTENCIAL = new Integer(1);
+	public static Integer LIGADO    = Integer.valueOf(3);
+	public static Integer POTENCIAL = Integer.valueOf(1);
 
 
 	@Id

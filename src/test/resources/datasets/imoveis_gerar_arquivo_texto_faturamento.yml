@@ -1,0 +1,61 @@
+atendimentopublico.ligacao_agua_situacao:
+  - last_id: 1
+
+atendimentopublico.ligacao_esgoto_situacao:
+  - lest_id: 1
+
+faturamento.consumo_tarifa:
+  - cstf_id: 1
+
+micromedicao.rota:
+  - rota_id: 1
+  - rota_id: 5
+
+cadastro.quadra:
+  - qdra_id: 1
+    rota_id: 1
+
+cadastro.setor_comercial:
+  - stcm_id: 1
+    stcm_cdsetorcomercial: 3
+
+cadastro.gerencia_regional:
+  - greg_id: 1
+
+cadastro.localidade:
+  - loca_id: 1
+    greg_id: 1
+
+cadastro.imovel_perfil:
+  - iper_id: 1
+    iper_icgerardadosleitura: 1
+
+cadastro.imovel:
+  - imov_id: 1
+    stcm_id: 1
+    qdra_id: 1
+  - imov_id: 2
+    stcm_id: 1
+    qdra_id: 1
+  - imov_id: 3
+    stcm_id: 1
+    qdra_id: 1
+  - imov_id: 4
+    loca_id: 1
+    stcm_id: 1
+    qdra_id: 1
+    iper_id: 1
+    last_id: 1
+    lest_id: 1
+    cstf_id: 1
+    imov_icexclusao: 2
+  - imov_id: 5
+    loca_id: 1
+    stcm_id: 1
+    qdra_id: 1
+    iper_id: 1
+    last_id: 1
+    lest_id: 1
+    cstf_id: 1
+    imov_icexclusao: 2
+    rota_idalternativa: 5

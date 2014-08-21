@@ -17,15 +17,15 @@ public class ClienteRelacaoTipo implements Serializable{
 	
 	private static final long serialVersionUID = -5421164882053548649L;
 	
-	public final static Short PROPRIETARIO = new Short("1");
-    public final static Short USUARIO = new Short("2");
-    public final static Short RESPONSAVEL = new Short("3");
+	public final static Integer PROPRIETARIO = Integer.valueOf("1");
+    public final static Integer USUARIO      = Integer.valueOf("2");
+    public final static Integer RESPONSAVEL  = Integer.valueOf("3");
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CLIENTE_RELACAO_TIPO")
 	@SequenceGenerator(name="SEQ_CLIENTE_RELACAO_TIPO", schema="cadastro", sequenceName="seq_cliente_relacao_tipo", allocationSize=1)
 	@Column(name="crtp_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="crtp_dsclienterelacaotipo")
 	private String descricao;
@@ -38,11 +38,11 @@ public class ClienteRelacaoTipo implements Serializable{
 
 	public ClienteRelacaoTipo(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
