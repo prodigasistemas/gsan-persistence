@@ -6,6 +6,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.arrecadacao.DebitoAutomaticoMovimento;
+
 @Stateless
 public class DebitoAutomaticoMovimentoRepositorio {
 
@@ -18,5 +20,10 @@ public class DebitoAutomaticoMovimentoRepositorio {
 		entity.createNativeQuery(delete)
 		.setParameter("ids", ids)
 		.executeUpdate();
+	}
+
+	public void inserirDebitoAutomaticoMovimento(DebitoAutomaticoMovimento debitoAutomaticoMovimento) {
+		// TODO Auto-generated method stub
+		
 	}	
 }
