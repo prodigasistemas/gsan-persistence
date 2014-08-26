@@ -14,7 +14,7 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import br.gov.model.cadastro.Localidade;
+import br.gov.model.cadastro.endereco.Localidade;
 import br.gov.servicos.test.ShrinkWrapBuilder;
 
 
@@ -35,6 +35,6 @@ public class LocalidadeTest {
 	public void buscarImovelPorId2() throws Exception {
 		Localidade lo = localidadeRepositorio.find(1);
 		
-		assertEquals("Belem", lo.getNome());
+		assertEquals("Belem", lo.getDescricao());
 	}
 }

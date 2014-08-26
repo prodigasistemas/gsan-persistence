@@ -37,7 +37,7 @@ public class DebitoAutomatico implements Serializable {
 	private Date inclusaoNovoDebitoAutomatico;
 	
 	@Column(name="deba_dtexclusao")
-	private Date exclusao;
+	private Date dataExclusao;
 	
 	@Column(name="deba_tmultimaalteracao")
 	private Date ultimaAlteracao;
@@ -46,6 +46,10 @@ public class DebitoAutomatico implements Serializable {
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 
+	@ManyToOne
+	@JoinColumn(name="agen_id")
+	private Agencia agencia;
+	
 	public DebitoAutomatico(){}
 
 	public Long getId() {
@@ -80,12 +84,12 @@ public class DebitoAutomatico implements Serializable {
 		this.inclusaoNovoDebitoAutomatico = inclusaoNovoDebitoAutomatico;
 	}
 
-	public Date getExclusao() {
-		return exclusao;
+	public Date getDataExclusao() {
+		return dataExclusao;
 	}
 
-	public void setExclusao(Date exclusao) {
-		this.exclusao = exclusao;
+	public void setDataExclusao(Date exclusao) {
+		this.dataExclusao = exclusao;
 	}
 
 	public Date getUltimaAlteracao() {

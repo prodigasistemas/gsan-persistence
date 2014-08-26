@@ -19,7 +19,7 @@ public class Localidade implements Serializable{
 	private Integer id;
 	
 	@Column(name="loca_nmlocalidade")
-	private String nome;
+	private String descricao;
 	
 	@ManyToOne
 	@JoinColumn(name="greg_id")
@@ -36,12 +36,12 @@ public class Localidade implements Serializable{
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String nome) {
+		this.descricao = nome;
 	}
 
 	public GerenciaRegional getGerenciaRegional() {
@@ -53,6 +53,6 @@ public class Localidade implements Serializable{
 	}
 
 	public String toString() {
-		return "Localidade [id=" + id + ", nome=" + nome + "]";
+		return "Localidade [id=" + id + ", nome=" + descricao + "]";
 	}
 }

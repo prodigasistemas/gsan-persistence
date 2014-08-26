@@ -14,6 +14,7 @@ public class ShrinkWrapBuilder {
                 .addPackages(true, "br.gov.model.atendimentopublico")
                 .addPackages(true, "br.gov.model.batch")
                 .addPackages(true, "br.gov.model.cadastro")
+                .addPackages(true, "br.gov.model.cadastro.endereco")
                 .addPackages(true, "br.gov.model.cobranca")
                 .addPackages(true, "br.gov.model.cobranca.parcelamento")
                 .addPackages(true, "br.gov.model.converter")
