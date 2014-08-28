@@ -37,6 +37,10 @@ public class ClienteRelacaoTipo implements Serializable{
 	private Date ultimaAlteracao;
 
 	public ClienteRelacaoTipo(){}
+	
+	public ClienteRelacaoTipo(Integer id){
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;

@@ -1,0 +1,19 @@
+cadastro.imovel:
+  - imov_id: 1
+
+cadastro.cliente:
+  - clie_id: 1
+  - clie_id: 2
+  - clie_id: 3
+
+cadastro.cliente_imovel:
+  - clim_id: 1
+    imov_id: 1
+    clie_id: 1
+  - clim_id: 2
+    imov_id: 1
+    clie_id: 2
+  - clim_id: 3
+    imov_id: 1
+    clie_id: 3
+

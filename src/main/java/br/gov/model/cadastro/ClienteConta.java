@@ -1,6 +1,7 @@
 package br.gov.model.cadastro;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,6 +38,12 @@ public class ClienteConta implements Serializable{
 	@JoinColumn(name="cnta_id")
 	private Conta conta;
 	
+	@Column(name="clct_icnomeconta")
+	private Short indicadorNomeConta;
+	
+	@Column(name="clct_tmultimaalteracao")
+	private Date ultimaAlteracao;
+	
 	public ClienteConta() {
 	}
 
@@ -70,6 +77,22 @@ public class ClienteConta implements Serializable{
 
 	public void setConta(Conta conta) {
 		this.conta = conta;
+	}
+	
+	public Short getIndicadorNomeConta() {
+		return indicadorNomeConta;
+	}
+
+	public void setIndicadorNomeConta(Short indicadorNomeConta) {
+		this.indicadorNomeConta = indicadorNomeConta;
+	}
+
+	public Date getUltimaAlteracao() {
+		return ultimaAlteracao;
+	}
+
+	public void setUltimaAlteracao(Date ultimaAlteracao) {
+		this.ultimaAlteracao = ultimaAlteracao;
 	}
 
 	public String toString() {

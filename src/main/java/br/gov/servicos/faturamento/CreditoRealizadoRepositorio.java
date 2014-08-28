@@ -7,6 +7,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.faturamento.CreditoRealizado;
+
 @Stateless
 public class CreditoRealizadoRepositorio {
 
@@ -34,5 +36,12 @@ public class CreditoRealizadoRepositorio {
 		entity.createNativeQuery(delete)
 		.setParameter("ids", idsContas)
 		.executeUpdate();
+	}
+
+	public Long inserir(CreditoRealizado creditoRealizado) {
+		entity.persist(creditoRealizado);
+		entity.flush();
+		
+		return creditoRealizado.getId();
 	}		
 }

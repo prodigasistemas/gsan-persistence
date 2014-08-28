@@ -17,7 +17,7 @@ public class DebitosContaTO implements Serializable{
 
 	private List<DebitoCobrado> debitosCobrados = new ArrayList<DebitoCobrado>();
 	private BigDecimal valorTotalDebito = BigDecimal.ZERO;
-	private List<DebitoCobradoCategoria> categorias          = new ArrayList<DebitoCobradoCategoria>();
+	private Map<DebitoCobrado, List<DebitoCobradoCategoria>> categorias = new HashMap<DebitoCobrado, List<DebitoCobradoCategoria>>();
 	private List<DebitoCobrar> debitosCobrarAtualizados      = new ArrayList<DebitoCobrar>();
 	private Map<DebitoTipo, BigDecimal> valoresPorTipoDebito = new HashMap<DebitoTipo, BigDecimal>();
 
@@ -40,18 +40,29 @@ public class DebitosContaTO implements Serializable{
 	}
 
 
-	public List<DebitoCobradoCategoria> getCategorias() {
+	public Map<DebitoCobrado, List<DebitoCobradoCategoria>> getCategorias() {
 		return categorias;
 	}
 
-	public void setCategorias(List<DebitoCobradoCategoria> categorias) {
+	public void setCategorias(Map<DebitoCobrado, List<DebitoCobradoCategoria>> categorias) {
 		this.categorias = categorias;
+	}
+	
+	public void addCategorias(DebitoCobrado debitoCobrado, List<DebitoCobradoCategoria> debitoCobradoCategorias) {
+		categorias.put(debitoCobrado, debitoCobradoCategorias);
+	}
+	
+	public List<DebitoCobradoCategoria> getCategorias(DebitoCobrado debitoCobrado) {
+		return categorias.get(debitoCobrado);
+	}
+	
+	public List<DebitoCobrar> getDebitosCobrar() {
+		return debitosCobrarAtualizados;
 	}
 
 	public void addDebitoCobrarAtualizado(DebitoCobrar debitoACobrar) {
 		this.debitosCobrarAtualizados.add(debitoACobrar);
 	}
-
 
 	public void addValorDebito(BigDecimal valor) {
 		valorTotalDebito = valorTotalDebito.add(valor);

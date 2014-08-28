@@ -39,6 +39,9 @@ public class DebitoCobrado implements IDebito{
 	@Column(name="dbcb_nnprestacaodebito")
 	private Short numeroPrestacaoDebito;
 
+	@Column(name="dbcb_tmdebitocobrado")
+	private Date cobradoEm;
+	
 	@ManyToOne
 	@JoinColumn(name="dbtp_id")
 	private DebitoTipo debitoTipo;
@@ -130,6 +133,14 @@ public class DebitoCobrado implements IDebito{
 
 	public void setNumeroPrestacaoDebito(Short numeroPrestacaoDebito) {
 		this.numeroPrestacaoDebito = numeroPrestacaoDebito;
+	}
+	
+	public Date getCobradoEm() {
+		return cobradoEm;
+	}
+
+	public void setCobradoEm(Date cobradoEm) {
+		this.cobradoEm = cobradoEm;
 	}
 
 	public DebitoTipo getDebitoTipo() {

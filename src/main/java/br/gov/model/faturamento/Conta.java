@@ -173,7 +173,13 @@ public class Conta implements Serializable{
 	@JoinColumn(name="iper_id")
 	private ImovelPerfil imovelPerfil;
 	
-	public Conta() {
+	@Column(name="cmrv_id")
+	private Integer contaMotivoRevisao;
+	
+	public Conta() {}
+	
+	public Conta(Long id){
+		this.id = id;
 	}
 
 	public Conta(Builder builder) {
@@ -680,6 +686,14 @@ public class Conta implements Serializable{
 
 	public void setNumeroRetificacoes(Integer numeroRetificacoes) {
 		this.numeroRetificacoes = numeroRetificacoes;
+	}
+	
+	public Integer getContaMotivoRevisao() {
+		return contaMotivoRevisao;
+	}
+
+	public void setContaMotivoRevisao(Integer contaMotivoRevisao) {
+		this.contaMotivoRevisao = contaMotivoRevisao;
 	}
 
 	public String toString() {

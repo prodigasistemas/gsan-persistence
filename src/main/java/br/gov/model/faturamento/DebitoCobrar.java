@@ -94,6 +94,9 @@ public class DebitoCobrar implements IDebito{
 	@ManyToOne
 	@JoinColumn(name="parc_id")
 	private Parcelamento parcelamento;	
+	
+	@Column(name="dbac_tmultimaalteracao")
+	private Date ultimaAlteracao;
 
 	public DebitoCobrar(){}
 
@@ -271,6 +274,14 @@ public class DebitoCobrar implements IDebito{
 
 	public void setAnoMesReferenciaPrestacao(Integer anoMesReferenciaPrestacao) {
 		this.anoMesReferenciaPrestacao = anoMesReferenciaPrestacao;
+	}
+	
+	public Date getUltimaAlteracao() {
+		return ultimaAlteracao;
+	}
+
+	public void setUltimaAlteracao(Date ultimaAlteracao) {
+		this.ultimaAlteracao = ultimaAlteracao;
 	}
 
 	public String toString() {

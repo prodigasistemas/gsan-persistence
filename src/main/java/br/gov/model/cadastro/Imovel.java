@@ -152,7 +152,10 @@ public class Imovel implements Serializable{
 	@JoinColumn(name="logr_idfimperimetro", referencedColumnName="logr_id")
 	private Logradouro perimetroFinal;
 	
-	public Imovel() {
+	public Imovel() {}
+	
+	public Imovel(Integer id){
+		this.id  = id;
 	}
 
 	public boolean responsavelRecebeConta() {
@@ -218,6 +221,14 @@ public class Imovel implements Serializable{
 		return hidrometroInstalacaoHistorico != null;
 	}
 	
+	public boolean possuiLigacaoAguaAtiva() {
+		return this.getLigacaoAguaSituacao().getSituacaoFaturamento().equals(Status.ATIVO);
+	}
+	
+	public boolean possuiLigacaoEsgotoAtiva() {
+		return this.getLigacaoEsgotoSituacao().getSituacaoFaturamento().equals(Status.ATIVO);
+	}
+		
 	public String getInscricaoFormatadaSemPonto() {
 		StringBuilder inscricao = new StringBuilder();
 		inscricao.append(Utilitarios.completaComZerosEsquerda(3, localidade.getId()))

@@ -1,10 +1,13 @@
 package br.gov.servicos.faturamento;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.gov.model.faturamento.DebitoCobradoCategoria;
 
 @Stateless
 public class DebitoCobradoCategoriaRepositorio {
@@ -20,5 +23,9 @@ public class DebitoCobradoCategoriaRepositorio {
 			.setParameter("ids", ids)
 			.executeUpdate();
 		}
+	}
+
+	public void inserir(Collection<DebitoCobradoCategoria> debitosCobradosCategoria) {
+		debitosCobradosCategoria.forEach(dc -> entity.persist(dc));
 	}		
 }

@@ -22,8 +22,7 @@ public class DebitoAutomaticoMovimentoRepositorio {
 		.executeUpdate();
 	}
 
-	public void inserirDebitoAutomaticoMovimento(DebitoAutomaticoMovimento debitoAutomaticoMovimento) {
-		// TODO Auto-generated method stub
-		
+	public void inserir(DebitoAutomaticoMovimento debitoAutomaticoMovimento) {
+		entity.persist(debitoAutomaticoMovimento);
 	}	
 }

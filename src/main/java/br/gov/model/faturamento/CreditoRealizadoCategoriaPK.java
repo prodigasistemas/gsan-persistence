@@ -26,8 +26,8 @@ public class CreditoRealizadoCategoriaPK implements Serializable{
 		return creditoRealizadoId;
 	}
 
-	public void setCreditoRealizadoId(Long creditoRealidoId) {
-		this.creditoRealizadoId = creditoRealidoId;
+	public void setCreditoRealizadoId(Long creditoRealizadoId) {
+		this.creditoRealizadoId = creditoRealizadoId;
 	}
 
 	public Long getCategoriaId() {

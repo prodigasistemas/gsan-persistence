@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.arrecadacao.DebitoAutomatico;
 import br.gov.servicos.to.DadosBancariosTO;
 
 @Stateless
@@ -35,5 +36,22 @@ public class DebitoAutomaticoRepositorio {
 		} catch (NoResultException  e) {
 			return null;
 		}
+	}
+
+	public DebitoAutomatico obterDebitoAutomaticoPorImovel(Integer idImovel) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select debito ")
+			.append(" from DebitoAutomatico debito ")
+			.append(" inner join debito.imovel imov ")
+			.append(" where imov.id = :idImovel ");
+		
+		try {
+			return entity.createQuery(sql.toString(), DebitoAutomatico.class)
+			.setParameter("idImovel", idImovel)
+			.setMaxResults(1)
+			.getSingleResult();
+		} catch (NoResultException  e) {
+			return null;
+		}		
 	}	
 }

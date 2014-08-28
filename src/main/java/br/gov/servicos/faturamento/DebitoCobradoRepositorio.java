@@ -1,11 +1,12 @@
 package br.gov.servicos.faturamento;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.gov.model.faturamento.DebitoCobrado;
 
 @Stateless
 public class DebitoCobradoRepositorio {
@@ -15,17 +16,13 @@ public class DebitoCobradoRepositorio {
 	
 	public List<Long> debitosCobradosDasContas(List<Long> ids){
 		StringBuilder sql = new StringBuilder();
-		sql.append("select dbcb_id from faturamento.debito_cobrado where cnta_id in (:ids) ");
+		sql.append("select id from DebitoCobrado as debitoCobrado where debitoCobrado.conta.id in (:ids) ");
 		
-		List lista = entity.createNativeQuery(sql.toString())
-				.setParameter("ids", ids)
-				.getResultList();
+		List<Long> lista = entity.createQuery(sql.toString(), Long.class)
+									.setParameter("ids", ids)
+									.getResultList();
 		
-		List<Long> result = new ArrayList<Long>();
-		for (Object item : lista) {
-			result.add(Long.valueOf(String.valueOf(item)));
-		}
-		return result;		
+		return lista;		
 	}
 	
 	public void apagarDebitosCobradosDasContas(List<Long> ids){
@@ -34,5 +31,12 @@ public class DebitoCobradoRepositorio {
 		entity.createNativeQuery(delete)
 		.setParameter("ids", ids)
 		.executeUpdate();
+	}
+
+	public Long inserir(DebitoCobrado debitoCobrado) {
+		entity.persist(debitoCobrado);
+		entity.flush();
+		
+		return debitoCobrado.getId();
 	}		
 }

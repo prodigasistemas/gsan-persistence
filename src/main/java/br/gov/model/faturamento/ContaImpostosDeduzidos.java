@@ -1,6 +1,8 @@
 package br.gov.model.faturamento;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +30,22 @@ public class ContaImpostosDeduzidos implements Serializable{
 	@JoinColumn(name="cnta_id")
 	private Conta conta;
 	
+	@ManyToOne
+	@JoinColumn(name="imtp_id")
+	private ImpostoTipo impostoTipo;
+	
+	@Column(name="cnid_vlbasecalculo")
+	private BigDecimal valorBaseCalculo;
+	
+	@Column(name="cnid_vlimposto")
+	private BigDecimal valorImposto;
+	
+	@Column(name="cnid_pcaliquota")
+	private BigDecimal percentualAliquota;
+	
+	@Column(name="cnid_tmultimaalteracao")
+    private Date ultimaAlteracao;
+	
 	public ContaImpostosDeduzidos() {
 	}
 
@@ -45,6 +63,46 @@ public class ContaImpostosDeduzidos implements Serializable{
 
 	public void setConta(Conta conta) {
 		this.conta = conta;
+	}
+
+	public ImpostoTipo getImpostoTipo() {
+		return impostoTipo;
+	}
+
+	public void setImpostoTipo(ImpostoTipo impostoTipo) {
+		this.impostoTipo = impostoTipo;
+	}
+
+	public BigDecimal getValorBaseCalculo() {
+		return valorBaseCalculo;
+	}
+
+	public void setValorBaseCalculo(BigDecimal valorBaseCalculo) {
+		this.valorBaseCalculo = valorBaseCalculo;
+	}
+
+	public BigDecimal getValorImposto() {
+		return valorImposto;
+	}
+
+	public void setValorImposto(BigDecimal valorImposto) {
+		this.valorImposto = valorImposto;
+	}
+	
+	public BigDecimal getPercentualAliquota() {
+		return percentualAliquota;
+	}
+
+	public void setPercentualAliquota(BigDecimal percentualAliquota) {
+		this.percentualAliquota = percentualAliquota;
+	}
+
+	public Date getUltimaAlteracao() {
+		return ultimaAlteracao;
+	}
+
+	public void setUltimaAlteracao(Date ultimaAlteracao) {
+		this.ultimaAlteracao = ultimaAlteracao;
 	}
 
 	public String toString() {

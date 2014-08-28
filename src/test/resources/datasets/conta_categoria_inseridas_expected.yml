@@ -29,3 +29,9 @@ faturamento.conta_categoria:
   - cnta_id: 4
     catg_id: 2
     scat_id: 2
+  - cnta_id: 5
+    catg_id: 1
+    scat_id: 1
+  - cnta_id: 6
+    catg_id: 2
+    scat_id: 2
