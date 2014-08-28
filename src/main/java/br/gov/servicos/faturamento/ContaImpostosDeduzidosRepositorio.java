@@ -1,10 +1,13 @@
 package br.gov.servicos.faturamento;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.gov.model.faturamento.ContaImpostosDeduzidos;
 
 @Stateless
 public class ContaImpostosDeduzidosRepositorio {
@@ -18,5 +21,9 @@ public class ContaImpostosDeduzidosRepositorio {
 		entity.createNativeQuery(delete)
 		.setParameter("ids", ids)
 		.executeUpdate();
+	}
+
+	public void inserir(Collection<ContaImpostosDeduzidos> contasImpostosDeduzidos) {
+		contasImpostosDeduzidos.forEach(contaImpostosDeduzidos -> entity.persist(contaImpostosDeduzidos));
 	}	
 }

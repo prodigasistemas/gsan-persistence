@@ -3,13 +3,28 @@ faturamento.conta:
   - cnta_id: 2
   - cnta_id: 3
   - cnta_id: 4
+  - cnta_id: 5
+
+cadastro.cliente:
+  - clie_id: 1
+  - clie_id: 2
+  - clie_id: 3
+
+cadastro.cliente_relacao_tipo:
+  - crtp_id: 1
+  - crtp_id: 2
+  - crtp_id: 3
 
 cadastro.cliente_conta:
   - clct_id: 1
     cnta_id: 1
+    crtp_id: 1
+    clie_id: 2
   - clct_id: 2
     cnta_id: 2
+    crtp_id: 1
+    clie_id: 1
   - clct_id: 3
     cnta_id: 3
-  - clct_id: 4
-    cnta_id: 4
+    crtp_id: 2
+    clie_id: 2

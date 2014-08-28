@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 
 import br.gov.model.faturamento.CreditoRealizar;
 import br.gov.model.faturamento.DebitoCreditoSituacao;
+import br.gov.persistence.util.QueryUpdateBuilder;
 
 @Stateless
 public class CreditoRealizarRepositorio {
@@ -76,5 +77,21 @@ public class CreditoRealizarRepositorio {
 		.setParameter("data", new Timestamp(new Date().getTime()))
 		.setParameter("ids", idsImoveis)
 		.executeUpdate();
-	}	
+	}
+	
+	public void atualizarCreditoRealizar(Collection<CreditoRealizar> creditosRealizar) {
+		for (CreditoRealizar creditoRealizar : creditosRealizar) {
+			QueryUpdateBuilder query = new QueryUpdateBuilder(entity, CreditoRealizar.class);
+			
+			query.appendIfNotNull("anoMesReferenciaPrestacao", creditoRealizar.getAnoMesReferenciaPrestacao());
+			query.appendIfNotNull("numeroPrestacaoRealizada", creditoRealizar.getNumeroPrestacaoRealizada());
+			query.appendIfNotNull("valorResidualMesAnterior", creditoRealizar.getValorResidualMesAnterior());
+			query.appendIfNotNull("valorResidualConcedidoMes", creditoRealizar.getValorResidualConcedidoMes());
+			query.appendIfNotNull("ultimaAlteracao", new Date());
+			
+			query.appendCondition("id", "=", creditoRealizar.getId());
+			
+			query.createUpdateQuery().executeUpdate();
+		}
+	}
 }

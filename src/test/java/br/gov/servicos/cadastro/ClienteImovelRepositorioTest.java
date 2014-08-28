@@ -1,8 +1,10 @@
 package br.gov.servicos.cadastro;
 
-import static junit.framework.Assert.assertEquals;
+import java.util.List;
 
 import javax.inject.Inject;
+
+import static org.junit.Assert.*;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -14,27 +16,29 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import br.gov.model.cadastro.Localidade;
+import br.gov.model.cadastro.ClienteImovel;
+import br.gov.model.cadastro.Imovel;
 import br.gov.servicos.test.ShrinkWrapBuilder;
 
-
 @RunWith(Arquillian.class)
-public class LocalidadeTest {
-		
+public class ClienteImovelRepositorioTest {
+
 	@Deployment
     public static Archive<?> createDeployment() {
 		return ShrinkWrapBuilder.createDeployment();
     }
 	
 	@Inject
-	LocalidadeRepositorio localidadeRepositorio;
+	private ClienteImovelRepositorio repositorio;
 	
 	@Test
-	@UsingDataSet("cadastros.yml")
+	@UsingDataSet({"cliente_imovel.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void buscarImovelPorId2() throws Exception {
-		Localidade lo = localidadeRepositorio.find(1);
+	public void pesquisarClienteImovelAtivos(){
+		Imovel imovel = new Imovel(1L);
 		
-		assertEquals("Belem", lo.getDescricao());
+		List<ClienteImovel> clientesImovel = repositorio.pesquisarClienteImovelAtivos(imovel);
+		
+		assertEquals(3, clientesImovel.size());
 	}
 }

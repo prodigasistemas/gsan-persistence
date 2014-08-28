@@ -13,6 +13,8 @@ faturamento.conta:
   - cnta_id: 2
   - cnta_id: 3
   - cnta_id: 4
+  - cnta_id: 5
+  - cnta_id: 6
 
 faturamento.conta_categoria:
   - cnta_id: 3

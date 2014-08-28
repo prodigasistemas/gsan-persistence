@@ -15,7 +15,7 @@ public class ContaCategoriaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public void inserirContasCategoria(Collection<ContaCategoria> contasCategoria) {
+	public void inserir(Collection<ContaCategoria> contasCategoria) {
 		contasCategoria.forEach(c -> entity.persist(c));
 	}
 

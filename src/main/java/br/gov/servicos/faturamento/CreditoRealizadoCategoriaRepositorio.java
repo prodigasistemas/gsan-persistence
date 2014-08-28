@@ -1,10 +1,14 @@
 package br.gov.servicos.faturamento;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.gov.model.faturamento.CreditoRealizado;
+import br.gov.model.faturamento.CreditoRealizadoCategoria;
 
 @Stateless
 public class CreditoRealizadoCategoriaRepositorio {
@@ -19,6 +23,13 @@ public class CreditoRealizadoCategoriaRepositorio {
 			entity.createNativeQuery(delete)
 			.setParameter("ids", idsCreditosRealizados)
 			.executeUpdate();
+		}
+	}
+
+	public void inserir(Collection<CreditoRealizadoCategoria> creditosRealizadosCategoria, CreditoRealizado creditoRealizado) {
+		for (CreditoRealizadoCategoria creditoRealizadoCategoria : creditosRealizadosCategoria) {
+			creditoRealizadoCategoria.getPk().setCreditoRealizadoId(creditoRealizado.getId());
+			entity.persist(creditoRealizadoCategoria);
 		}
 	}		
 }

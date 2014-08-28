@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.arrecadacao.DebitoAutomatico;
 import br.gov.servicos.to.DadosBancariosTO;
 
 @Stateless
@@ -33,5 +34,9 @@ public class DebitoAutomaticoRepositorio {
 		} catch (NoResultException  e) {
 			return null;
 		}
+	}
+
+	public DebitoAutomatico obterDebitoAutomatico(Long id) {
+		return entity.find(DebitoAutomatico.class, id);
 	}	
 }

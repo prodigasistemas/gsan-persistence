@@ -1,6 +1,7 @@
 package br.gov.servicos.faturamento;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -48,5 +49,27 @@ public class DebitoCobrarRepositorio {
 			.setParameter("ids", idsImoveis)
 			.executeUpdate();
 		}
+	}
+
+	public void atualizarDebitoCobrar(List<DebitoCobrar> debitoCobrarAtualizado) {
+		debitoCobrarAtualizado.forEach(debitoCobrar -> atualizarDebitoCobrar(debitoCobrar));
+	}
+	
+	public void atualizarDebitoCobrar(DebitoCobrar debitoCobrar) {
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append(" update DebitoCobrar set");
+		sql.append(" anoMesReferenciaPrestacao = :anoMesPrestacao, ");
+		sql.append(" numeroPrestacaoCobradas = :numeroPrestacao, ");
+		sql.append(" ultimaAlteracao = :dataAtual ");
+		sql.append(" where id = :idDebitoAcobrar");
+
+		entity.createQuery(sql.toString())
+				.setParameter("numeroPrestacao", debitoCobrar.getNumeroPrestacaoCobradas())
+				.setParameter("idDebitoAcobrar", debitoCobrar.getId().intValue())
+				.setParameter("anoMesPrestacao", debitoCobrar.getAnoMesReferenciaPrestacao())
+				.setParameter("dataAtual", new Date())
+				.executeUpdate();
+
 	}
 }

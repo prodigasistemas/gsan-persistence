@@ -13,23 +13,23 @@ import br.gov.model.faturamento.CreditoTipo;
 
 public class CreditosContaTO {
 	
-	private Collection<CreditoRealizar> colecaoCreditosARealizarUpdate;
+	private Collection<CreditoRealizar> creditosRealizar;
 	private Map<CreditoRealizado, Collection<CreditoRealizadoCategoria>> mapCreditoRealizado;
 	private Map<CreditoTipo, BigDecimal> mapValoresPorTipoCredito;
 	private BigDecimal valorTotalCreditos;
 	
 	public CreditosContaTO(){
-		colecaoCreditosARealizarUpdate = new ArrayList<CreditoRealizar>();
+		creditosRealizar = new ArrayList<CreditoRealizar>();
 		mapCreditoRealizado = new HashMap<CreditoRealizado, Collection<CreditoRealizadoCategoria>>();
 		mapValoresPorTipoCredito = new HashMap<CreditoTipo, BigDecimal>();
 		valorTotalCreditos = BigDecimal.ZERO;
 	}
 	
-	public Collection<CreditoRealizar> getColecaoCreditosARealizarUpdate() {
-		return colecaoCreditosARealizarUpdate;
+	public Collection<CreditoRealizar> getCreditosRealizar() {
+		return creditosRealizar;
 	}
-	public void setColecaoCreditosARealizarUpdate(Collection<CreditoRealizar> colecaoCreditosARealizarUpdate) {
-		this.colecaoCreditosARealizarUpdate = colecaoCreditosARealizarUpdate;
+	public void setCreditosRealizar(Collection<CreditoRealizar> colecaoCreditosARealizarUpdate) {
+		this.creditosRealizar = colecaoCreditosARealizarUpdate;
 	}
 	public Map<CreditoRealizado, Collection<CreditoRealizadoCategoria>> getMapCreditoRealizado() {
 		return mapCreditoRealizado;
@@ -51,7 +51,7 @@ public class CreditosContaTO {
 	}
 	
 	public void addCreditoRealizar(CreditoRealizar creditoRealizar){
-		colecaoCreditosARealizarUpdate.add(creditoRealizar);
+		creditosRealizar.add(creditoRealizar);
 	}
 	
 	public void putCategoriasPorCreditoRealizado(CreditoRealizado creditoRealizado, Collection<CreditoRealizadoCategoria> colecaoCreditosRealizadoCategoria){

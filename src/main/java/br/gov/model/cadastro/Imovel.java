@@ -130,7 +130,10 @@ public class Imovel implements Serializable{
 	@JoinColumn(name="lgbr_id")
 	private LogradouroBairro logradouroBairro;
 	
-	public Imovel() {
+	public Imovel() {}
+	
+	public Imovel(Long id){
+		this.id  = id;
 	}
 
 	public boolean responsavelRecebeConta() {
@@ -424,6 +427,26 @@ public class Imovel implements Serializable{
 
 	public void setLogradouroBairro(LogradouroBairro logradouroBairro) {
 		this.logradouroBairro = logradouroBairro;
+	}
+	
+	public boolean possuiLigacaoAguaAtiva() {
+		return this.getLigacaoAguaSituacao().getSituacaoFaturamento().equals(Status.ATIVO);
+	}
+	
+	public boolean possuiLigacaoEsgotoAtiva() {
+		return this.getLigacaoEsgotoSituacao().getSituacaoFaturamento().equals(Status.ATIVO);
+	}
+	
+	public boolean possuiHidrometro() {
+		boolean hidrometro = false;
+		if ((this.getHidrometroInstalacaoHistorico() != null && this.getHidrometroInstalacaoHistorico().getId() != null)
+				|| (this.getLigacaoAgua() != null 
+				&& this.getLigacaoAgua().getHidrometroInstalacaoHistorico() != null 
+				&& this.getLigacaoAgua().getHidrometroInstalacaoHistorico().getId() != null)) {
+			hidrometro = true;
+		}
+
+		return hidrometro;
 	}
 	
 	public String toString() {

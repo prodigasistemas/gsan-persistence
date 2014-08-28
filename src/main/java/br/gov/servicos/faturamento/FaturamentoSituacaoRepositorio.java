@@ -15,7 +15,7 @@ public class FaturamentoSituacaoRepositorio {
 	@PersistenceContext
 	private EntityManager em;
 	
-	public List<FaturamentoSituacaoHistorico> faturamentosHistoricoVigentesPorImovel(Long imovelId) {
+	public List<FaturamentoSituacaoHistorico> pesquisarFaturamentosHistoricoVigentes(Long imovelId) {
 		List<FaturamentoSituacaoHistorico> retorno = situacoesEspeciaisFaturamentoVigentes(imovelId);
 		
 		if(retorno == null || retorno.isEmpty()) {
