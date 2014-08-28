@@ -19,16 +19,16 @@ public class GerenciaRegional implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_GERENCIA_REGIONAL")
 	@SequenceGenerator(name="SEQ_GERENCIA_REGIONAL", schema="cadastro", sequenceName="seq_gerencia_regional", allocationSize=1)
 	@Column(name="greg_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="greg_nmregional")
 	private String nome;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

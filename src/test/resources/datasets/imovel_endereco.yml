@@ -1,0 +1,86 @@
+cadastro.logradouro_tipo:
+  - lgtp_id: 1
+    lgtp_dslogradourotipo: ACESSO
+    lgtp_dsabreviado: AC
+
+cadastro.logradouro_titulo:
+  - lgtt_id: 1
+    lgtt_dslogradourotitulo: BR
+    lgtt_dsabreviado: BR
+
+cadastro.unidade_federacao:
+  - unfe_id: 1
+    unfe_dsuf: PARA
+    unfe_dsufsigla: PA
+
+cadastro.municipio:
+  - muni_id: 1
+    muni_nmmunicipio: BELEM
+    unfe_id: 1
+
+cadastro.bairro:
+  - bair_id: 1
+    bair_nmbairro: SAO BRAZ
+    muni_id: 1
+
+cadastro.logradouro:
+  - logr_id: 1
+    logr_nmlogradouro: NAZARE
+    lgtt_id: 1
+    lgtp_id: 1
+    muni_id: 1
+
+cadastro.cep:
+  - cep_id: 1
+    cep_cdcep: 68707000
+
+cadastro.logradouro_cep:
+  - lgcp_id: 1
+    logr_id: 1
+    cep_id: 1
+
+cadastro.logradouro_bairro:
+  - lgbr_id: 1
+    logr_id: 1
+    bair_id: 1
+
+micromedicao.rota:
+  - rota_id: 1
+
+cadastro.quadra:
+  - qdra_id: 1
+    rota_id: 1
+
+cadastro.setor_comercial:
+  - stcm_id: 1
+    stcm_cdsetorcomercial: 3
+
+cadastro.localidade:
+  - loca_id: 1
+    loca_nmlocalidade: BELEM
+
+cadastro.imovel:
+  - imov_id: 1
+    stcm_id: 1
+    qdra_id: 1
+    lgcp_id: 1
+  - imov_id: 2
+    stcm_id: 1
+    qdra_id: 1
+    lgcp_id: 1
+    imov_dscomplementoendereco: EM FRENTE AO PLAZA
+    imov_nnimovel: 60
+    lgbr_id: 1
+  - imov_id: 3
+    stcm_id: 1
+    qdra_id: 1
+    lgcp_id: 1
+    imov_dscomplementoendereco: EM FRENTE AO PLAZA
+    imov_nnimovel: 60
+    lgbr_id: 1
+    logr_idinicioperimetro: 1
+    logr_idfimperimetro: 1
+
+cadastro.imovel_endereco_anterior:
+  - imov_id: 1
+    ieda_dsenderecoanterior: BR KM 50

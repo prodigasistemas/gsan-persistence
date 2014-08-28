@@ -1,6 +1,6 @@
-package br.gov.servicos.cadastro;
+package br.gov.servicos.cobranca;
 
-import static junit.framework.Assert.assertEquals;
+import java.util.Calendar;
 
 import javax.inject.Inject;
 
@@ -11,30 +11,31 @@ import org.jboss.arquillian.persistence.CleanupStrategy;
 import org.jboss.arquillian.persistence.TestExecutionPhase;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.jboss.shrinkwrap.api.Archive;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import br.gov.model.cadastro.Localidade;
+import br.gov.model.cobranca.CobrancaDocumento;
 import br.gov.servicos.test.ShrinkWrapBuilder;
 
-
 @RunWith(Arquillian.class)
-public class LocalidadeTest {
-		
+public class CobrancaDocumentoRepositorioTest {
+
 	@Deployment
     public static Archive<?> createDeployment() {
 		return ShrinkWrapBuilder.createDeployment();
     }
 	
 	@Inject
-	LocalidadeRepositorio localidadeRepositorio;
+	private CobrancaDocumentoRepositorio repositorio;
 	
 	@Test
-	@UsingDataSet("cadastros.yml")
+	@UsingDataSet({"cobranca_documento.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
-	public void buscarImovelPorId2() throws Exception {
-		Localidade lo = localidadeRepositorio.find(1);
-		
-		assertEquals("Belem", lo.getDescricao());
+	public void cobrancasImpressaoSimultanea(){
+		Calendar cal = Calendar.getInstance();
+		cal.set(2014, 7, 14);
+		CobrancaDocumento documento = repositorio.cobrancaDocumentoImpressaoSimultanea(cal.getTime(), 1);
+		assertNotNull(documento);
 	}
 }

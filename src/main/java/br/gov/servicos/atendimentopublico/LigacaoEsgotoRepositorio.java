@@ -13,7 +13,7 @@ public class LigacaoEsgotoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public LigacaoEsgoto buscarLigacaoEsgotoPorIdImovel(Long idImovel){
+	public LigacaoEsgoto buscarLigacaoEsgotoPorIdImovel(Integer idImovel){
 		String sql = "select lig from LigacaoEsgoto lig where lig.imovel.id = :idImovel";
 		try {
 			return entity.createQuery(sql, LigacaoEsgoto.class)

@@ -30,4 +30,34 @@ public class TesteUtilitario {
 		cal.set(2012, 1, 4);
 		assertEquals(29, Utilitarios.obterUltimoDiaMes(cal.getTime())); 
 	}
+	
+	@Test
+	public void testCompletaZerosEsquerda(){
+		assertEquals("00007", Utilitarios.completaComZerosEsquerda(5, "7")); 
+	}
+	
+	@Test
+	public void testCompletaZerosEsquerdaCampoCheio(){
+		assertEquals("77777", Utilitarios.completaComZerosEsquerda(5, "77777")); 
+	}
+	
+	@Test
+	public void testCompletaZerosEsquerdaCampoVazio(){
+		assertEquals("00000", Utilitarios.completaComZerosEsquerda(5, "")); 
+	}
+	
+	@Test
+	public void testCompletaZerosEsquerdaCampoNulo(){
+		assertEquals("00000", Utilitarios.completaComZerosEsquerda(5, null)); 
+	}
+	
+	@Test
+	public void testReduzMes201409(){
+		assertEquals(201408, Utilitarios.reduzirMeses(201409, 1)); 
+	}
+	
+	@Test
+	public void testReduzMes201401(){
+		assertEquals(201312, Utilitarios.reduzirMeses(201401, 1)); 
+	}
 }

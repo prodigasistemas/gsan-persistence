@@ -1,0 +1,20 @@
+cadastro.localidade:
+  - loca_id: 1
+  - loca_id: 2
+  - loca_id: 3
+
+cadastro.imovel:
+  - imov_id: 1
+  - imov_id: 2
+  - imov_id: 3
+  - imov_id: 4
+  - imov_id: 5
+
+cobranca.cobranca_documento:
+  - cbdo_id: 1
+    dotp_id: 12
+    cdst_id: 1
+    cbdo_tmemissao: 2014-08-15
+    loca_id: 1
+    imov_id: 1
+

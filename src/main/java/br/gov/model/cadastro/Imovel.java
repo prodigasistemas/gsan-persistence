@@ -17,10 +17,13 @@ import br.gov.model.atendimentopublico.LigacaoAgua;
 import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
 import br.gov.model.atendimentopublico.LigacaoEsgoto;
 import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
+import br.gov.model.cadastro.endereco.EnderecoReferencia;
+import br.gov.model.cadastro.endereco.LogradouroCep;
 import br.gov.model.faturamento.ConsumoTarifa;
 import br.gov.model.faturamento.FaturamentoSituacaoTipo;
 import br.gov.model.micromedicao.HidrometroInstalacaoHistorico;
 import br.gov.model.micromedicao.Rota;
+import br.gov.model.util.Utilitarios;
 
 @Entity
 @Table(name="imovel", schema="cadastro")
@@ -31,7 +34,7 @@ public class Imovel implements Serializable{
 
 	@Id
 	@Column(name="imov_id")
-	private Long id;
+	private Integer id;
 		
 	@Column(name="imov_nnimovel")
 	private String numeroImovel;
@@ -68,6 +71,9 @@ public class Imovel implements Serializable{
 	
 	@Column(name="poco_id")
 	private Short pocoTipo;
+	
+	@Column(name="imov_dscomplementoendereco")
+	private String complementoEndereco;
 	
 	@ManyToOne
 	@JoinColumn(name="loca_id")
@@ -130,6 +136,22 @@ public class Imovel implements Serializable{
 	@JoinColumn(name="lgbr_id")
 	private LogradouroBairro logradouroBairro;
 	
+	@ManyToOne
+	@JoinColumn(name="lgcp_id")
+	private LogradouroCep logradouroCep;
+	
+	@ManyToOne
+	@JoinColumn(name="edrf_id")
+	private EnderecoReferencia enderecoReferencia;
+	
+	@ManyToOne
+	@JoinColumn(name="logr_idinicioperimetro", referencedColumnName="logr_id")
+	private Logradouro perimetroInicial;
+	
+	@ManyToOne
+	@JoinColumn(name="logr_idfimperimetro", referencedColumnName="logr_id")
+	private Logradouro perimetroFinal;
+	
 	public Imovel() {
 	}
 
@@ -163,7 +185,7 @@ public class Imovel implements Serializable{
 		return imovelCondominio != null;
 	}
 	
-	public boolean indicaQuePertenceACondominio() {
+	public boolean ehCondominio() {
 		return indicadorImovelCondominio != null && indicadorImovelCondominio == Status.ATIVO.getId();
 	}
 
@@ -183,22 +205,99 @@ public class Imovel implements Serializable{
 		return indicadorEmissaoExtratoFaturamento != null && indicadorEmissaoExtratoFaturamento == (short) 1;
 	}
 	
+	public boolean existeHidrometro(){
+		return existeHidrometroAgua() || existeHidrometroPoco();
+	}
+
+	
 	public boolean existeHidrometroAgua(){
-		return ligacaoAgua != null && ligacaoAgua.getHidrometroInstalacaoHistorico() != null;
+		return ligacaoAgua != null && ligacaoAgua.getHidrometroInstalacoesHistorico() != null && ligacaoAgua.getHidrometroInstalacoesHistorico().size() > 0;
 	}
 
 	public boolean existeHidrometroPoco(){
 		return hidrometroInstalacaoHistorico != null;
 	}
 	
+	public String getInscricaoFormatadaSemPonto() {
+		StringBuilder inscricao = new StringBuilder();
+		inscricao.append(Utilitarios.completaComZerosEsquerda(3, localidade.getId()))
+			.append(Utilitarios.completaComZerosEsquerda(3, setorComercial.getId()))
+			.append(Utilitarios.completaComZerosEsquerda(3, quadra.getNumeroQuadra()))
+			.append(Utilitarios.completaComZerosEsquerda(4, lote))
+			.append(Utilitarios.completaComZerosEsquerda(3, subLote));
+		
+		return inscricao.toString();
+	}
+	
+	public boolean enviarContaParaImovel() {
+		return imovelContaEnvio != null && imovelContaEnvio == ImovelContaEnvio.ENVIAR_IMOVEL.getId();
+	}
+	
+	public StringBuilder getEnderecoFormatadoAbreviado() {
+		StringBuilder endereco = new StringBuilder();
+
+		if (logradouroCep != null && logradouroCep.getLogradouro() != null) {
+
+			if (logradouroCep.getLogradouro().getLogradouroTipo() != null) {
+				if (logradouroCep.getLogradouro().getLogradouroTipo().getDescricaoAbreviada() != null) {
+					endereco.append(logradouroCep.getLogradouro().getLogradouroTipo().getDescricaoAbreviada().trim());
+				}
+			}
+			if (logradouroCep.getLogradouro().getLogradouroTitulo() != null) {
+				if (logradouroCep.getLogradouro().getLogradouroTitulo().getDescricaoAbreviada() != null) {
+					endereco.append(" ").append(logradouroCep.getLogradouro().getLogradouroTitulo().getDescricaoAbreviada().trim());
+				}
+			}
+
+			endereco.append(" ").append(logradouroCep.getLogradouro().getNome().trim());
+
+			if (enderecoReferencia != null) {
+				if (enderecoReferencia.getDescricaoAbreviada() != null) {
+					endereco.append(", ").append(enderecoReferencia.getDescricaoAbreviada().trim());
+				}
+			}
+
+			endereco.append(numeroImovel != null ? numeroImovel.trim(): "");
+
+			if (complementoEndereco != null) {
+				endereco.append(" - ").append(complementoEndereco.trim());
+			}
+
+			if (logradouroBairro != null && logradouroBairro.getBairro() != null) {
+				endereco.append(" - ").append(logradouroBairro.getBairro().getNome().trim());
+
+				if (logradouroBairro.getBairro().getMunicipio() != null) {
+					endereco.append(" ").append(logradouroBairro.getBairro().getMunicipio().getNome().trim());
+					
+					if (logradouroBairro.getBairro().getMunicipio().getUnidadeFederacao() != null) {
+						endereco.append(" ").append(logradouroBairro.getBairro().getMunicipio().getUnidadeFederacao().getSigla().trim());
+					}
+				}
+
+			}
+
+			if (logradouroCep.getCep() != null) {
+				endereco.append(" ").append(logradouroCep.getCep().getCepFormatado().trim());
+			}
+
+			if (perimetroInicial != null) {
+				endereco.append(" ENTRE ").append(perimetroInicial.getDescricaoFormatada())
+				.append(" E ").append(perimetroFinal.getDescricaoFormatada());
+			}
+
+		}
+
+		return endereco;
+	}
+
 	/**********************************************
 	 ************ GETTERS AND SETTERS ************* 
 	 **********************************************/
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -426,8 +525,47 @@ public class Imovel implements Serializable{
 		this.logradouroBairro = logradouroBairro;
 	}
 	
+	public EnderecoReferencia getEnderecoReferencia() {
+		return enderecoReferencia;
+	}
+
+	public void setEnderecoReferencia(EnderecoReferencia enderecoReferencia) {
+		this.enderecoReferencia = enderecoReferencia;
+	}
+
+	public Logradouro getPerimetroInicial() {
+		return perimetroInicial;
+	}
+
+	public void setPerimetroInicial(Logradouro perimetroInicial) {
+		this.perimetroInicial = perimetroInicial;
+	}
+
+	public Logradouro getPerimetroFinal() {
+		return perimetroFinal;
+	}
+
+	public void setPerimetroFinal(Logradouro perimetroFinal) {
+		this.perimetroFinal = perimetroFinal;
+	}
+
+	public String getComplementoEndereco() {
+		return complementoEndereco;
+	}
+
+	public void setComplementoEndereco(String complementoEndereco) {
+		this.complementoEndereco = complementoEndereco;
+	}
+
+	public LogradouroCep getLogradouroCep() {
+		return logradouroCep;
+	}
+
+	public void setLogradouroCep(LogradouroCep logradouroCep) {
+		this.logradouroCep = logradouroCep;
+	}
+
 	public String toString() {
 		return "Imovel [id=" + id + ", numeroImovel=" + numeroImovel + "]";
 	}
-
 }

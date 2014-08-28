@@ -12,6 +12,14 @@ public class DadosBancariosTO implements Serializable{
 	
 	public DadosBancariosTO() {
 	}
+	
+
+	public DadosBancariosTO(String descricaoBanco, String codigoAgencia, Integer idBanco, String identificacaoClienteBanco) {
+		this.descricaoBanco = descricaoBanco;
+		this.codigoAgencia = codigoAgencia;
+		this.idBanco = idBanco;
+		this.identificacaoClienteBanco = identificacaoClienteBanco;
+	}
 
 	public String getDescricaoBanco() {
 		return descricaoBanco;

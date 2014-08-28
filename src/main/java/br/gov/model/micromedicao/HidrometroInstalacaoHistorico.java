@@ -1,17 +1,17 @@
 package br.gov.model.micromedicao;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.gov.model.atendimentopublico.LigacaoAgua;
+import br.gov.model.cadastro.Imovel;
 
 @Entity
 @Table(name="hidrometro_inst_hist", schema="micromedicao")
@@ -25,8 +25,21 @@ public class HidrometroInstalacaoHistorico implements Serializable{
 	@Column(name="medt_id")
 	private Short medicaoTipo;
 	
-	@OneToMany(mappedBy="hidrometroInstalacaoHistorico")
-	private List<LigacaoAgua> ligacoesAgua;
+	@Column(name="hidi_dtinstalacaohidrometro")
+	private Date dataInstalacao;
+	
+	@Column(name="hidi_dtretiradahidrometro")
+	private Date dataRetirada;
+	
+	@Column(name="hidi_nnleitinstalacaohidmt")
+	private Integer numeroLeituraInstalacao;
+	
+	@Column(name="rttp_id")
+	private Integer rateioTipo;
+	
+	@ManyToOne
+	@JoinColumn(name="lagu_id")
+	private LigacaoAgua ligacaoAgua;
 	
 	@ManyToOne
 	@JoinColumn(name="hili_id")
@@ -35,6 +48,14 @@ public class HidrometroInstalacaoHistorico implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="hipr_id")
 	private HidrometroProtecao hidrometroProtecao;
+	
+	@ManyToOne
+	@JoinColumn(name="hidr_id")
+	private Hidrometro hidrometro;
+	
+	@ManyToOne
+	@JoinColumn(name="imov_id")
+	private Imovel imovel;
 	
 	public HidrometroInstalacaoHistorico() {
 	}
@@ -55,12 +76,20 @@ public class HidrometroInstalacaoHistorico implements Serializable{
 		this.medicaoTipo = medicaoTipo;
 	}
 
-	public List<LigacaoAgua> getLigacoesAgua() {
-		return ligacoesAgua;
+	public Integer getRateioTipo() {
+		return rateioTipo;
 	}
 
-	public void setLigacoesAgua(List<LigacaoAgua> ligacoesAgua) {
-		this.ligacoesAgua = ligacoesAgua;
+	public void setRateioTipo(Integer rateioTipo) {
+		this.rateioTipo = rateioTipo;
+	}
+
+	public LigacaoAgua getLigacaoAgua() {
+		return ligacaoAgua;
+	}
+
+	public void setLigacaoAgua(LigacaoAgua ligacaoAgua) {
+		this.ligacaoAgua = ligacaoAgua;
 	}
 
 	public HidrometroLocalInstalacao getHidrometroLocalInstalacao() {
@@ -77,6 +106,46 @@ public class HidrometroInstalacaoHistorico implements Serializable{
 
 	public void setHidrometroProtecao(HidrometroProtecao hidrometroProtecao) {
 		this.hidrometroProtecao = hidrometroProtecao;
+	}
+
+	public Hidrometro getHidrometro() {
+		return hidrometro;
+	}
+
+	public void setHidrometro(Hidrometro hidrometro) {
+		this.hidrometro = hidrometro;
+	}
+
+	public Date getDataInstalacao() {
+		return dataInstalacao;
+	}
+
+	public void setDataInstalacao(Date dataInstalacao) {
+		this.dataInstalacao = dataInstalacao;
+	}
+
+	public Date getDataRetirada() {
+		return dataRetirada;
+	}
+
+	public void setDataRetirada(Date dataRetirada) {
+		this.dataRetirada = dataRetirada;
+	}
+
+	public Integer getNumeroLeituraInstalacao() {
+		return numeroLeituraInstalacao;
+	}
+
+	public void setNumeroLeituraInstalacao(Integer numeroLeituraInstalacao) {
+		this.numeroLeituraInstalacao = numeroLeituraInstalacao;
+	}
+
+	public Imovel getImovel() {
+		return imovel;
+	}
+
+	public void setImovel(Imovel imovel) {
+		this.imovel = imovel;
 	}
 
 	public String toString() {

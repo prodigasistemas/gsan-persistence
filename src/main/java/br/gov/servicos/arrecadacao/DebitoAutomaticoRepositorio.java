@@ -15,10 +15,12 @@ public class DebitoAutomaticoRepositorio {
 
 	public DadosBancariosTO dadosBancarios(Integer idImovel){
 		StringBuilder sql = new StringBuilder();
-		sql.append("select banco.descricao as descricaoBanco, ")
-			.append(" agencia.codigoAgencia as codigoAgencia, ")
-			.append(" banco.id as idBanco, ")
-			.append(" debAutomatico.identificacaoClienteBanco as identificacaoClienteBanco")
+		sql.append("select new br.gov.servicos.to.DadosBancariosTO(")
+			.append(" banco.descricao, ")
+			.append(" agencia.codigoAgencia, ")
+			.append(" banco.id, ")
+			.append(" debAutomatico.identificacaoClienteBanco ")
+			.append(" ) ")
 			.append(" from DebitoAutomatico debAutomatico ")
 			.append(" inner join debAutomatico.agencia agencia ")
 			.append(" inner join debAutomatico.imovel imov ")

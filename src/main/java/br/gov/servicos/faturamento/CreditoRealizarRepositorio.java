@@ -18,7 +18,7 @@ public class CreditoRealizarRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public Collection<CreditoRealizar> buscarCreditoRealizarPorImovel(Long imovelId, DebitoCreditoSituacao debitoCreditoSituacaoAtual, int anoMesFaturamento) {
+	public Collection<CreditoRealizar> buscarCreditoRealizarPorImovel(Integer imovelId, DebitoCreditoSituacao debitoCreditoSituacaoAtual, int anoMesFaturamento) {
 		StringBuilder consulta = new StringBuilder();
 		
 		consulta.append(" select crar ")
@@ -46,7 +46,7 @@ public class CreditoRealizarRepositorio {
 													.getResultList();
 	}
 	
-	public void atualizarParcelas(Integer referencia, List<Long> idsImoveis){
+	public void atualizarParcelas(Integer referencia, List<Integer> idsImoveis){
 		StringBuilder sql = new StringBuilder();
 		sql.append("update faturamento.credito_a_realizar ")
 		.append(" set crar_nnprestacaorealizadas = crar_nnprestacaorealizadas - 1, ")
@@ -63,7 +63,7 @@ public class CreditoRealizarRepositorio {
 		.executeUpdate();
 	}
 	
-	public void atualizarValorResidual(List<Long> idsImoveis){
+	public void atualizarValorResidual(List<Integer> idsImoveis){
 		StringBuilder sql = new StringBuilder();
 		sql.append("update faturamento.credito_a_realizar set ")
 		.append(" crar_vlresidualmesanterior = coalesce(crar_vlresidualconcedidomes, 0) , ")

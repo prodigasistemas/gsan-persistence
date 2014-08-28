@@ -1,10 +1,13 @@
 package br.gov.model.atendimentopublico;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -13,7 +16,9 @@ import br.gov.model.micromedicao.HidrometroInstalacaoHistorico;
 
 @Entity
 @Table(name = "ligacao_agua", schema = "atendimentopublico")
-public class LigacaoAgua {
+public class LigacaoAgua implements Serializable{
+	private static final long serialVersionUID = -5223172999613411911L;
+
 	@Id
 	@Column(name="lagu_id")
 	private Long id;
@@ -22,9 +27,8 @@ public class LigacaoAgua {
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 	
-	@ManyToOne
-	@JoinColumn(name="hidi_id")
-	private HidrometroInstalacaoHistorico hidrometroInstalacaoHistorico;
+	@OneToMany(mappedBy="ligacaoAgua")
+	private Set<HidrometroInstalacaoHistorico> hidrometroInstalacoesHistorico;
 	
 	public LigacaoAgua() {
 	}
@@ -45,12 +49,12 @@ public class LigacaoAgua {
 		this.imovel = imovel;
 	}
 
-	public HidrometroInstalacaoHistorico getHidrometroInstalacaoHistorico() {
-		return hidrometroInstalacaoHistorico;
+	public Set<HidrometroInstalacaoHistorico> getHidrometroInstalacoesHistorico() {
+		return hidrometroInstalacoesHistorico;
 	}
 
-	public void setHidrometroInstalacaoHistorico(HidrometroInstalacaoHistorico hidrometroInstalacaoHistorico) {
-		this.hidrometroInstalacaoHistorico = hidrometroInstalacaoHistorico;
+	public void setHidrometroInstalacoesHistorico(Set<HidrometroInstalacaoHistorico> hidrometroInstalacoesHistorico) {
+		this.hidrometroInstalacoesHistorico = hidrometroInstalacoesHistorico;
 	}
 
 	public String toString() {

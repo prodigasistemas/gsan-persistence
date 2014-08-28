@@ -21,7 +21,7 @@ public class Agencia implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_AGENCIA")
 	@SequenceGenerator(name="SEQ_AGENCIA", schema="arrecadacao", sequenceName="seq_agencia", allocationSize=1)		
 	@Column(name="agen_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="agen_cdagencia")
 	private String codigoAgencia;
@@ -30,11 +30,11 @@ public class Agencia implements Serializable {
 	@JoinColumn(name="bnco_id")
 	private Banco banco;
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

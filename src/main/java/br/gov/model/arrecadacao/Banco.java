@@ -19,7 +19,7 @@ public class Banco implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_BANCO")
 	@SequenceGenerator(name="SEQ_BANCO", schema="arrecadacao", sequenceName="seq_banco", allocationSize=1)		
 	@Column(name="bnco_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="bnco_nmabreviado")
 	private String descricaoAbreviada;
@@ -27,11 +27,11 @@ public class Banco implements Serializable {
 	@Column(name="bnco_nmbanco")
 	private String descricao;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

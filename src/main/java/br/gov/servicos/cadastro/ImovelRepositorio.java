@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.cadastro.ClienteRelacaoTipo;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.exception.ErroPesquisaContaImovel;
+import br.gov.model.faturamento.FaturamentoGrupo;
 
 @Stateless
 public class ImovelRepositorio{
@@ -53,7 +55,7 @@ public class ImovelRepositorio{
 				.getResultList();
 	}
 	
-	public boolean existeImovel(Long idImovel) {
+	public boolean existeImovel(Integer idImovel) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count (im) from Imovel im ")
 		.append("where im.id = :idImovel");
@@ -65,7 +67,7 @@ public class ImovelRepositorio{
 		return (qtd > 0) ? true : false; 
 	}	
 	
-	public boolean existeContaImovel(Long idImovel, Integer anoMesReferencia) throws Exception{
+	public boolean existeContaImovel(Integer idImovel, Integer anoMesReferencia) throws Exception{
 		long qtd = 0;
 		
 		try {
@@ -87,6 +89,207 @@ public class ImovelRepositorio{
 	}
 
 	public List<Imovel> imoveisParaGerarArquivoTextoFaturamento(Integer idRota, int registroInicial, int quantidadeRegistros) {
+		StringBuilder sql = consultaImoveisParaArquivoTextoFaturamento()
+		.append(" WHERE  ")
+		.append("   imovelPerfil.indicadorGerarDadosLeitura = 1 ")
+		.append("   AND imovel.indicadorExclusao <> :idExclusao ")
+		.append("   AND rota.id = :idRota")
+		.append("   AND imovel.rotaAlternativa is null ")
+		.append("   AND imovel.imovelCondominio is null ")
+		.append("   ORDER BY imovel.indicadorImovelCondominio, localidade.id, setorComercial.codigo, quadra.numeroQuadra, imovel.lote, imovel.subLote ");
+
+		return entity.createQuery(sql.toString(), Imovel.class)
+				.setParameter("idRota", idRota)
+				.setParameter("idClienteRelacaoTipoUsuario", ClienteRelacaoTipo.USUARIO)
+				.setParameter("idClienteRelacaoTipoResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
+				.setParameter("idExclusao", Imovel.IMOVEL_EXCLUIDO)
+				.setFirstResult(registroInicial)
+				.setMaxResults(quantidadeRegistros)
+				.getResultList();
+	}
+	
+	public List<Imovel> imoveisCondominioParaGerarArquivoTextoFaturamento(Integer idCondominio) {
+		StringBuilder sql = consultaImoveisParaArquivoTextoFaturamento()
+				.append(" WHERE  ")
+				.append("   imovelPerfil.indicadorGerarDadosLeitura = 1 ")
+				.append("   AND imovel.indicadorExclusao <> :idExclusao ")
+				.append("   AND imovel.rotaAlternativa is null ")
+				.append("   AND imovelCondominio.id = :idCondominio")
+				.append("   ORDER BY imovel.indicadorImovelCondominio, localidade.id, setorComercial.codigo, quadra.numeroQuadra, imovel.lote, imovel.subLote ");
+		
+		return entity.createQuery(sql.toString(), Imovel.class)
+				.setParameter("idCondominio", idCondominio)
+				.setParameter("idClienteRelacaoTipoUsuario", ClienteRelacaoTipo.USUARIO)
+				.setParameter("idClienteRelacaoTipoResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
+				.setParameter("idExclusao", Imovel.IMOVEL_EXCLUIDO)
+				.getResultList();
+	}
+	
+	public List<Imovel> imoveisParaGerarArquivoTextoFaturamentoPorRotaAlternativa(Integer idRota, int registroInicial, int quantidadeRegistros){
+		StringBuilder sql = consultaImoveisParaArquivoTextoFaturamentoPorRotaAlternativa()
+		.append(" WHERE  ")
+		.append("   imovelPerfil.indicadorGerarDadosLeitura = 1 ")
+		.append("   AND imovel.indicadorExclusao <> :idExclusao ")
+		.append("   AND rotaAlternativa.id = :idRota")
+		.append("   AND imovel.imovelCondominio is null ")
+		.append(" ORDER BY imovel.numeroSequencialRota, imovel.lote, imovel.subLote ");
+		
+		return entity.createQuery(sql.toString(), Imovel.class)
+				.setParameter("idRota", idRota)
+				.setParameter("idClienteRelacaoTipoUsuario", ClienteRelacaoTipo.USUARIO)
+				.setParameter("idClienteRelacaoTipoResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
+				.setParameter("idExclusao", Imovel.IMOVEL_EXCLUIDO)
+				.setFirstResult(registroInicial)
+				.setMaxResults(quantidadeRegistros)
+				.getResultList();
+	}
+	
+	public List<Imovel> imoveisCondominioParaGerarArquivoTextoFaturamentoPorRotaAlternativa(Integer idCondominio){
+		StringBuilder sql = consultaImoveisParaArquivoTextoFaturamentoPorRotaAlternativa()
+				.append(" WHERE  ")
+				.append("   imovelPerfil.indicadorGerarDadosLeitura = 1 ")
+				.append("   AND imovel.indicadorExclusao <> :idExclusao ")
+				.append("   AND imovelCondominio.id is :idCondominio  ")
+				.append(" ORDER BY imovel.numeroSequencialRota, imovel.lote, imovel.subLote ");
+		
+		return entity.createQuery(sql.toString(), Imovel.class)
+				.setParameter("idCondominio", idCondominio)
+				.setParameter("idClienteRelacaoTipoUsuario", ClienteRelacaoTipo.USUARIO)
+				.setParameter("idClienteRelacaoTipoResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
+				.setParameter("idExclusao", Imovel.IMOVEL_EXCLUIDO)
+				.getResultList();
+	}
+	
+	public Imovel pesquisaComEndereco(Integer idImovel){
+		StringBuilder sql = new StringBuilder();
+		sql.append("select imovel ")
+		.append(" from Imovel imovel ")
+		.append(" left join imovel.logradouroCep logradouroCep ")
+		.append(" left join logradouroCep.logradouro logradouro ")
+		.append(" left join logradouro.logradouroTipo logradouroTipo ")
+		.append(" left join logradouro.logradouroTitulo logradouroTitulo ")
+		.append(" left join logradouro.municipio municipio ")
+		.append(" left join municipio.unidadeFederacao unidadeFederacao ")
+		.append(" left join imovel.logradouroBairro logradouroBairro ")
+		.append(" left join logradouroBairro.bairro bairro ")
+		.append(" left join imovel.enderecoReferencia enderecoReferencia ")
+		.append(" left join logradouroCep.cep cep ")
+		.append(" left join imovel.setorComercial setorComercial ")
+		.append(" left join imovel.perimetroInicial perimetroInicial ")
+		.append(" left join perimetroInicial.logradouroTipo logradouroTipoPerimetroInicial ")
+		.append(" left join perimetroInicial.logradouroTitulo logradouroTituloPerimetroInicial ")
+		.append(" left join imovel.perimetroFinal perimetroFinal ")
+		.append(" left join perimetroFinal.logradouroTipo logradouroTipoPerimetroFinal ")
+		.append(" left join perimetroFinal.logradouroTitulo logradouroTituloPerimetroFinal ")
+		.append(" where imovel.id = :idImovel");
+		
+		
+		try {
+			return entity.createQuery(sql.toString(), Imovel.class)
+					.setParameter("idImovel", idImovel)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	public String recuperaEnderecoAnterior(Integer idImovel){
+		StringBuilder sql = new StringBuilder();
+		sql.append("select enderecoAnterior from ImovelEnderecoAnterior")
+			.append(" where imovel.id = :idImovel ");
+		
+		try {
+			return entity.createQuery(sql.toString(), String.class)
+					.setParameter("idImovel", idImovel)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return "";
+		}
+	}
+	
+	public FaturamentoGrupo pesquisarFaturamentoGrupoRotaAlternativa(Integer idImovel){
+		StringBuilder sql = new StringBuilder();
+		sql.append("select faturamentoGrupo from Imovel imovel")
+			.append(" left join imovel.rotaAlternativa rotaAlternativa ")
+			.append(" left join rotaAlternativa.faturamentoGrupo faturamentoGrupo")
+			.append(" where imovel.id =:idImovel");
+
+		try {
+			return entity.createQuery(sql.toString(), FaturamentoGrupo.class)
+					.setParameter("idImovel", idImovel)
+					.setMaxResults(1)
+					.getSingleResult();
+			
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public FaturamentoGrupo pesquisarFaturamentoGrupo(Integer idImovel){
+		StringBuilder sql = new StringBuilder();
+		sql.append("select faturamentoGrupo from Imovel imovel")
+			.append(" inner join imovel.quadra quadra")
+			.append(" inner join quadra.rota rota")
+			.append(" inner join rota.faturamentoGrupo faturamentoGrupo")
+			.append(" where imovel.id =:idImovel");
+
+		try {
+			return entity.createQuery(sql.toString(), FaturamentoGrupo.class)
+					.setParameter("idImovel", idImovel)
+					.setMaxResults(1)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	/***********************************************
+	 *************** PRIVATE METHODS ***************
+	 ***********************************************/
+	private StringBuilder consultaImoveisParaArquivoTextoFaturamentoPorRotaAlternativa(){
+		StringBuilder sql = new StringBuilder();
+		sql.append("select imovel ")
+		.append(" FROM Imovel imovel ")
+		.append(" INNER JOIN imovel.rotaAlternativa rotaAlternativa ")
+		.append(" INNER JOIN imovel.localidade localidade ")
+		.append(" INNER JOIN localidade.gerenciaRegional gerenciaRegional ")
+		.append(" INNER JOIN imovel.setorComercial setorComercial ")
+		.append(" INNER JOIN imovel.quadra quadra ")
+		.append(" INNER JOIN quadra.rota rota ")
+		.append(" INNER JOIN imovel.ligacaoAguaSituacao ligacaoAguaSituacao ")
+		.append(" INNER JOIN imovel.ligacaoEsgotoSituacao ligacaoEsgotoSituacao ")
+		.append(" INNER JOIN imovel.imovelPerfil imovelPerfil ")
+		.append(" INNER JOIN imovel.consumoTarifa consumoTarifa ")
+		.append(" LEFT JOIN imovel.quadraFace quadraFace ")
+		.append(" LEFT JOIN imovel.ligacaoAgua ligacaoAgua ")
+		.append(" LEFT JOIN ligacaoAgua.hidrometroInstalacoesHistorico hidAgua ")
+		.append(" LEFT JOIN hidAgua.hidrometroLocalInstalacao hidLocInsAgua ")
+		.append(" LEFT JOIN hidAgua.hidrometroProtecao hidProtAgua ")
+		.append(" LEFT JOIN imovel.hidrometroInstalacaoHistorico hidPoco ")
+		.append(" LEFT JOIN hidPoco.hidrometroLocalInstalacao hidLocInsPoco ")
+		.append(" LEFT JOIN hidPoco.hidrometroProtecao hidProtPoco ")
+		.append(" LEFT JOIN imovel.ligacaoEsgoto ligacaoEsgoto ")
+		.append(" LEFT JOIN imovel.faturamentoSituacaoTipo faturamentoSituacaoTipo ")
+		.append(" LEFT JOIN imovel.imovelCondominio imovelCondominio ")
+		.append(" LEFT JOIN imovel.clienteImoveis clienteImoveisUsuario WITH ")
+		.append("   (clienteImoveisUsuario.clienteRelacaoTipo.id = :idClienteRelacaoTipoUsuario)")
+		.append(" AND clienteImoveisUsuario.dataFimRelacao IS NULL ")
+		.append(" LEFT JOIN clienteImoveisUsuario.cliente clienteUsuario ")
+		.append(" LEFT JOIN imovel.clienteImoveis clienteImoveisReponsavel WITH ")
+		.append("   (clienteImoveisReponsavel.clienteRelacaoTipo.id = :idClienteRelacaoTipoResponsavel)")
+		.append(" AND clienteImoveisReponsavel.dataFimRelacao IS NULL ")
+		.append(" LEFT JOIN clienteImoveisReponsavel.cliente clienteResposanvel ")
+		.append(" LEFT JOIN rotaAlternativa.leiturista leiturista ")
+		.append(" LEFT JOIN rotaAlternativa.empresa empresa ")
+		.append(" LEFT JOIN leiturista.usuario usu ")
+		.append(" LEFT JOIN imovel.logradouroBairro logradouroBairro ")
+		.append(" LEFT JOIN logradouroBairro.logradouro logradouro ")
+		.append(" LEFT JOIN logradouroBairro.bairro bairro ");
+		
+		return sql;
+	}
+	
+	private StringBuilder consultaImoveisParaArquivoTextoFaturamento(){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select imovel ")
 		.append(" FROM Imovel imovel ")
@@ -101,7 +304,7 @@ public class ImovelRepositorio{
 		.append(" INNER JOIN imovel.consumoTarifa consumoTarifa ")
 		.append(" LEFT JOIN imovel.quadraFace quadraFace ")
 		.append(" LEFT JOIN imovel.ligacaoAgua ligacaoAgua ")
-		.append(" LEFT JOIN ligacaoAgua.hidrometroInstalacaoHistorico hidAgua ")
+		.append(" LEFT JOIN ligacaoAgua.hidrometroInstalacoesHistorico hidAgua ")
 		.append(" LEFT JOIN hidAgua.hidrometroLocalInstalacao hidLocInsAgua ")
 		.append(" LEFT JOIN hidAgua.hidrometroProtecao hidProtAgua ")
 		.append(" LEFT JOIN imovel.hidrometroInstalacaoHistorico hidPoco ")
@@ -124,84 +327,11 @@ public class ImovelRepositorio{
 		.append(" LEFT JOIN imovel.logradouroBairro logradouroBairro ")
 		.append(" LEFT JOIN logradouroBairro.logradouro logradouro ")
 		.append(" LEFT JOIN logradouroBairro.bairro bairro ")
-		.append(" LEFT JOIN imovel.rotaAlternativa rtAlternativa ")
-		.append(" WHERE  ")
-		.append("   imovelPerfil.indicadorGerarDadosLeitura = 1 ")
-		.append("   AND imovel.indicadorExclusao <> :idExclusao ")
-		.append("   AND rota.id = :idRota")
-		.append("   AND imovel.rotaAlternativa is null ")
-		.append("   AND imovel.imovelCondominio is null ")
-		.append("   ORDER BY imovel.indicadorImovelCondominio, localidade.id, setorComercial.codigo, quadra.numeroQuadra, imovel.lote, imovel.subLote ");
-
-		return entity.createQuery(sql.toString(), Imovel.class)
-				.setParameter("idRota", idRota)
-				.setParameter("idClienteRelacaoTipoUsuario", ClienteRelacaoTipo.USUARIO)
-				.setParameter("idClienteRelacaoTipoResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
-				.setParameter("idExclusao", Imovel.IMOVEL_EXCLUIDO)
-				.setFirstResult(registroInicial)
-				.setMaxResults(quantidadeRegistros)
-				.getResultList();
+		.append(" LEFT JOIN imovel.rotaAlternativa rtAlternativa ");
+		
+		return sql;
 	}
 	
-	public List<Imovel> imoveisParaGerarArquivoTextoFaturamentoPorRotaAlternativa(Integer idRota, int registroInicial, int quantidadeRegistros){
-		StringBuilder sql = new StringBuilder();
-		sql.append("select imovel ")
-		.append(" FROM Imovel imovel ")
-		.append(" INNER JOIN imovel.rotaAlternativa rotaAlternativa ")
-		.append(" INNER JOIN imovel.localidade localidade ")
-		.append(" INNER JOIN localidade.gerenciaRegional gerenciaRegional ")
-		.append(" INNER JOIN imovel.setorComercial setorComercial ")
-		.append(" INNER JOIN imovel.quadra quadra ")
-		.append(" INNER JOIN quadra.rota rota ")
-		.append(" INNER JOIN imovel.ligacaoAguaSituacao ligacaoAguaSituacao ")
-		.append(" INNER JOIN imovel.ligacaoEsgotoSituacao ligacaoEsgotoSituacao ")
-		.append(" INNER JOIN imovel.imovelPerfil imovelPerfil ")
-		.append(" INNER JOIN imovel.consumoTarifa consumoTarifa ")
-		.append(" LEFT JOIN imovel.quadraFace quadraFace ")
-		.append(" LEFT JOIN imovel.ligacaoAgua ligacaoAgua ")
-		.append(" LEFT JOIN ligacaoAgua.hidrometroInstalacaoHistorico hidAgua ")
-		.append(" LEFT JOIN hidAgua.hidrometroLocalInstalacao hidLocInsAgua ")
-		.append(" LEFT JOIN hidAgua.hidrometroProtecao hidProtAgua ")
-		.append(" LEFT JOIN imovel.hidrometroInstalacaoHistorico hidPoco ")
-		.append(" LEFT JOIN hidPoco.hidrometroLocalInstalacao hidLocInsPoco ")
-		.append(" LEFT JOIN hidPoco.hidrometroProtecao hidProtPoco ")
-		.append(" LEFT JOIN imovel.ligacaoEsgoto ligacaoEsgoto ")
-		.append(" LEFT JOIN imovel.faturamentoSituacaoTipo faturamentoSituacaoTipo ")
-		.append(" LEFT JOIN imovel.imovelCondominio imovelCondominio ")
-		.append(" LEFT JOIN imovel.clienteImoveis clienteImoveisUsuario WITH ")
-		.append("   (clienteImoveisUsuario.clienteRelacaoTipo.id = :idClienteRelacaoTipoUsuario)")
-		.append(" AND clienteImoveisUsuario.dataFimRelacao IS NULL ")
-		.append(" LEFT JOIN clienteImoveisUsuario.cliente clienteUsuario ")
-		.append(" LEFT JOIN imovel.clienteImoveis clienteImoveisReponsavel WITH ")
-		.append("   (clienteImoveisReponsavel.clienteRelacaoTipo.id = :idClienteRelacaoTipoResponsavel)")
-		.append(" AND clienteImoveisReponsavel.dataFimRelacao IS NULL ")
-		.append(" LEFT JOIN clienteImoveisReponsavel.cliente clienteResposanvel ")
-		.append(" LEFT JOIN rotaAlternativa.leiturista leiturista ")
-		.append(" LEFT JOIN rotaAlternativa.empresa empresa ")
-		.append(" LEFT JOIN leiturista.usuario usu ")
-		.append(" LEFT JOIN imovel.logradouroBairro logradouroBairro ")
-		.append(" LEFT JOIN logradouroBairro.logradouro logradouro ")
-		.append(" LEFT JOIN logradouroBairro.bairro bairro ")
-		.append(" WHERE  ")
-		.append("   imovelPerfil.indicadorGerarDadosLeitura = 1 ")
-		.append("   AND imovel.indicadorExclusao <> :idExclusao ")
-		.append("   AND rotaAlternativa.id = :idRota")
-		.append("   AND imovel.imovelCondominio is null ")
-		.append(" ORDER BY imovel.numeroSequencialRota, imovel.lote, imovel.subLote ");
-		
-		return entity.createQuery(sql.toString(), Imovel.class)
-				.setParameter("idRota", idRota)
-				.setParameter("idClienteRelacaoTipoUsuario", ClienteRelacaoTipo.USUARIO)
-				.setParameter("idClienteRelacaoTipoResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
-				.setParameter("idExclusao", Imovel.IMOVEL_EXCLUIDO)
-				.setFirstResult(registroInicial)
-				.setMaxResults(quantidadeRegistros)
-				.getResultList();
-	}
-
-	/***********************************************
-	 *************** PRIVATE METHODS ***************
-	 ***********************************************/
 	private StringBuilder consultaImoveisComRotaAlternativa(boolean eager){
 		StringBuilder sql = new StringBuilder();
 		sql.append("from Imovel imovel ")

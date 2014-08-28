@@ -64,5 +64,5 @@ public class ImovelRepositorioTest {
 		List<Imovel> lista = repositorio.imoveisParaGerarArquivoTextoFaturamentoPorRotaAlternativa(5, 0, 10);
 		
 		assertEquals(1, lista.size());
-	}	
+	}
 }

@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="logradouro_bairro", schema="cadastro")
 public class LogradouroBairro implements Serializable {
-	private static final long serialVersionUID = 3939253549877588255L;
+	private static final long serialVersionUID = 7701739214261213008L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_LOGRADOURO_BAIRRO")
@@ -31,12 +31,40 @@ public class LogradouroBairro implements Serializable {
 	@JoinColumn(name="bair_id")
 	private Bairro bairro; 
 	
+	public boolean temBairro(){
+		return bairro != null && bairro.getId().intValue() != 0;
+	}
+	
+	public boolean temUnidadeFederacao(){
+		return temBairro() && temMunicipio() && bairro.getMunicipio().temUnidadeFederacao();
+	}
+	
+	public boolean temMunicipio(){
+		return temBairro() && bairro.getMunicipio() != null && bairro.getMunicipio().getId().intValue() != 0;
+	}
+
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Logradouro getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(Logradouro logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public Bairro getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(Bairro bairro) {
+		this.bairro = bairro;
 	}
 
 	public String toString() {

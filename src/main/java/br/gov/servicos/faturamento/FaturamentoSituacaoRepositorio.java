@@ -15,7 +15,7 @@ public class FaturamentoSituacaoRepositorio {
 	@PersistenceContext
 	private EntityManager em;
 	
-	public List<FaturamentoSituacaoHistorico> faturamentosHistoricoVigentesPorImovel(Long imovelId) {
+	public List<FaturamentoSituacaoHistorico> faturamentosHistoricoVigentesPorImovel(Integer imovelId) {
 		List<FaturamentoSituacaoHistorico> retorno = situacoesEspeciaisFaturamentoVigentes(imovelId);
 		
 		if(retorno == null || retorno.isEmpty()) {
@@ -25,7 +25,7 @@ public class FaturamentoSituacaoRepositorio {
 		}
 	}
 	
-	public List<FaturamentoSituacaoHistorico> situacoesEspeciaisFaturamentoVigentes(long idImovel){
+	public List<FaturamentoSituacaoHistorico> situacoesEspeciaisFaturamentoVigentes(Integer idImovel){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" from FaturamentoSituacaoHistorico t" )
 		.append(" where t.imovel.id = :idImovel ")

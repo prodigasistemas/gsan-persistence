@@ -33,7 +33,7 @@ public class ClienteRepositorioTest {
 	@UsingDataSet({"cadastros.yml", "clientes.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarClienteFederalResponsavelPorImovelComClienteFederal(){
-		Cliente cliente = repositorio.buscarClienteFederalResponsavelPorImovel(1L);
+		Cliente cliente = repositorio.buscarClienteFederalResponsavelPorImovel(1);
 		
 		assertTrue(1L == cliente.getId());
 	}
@@ -42,7 +42,7 @@ public class ClienteRepositorioTest {
 	@UsingDataSet({"cadastros.yml", "clientes.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarClienteFederalResponsavelPorImovelSemClienteFederal(){
-		Cliente cliente = repositorio.buscarClienteFederalResponsavelPorImovel(2L);
+		Cliente cliente = repositorio.buscarClienteFederalResponsavelPorImovel(2);
 		
 		assertEquals(null, cliente);
 	}

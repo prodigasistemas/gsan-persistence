@@ -27,7 +27,7 @@ public class ImovelSubcategoriaRepositorio {
 		parametros = sistemaParametrosRepositorio.getSistemaParametros();
 	}
 	
-	public Collection<ImovelSubcategoriaTO> buscarQuantidadeEconomiasPorImovel(Long id) {
+	public Collection<ImovelSubcategoriaTO> buscarQuantidadeEconomiasPorImovel(Integer id) {
 		Short indicadorTarifaCategoria = parametros.getIndicadorTarifaCategoria();
 
 		if (indicadorTarifaCategoria.equals(SistemaParametros.INDICADOR_TARIFA_CATEGORIA)) {
@@ -37,7 +37,7 @@ public class ImovelSubcategoriaRepositorio {
 		}
 	}
 	
-	public Collection<ImovelSubcategoriaTO> buscarQuantidadeEconomiasCategoria(Long imovelId) {
+	public Collection<ImovelSubcategoriaTO> buscarQuantidadeEconomiasCategoria(Integer imovelId) {
 
 		Collection<ImovelSubcategoriaTO> retorno = null;
 
@@ -75,7 +75,7 @@ public class ImovelSubcategoriaRepositorio {
 		return retorno;
 	}
 
-	public Collection<ImovelSubcategoriaTO> buscarQuantidadeEconomiasSubcategoria(Long imovelId) {
+	public Collection<ImovelSubcategoriaTO> buscarQuantidadeEconomiasSubcategoria(Integer imovelId) {
 
 		Collection<ImovelSubcategoriaTO> retorno = null;
 
@@ -117,7 +117,7 @@ public class ImovelSubcategoriaRepositorio {
 		return retorno;
 	}
 	
-	public Integer somaDaQuantidadeEconomiasPorImovel(Long imovelId) {
+	public Integer somaDaQuantidadeEconomiasPorImovel(Integer imovelId) {
 		return entity.createQuery("select sum(quantidadeEconomias) from ImovelSubcategoria where pk.imovelId = :imovelId ", Integer.class)
 					.setParameter("imovelId", imovelId)
 					.getSingleResult();

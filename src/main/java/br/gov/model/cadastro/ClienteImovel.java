@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.gov.model.Status;
+
 @Entity
 @Table(name="cliente_imovel", schema="cadastro")
 public class ClienteImovel implements Serializable{
@@ -113,5 +115,9 @@ public class ClienteImovel implements Serializable{
 
 	public void setClienteRelacaoTipo(ClienteRelacaoTipo clienteRelacaoTipo) {
 		this.clienteRelacaoTipo = clienteRelacaoTipo;
+	}
+
+	public boolean nomeParaConta() {
+		return indicadorNomeConta != null && indicadorNomeConta == Status.ATIVO.getId();
 	}
 }

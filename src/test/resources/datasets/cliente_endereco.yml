@@ -1,0 +1,87 @@
+cadastro.logradouro_tipo:
+  - lgtp_id: 1
+    lgtp_dslogradourotipo: ACESSO
+    lgtp_dsabreviado: AC
+
+cadastro.logradouro_titulo:
+  - lgtt_id: 1
+    lgtt_dslogradourotitulo: BR
+    lgtt_dsabreviado: BR
+
+cadastro.unidade_federacao:
+  - unfe_id: 1
+    unfe_dsuf: PARA
+    unfe_dsufsigla: PA
+
+cadastro.municipio:
+  - muni_id: 1
+    muni_nmmunicipio: BELEM
+    unfe_id: 1
+
+cadastro.bairro:
+  - bair_id: 1
+    bair_nmbairro: SAO BRAZ
+    muni_id: 1
+
+cadastro.logradouro:
+  - logr_id: 1
+    logr_nmlogradouro: NAZARE
+    lgtt_id: 1
+    lgtp_id: 1
+    muni_id: 1
+
+cadastro.cep:
+  - cep_id: 1
+    cep_cdcep: 68707000
+
+cadastro.logradouro_cep:
+  - lgcp_id: 1
+    logr_id: 1
+    cep_id: 1
+
+cadastro.logradouro_bairro:
+  - lgbr_id: 1
+    logr_id: 1
+    bair_id: 1
+
+cadastro.endereco_referencia:
+  - edrf_id: 1
+    edrf_dsabreviado: RAMAL DA BOA ESPERANCA
+
+cadastro.cliente:
+  - clie_id: 1
+  - clie_id: 2
+  - clie_id: 3
+  - clie_id: 4
+
+cadastro.cliente_endereco:
+  - cled_id: 1
+    clie_id: 1
+    lgcp_id: 1
+    cled_icenderecocorrespondencia: 1
+  - cled_id: 2
+    clie_id: 2
+    lgcp_id: 1
+    cled_dscomplementoendereco: EM FRENTE AO PLAZA
+    cled_nnimovel: 60
+    lgbr_id: 1
+    cled_icenderecocorrespondencia: 1
+  - cled_id: 3
+    clie_id: 3
+    lgcp_id: 1
+    cled_dscomplementoendereco: EM FRENTE AO PLAZA
+    cled_nnimovel: 60
+    lgbr_id: 1
+    logr_idinicioperimetro: 1
+    logr_idfimperimetro: 1
+    cled_icenderecocorrespondencia: 1
+  - cled_id: 4
+    clie_id: 4
+    lgcp_id: 1
+    cled_dscomplementoendereco: EM FRENTE AO PLAZA
+    cled_nnimovel: 60
+    lgbr_id: 1
+    logr_idinicioperimetro: 1
+    logr_idfimperimetro: 1
+    edrf_id: 1
+    cled_icenderecocorrespondencia: 1

@@ -3,6 +3,8 @@ package br.gov.model.util;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Utilitarios {
 	
 	public static Integer representacaoNumericaCodigoBarrasModulo10(Integer numero) {
@@ -54,25 +56,50 @@ public class Utilitarios {
 		return (short) calendar.get(Calendar.DAY_OF_MONTH);
 	}
 	
-	private static Date adicionaCampoData(Date data, int campo, short qtd){
+	private static Date adicionaCampoData(Date data, int campo, int qtd){
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(data);
 		calendar.add(campo, qtd);
 		return calendar.getTime();
 	}
 	
-	public static Date adicionarMeses(Date data, short meses) {
+	public static Date adicionarMeses(Date data, int meses) {
 		return adicionaCampoData(data, Calendar.MONTH, meses);
 	}
 	
-	public static Date adicionarDias(Date data, short dias) {
+	public static int reduzirMeses(Integer data, int meses) {
+		data -= meses;
+		
+		if (data % 100 == 0){
+			String strData = String.valueOf(data);
+			int ano = Integer.valueOf(strData.substring(0, 4));
+			ano--;
+			data = Integer.valueOf(ano + "12"); 
+		}
+		
+		return data;
+	}
+	
+	public static Date adicionarDias(Date data, int dias) {
 		return adicionaCampoData(data, Calendar.DAY_OF_MONTH, dias);
 	}
 	
-	public static Date atribuiDia(Date data, short dia) {
+	public static Date atribuiDia(Date data, int dia) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(data);
 		calendar.set(Calendar.DAY_OF_MONTH, dia);
 		return calendar.getTime();
+	}
+	
+	public static String completaComZerosEsquerda(int tamanhoCampo, Object campo) {
+		return completaString(tamanhoCampo, campo, '0');
+	}
+	
+	public static String completaTexto(int tamanhoCampo, Object campo) {
+		return completaString(tamanhoCampo, campo, ' ');
+	}
+	
+	private static String completaString(int tamanhoCampo, Object campo, char caractere) {
+		return StringUtils.leftPad(campo != null ? String.valueOf(campo) : "", tamanhoCampo, caractere);
 	}
 }

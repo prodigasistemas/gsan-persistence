@@ -1,0 +1,18 @@
+arrecadacao.banco:
+  - bnco_id: 1
+    bnco_nmbanco: ITAU
+    bnco_nmabreviado: ITAU
+
+arrecadacao.agencia:
+  - agen_id: 1
+    agen_cdagencia: 9789
+    bnco_id: 1
+
+cadastro.imovel:
+  - imov_id: 1
+
+arrecadacao.debito_automatico:
+  - deba_id: 1
+    deba_dsidentificacaoclientebco: CLIENTE
+    imov_id: 1
+    agen_id: 1

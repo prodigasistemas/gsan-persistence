@@ -36,7 +36,7 @@ public class CreditoRealizarRepositorioTest {
 	@UsingDataSet({"creditosRealizar.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarCreditoRealizarPorImovelExistente(){
-		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1L, DebitoCreditoSituacao.NORMAL, 201404);
+		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1, DebitoCreditoSituacao.NORMAL, 201404);
 		assertFalse(resultado.isEmpty());
 	}
 	
@@ -44,7 +44,7 @@ public class CreditoRealizarRepositorioTest {
 	@UsingDataSet({"creditosRealizar.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarCreditoRealizarPorImovelInexistente(){
-		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(2L, DebitoCreditoSituacao.NORMAL, 201404);
+		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(2, DebitoCreditoSituacao.NORMAL, 201404);
 		
 		assertTrue(resultado.isEmpty());
 	}
@@ -53,7 +53,7 @@ public class CreditoRealizarRepositorioTest {
 	@UsingDataSet({"creditosRealizar.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarCreditoRealizarPorImovelSemDebitoCreditoSituacao(){
-		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1L, DebitoCreditoSituacao.CANCELADA, 201404);
+		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1, DebitoCreditoSituacao.CANCELADA, 201404);
 		
 		assertTrue(resultado.isEmpty());
 	}
@@ -62,7 +62,7 @@ public class CreditoRealizarRepositorioTest {
 	@UsingDataSet({"creditosRealizar.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarCreditoRealizarPorImovelComNumeroPrestacaoRealizadaMenor(){
-		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1L, DebitoCreditoSituacao.NORMAL, 201404);
+		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1, DebitoCreditoSituacao.NORMAL, 201404);
 		
 		assertFalse(resultado.isEmpty());
 	}
@@ -71,7 +71,7 @@ public class CreditoRealizarRepositorioTest {
 	@UsingDataSet({"creditosRealizar.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarCreditoRealizarPorImovelComValorResidualMesAnteriorMaior(){
-		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1L, DebitoCreditoSituacao.NORMAL, 201404);
+		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(1, DebitoCreditoSituacao.NORMAL, 201404);
 		
 		assertFalse(resultado.isEmpty());
 	}
@@ -80,7 +80,7 @@ public class CreditoRealizarRepositorioTest {
 	@UsingDataSet({"creditosRealizar.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarCreditoRealizarPorImovelComParcelamentoSemAnoMesReferencia(){
-		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(3L, DebitoCreditoSituacao.NORMAL, 201402);
+		Collection<CreditoRealizar> resultado = repositorio.buscarCreditoRealizarPorImovel(3, DebitoCreditoSituacao.NORMAL, 201402);
 		
 		assertTrue(resultado.isEmpty());
 	}

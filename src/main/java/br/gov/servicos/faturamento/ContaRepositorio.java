@@ -7,8 +7,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.cadastro.ClienteRelacaoTipo;
 import br.gov.model.exception.ErroCriacaoConta;
 import br.gov.model.faturamento.Conta;
+import br.gov.model.faturamento.DebitoCreditoSituacao;
 
 @Stateless
 public class ContaRepositorio {
@@ -90,7 +92,7 @@ public class ContaRepositorio {
 		return result;
 	}
 	
-	public List<Long> imoveisDeContasSemRotaAlternativa(Integer idRota, Integer referencia, Short debitoCreditoSistuacao, Integer grupoFaturamento){
+	public List<Integer> imoveisDeContasSemRotaAlternativa(Integer idRota, Integer referencia, Short debitoCreditoSistuacao, Integer grupoFaturamento){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select distinct cnta.imov_id ")
 		.append(" from faturamento.conta cnta ")
@@ -111,16 +113,16 @@ public class ContaRepositorio {
 			.setParameter("grupoFaturamento", grupoFaturamento)
 			.getResultList();
 		
-		List<Long> result = new ArrayList<Long>();
+		List<Integer> result = new ArrayList<Integer>();
 		
 		for (Object item : lista) {
-			result.add(Long.valueOf(String.valueOf(item)));
+			result.add(Integer.valueOf(String.valueOf(item)));
 		}
 		
 		return result;
 	}
 	
-	public List<Long> imoveisDeContasComRotaAlternativa(Integer idRota, Integer referencia, Short debitoCreditoSistuacao, Integer grupoFaturamento){
+	public List<Integer> imoveisDeContasComRotaAlternativa(Integer idRota, Integer referencia, Short debitoCreditoSistuacao, Integer grupoFaturamento){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select distinct cnta.imov_id ")
 		.append(" from faturamento.conta cnta ")
@@ -139,12 +141,47 @@ public class ContaRepositorio {
 				.setParameter("grupoFaturamento", grupoFaturamento)
 				.getResultList();
 		
-		List<Long> result = new ArrayList<Long>();
+		List<Integer> result = new ArrayList<Integer>();
 		
 		for (Object item : lista) {
-			result.add(Long.valueOf(String.valueOf(item)));
+			result.add(Integer.valueOf(String.valueOf(item)));
 		}
 		
 		return result;
 	}
+	
+	public Boolean existeContaPreFaturada(Integer idImovel, Integer anoMesReferencia){
+		StringBuilder sql = new StringBuilder();
+		sql.append("select count(conta) from Conta ")
+		.append(" INNER JOIN conta.imovel imovel ")
+		.append(" INNER JOIN conta.debitoCreditoSituacaoAtual debitoCreditoSituacaoAtual ")
+		.append(" INNER JOIN conta.localidade localidade ")
+		.append(" INNER JOIN localidade.gerenciaRegional gerenciaRegional ")
+		.append(" INNER JOIN conta.ligacaoAguaSituacao ligacaoAguaSituacao ")
+		.append(" INNER JOIN conta.ligacaoEsgotoSituacao ligacaoEsgotoSituacao ")
+		.append(" INNER JOIN conta.imovelPerfil imovelPerfil ")
+		.append(" INNER JOIN conta.consumoTarifa consumoTarifa ")
+		.append(" LEFT JOIN conta.clienteContas clienteContasUsuario WITH ")
+		.append(" (clienteContasUsuario.clienteRelacaoTipo.id = :idClienteRelacaoTipoUsuario)")
+		.append(" LEFT JOIN clienteContasUsuario.cliente clienteUsuario ")
+		.append(" LEFT JOIN conta.clienteContas clienteContasReponsavel WITH ")
+		.append(" (clienteContasReponsavel.clienteRelacaoTipo.id = :idClienteRelacaoTipoResponsavel)")
+		.append(" LEFT JOIN clienteContasReponsavel.cliente clienteResposanvel ")
+		.append(" LEFT JOIN imovel.imovelContaEnvio ice ")
+		.append(" LEFT JOIN conta.faturamentoGrupo fg ")
+		.append(" WHERE imovel.id = :idImovel ")
+		.append(" AND conta.referencia = :anoMesReferencia ")
+		.append(" AND debitoCreditoSituacaoAtual.id = :preFaturada ")
+		.append(" AND not exists ( from MovimentoContaPrefaturada mcpf where mcpf.anoMesReferenciaPreFaturamento = fg.anoMesReferencia and imovel.id = mcpf.imovel.id  )");
+
+		Long count = entity.createQuery(sql.toString(), Long.class)
+			.setParameter("idClienteRelacaoTipoUsuario", ClienteRelacaoTipo.USUARIO)
+			.setParameter("idClienteRelacaoTipoResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
+			.setParameter("preFaturada",DebitoCreditoSituacao.PRE_FATURADA)
+			.setParameter("idImovel", idImovel)
+			.setParameter("anoMesReferencia", anoMesReferencia)
+			.getSingleResult();
+		
+		return count > 0 ? true : false; 
+	}	
 }

@@ -20,13 +20,24 @@ public class HidrometroLocalInstalacao implements Serializable{
 	@SequenceGenerator(name="SEQ_HIDROMETRO_LOCAL_INST", schema="micromedicao", sequenceName="seq_hidrometro_local_inst", allocationSize=1)
 	@Column(name="hili_id")
 	private Integer id;
-
+	
+	@Column(name="hili_dshidmtlocalinstalacao")
+	private String descricao;
+	
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public String toString() {
