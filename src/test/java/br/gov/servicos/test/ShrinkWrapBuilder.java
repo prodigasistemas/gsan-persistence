@@ -30,6 +30,7 @@ public class ShrinkWrapBuilder {
                 .addPackages(true, "br.gov.servicos.cobranca")
                 .addPackages(true, "br.gov.servicos.cobranca.parcelamento")
                 .addPackages(true, "br.gov.servicos.faturamento")
+                .addPackages(true, "br.gov.servicos.micromedicao")
                 .addPackages(true, "br.gov.servicos.to")
             .addAsResource("persistence-test.xml", "META-INF/persistence.xml");
 	}

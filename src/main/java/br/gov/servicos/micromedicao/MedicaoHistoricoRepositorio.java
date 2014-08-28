@@ -8,7 +8,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.micromedicao.MedicaoHistorico;
-import br.gov.servicos.to.MedicaoHistoricoTO;
 
 @Stateless
 public class MedicaoHistoricoRepositorio {
@@ -32,16 +31,9 @@ public class MedicaoHistoricoRepositorio {
 		return lista.size() > 0 ? lista.get(0) : null;
 	}
 	
-	public MedicaoHistoricoTO obterDadosMedicao(Integer idImovel, Integer anoMesReferencia){
+	public MedicaoHistorico obterPorLigacaoAguaOuPoco(Integer idImovel, Integer anoMesReferencia){
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT new br.gov.servicos.to.MedicaoHistoricoTO(")
-			.append(" mdhi.leituraAtualFaturamento ")
-			.append(" , mdhi.dataLeituraAtualFaturamento")
-			.append(" , mdhi.leituraSituacaoAtual ")
-			.append(" , mdhi.consumoMedioHidrometro ")
-			.append(" , mdhi.leituraAtualInformada")
-			.append(" , mdhi.dataLeituraAtualInformada ")
-			.append(" ) ")
+		sql.append("SELECT mdhi ")
 			.append(" FROM MedicaoHistorico mdhi ")
 			.append(" LEFT JOIN mdhi.ligacaoAgua lagu ")
 			.append(" LEFT JOIN mdhi.imovel imovel ")
@@ -49,7 +41,7 @@ public class MedicaoHistoricoRepositorio {
 			.append(" AND (imovel.id = :idImovel OR lagu.imovel.id = :idImovel) ");
 			
 		try {
-			return entity.createQuery(sql.toString(), MedicaoHistoricoTO.class)
+			return entity.createQuery(sql.toString(), MedicaoHistorico.class)
 						.setParameter("anoMesReferencia", anoMesReferencia)
 						.setParameter("idImovel", idImovel)
 						.setMaxResults(1)

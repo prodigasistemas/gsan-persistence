@@ -55,7 +55,7 @@ public class MedicaoHistorico implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="imov_id")
-	private Imovel imov_id;
+	private Imovel imovel;
 	
 	public MedicaoHistorico() {
 	}
@@ -148,12 +148,12 @@ public class MedicaoHistorico implements Serializable{
 		this.ligacaoAgua = ligacaoAgua;
 	}
 
-	public Imovel getImov_id() {
-		return imov_id;
+	public Imovel getImovel() {
+		return imovel;
 	}
 
-	public void setImov_id(Imovel imov_id) {
-		this.imov_id = imov_id;
+	public void setImovel(Imovel imovel) {
+		this.imovel = imovel;
 	}
 
 	public String toString() {
