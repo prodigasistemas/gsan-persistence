@@ -204,6 +204,10 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	public Short getFatorEconomias() {
 		return fatorEconomias;
 	}
+	
+	public Short getCategoriaFatorEconomias() {
+		return getFatorEconomias();
+	}
 
 	public void setFatorEconomias(Short fatorEconomias) {
 		this.fatorEconomias = fatorEconomias;
@@ -305,12 +309,10 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 		this.imovelId = imovelId;
 	}
 
-	@Override
 	public ICategoria getCategoria() {
 		return getICategoria();
 	}
 
-	@Override
 	public ICategoria getSubcategoria() {
 		return getICategoria();
 	}

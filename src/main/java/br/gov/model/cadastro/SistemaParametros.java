@@ -83,6 +83,10 @@ public class SistemaParametros implements Serializable {
 	public void setNumeroMesesValidadeConta(Short numeroMesesValidadeConta) {
 		this.numeroMesesValidadeConta = numeroMesesValidadeConta;
 	}
+	
+	public boolean indicadorTarifaCategoria() {
+		return getIndicadorTarifaCategoria() == INDICADOR_TARIFA_CATEGORIA;
+	}
 
 	public Short getIndicadorTarifaCategoria() {
 		return indicadorTarifaCategoria;

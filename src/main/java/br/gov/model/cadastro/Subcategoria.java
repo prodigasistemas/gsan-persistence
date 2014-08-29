@@ -88,6 +88,14 @@ public class Subcategoria implements Serializable, ICategoria {
 	public String getDescricao() {
 		return descricao;
 	}
+	
+	public String getSubcategoriaDescricao() {
+		return getDescricao();
+	}
+	
+	public String getCategoriaDescricao() {
+		return this.categoria.getDescricao();
+	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
@@ -132,6 +140,10 @@ public class Subcategoria implements Serializable, ICategoria {
 	public void setIndicadorTarifaConsumo(Short indicadorTarifaConsumo) {
 		this.indicadorTarifaConsumo = indicadorTarifaConsumo;
 	}
+	
+	public String getCategoriaDescricaoAbreviada() {
+		return categoria.getDescricaoAbreviada();
+	}
 
 	public String getDescricaoAbreviada() {
 		return descricaoAbreviada;
@@ -172,6 +184,11 @@ public class Subcategoria implements Serializable, ICategoria {
 
 	public void setQuantidadeEconomias(Integer quantidadeEconomias) {
 		this.quantidadeEconomias = quantidadeEconomias;
+	}
+	
+	@Override
+	public Short getCategoriaFatorEconomias() {
+		return this.categoria.getFatorEconomias();
 	}
 	
 	@Override

@@ -8,8 +8,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.cadastro.ICategoria;
 import br.gov.model.cadastro.SistemaParametros;
-import br.gov.servicos.to.ImovelSubcategoriaTO;
 
 @Stateless
 public class ImovelSubcategoriaRepositorio {
@@ -27,7 +27,7 @@ public class ImovelSubcategoriaRepositorio {
 		parametros = sistemaParametrosRepositorio.getSistemaParametros();
 	}
 	
-	public Collection<ImovelSubcategoriaTO> buscarQuantidadeEconomiasPorImovel(Integer id) {
+	public Collection<ICategoria> buscarQuantidadeEconomiasPorImovel(Integer id) {
 		Short indicadorTarifaCategoria = parametros.getIndicadorTarifaCategoria();
 
 		if (indicadorTarifaCategoria.equals(SistemaParametros.INDICADOR_TARIFA_CATEGORIA)) {
@@ -37,9 +37,9 @@ public class ImovelSubcategoriaRepositorio {
 		}
 	}
 	
-	public Collection<ImovelSubcategoriaTO> buscarQuantidadeEconomiasCategoria(Integer imovelId) {
+	public Collection<ICategoria> buscarQuantidadeEconomiasCategoria(Integer imovelId) {
 
-		Collection<ImovelSubcategoriaTO> retorno = null;
+		Collection<ICategoria> retorno = null;
 
 		StringBuffer consulta = new StringBuffer();
 
@@ -69,15 +69,15 @@ public class ImovelSubcategoriaRepositorio {
 		.append("	categoria.porcentagemMediaBaixoConsumo, categoria.descricaoAbreviada, categoria.numeroConsumoMaximoEc, ")
 		.append("	categoria.indicadorCobrancaAcrescimos, categoria.fatorEconomias, categoria.categoriaTipo");
 
-		retorno = entity.createQuery(consulta.toString(), ImovelSubcategoriaTO.class)
+		retorno = entity.createQuery(consulta.toString(), ICategoria.class)
 				.setParameter("imovelId", imovelId).getResultList();
 
 		return retorno;
 	}
 
-	public Collection<ImovelSubcategoriaTO> buscarQuantidadeEconomiasSubcategoria(Integer imovelId) {
+	public Collection<ICategoria> buscarQuantidadeEconomiasSubcategoria(Integer imovelId) {
 
-		Collection<ImovelSubcategoriaTO> retorno = null;
+		Collection<ICategoria> retorno = null;
 
 		StringBuffer consulta = new StringBuffer();
 
@@ -112,7 +112,7 @@ public class ImovelSubcategoriaRepositorio {
 				.append("	categoria.fatorEconomias, subcategoria.indicadorSazonalidade, ")
 				.append("	categoria.descricaoAbreviada, subcategoria.descricaoAbreviada ");
 
-		retorno = entity.createQuery(consulta.toString(), ImovelSubcategoriaTO.class).setParameter("idImovel", imovelId).getResultList();
+		retorno = entity.createQuery(consulta.toString(), ICategoria.class).setParameter("idImovel", imovelId).getResultList();
 
 		return retorno;
 	}

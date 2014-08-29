@@ -93,9 +93,21 @@ public class Categoria implements Serializable, ICategoria{
 	public String getDescricao() {
 		return descricao;
 	}
+	
+	public String getCategoriaDescricao() {
+		return getDescricao();
+	}
+	
+	public String getSubcategoriaDescricao() {
+		return "";
+	}
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public String getCategoriaDescricaoAbreviada() {
+		return getDescricaoAbreviada();
 	}
 
 	public String getDescricaoAbreviada() {
@@ -204,6 +216,10 @@ public class Categoria implements Serializable, ICategoria{
 
 	public Short getFatorEconomias() {
 		return fatorEconomias;
+	}
+	
+	public Short getCategoriaFatorEconomias() {
+		return getFatorEconomias();
 	}
 
 	public void setFatorEconomias(Short fatorEconomias) {
