@@ -57,6 +57,10 @@ public class MedicaoHistorico implements Serializable{
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 	
+	@ManyToOne
+	@JoinColumn(name="ltan_idleitanormfatmt")
+	private LeituraAnormalidade leituraAnormalidadeFaturamento;
+	
 	public MedicaoHistorico() {
 	}
 
@@ -154,6 +158,14 @@ public class MedicaoHistorico implements Serializable{
 
 	public void setImovel(Imovel imovel) {
 		this.imovel = imovel;
+	}
+
+	public LeituraAnormalidade getLeituraAnormalidadeFaturamento() {
+		return leituraAnormalidadeFaturamento;
+	}
+
+	public void setLeituraAnormalidadeFaturamento(LeituraAnormalidade leituraAnormalidadeFaturamento) {
+		this.leituraAnormalidadeFaturamento = leituraAnormalidadeFaturamento;
 	}
 
 	public String toString() {

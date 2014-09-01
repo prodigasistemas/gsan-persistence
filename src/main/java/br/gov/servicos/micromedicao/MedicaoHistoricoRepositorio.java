@@ -7,14 +7,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.micromedicao.ConsumoHistorico;
+import br.gov.model.micromedicao.LigacaoTipo;
 import br.gov.model.micromedicao.MedicaoHistorico;
 
 @Stateless
 public class MedicaoHistoricoRepositorio {
+	
 	@PersistenceContext
 	private EntityManager entity;
 
-	public MedicaoHistorico obterPorImovelEReferencia(Integer idImovel, Integer anoMesReferencia) {
+	public MedicaoHistorico buscarPorImovelEReferencia(Integer idImovel, Integer anoMesReferencia) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select mdhi from MedicaoHistorico mdhi")
 		.append(" INNER JOIN mdhi.ligacaoAgua lagu ")
@@ -31,7 +34,7 @@ public class MedicaoHistoricoRepositorio {
 		return lista.size() > 0 ? lista.get(0) : null;
 	}
 	
-	public MedicaoHistorico obterPorLigacaoAguaOuPoco(Integer idImovel, Integer anoMesReferencia){
+	public MedicaoHistorico buscarPorLigacaoAguaOuPoco(Integer idImovel, Integer anoMesReferencia){
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT mdhi ")
 			.append(" FROM MedicaoHistorico mdhi ")
@@ -49,5 +52,30 @@ public class MedicaoHistoricoRepositorio {
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+	
+	public Long buscarLeituraAnormalidadeFaturamento(ConsumoHistorico consumoHistorico) {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT leituraAnormalidadeFaturamento.id ");
+		sql.append("FROM MedicaoHistorico medicaoHistorico ");
+		sql.append("INNER JOIN medicaoHistorico.leituraAnormalidadeFaturamento leituraAnormalidadeFaturamento ");
+
+		if (consumoHistorico.getLigacaoTipo().getId().equals(LigacaoTipo.AGUA)) {
+
+			sql.append("INNER JOIN medicaoHistorico.ligacaoAgua ligacaoAgua ");
+			sql.append("WHERE ligacaoAgua.id = :idImovel AND medicaoHistorico.anoMesReferencia = :anoMesReferencia ");
+		} else {
+
+			sql.append("INNER JOIN medicaoHistorico.imovel imovel ");
+			sql.append("WHERE imovel.id = :idImovel AND medicaoHistorico.anoMesReferencia = :anoMesReferencia ");
+		}
+
+		Long retorno = entity.createQuery(sql.toString(), Long.class)
+				.setParameter("idImovel", consumoHistorico.getImovel().getId())
+				.setParameter("anoMesReferencia",consumoHistorico.getReferenciaFaturamento())
+				.setMaxResults(1).getSingleResult();
+
+		return retorno;
 	}
 }

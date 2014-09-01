@@ -14,6 +14,9 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import br.gov.model.cadastro.Imovel;
+import br.gov.model.micromedicao.ConsumoHistorico;
+import br.gov.model.micromedicao.LigacaoTipo;
 import br.gov.model.micromedicao.MedicaoHistorico;
 import br.gov.servicos.test.ShrinkWrapBuilder;
 
@@ -32,7 +35,7 @@ public class MedicaoHistoricoRepositorioTest {
 	@UsingDataSet({"medicaoHistorico.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void instalacaoHidrometroPoco(){
-		MedicaoHistorico to = repositorio.obterPorLigacaoAguaOuPoco(1, 201408);
+		MedicaoHistorico to = repositorio.buscarPorLigacaoAguaOuPoco(1, 201408);
 		
 		assertEquals(201408, to.getAnoMesReferencia().intValue());
 		assertEquals(10, to.getLeituraAnteriorFaturamento().intValue());
@@ -45,12 +48,26 @@ public class MedicaoHistoricoRepositorioTest {
 	@UsingDataSet({"medicaoHistorico.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void instalacaoHidrometroRede(){
-		MedicaoHistorico to = repositorio.obterPorLigacaoAguaOuPoco(2, 201408);
+		MedicaoHistorico to = repositorio.buscarPorLigacaoAguaOuPoco(2, 201408);
 		
 		assertEquals(201408, to.getAnoMesReferencia().intValue());
 		assertEquals(100, to.getLeituraAnteriorFaturamento().intValue());
 		assertEquals(200, to.getLeituraAtualFaturamento().intValue());
 		assertEquals(300, to.getLeituraAtualInformada().intValue());
 		assertEquals(3, to.getLeituraSituacaoAtual().intValue());
+	}
+	
+	@Test
+	@UsingDataSet({"medicaoHistoricoLeituraAnormalidade.yml"})
+	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
+	public void buscarLeituraAnormalidadeFaturamento(){
+		ConsumoHistorico consumoHistorico = new ConsumoHistorico();
+		consumoHistorico.setImovel(new Imovel(1));
+		consumoHistorico.setReferenciaFaturamento(201408);
+		consumoHistorico.setLigacaoTipo(LigacaoTipo.AGUA);
+		
+		Long idLeituraAnormalidade = repositorio.buscarLeituraAnormalidadeFaturamento(consumoHistorico);
+		
+		assertEquals(idLeituraAnormalidade, new Long(1));
 	}
 }
