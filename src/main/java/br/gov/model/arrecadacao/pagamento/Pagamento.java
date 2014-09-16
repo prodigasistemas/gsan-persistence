@@ -1,6 +1,8 @@
 package br.gov.model.arrecadacao.pagamento;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +28,21 @@ public class Pagamento implements Serializable{
 	@Column(name="pgmt_id")
 	private Long id;
 	
+	@Column(name="pgmt_vlpagamento")
+	private BigDecimal valorPagamento;
+	
+	@Column(name="pgmt_vlexcedente")
+	private BigDecimal valorExcedente;
+	
+	@Column(name="pgmt_amreferenciapagamento")
+	private Integer anoMesReferenciaPagamento;
+	
+	@Column(name="pgmt_dtpagamento")
+	private Date dataPagamento;
+	
+	@Column(name="pgmt_amreferenciaarrecadacao")
+	private Integer anoMesReferenciaArrecadacao;
+	
 	@ManyToOne
 	@JoinColumn(name="cnta_id")
 	private ContaGeral contaGeral;
@@ -33,6 +50,10 @@ public class Pagamento implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="dbac_id")
 	private DebitoCobrarGeral debitoCobrarGeral;
+	
+	@ManyToOne
+	@JoinColumn(name="gpag_id")
+	private GuiaPagamento guiaPagamento;
 	
 	public Pagamento() {
 	}
@@ -59,5 +80,53 @@ public class Pagamento implements Serializable{
 
 	public void setDebitoCobrarGeral(DebitoCobrarGeral debitoCobrarGeral) {
 		this.debitoCobrarGeral = debitoCobrarGeral;
+	}
+
+	public GuiaPagamento getGuiaPagamento() {
+		return guiaPagamento;
+	}
+
+	public void setGuiaPagamento(GuiaPagamento guiaPagamento) {
+		this.guiaPagamento = guiaPagamento;
+	}
+
+	public BigDecimal getValorPagamento() {
+		return valorPagamento;
+	}
+
+	public void setValorPagamento(BigDecimal valorPagamento) {
+		this.valorPagamento = valorPagamento;
+	}
+
+	public BigDecimal getValorExcedente() {
+		return valorExcedente;
+	}
+
+	public void setValorExcedente(BigDecimal valorExcedente) {
+		this.valorExcedente = valorExcedente;
+	}
+
+	public Integer getAnoMesReferenciaPagamento() {
+		return anoMesReferenciaPagamento;
+	}
+
+	public void setAnoMesReferenciaPagamento(Integer anoMesReferenciaPagamento) {
+		this.anoMesReferenciaPagamento = anoMesReferenciaPagamento;
+	}
+
+	public Date getDataPagamento() {
+		return dataPagamento;
+	}
+
+	public void setDataPagamento(Date dataPagamento) {
+		this.dataPagamento = dataPagamento;
+	}
+
+	public Integer getAnoMesReferenciaArrecadacao() {
+		return anoMesReferenciaArrecadacao;
+	}
+
+	public void setAnoMesReferenciaArrecadacao(Integer anoMesReferenciaArrecadacao) {
+		this.anoMesReferenciaArrecadacao = anoMesReferenciaArrecadacao;
 	}
 }

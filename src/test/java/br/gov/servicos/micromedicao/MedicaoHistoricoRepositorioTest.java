@@ -64,10 +64,10 @@ public class MedicaoHistoricoRepositorioTest {
 		ConsumoHistorico consumoHistorico = new ConsumoHistorico();
 		consumoHistorico.setImovel(new Imovel(1));
 		consumoHistorico.setReferenciaFaturamento(201408);
-		consumoHistorico.setLigacaoTipo(LigacaoTipo.AGUA);
+		consumoHistorico.setLigacaoTipo(LigacaoTipo.AGUA.getId());
 		
 		Long idLeituraAnormalidade = repositorio.buscarLeituraAnormalidadeFaturamento(consumoHistorico);
 		
-		assertEquals(idLeituraAnormalidade, new Long(1));
+		assertEquals(new Long(2), idLeituraAnormalidade);
 	}
 }

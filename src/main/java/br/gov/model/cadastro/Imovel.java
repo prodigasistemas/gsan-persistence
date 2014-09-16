@@ -1,6 +1,7 @@
 package br.gov.model.cadastro;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -242,6 +243,30 @@ public class Imovel implements Serializable{
 	
 	public boolean enviarContaParaImovel() {
 		return imovelContaEnvio != null && imovelContaEnvio == ImovelContaEnvio.ENVIAR_IMOVEL.getId();
+	}
+
+	public boolean enviarContaParaResponsavel() {
+		return imovelContaEnvio != null && imovelContaEnvio == ImovelContaEnvio.ENVIAR_CLIENTE_RESPONSAVEL_FINAL_GRUPO.getId();
+	}
+	
+	public Integer consumoMinimoAgua(){
+		return ligacaoAgua != null ? ligacaoAgua.getConsumoMinimoAgua() : null;
+	}
+	
+	public Integer consumoMinimoEsgoto(){
+		return ligacaoEsgoto != null ? ligacaoEsgoto.getConsumoMinimo() : null;
+	}
+	
+	public BigDecimal percentualAguaConsumidaColetada(){
+		return ligacaoEsgoto != null ? ligacaoEsgoto.getPercentualAguaConsumidaColetada() : null;
+	}
+	
+	public BigDecimal percentualEsgoto(){
+		return possuiLigacaoEsgotoAtiva() ? ligacaoEsgoto.getPercentual() : BigDecimal.ZERO; 
+	}
+	
+	public Integer tarifaTipoCalculo() {
+		return consumoTarifa != null ? consumoTarifa.getTarifaTipoCalculo() : null;
 	}
 	
 	public StringBuilder getEnderecoFormatadoAbreviado() {

@@ -1,0 +1,20 @@
+cadastro.imovel:
+  - imov_id: 1
+  - imov_id: 2
+
+micromedicao.consumo_tipo:
+  - cstp_id: 1
+    cstp_iccalculomedia: 1
+
+micromedicao.consumo_anormalidade:
+  - csan_id: 1
+    csan_iccalcularmedia: 1
+
+micromedicao.consumo_historico:
+  - cshi_id: 1
+    cstp_id: 1
+    csan_id: 1
+    imov_id: 1
+    cshi_amfaturamento: 201407
+    cshi_nnconsumocalculomedia: 30
+    lgti_id: 1

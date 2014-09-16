@@ -218,10 +218,6 @@ public class Categoria implements Serializable, ICategoria{
 		return fatorEconomias;
 	}
 	
-	public Short getCategoriaFatorEconomias() {
-		return getFatorEconomias();
-	}
-
 	public void setFatorEconomias(Short fatorEconomias) {
 		this.fatorEconomias = fatorEconomias;
 	}

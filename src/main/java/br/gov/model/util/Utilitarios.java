@@ -1,7 +1,13 @@
 package br.gov.model.util;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -48,7 +54,24 @@ public class Utilitarios {
 
 		return new Integer(dac);
 	}
-	
+
+	public static String formatarBigDecimalComPonto(BigDecimal numero) {
+
+		if (numero == null) {
+			numero = new BigDecimal("0.00");
+		}
+
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setDecimalSeparator('.');
+		
+		NumberFormat formato = new DecimalFormat("###.00", symbols);
+		formato.setMaximumFractionDigits(2);
+		formato.setMinimumFractionDigits(2);
+		formato.setGroupingUsed(false);
+
+		return formato.format(numero);
+	}
+
 	public static short obterUltimoDiaMes(Date data) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(data);
@@ -98,8 +121,35 @@ public class Utilitarios {
 	public static String completaTexto(int tamanhoCampo, Object campo) {
 		return completaString(tamanhoCampo, campo, ' ');
 	}
-	
+		
 	private static String completaString(int tamanhoCampo, Object campo, char caractere) {
 		return StringUtils.leftPad(campo != null ? String.valueOf(campo) : "", tamanhoCampo, caractere);
+	}
+
+	public static Date ano1900() {
+		Calendar cal = Calendar.getInstance();
+		cal.set(1900, 0, 1);
+		return cal.getTime();
+	}
+
+	public static Date converteParaDataComUltimoDiaMes(Integer anoMesNumerico) {
+		String anoMes = String.valueOf(anoMesNumerico);
+		int ano = Integer.parseInt(anoMes.substring(0, 4));
+		int mes = Integer.parseInt(anoMes.substring(4, 6));
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.set(Calendar.YEAR, ano);
+		cal.set(Calendar.MONTH, (mes - 1));
+		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+		return cal.getTime();
+	}
+	
+	public static String formataData(Date data){
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		return format.format(data);
+	}
+
+	public static Integer extrairAno(Integer anoMes) {
+		return Integer.valueOf(String.valueOf(anoMes).substring(0,4));
 	}
 }

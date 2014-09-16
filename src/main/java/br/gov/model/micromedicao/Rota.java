@@ -23,6 +23,9 @@ public class Rota implements Serializable {
 	@Column(name="rota_id")
 	private Integer id;
 	
+	@Column(name="rota_cdrota")
+	private Short codigo;
+	
 	@Column(name="lttp_id")
 	private Short leituraTipo;
 	
@@ -101,6 +104,14 @@ public class Rota implements Serializable {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+
+	public Short getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Short codigo) {
+		this.codigo = codigo;
 	}
 
 	public String toString() {

@@ -21,7 +21,10 @@ public class LigacaoAgua implements Serializable{
 
 	@Id
 	@Column(name="lagu_id")
-	private Long id;
+	private Integer id;
+	
+	@Column(name="lagu_nnconsumominimoagua")
+	private Integer consumoMinimoAgua;
 	
 	@OneToOne
 	@JoinColumn(name="imov_id")
@@ -33,11 +36,11 @@ public class LigacaoAgua implements Serializable{
 	public LigacaoAgua() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -55,6 +58,14 @@ public class LigacaoAgua implements Serializable{
 
 	public void setHidrometroInstalacoesHistorico(Set<HidrometroInstalacaoHistorico> hidrometroInstalacoesHistorico) {
 		this.hidrometroInstalacoesHistorico = hidrometroInstalacoesHistorico;
+	}
+
+	public Integer getConsumoMinimoAgua() {
+		return consumoMinimoAgua;
+	}
+
+	public void setConsumoMinimoAgua(Integer consumoMinimoAgua) {
+		this.consumoMinimoAgua = consumoMinimoAgua;
 	}
 
 	public String toString() {

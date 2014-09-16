@@ -14,17 +14,31 @@ import javax.persistence.Table;
 @Entity
 @Table(name="consumo_anormalidade", schema="micromedicao")
 public class ConsumoAnormalidade implements Serializable{
+	private static final long serialVersionUID = 6442442436348921707L;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2969850794854621162L;
-
+	public final static int CONSUMO_ALTERADO                 = 1;
+    public final static int CONSUMO_INFORMADO                = 2;
+    public final static int CONSUMO_RETIFICADO               = 3;
+    public final static int BAIXO_CONSUMO                    = 4;
+    public final static int ESTOURO_CONSUMO                  = 5;
+    public final static int ALTO_CONSUMO                     = 6;
+    public final static int LEITURA_ATUAL_MENOR_PROJETADA    = 7;
+    public final static int LEITURA_ATUAL_MENOR_ANTERIOR     = 8;
+    public final static int HIDROMETRO_SUBSTITUIDO_INFORMADO = 9;
+    public final static int LEITURA_NAO_INFORMADA            = 10;
+    public final static int ESTOURO_MEDIA                    = 11;
+    public final static int CONSUMO_MINIMO_FIXADO            = 12;
+    public final static int CONSUMO_FORA_FAIXA                   = 13;
+    public final static int HIDROMETRO_SUBSTITUIDO_NAO_INFORMADO = 14;
+    public final static int FATURAMENTO_ANTECIPADO               = 15;
+    public final static int VIRADA_HIDROMETRO                    = 16;
+    public final static int ANORMALIDADE_DE_LEITURA              = 17;
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CONSUMO_ANORMALIDADE")
 	@SequenceGenerator(name="SEQ_CONSUMO_ANORMALIDADE", schema="micromedicao", sequenceName="seq_consumo_anormalidade", allocationSize=1)
 	@Column(name="csan_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="csan_dsconsumoanormalidade")
 	private String descricao;
@@ -47,13 +61,11 @@ public class ConsumoAnormalidade implements Serializable{
 	@Column(name="csan_iccalcularmedia")
 	private Short indicadorCalcularMedia;
 	
-	public ConsumoAnormalidade() {}
-
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -111,5 +123,9 @@ public class ConsumoAnormalidade implements Serializable{
 
 	public void setIndicadorCalcularMedia(Short indicadorCalcularMedia) {
 		this.indicadorCalcularMedia = indicadorCalcularMedia;
+	}
+
+	public String toString() {
+		return "ConsumoAnormalidade [id=" + id + "]";
 	}
 }

@@ -24,6 +24,7 @@ import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.ImovelPerfil;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
+import br.gov.model.cobranca.Parcelamento;
 import br.gov.model.exception.DataVencimentoContaInvalido;
 import br.gov.model.micromedicao.MedicaoHistorico;
 import br.gov.model.micromedicao.Rota;
@@ -172,6 +173,10 @@ public class Conta implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="iper_id")
 	private ImovelPerfil imovelPerfil;
+	
+	@ManyToOne
+	@JoinColumn(name="parc_id")
+	private Parcelamento parcelamento;
 	
 	@Column(name="cmrv_id")
 	private Integer contaMotivoRevisao;
@@ -694,6 +699,30 @@ public class Conta implements Serializable{
 
 	public void setContaMotivoRevisao(Integer contaMotivoRevisao) {
 		this.contaMotivoRevisao = contaMotivoRevisao;
+	}
+
+	public BigDecimal getValorRateioAgua() {
+		return valorRateioAgua;
+	}
+
+	public void setValorRateioAgua(BigDecimal valorRateioAgua) {
+		this.valorRateioAgua = valorRateioAgua;
+	}
+
+	public BigDecimal getValorRateioEsgoto() {
+		return valorRateioEsgoto;
+	}
+
+	public void setValorRateioEsgoto(BigDecimal valorRateioEsgoto) {
+		this.valorRateioEsgoto = valorRateioEsgoto;
+	}
+
+	public Parcelamento getParcelamento() {
+		return parcelamento;
+	}
+
+	public void setParcelamento(Parcelamento parcelamento) {
+		this.parcelamento = parcelamento;
 	}
 
 	public String toString() {

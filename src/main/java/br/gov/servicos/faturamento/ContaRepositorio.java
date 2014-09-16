@@ -7,10 +7,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.Hibernate;
+
 import br.gov.model.cadastro.ClienteRelacaoTipo;
 import br.gov.model.exception.ErroCriacaoConta;
 import br.gov.model.faturamento.Conta;
 import br.gov.model.faturamento.DebitoCreditoSituacao;
+import br.gov.servicos.to.ContaTO;
+import br.gov.servicos.to.ConsultaDebitoImovelTO;
 
 @Stateless
 public class ContaRepositorio {
@@ -183,5 +187,51 @@ public class ContaRepositorio {
 			.getSingleResult();
 		
 		return count > 0 ? true : false; 
-	}	
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ContaTO> pesquisarContasImovel(ConsultaDebitoImovelTO to){
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT conta.cnta_id as idConta, conta.cnta_vlagua as valorAgua, conta.cnta_vlesgoto as valorEsgoto, ")
+			.append(" conta.cnta_vldebitos as valorDebitos, conta.cnta_vlcreditos as valorCreditos, conta.cnta_dtrevisao as dataRevisao, ")
+			.append(" conta.cnta_amreferenciaconta as referencia, conta.cnta_dtvencimentoconta as dataVencimento, ")
+			.append(" conta.cnta_iccobrancamulta as indicadorCobrancaMulta, conta.dcst_idatual as situacaoAtual, ")
+			.append(" conta.cnta_dgverificadorconta as digitoVerificador, conta.cmrv_id as motivoRevisao, ")
+			.append(" conta.imov_id as idImovel, ")
+			.append(" conta.cnta_nnconsumoagua as consumoAgua, conta.cnta_vlimpostos as valorImpostos, conta.cnta_nnconsumoesgoto as consumoEsgoto, ")
+			.append(" sum(coalesce(pagto.pgmt_vlpagamento, 0.00)) as valorPagamento, ")
+			.append(" min(pagto.pgmt_dtpagamento) as dataPagamento, conta.parc_id as idParcelamento ")
+			.append(" FROM faturamento.conta conta ")
+			.append(" LEFT JOIN arrecadacao.pagamento pagto on pagto.cnta_id = conta.cnta_id ")
+			.append(" WHERE conta.imov_id = :idImovel ")
+			.append("   and conta.dcst_idatual in (:situacoes) ")
+			.append("   and conta.cnta_amreferenciaconta between :referenciaInicial and :referenciaFinal ")
+			.append("   and conta.cnta_dtvencimentoconta between :vencimentoInicial and :vencimentoFinal ")
+			.append("   and (coalesce(conta.cnta_vlagua, 0) + coalesce(conta.cnta_vlesgoto, 0) + coalesce(conta.cnta_vldebitos, 0) - coalesce(conta.cnta_vlcreditos, 0) - coalesce(conta.cnta_vlimpostos, 0)) > 0.00 ")
+			.append("   and conta.cnta_dtrevisao is null ")
+			.append(" GROUP BY conta.cnta_id, conta.cnta_vlagua, conta.cnta_vlesgoto, conta.cnta_vldebitos, conta.cnta_vlcreditos, conta.cnta_dtrevisao, conta.cnta_amreferenciaconta, conta.cnta_dtvencimentoconta, conta.cnta_iccobrancamulta, ")
+			.append("   conta.dcst_idatual, conta.cnta_dgverificadorconta, conta.cmrv_id, conta.cnta_tmultimaalteracao, conta.imov_id, conta.cnta_nnconsumoagua, conta.cnta_vlimpostos, conta.cnta_nnconsumoesgoto, conta.parc_id ")
+			.append(" HAVING sum(coalesce(pagto.pgmt_vlpagamento, 0.00)) = 0")
+			.append(" ORDER BY idImovel, referencia ");
+		
+		return entity.createNativeQuery(sql.toString(), ContaTO.class)
+		.setParameter("idImovel"         , to.getIdImovel())
+		.setParameter("situacoes"        , to.getSituacoes())
+		.setParameter("referenciaInicial", to.getReferenciaInicial())
+		.setParameter("referenciaFinal"  , to.getReferenciaFinal())
+		.setParameter("vencimentoInicial", to.getVencimentoInicial())
+		.setParameter("vencimentoFinal"  , to.getVencimentoFinal())
+		.getResultList();
+	}
+	
+	public List<Conta> recuperarPeloParcelamento(Long idParcelamento){
+		StringBuilder sql = new StringBuilder();
+		sql.append("select c from Conta")
+			.append(" where c.parcelamento.id = : idParcelamento");
+		
+		
+		return entity.createQuery(sql.toString(), Conta.class)
+				.setParameter("idParcelamento", idParcelamento)
+				.getResultList();
+	}
 }

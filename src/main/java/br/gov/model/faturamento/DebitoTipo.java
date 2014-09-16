@@ -12,7 +12,7 @@ import br.gov.model.Status;
 public class DebitoTipo {
 	@Id
 	@Column(name="dbtp_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="dbtp_icgeracaoconta")
 	private short indicadorGeracaoConta;
@@ -20,11 +20,11 @@ public class DebitoTipo {
 	public DebitoTipo() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

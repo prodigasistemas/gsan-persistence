@@ -61,12 +61,10 @@ public class MedicaoHistoricoRepositorio {
 		sql.append("FROM MedicaoHistorico medicaoHistorico ");
 		sql.append("INNER JOIN medicaoHistorico.leituraAnormalidadeFaturamento leituraAnormalidadeFaturamento ");
 
-		if (consumoHistorico.getLigacaoTipo().getId().equals(LigacaoTipo.AGUA)) {
-
+		if (consumoHistorico.getLigacaoTipo() == LigacaoTipo.AGUA.getId()) {
 			sql.append("INNER JOIN medicaoHistorico.ligacaoAgua ligacaoAgua ");
 			sql.append("WHERE ligacaoAgua.id = :idImovel AND medicaoHistorico.anoMesReferencia = :anoMesReferencia ");
 		} else {
-
 			sql.append("INNER JOIN medicaoHistorico.imovel imovel ");
 			sql.append("WHERE imovel.id = :idImovel AND medicaoHistorico.anoMesReferencia = :anoMesReferencia ");
 		}

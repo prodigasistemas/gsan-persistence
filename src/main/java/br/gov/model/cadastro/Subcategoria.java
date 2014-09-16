@@ -1,6 +1,7 @@
 package br.gov.model.cadastro;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -177,7 +178,6 @@ public class Subcategoria implements Serializable, ICategoria {
 		this.categoria = categoria;
 	}
 
-	@Override
 	public Integer getQuantidadeEconomias() {
 		return quantidadeEconomias;
 	}
@@ -186,13 +186,39 @@ public class Subcategoria implements Serializable, ICategoria {
 		this.quantidadeEconomias = quantidadeEconomias;
 	}
 	
-	@Override
-	public Short getCategoriaFatorEconomias() {
-		return this.categoria.getFatorEconomias();
-	}
-	
-	@Override
 	public ICategoria getSubcategoria(){
 		return this;
+	}
+
+	public Short getFatorEconomias() {
+		return categoria.getFatorEconomias();
+	}
+
+	public Integer getConsumoEstouro() {
+		return null;
+	}
+
+	public Integer getConsumoAlto() {
+		return null;
+	}
+
+	public Integer getNumeroConsumoMaximoEc() {
+		return null;
+	}
+
+	public Integer getMediaBaixoConsumo() {
+		return null;
+	}
+
+	public BigDecimal getVezesMediaAltoConsumo() {
+		return null;
+	}
+
+	public BigDecimal getVezesMediaEstouro() {
+		return null;
+	}
+
+	public BigDecimal getPorcentagemMediaBaixoConsumo() {
+		return null;
 	}
 }

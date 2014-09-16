@@ -16,8 +16,6 @@ public class PagamentoRepositorio {
 	private EntityManager entity;
 	
 	public boolean debitoSemPagamento(Long idDebito) {
-		boolean debitoSemPagamento = false;
-		
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(pg) from Pagamento pg")
 		.append(" where pg.debitoCobrarGeral.id = :idDebito");
@@ -26,11 +24,31 @@ public class PagamentoRepositorio {
 				.setParameter("idDebito", idDebito)
 				.getSingleResult();
 
-		if (count == 0){
-			debitoSemPagamento = true;
-		}
+		return (count == 0) ? true : false;
+	}
+
+	public boolean guiaPaga(Integer idGuia) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select count(pg) from Pagamento pg")
+		.append(" where pg.guiaPagamento.id = :idGuia");
 		
-		return debitoSemPagamento;
+		long count = entity.createQuery(sql.toString(), Long.class)
+				.setParameter("idGuia", idGuia)
+				.getSingleResult();
+
+		return count == 0 ? false: true;
+	}
+	
+	public boolean contaPaga(Long idConta) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select count(pg) from Pagamento pg")
+		.append(" where pg.contaGeral.id = :idConta");
+		
+		long count = entity.createQuery(sql.toString(), Long.class)
+				.setParameter("idConta", idConta)
+				.getSingleResult();
+		
+		return count == 0 ? false: true;
 	}
 	
 	public boolean existeDebitoSemPagamento(Collection<DebitoCobrar> debitosCobrar) {

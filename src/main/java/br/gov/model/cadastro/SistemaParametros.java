@@ -11,10 +11,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="sistema_parametros", schema="cadastro")
 public class SistemaParametros implements Serializable {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2506057341225497998L;
 
 	@Id
@@ -38,6 +34,24 @@ public class SistemaParametros implements Serializable {
 	
 	@Column(name="parm_vlcontafichacomp")
 	private BigDecimal valorContaFichaComp;
+	
+	@Column(name="parm_nnmesescalcmediacons")
+	private Short mesesMediaConsumo;
+	
+	@Column(name="parm_nnmesesmaximocalculomedia")
+	private Short numeroMesesMaximoCalculoMedia;
+	
+	@Column(name="parm_amreferenciaarrecadacao")
+	private Integer anoMesArrecadacao;
+	
+	@Column(name="parm_icbloqctasctrparceldebito")
+	private Short indicadorBloqueioContasContratoParcelDebitos;
+	
+	@Column(name="parm_icbloqguiactrparceldebito")
+	private Short indicadorBloqueioGuiasOuAcresContratoParcelDebito;
+	
+	@Column(name="parm_nmabreviadoempresa")
+	private String nomeAbreviadoEmpresa;
 	
 	public static Short INDICADOR_TARIFA_CATEGORIA = new Short("1");
 	
@@ -102,5 +116,53 @@ public class SistemaParametros implements Serializable {
 
 	public void setValorContaFichaComp(BigDecimal valorContaFichaComp) {
 		this.valorContaFichaComp = valorContaFichaComp;
+	}
+
+	public Short getMesesMediaConsumo() {
+		return mesesMediaConsumo;
+	}
+
+	public void setMesesMediaConsumo(Short mesesMediaConsumo) {
+		this.mesesMediaConsumo = mesesMediaConsumo;
+	}
+
+	public Short getNumeroMesesMaximoCalculoMedia() {
+		return numeroMesesMaximoCalculoMedia;
+	}
+
+	public void setNumeroMesesMaximoCalculoMedia(Short numeroMesesMaximoCalculoMedia) {
+		this.numeroMesesMaximoCalculoMedia = numeroMesesMaximoCalculoMedia;
+	}
+
+	public Integer getAnoMesArrecadacao() {
+		return anoMesArrecadacao;
+	}
+
+	public void setAnoMesArrecadacao(Integer anoMesArrecadacao) {
+		this.anoMesArrecadacao = anoMesArrecadacao;
+	}
+
+	public Short getIndicadorBloqueioContasContratoParcelDebitos() {
+		return indicadorBloqueioContasContratoParcelDebitos;
+	}
+
+	public void setIndicadorBloqueioContasContratoParcelDebitos(Short indicadorBloqueioContasContratoParcelDebitos) {
+		this.indicadorBloqueioContasContratoParcelDebitos = indicadorBloqueioContasContratoParcelDebitos;
+	}
+
+	public Short getIndicadorBloqueioGuiasOuAcresContratoParcelDebito() {
+		return indicadorBloqueioGuiasOuAcresContratoParcelDebito;
+	}
+
+	public void setIndicadorBloqueioGuiasOuAcresContratoParcelDebito(Short indicadorBloqueioGuiasOuAcresContratoParcelDebito) {
+		this.indicadorBloqueioGuiasOuAcresContratoParcelDebito = indicadorBloqueioGuiasOuAcresContratoParcelDebito;
+	}
+
+	public String getNomeAbreviadoEmpresa() {
+		return nomeAbreviadoEmpresa;
+	}
+
+	public void setNomeAbreviadoEmpresa(String nomeAbreviadoEmpresa) {
+		this.nomeAbreviadoEmpresa = nomeAbreviadoEmpresa;
 	}
 }

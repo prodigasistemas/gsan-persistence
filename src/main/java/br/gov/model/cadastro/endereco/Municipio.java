@@ -20,7 +20,10 @@ public class Municipio implements Serializable {
 	
 	@Column(name="muni_nmmunicipio")
 	private String nome;
-
+	
+	@Column(name="muni_cdddd")
+	private Short ddd;
+	
 	@ManyToOne
 	@JoinColumn(name="unfe_id")
 	private UnidadeFederacao unidadeFederacao; 
@@ -54,6 +57,14 @@ public class Municipio implements Serializable {
 
 	public void setUnidadeFederacao(UnidadeFederacao unidadeFederacao) {
 		this.unidadeFederacao = unidadeFederacao;
+	}
+
+	public Short getDdd() {
+		return ddd;
+	}
+
+	public void setDdd(Short ddd) {
+		this.ddd = ddd;
 	}
 
 	public String toString() {

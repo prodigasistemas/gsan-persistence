@@ -1,26 +1,16 @@
 package br.gov.model.micromedicao;
 
-public enum LigacaoTipo {
-	AGUA(new Short("1")), ESGOTO(new Short("2"));
-	
-	private Short id;
-	
-	LigacaoTipo(Short s){
-		this.id = s;
-	}
-	
-	public Short getId(){
+public enum LigacaoTipo {	
+    AGUA   (1),
+    ESGOTO (2);
+    
+    private int id = 0;
+
+    LigacaoTipo(int id){
+    	this.id = id;
+    }
+
+	public int getId() {
 		return id;
 	}
-	
-	public static LigacaoTipo parse(Short id) {
-		LigacaoTipo ligacaoTipo = null;
-        for (LigacaoTipo item : LigacaoTipo.values()) {
-            if (item.getId() == id) {
-                ligacaoTipo = item;
-                break;
-            }
-        }
-        return ligacaoTipo;
-    }	
 }

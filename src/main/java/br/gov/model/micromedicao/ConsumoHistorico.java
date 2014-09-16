@@ -18,21 +18,23 @@ import br.gov.model.cadastro.Imovel;
 
 @Entity
 @Table(name="consumo_historico", schema="micromedicao")
-public class ConsumoHistorico implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8025916423504855788L;
+public class ConsumoHistorico implements Serializable, Comparable<ConsumoHistorico>{
+	private static final long serialVersionUID = 6182290473352810480L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CONSUMO_HISTORICO")
 	@SequenceGenerator(name="SEQ_CONSUMO_HISTORICO", schema="micromedicao", sequenceName="seq_consumo_historico", allocationSize=1)
 	@Column(name="cshi_id")
-	private Long id;
-	
+	private Integer id;
+
 	@Column(name="cshi_amfaturamento")
 	private Integer referenciaFaturamento;
+	
+	@Column(name="cshi_nnconsumocalculomedia")
+	private Integer numeroConsumoCalculoMedia;
+	
+	@Column(name="lgti_id")
+	private Integer ligacaoTipo;
 	
 	@Column(name="cshi_icaltultimosconss")
 	private Short indicadorAlteracaoUltimosConsumos;
@@ -69,28 +71,26 @@ public class ConsumoHistorico implements Serializable {
 	
 	@Column(name="cshi_nnconsimoveisvinculados")
 	private Integer consumoImovelVinculadosCondominio;
-	
-	@Column(name="cshi_nnconsumocalculomedia")
-	private Integer numeroConsumoCalculoMedia;
-	
+		
 	@ManyToOne
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
-	
-	@Column(name="lgti_id")
-	private LigacaoTipo ligacaoTipo;
 	
 	@ManyToOne
 	@JoinColumn(name="csan_id")
 	private ConsumoAnormalidade consumoAnormalidade;
 	
+	@ManyToOne
+	@JoinColumn(name="cstp_id")
+	private ConsumoTipo consumoTipo;
+	
 	public ConsumoHistorico(){}
-
-	public Long getId() {
+	
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -100,6 +100,22 @@ public class ConsumoHistorico implements Serializable {
 
 	public void setReferenciaFaturamento(Integer referenciaFaturamento) {
 		this.referenciaFaturamento = referenciaFaturamento;
+	}
+
+	public Integer getNumeroConsumoCalculoMedia() {
+		return numeroConsumoCalculoMedia;
+	}
+
+	public void setNumeroConsumoCalculoMedia(Integer numeroConsumoCalculoMedia) {
+		this.numeroConsumoCalculoMedia = numeroConsumoCalculoMedia;
+	}
+
+	public Integer getLigacaoTipo() {
+		return ligacaoTipo;
+	}
+
+	public void setLigacaoTipo(Integer ligacaoTipo) {
+		this.ligacaoTipo = ligacaoTipo;
 	}
 
 	public Short getIndicadorAlteracaoUltimosConsumos() {
@@ -198,14 +214,6 @@ public class ConsumoHistorico implements Serializable {
 		this.consumoImovelVinculadosCondominio = consumoImovelVinculadosCondominio;
 	}
 
-	public Integer getNumeroConsumoCalculoMedia() {
-		return numeroConsumoCalculoMedia;
-	}
-
-	public void setNumeroConsumoCalculoMedia(Integer numeroConsumoCalculoMedia) {
-		this.numeroConsumoCalculoMedia = numeroConsumoCalculoMedia;
-	}
-
 	public Imovel getImovel() {
 		return imovel;
 	}
@@ -214,19 +222,30 @@ public class ConsumoHistorico implements Serializable {
 		this.imovel = imovel;
 	}
 
-	public LigacaoTipo getLigacaoTipo() {
-		return ligacaoTipo;
-	}
-
-	public void setLigacaoTipo(LigacaoTipo ligacaoTipo) {
-		this.ligacaoTipo = ligacaoTipo;
-	}
-
 	public ConsumoAnormalidade getConsumoAnormalidade() {
 		return consumoAnormalidade;
 	}
 
 	public void setConsumoAnormalidade(ConsumoAnormalidade consumoAnormalidade) {
 		this.consumoAnormalidade = consumoAnormalidade;
+	}
+
+	public ConsumoTipo getConsumoTipo() {
+		return consumoTipo;
+	}
+
+	public void setConsumoTipo(ConsumoTipo consumoTipo) {
+		this.consumoTipo = consumoTipo;
+	}
+
+	public int compareTo(ConsumoHistorico o) {
+		if (this.getReferenciaFaturamento() != null && o.getReferenciaFaturamento() != null){
+			return - referenciaFaturamento.compareTo(o.getReferenciaFaturamento());
+		}
+		return 0;
+	}
+
+	public String toString() {
+		return "ConsumoHistorico [id=" + id + ", referenciaFaturamento=" + referenciaFaturamento + "]";
 	}
 }

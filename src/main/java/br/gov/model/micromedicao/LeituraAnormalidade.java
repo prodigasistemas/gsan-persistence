@@ -11,10 +11,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="leitura_anormalidade", schema="micromedicao")
 public class LeituraAnormalidade implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3799289934892490486L;
 
 	@Id
