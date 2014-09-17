@@ -2,7 +2,10 @@ package br.gov.servicos.to;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
+import static br.gov.model.util.Utilitarios.adicionarMeses;
+import static br.gov.model.util.Utilitarios.adicionarDias;
 
 public class ContaTO implements Serializable{
 	private static final long serialVersionUID = -4290794295220149181L;
@@ -26,6 +29,55 @@ public class ContaTO implements Serializable{
 	private BigDecimal valorPagamento; 
 	private Date dataPagamento;
 	private Integer idParcelamento;
+	private Short diaVencimentoAlternativo;
+	private Short indicadorVencimentoMesSeguinte = 2;
+	private Date dataVencimentoConta;
+	
+	
+	public Short getDiaVencimentoAlternativo() {
+		return diaVencimentoAlternativo;
+	}
+
+	public void setDiaVencimentoAlternativo(Short dia) {
+		this.diaVencimentoAlternativo = dia;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(dataVencimentoConta);
+		cal.set(Calendar.DAY_OF_MONTH, dia);
+		dataVencimentoConta = cal.getTime();
+	}
+
+	public Short getIndicadorVencimentoMesSeguinte() {
+		return indicadorVencimentoMesSeguinte;
+	}
+
+	public void setIndicadorVencimentoMesSeguinte(Short indicadorVencimentoMesSeguinte) {
+		this.indicadorVencimentoMesSeguinte = indicadorVencimentoMesSeguinte;
+	}
+	
+	public Date getDataVencimentoConta() {
+		return dataVencimentoConta;
+	}
+
+	public void setDataVencimentoConta(Date dataVencimentoConta) {
+		this.dataVencimentoConta = dataVencimentoConta;
+	}
+
+	public boolean comVencimentoAlternativo(){
+		return diaVencimentoAlternativo != null && diaVencimentoAlternativo.shortValue() > 0;
+	}
+	
+	public boolean vencimentoMesSeguinte(){
+		return indicadorVencimentoMesSeguinte != null && indicadorVencimentoMesSeguinte == 1;
+	}
+
+	public void adicionaMesAoVencimento() {
+		dataVencimentoConta = adicionarMeses(dataVencimentoConta, (short) 1);
+	}
+
+	public void adicionaDiasAoVencimento(Short dias) {
+		dataVencimentoConta = adicionarDias(dataVencimentoConta, dias);
+	}
+	
 	public Integer getIdConta() {
 		return idConta;
 	}
