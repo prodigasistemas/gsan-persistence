@@ -10,23 +10,23 @@ public class CreditoRealizadoCategoriaPK implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="crrz_id")
-	private Long creditoRealizadoId;
+	private Integer creditoRealizadoId;
 	
 	@Column(name="catg_id")
 	private Long categoriaId;
 	
 	public CreditoRealizadoCategoriaPK(){}
 	
-	public CreditoRealizadoCategoriaPK(Long creditoRealizadoId, Long categoriaId){
+	public CreditoRealizadoCategoriaPK(Integer creditoRealizadoId, Long categoriaId){
 		this.creditoRealizadoId = creditoRealizadoId;
 		this.categoriaId = categoriaId;
 	}
 
-	public Long getCreditoRealizadoId() {
+	public Integer getCreditoRealizadoId() {
 		return creditoRealizadoId;
 	}
 
-	public void setCreditoRealizadoId(Long creditoRealizadoId) {
+	public void setCreditoRealizadoId(Integer creditoRealizadoId) {
 		this.creditoRealizadoId = creditoRealizadoId;
 	}
 

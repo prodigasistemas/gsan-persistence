@@ -36,7 +36,7 @@ public class CreditoRealizarCategoriaRepositorioTest {
 	@UsingDataSet({"creditosRealizarCategoria.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarImpostoTipoAtivosInexistente(){
-		Collection<CreditoRealizarCategoria> resultado = repositorio.buscarCreditoRealizarCategoria(2L);
+		Collection<CreditoRealizarCategoria> resultado = repositorio.buscarCreditoRealizarCategoria(2);
 		
 		assertTrue(resultado.isEmpty());
 	}
@@ -45,7 +45,7 @@ public class CreditoRealizarCategoriaRepositorioTest {
 	@UsingDataSet({"creditosRealizarCategoria.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarImpostoTipoAtivosExistente(){
-		Collection<CreditoRealizarCategoria> resultado = repositorio.buscarCreditoRealizarCategoria(1L);
+		Collection<CreditoRealizarCategoria> resultado = repositorio.buscarCreditoRealizarCategoria(1);
 		
 		CreditoRealizarCategoria creditoRealizarCategoria = resultado.iterator().next();
 		

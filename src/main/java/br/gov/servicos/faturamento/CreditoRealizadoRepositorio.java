@@ -15,7 +15,7 @@ public class CreditoRealizadoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public List<Long> creditosRealizadosDasContas(List<Long> idsContas){
+	public List<Integer> creditosRealizadosDasContas(List<Long> idsContas){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select crrz_id from faturamento.credito_realizado where cnta_id in (:ids) ");
 		
@@ -23,9 +23,9 @@ public class CreditoRealizadoRepositorio {
 				.setParameter("ids", idsContas)
 				.getResultList();
 		
-		List<Long> result = new ArrayList<Long>();
+		List<Integer> result = new ArrayList<Integer>();
 		for (Object item : lista) {
-			result.add(Long.valueOf(String.valueOf(item)));
+			result.add(Integer.valueOf(String.valueOf(item)));
 		}
 		return result;		
 	}
@@ -38,7 +38,7 @@ public class CreditoRealizadoRepositorio {
 		.executeUpdate();
 	}
 
-	public Long inserir(CreditoRealizado creditoRealizado) {
+	public Integer inserir(CreditoRealizado creditoRealizado) {
 		entity.persist(creditoRealizado);
 		entity.flush();
 		

@@ -8,10 +8,6 @@ import br.gov.model.cadastro.ICategoria;
 import br.gov.model.cadastro.Subcategoria;
 
 public class ImovelSubcategoriaTO implements Serializable, ICategoria{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2664222681959912779L;
 	
 	private Long categoriaId;
@@ -19,7 +15,7 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	private Integer consumoEstouro;
 	private BigDecimal vezesMediaEstouro;
 	private Long subcategoriaQuantidadeEconomias;
-	private Long imovelId;
+	private Integer imovelId;
 	private Integer consumoAlto;
 	private Integer mediaBaixoConsumo;
 	private BigDecimal vezesMediaAltoConsumo;
@@ -47,7 +43,7 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	
 	
 	public ImovelSubcategoriaTO(Long categoriaId, String categoriaDescricao, Integer consumoEstouro, BigDecimal vezesMediaEstouro,
-			Long subcategoriaQuantidadeEconomias, Long imovelId, Integer consumoAlto, Integer mediaBaixoConsumo, BigDecimal vezesMediaAltoConsumo,
+			Long subcategoriaQuantidadeEconomias, Integer imovelId, Integer consumoAlto, Integer mediaBaixoConsumo, BigDecimal vezesMediaAltoConsumo,
 			BigDecimal porcentagemMediaBaixoConsumo, String categoriaDescricaoAbreviada, Integer numeroConsumoMaximoEc, Short indicadorCobrancaAcrescimos,
 			Short fatorEconomias, Short categoriaTipoId) {
 		this.categoriaId = categoriaId;
@@ -301,11 +297,11 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 		this.categoriaTipoDescricao = categoriaTipoDescricao;
 	}
 
-	public Long getImovelId() {
+	public Integer getImovelId() {
 		return imovelId;
 	}
 
-	public void setImovelId(Long imovelId) {
+	public void setImovelId(Integer imovelId) {
 		this.imovelId = imovelId;
 	}
 

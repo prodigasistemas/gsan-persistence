@@ -14,11 +14,11 @@ public class DebitoCobradoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public List<Long> debitosCobradosDasContas(List<Long> ids){
+	public List<Integer> debitosCobradosDasContas(List<Long> ids){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select id from DebitoCobrado as debitoCobrado where debitoCobrado.conta.id in (:ids) ");
 		
-		List<Long> lista = entity.createQuery(sql.toString(), Long.class)
+		List<Integer> lista = entity.createQuery(sql.toString(), Integer.class)
 									.setParameter("ids", ids)
 									.getResultList();
 		
@@ -33,7 +33,7 @@ public class DebitoCobradoRepositorio {
 		.executeUpdate();
 	}
 
-	public Long inserir(DebitoCobrado debitoCobrado) {
+	public Integer inserir(DebitoCobrado debitoCobrado) {
 		entity.persist(debitoCobrado);
 		entity.flush();
 		

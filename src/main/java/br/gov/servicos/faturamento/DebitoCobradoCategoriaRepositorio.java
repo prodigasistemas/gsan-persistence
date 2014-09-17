@@ -15,7 +15,7 @@ public class DebitoCobradoCategoriaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public void apagarCategoriasdosDebitosCobrados(List<Long> ids){
+	public void apagarCategoriasdosDebitosCobrados(List<Integer> ids){
 		if (ids != null && ids.size() > 0){
 			String delete = "delete from faturamento.debito_cobrado_categoria where dbcb_id in (:ids)";
 			

@@ -16,16 +16,16 @@ public class DebitoCobrarGeral {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_DEBITO_A_COBRAR_GERAL")
 	@SequenceGenerator(name="SEQ_DEBITO_A_COBRAR_GERAL", schema="faturamento", sequenceName="seq_debito_a_cobrar_geral", allocationSize=1)		
 	@Column(name="dbac_id")
-	private Long id;
+	private Integer id;
 	
 	public DebitoCobrarGeral() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 }

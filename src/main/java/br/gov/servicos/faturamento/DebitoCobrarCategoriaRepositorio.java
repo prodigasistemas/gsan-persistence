@@ -14,7 +14,7 @@ public class DebitoCobrarCategoriaRepositorio {
 	@PersistenceContext
 	private EntityManager em;
 	
-	public List<DebitoCobrarCategoria> listaPeloDebitoCobrar(Long debitoCobrarId){
+	public List<DebitoCobrarCategoria> listaPeloDebitoCobrar(Integer debitoCobrarId){
 		StringBuilder sql = new StringBuilder();
 		sql.append("from DebitoCobrarCategoria d ")
 		.append(" where d.id.debitoCobrarId = :debitoCobrarId");

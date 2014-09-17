@@ -23,7 +23,7 @@ public class DebitoCobrar implements IDebito{
 	
 	@Id
 	@Column(name="dbac_id")
-	private Long id;
+	private Integer id;
 
 	@ManyToOne
 	@JoinColumn(name="dbtp_id")
@@ -100,11 +100,11 @@ public class DebitoCobrar implements IDebito{
 
 	public DebitoCobrar(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

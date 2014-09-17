@@ -15,7 +15,7 @@ public class PagamentoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public boolean debitoSemPagamento(Long idDebito) {
+	public boolean debitoSemPagamento(Integer idDebito) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(pg) from Pagamento pg")
 		.append(" where pg.debitoCobrarGeral.id = :idDebito");

@@ -24,7 +24,7 @@ public class CreditoRealizarGeral implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CREDITO_REALIZAR_GERAL")
 	@SequenceGenerator(name="SEQ_CREDITO_REALIZAR_GERAL", schema="faturamento", sequenceName="seq_credito_a_realizar_geral", allocationSize=1)
 	@Column(name="crar_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="cage_ichistorico")
 	private Short indicadorHistorico;
@@ -34,11 +34,11 @@ public class CreditoRealizarGeral implements Serializable {
 
 	public CreditoRealizarGeral(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

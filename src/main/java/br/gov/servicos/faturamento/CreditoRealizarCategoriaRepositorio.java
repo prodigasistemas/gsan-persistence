@@ -14,7 +14,7 @@ public class CreditoRealizarCategoriaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public Collection<CreditoRealizarCategoria> buscarCreditoRealizarCategoria(Long id) {
+	public Collection<CreditoRealizarCategoria> buscarCreditoRealizarCategoria(Integer id) {
 
 		StringBuilder consulta = new StringBuilder();
 		

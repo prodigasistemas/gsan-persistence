@@ -10,7 +10,7 @@ public class DebitoCobrarCategoriaPK implements Serializable{
 	private static final long serialVersionUID = -3324264102762454229L;
 
 	@Column(name="dbac_id")
-	private Long debitoCobrarId;
+	private Integer debitoCobrarId;
 	
 	@Column(name="catg_id")
 	private Long categoriaId;
@@ -18,16 +18,16 @@ public class DebitoCobrarCategoriaPK implements Serializable{
 	public DebitoCobrarCategoriaPK() {
 	}
 	
-	public DebitoCobrarCategoriaPK(Long debitoCobrarId, Long categoriaId) {
+	public DebitoCobrarCategoriaPK(Integer debitoCobrarId, Long categoriaId) {
 		this.debitoCobrarId = debitoCobrarId;
 		this.categoriaId = categoriaId;
 	}
 
-	public Long getDebitoCobrarId() {
+	public Integer getDebitoCobrarId() {
 		return debitoCobrarId;
 	}
 
-	public void setDebitoCobrarId(Long debitoCobrarId) {
+	public void setDebitoCobrarId(Integer debitoCobrarId) {
 		this.debitoCobrarId = debitoCobrarId;
 	}
 

@@ -16,7 +16,7 @@ public class CreditoRealizadoCategoriaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public void apagarCategoriasDosCreditosRealizados(List<Long> idsCreditosRealizados){
+	public void apagarCategoriasDosCreditosRealizados(List<Integer> idsCreditosRealizados){
 		if (idsCreditosRealizados != null && idsCreditosRealizados.size() > 0){
 			String delete = "delete from faturamento.cred_realizado_catg where crrz_id in (:ids)";
 			

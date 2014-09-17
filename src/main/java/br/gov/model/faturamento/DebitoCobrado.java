@@ -5,9 +5,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.gov.model.cadastro.Localidade;
@@ -20,8 +23,10 @@ import br.gov.model.financeiro.LancamentoItemContabil;
 public class DebitoCobrado implements IDebito{
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_DEBITO_COBRADO")
+	@SequenceGenerator(name="SEQ_DEBITO_COBRADO", schema="faturamento", sequenceName="seq_debito_cobrado", allocationSize=1)	
 	@Column(name="dbcb_id")
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name="dbac_id")
@@ -39,6 +44,9 @@ public class DebitoCobrado implements IDebito{
 	@Column(name="dbcb_nnprestacaodebito")
 	private Short numeroPrestacaoDebito;
 
+	@Column(name="dbcb_nnparcelabonus")
+	private Short numeroParcelaBonus;
+	
 	@Column(name="dbcb_tmdebitocobrado")
 	private Date cobradoEm;
 	
@@ -87,11 +95,11 @@ public class DebitoCobrado implements IDebito{
 	public DebitoCobrado() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -237,5 +245,13 @@ public class DebitoCobrado implements IDebito{
 
 	public void setConta(Conta conta) {
 		this.conta = conta;
+	}
+
+	public Short getNumeroParcelaBonus() {
+		return numeroParcelaBonus;
+	}
+
+	public void setNumeroParcelaBonus(Short numeroParcelaBonus) {
+		this.numeroParcelaBonus = numeroParcelaBonus;
 	}
 }

@@ -66,7 +66,7 @@ public class DebitoCobrarRepositorio {
 
 		entity.createQuery(sql.toString())
 				.setParameter("numeroPrestacao", debitoCobrar.getNumeroPrestacaoCobradas())
-				.setParameter("idDebitoAcobrar", debitoCobrar.getId().intValue())
+				.setParameter("idDebitoAcobrar", debitoCobrar.getId())
 				.setParameter("anoMesPrestacao", debitoCobrar.getAnoMesReferenciaPrestacao())
 				.setParameter("dataAtual", new Date())
 				.executeUpdate();

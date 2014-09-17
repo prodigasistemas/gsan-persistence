@@ -36,7 +36,7 @@ public class DevolucaoRepositorioTest {
 	@UsingDataSet({"devolucoes.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void existeCreditoComDevolucao(){
-		List<CreditoRealizar> creditosRealizar = Arrays.asList(new CreditoRealizar(1L), new CreditoRealizar(2L));
+		List<CreditoRealizar> creditosRealizar = Arrays.asList(new CreditoRealizar(1), new CreditoRealizar(2));
 		assertTrue(repositorio.existeCreditoComDevolucao(creditosRealizar));
 	}
 
@@ -44,7 +44,7 @@ public class DevolucaoRepositorioTest {
 	@UsingDataSet({"devolucoes.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void naoExisteCreditoComDevolucao(){
-		List<CreditoRealizar> creditosRealizar = Arrays.asList(new CreditoRealizar(10L), new CreditoRealizar(20L));
+		List<CreditoRealizar> creditosRealizar = Arrays.asList(new CreditoRealizar(10), new CreditoRealizar(20));
 		assertFalse(repositorio.existeCreditoComDevolucao(creditosRealizar));
 	}
 }

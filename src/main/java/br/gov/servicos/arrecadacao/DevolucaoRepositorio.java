@@ -22,7 +22,7 @@ public class DevolucaoRepositorio {
 	}
 	
 	public Collection<Devolucao> buscarDevolucaoPorCreditoRealizar(Collection<CreditoRealizar> creditosRealizar){
-		List<Long> ids = new ArrayList<Long>();
+		List<Integer> ids = new ArrayList<Integer>();
 
 		creditosRealizar.forEach( cr -> ids.add(cr.getId()));
 		

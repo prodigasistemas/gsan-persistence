@@ -7,25 +7,21 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class ImovelSubcategoriaPK implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5538684193231336316L;
 
 	@Column(name="imov_id")
-	private Long imovelId;
+	private Integer imovelId;
 	
 	@Column(name="scat_id")
 	private Long subcategoriaId;
 	
 	public ImovelSubcategoriaPK(){}
 
-	public Long getImovelId() {
+	public Integer getImovelId() {
 		return imovelId;
 	}
 
-	public void setImovelId(Long imovelId) {
+	public void setImovelId(Integer imovelId) {
 		this.imovelId = imovelId;
 	}
 

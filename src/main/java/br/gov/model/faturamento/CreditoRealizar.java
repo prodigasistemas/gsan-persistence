@@ -27,17 +27,13 @@ import br.gov.model.financeiro.LancamentoItemContabil;
 @Entity
 @Table(name="credito_a_realizar", schema="faturamento")
 public class CreditoRealizar implements Serializable {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3722253374008713740L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CREDITO_REALIZAR")
 	@SequenceGenerator(name="SEQ_CREDITO_REALIZAR", schema="faturamento", sequenceName="seq_credito_realizar", allocationSize=1)
 	@Column(name="crar_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="crar_tmatucredito")
 	private Date geracaoCredito;
@@ -134,15 +130,15 @@ public class CreditoRealizar implements Serializable {
 
 	public CreditoRealizar(){}
 	
-	public CreditoRealizar(Long id){
+	public CreditoRealizar(Integer id){
 		this.id = id;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

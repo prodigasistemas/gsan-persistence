@@ -51,10 +51,10 @@ public class PagamentoRepositorioTest {
 	public void naoExisteDebitoSemPagamento(){
 		Collection<DebitoCobrar> debitos = new ArrayList<DebitoCobrar>();
 		DebitoCobrar debito = new DebitoCobrar();
-		debito.setId(1L);
+		debito.setId(1);
 		debitos.add(debito);
 		debito = new DebitoCobrar();
-		debito.setId(2L);
+		debito.setId(2);
 		debitos.add(debito);
 
 		assertEquals(false, repositorio.existeDebitoSemPagamento(debitos));
@@ -66,16 +66,16 @@ public class PagamentoRepositorioTest {
 	public void existeDebitoSemPagamento(){
 		Collection<DebitoCobrar> debitos = new ArrayList<DebitoCobrar>();
 		DebitoCobrar debito = new DebitoCobrar();
-		debito.setId(1L);
+		debito.setId(1);
 		debitos.add(debito);
 		debito = new DebitoCobrar();
-		debito.setId(2L);
+		debito.setId(2);
 		debitos.add(debito);
 		debito = new DebitoCobrar();
-		debito.setId(3L);
+		debito.setId(3);
 		debitos.add(debito);
 		debito = new DebitoCobrar();
-		debito.setId(4L);
+		debito.setId(4);
 		debitos.add(debito);
 		
 		assertEquals(true, repositorio.existeDebitoSemPagamento(debitos));

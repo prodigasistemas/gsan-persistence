@@ -16,10 +16,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="imovel_subcategoria", schema="cadastro")
 public class ImovelSubcategoria implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -9097415683142271917L;
 
 	@EmbeddedId

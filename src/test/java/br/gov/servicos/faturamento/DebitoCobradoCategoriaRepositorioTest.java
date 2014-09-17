@@ -42,7 +42,7 @@ public class DebitoCobradoCategoriaRepositorioTest {
 		ids.add(2L);
 		ids.add(4L);
 		
-		List<Long> idsDebitos = repositorio.debitosCobradosDasContas(ids);
+		List<Integer> idsDebitos = repositorio.debitosCobradosDasContas(ids);
 		
 		categoriaRepositorio.apagarCategoriasdosDebitosCobrados(idsDebitos);
 	}

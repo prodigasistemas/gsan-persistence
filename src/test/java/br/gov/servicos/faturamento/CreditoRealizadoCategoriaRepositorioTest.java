@@ -42,7 +42,7 @@ public class CreditoRealizadoCategoriaRepositorioTest {
 		ids.add(2L);
 		ids.add(4L);
 		
-		List<Long> idsCreditos = repositorio.creditosRealizadosDasContas(ids);
+		List<Integer> idsCreditos = repositorio.creditosRealizadosDasContas(ids);
 		
 		categoriaRepositorio.apagarCategoriasDosCreditosRealizados(idsCreditos);
 	}

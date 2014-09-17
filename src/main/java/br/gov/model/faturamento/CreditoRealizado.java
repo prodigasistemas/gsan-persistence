@@ -26,7 +26,7 @@ public class CreditoRealizado implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CREDITO_REALIZADO")
 	@SequenceGenerator(name="SEQ_CREDITO_REALIZADO", schema="faturamento", sequenceName="seq_credito_realizado", allocationSize=1)
 	@Column(name="crrz_id")
-	private Long id;
+	private Integer id;
 
 	@Column(name="crrz_tmcreditorealizado")
 	private Date creditoRealizado;
@@ -90,11 +90,11 @@ public class CreditoRealizado implements Serializable{
 	
 	public CreditoRealizado(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -47,7 +47,7 @@ public class CreditoRealizadoCategoria implements Serializable{
 	
 	public CreditoRealizadoCategoria(){}
 	
-	public CreditoRealizadoCategoria(Long creditoRealizadoId, Long categoriaId){
+	public CreditoRealizadoCategoria(Integer creditoRealizadoId, Long categoriaId){
 		pk = new CreditoRealizadoCategoriaPK(creditoRealizadoId, categoriaId);
 	}
 
@@ -60,7 +60,7 @@ public class CreditoRealizadoCategoria implements Serializable{
 	}
 	
 	@Transient
-	public Long getCreditoRealizadoId(){
+	public Integer getCreditoRealizadoId(){
 		return this.pk.getCreditoRealizadoId();
 	}
 	
