@@ -36,6 +36,7 @@ public class Imovel implements Serializable{
 	@Id
 	@Column(name="imov_id")
 	private Integer id;
+
 		
 	@Column(name="imov_nnimovel")
 	private String numeroImovel;
@@ -119,13 +120,9 @@ public class Imovel implements Serializable{
 	private HidrometroInstalacaoHistorico hidrometroInstalacaoHistorico;
 	
 	@ManyToOne
-	@JoinColumn(name="cstf_id")
-	private ConsumoTarifa consumoTarifa;
-	
-	@ManyToOne
 	@JoinColumn(name="rota_idalternativa", referencedColumnName="rota_id")
 	private Rota rotaAlternativa;
-	
+
 	@ManyToOne
 	@JoinColumn(name="iper_id")
 	private ImovelPerfil imovelPerfil;
@@ -152,6 +149,10 @@ public class Imovel implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="logr_idfimperimetro", referencedColumnName="logr_id")
 	private Logradouro perimetroFinal;
+	
+	@ManyToOne
+	@JoinColumn(name="cstf_id")
+	private ConsumoTarifa consumoTarifa;
 	
 	public Imovel() {}
 	
@@ -201,18 +202,9 @@ public class Imovel implements Serializable{
 		return faturamentoSituacaoTipo != null &&  faturamentoSituacaoTipo.getValidoAgua() == Status.ATIVO.getId();
 	}
 
-	public boolean existeDiaVencimento(){
-		return diaVencimento != null && diaVencimento.intValue() != 0;
-	}
-	
-	public boolean emissaoExtratoFaturamento(){
-		return indicadorEmissaoExtratoFaturamento != null && indicadorEmissaoExtratoFaturamento == (short) 1;
-	}
-	
 	public boolean existeHidrometro(){
 		return existeHidrometroAgua() || existeHidrometroPoco();
 	}
-
 	
 	public boolean existeHidrometroAgua(){
 		return ligacaoAgua != null && ligacaoAgua.getHidrometroInstalacoesHistorico() != null && ligacaoAgua.getHidrometroInstalacoesHistorico().size() > 0;
@@ -269,6 +261,14 @@ public class Imovel implements Serializable{
 		return consumoTarifa != null ? consumoTarifa.getTarifaTipoCalculo() : null;
 	}
 	
+	public boolean existeDiaVencimento(){
+		return diaVencimento != null && diaVencimento.intValue() != 0;
+	}
+	
+	public boolean emissaoExtratoFaturamento(){
+		return indicadorEmissaoExtratoFaturamento != null && indicadorEmissaoExtratoFaturamento == (short) 1;
+	}
+
 	public StringBuilder getEnderecoFormatadoAbreviado() {
 		StringBuilder endereco = new StringBuilder();
 
@@ -505,14 +505,6 @@ public class Imovel implements Serializable{
 		this.hidrometroInstalacaoHistorico = hidrometroInstalacaoHistorico;
 	}
 
-	public ConsumoTarifa getConsumoTarifa() {
-		return consumoTarifa;
-	}
-
-	public void setConsumoTarifa(ConsumoTarifa consumoTarifa) {
-		this.consumoTarifa = consumoTarifa;
-	}
-
 	public Rota getRotaAlternativa() {
 		return rotaAlternativa;
 	}
@@ -599,6 +591,14 @@ public class Imovel implements Serializable{
 
 	public void setLogradouroCep(LogradouroCep logradouroCep) {
 		this.logradouroCep = logradouroCep;
+	}
+
+	public ConsumoTarifa getConsumoTarifa() {
+		return consumoTarifa;
+	}
+
+	public void setConsumoTarifa(ConsumoTarifa consumoTarifa) {
+		this.consumoTarifa = consumoTarifa;
 	}
 
 	public String toString() {

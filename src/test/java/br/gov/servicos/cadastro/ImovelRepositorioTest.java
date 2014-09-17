@@ -65,4 +65,15 @@ public class ImovelRepositorioTest {
 		
 		assertEquals(1, lista.size());
 	}
+	
+	@UsingDataSet("imoveis.yml")
+	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
+	public void buscarImovelPorId() throws Exception {
+		System.out.println("**********************************************");
+		List<Imovel> lista = repositorio.imoveisParaPreFaturamento(1, 0, 6000);
+		
+		for (Imovel imovel : lista) {
+			System.out.println(imovel.getSetorComercial().getCodigo());
+		}
+	}
 }

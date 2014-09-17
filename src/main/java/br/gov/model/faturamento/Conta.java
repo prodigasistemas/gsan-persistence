@@ -104,6 +104,9 @@ public class Conta implements Serializable{
 	@Column(name="cnta_nnconsumorateioesgoto")
 	private Integer consumoRateioEsgoto;
 	
+	@Column(name="cmrv_id")
+	private Integer contaMotivoRevisao;
+	
 	@Column(name="cnta_nnretificacao")
 	private Integer numeroRetificacoes;
 	
@@ -177,9 +180,6 @@ public class Conta implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="parc_id")
 	private Parcelamento parcelamento;
-	
-	@Column(name="cmrv_id")
-	private Integer contaMotivoRevisao;
 	
 	public Conta() {}
 	

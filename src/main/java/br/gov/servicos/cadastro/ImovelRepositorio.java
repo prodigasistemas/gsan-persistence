@@ -34,6 +34,19 @@ public class ImovelRepositorio{
 				.setParameter("rotaId", idRota)
 				.getSingleResult();
 	}
+				
+	public long totalImoveisParaPreFaturamento(int idRota){
+		StringBuilder sql = new StringBuilder();
+		sql.append("select count(im) from Imovel im ")
+		.append(" inner join im.setorComercial setor ")
+		.append(" inner join im.quadra qua ")
+		.append(" inner join qua.rota rot ")
+		.append(" WHERE rot.id = :rotaId ");
+		
+		return entity.createQuery(sql.toString(), Long.class)
+				.setParameter("rotaId", idRota)
+				.getSingleResult();
+	}
 	
 	public List<Imovel> imoveisParaPreFaturamentoSemRotaAlternativa(int idRota, int firstItem, int numItems) {
 		StringBuilder sql = new StringBuilder();
@@ -48,6 +61,20 @@ public class ImovelRepositorio{
 	public List<Imovel> imoveisParaPreFaturamentoComRotaAlternativa(int idRota, int firstItem, int numItems) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select imovel ").append(consultaImoveisComRotaAlternativa(true));
+		
+		return entity.createQuery(sql.toString(), Imovel.class)
+				.setParameter("rotaId", idRota)
+				.setFirstResult(firstItem).setMaxResults(numItems)
+				.getResultList();
+	}
+	
+	public List<Imovel> imoveisParaPreFaturamento(int idRota, int firstItem, int numItems) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select im from Imovel im ")
+		.append(" inner join fetch im.setorComercial setor ")
+		.append(" inner join fetch im.quadra qua ")
+		.append(" inner join qua.rota rot ")
+		.append(" WHERE rot.id = :rotaId ");
 		
 		return entity.createQuery(sql.toString(), Imovel.class)
 				.setParameter("rotaId", idRota)

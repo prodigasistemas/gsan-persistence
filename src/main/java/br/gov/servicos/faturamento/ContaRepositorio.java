@@ -7,21 +7,19 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.hibernate.Hibernate;
-
 import br.gov.model.cadastro.ClienteRelacaoTipo;
 import br.gov.model.exception.ErroCriacaoConta;
 import br.gov.model.faturamento.Conta;
 import br.gov.model.faturamento.DebitoCreditoSituacao;
-import br.gov.servicos.to.ContaTO;
 import br.gov.servicos.to.ConsultaDebitoImovelTO;
+import br.gov.servicos.to.ContaTO;
 
 @Stateless
 public class ContaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public void salvar(Conta conta) {
+	public void salvar(Conta conta) throws Exception{
 		try {
 			entity.persist(conta);
 			entity.flush();
