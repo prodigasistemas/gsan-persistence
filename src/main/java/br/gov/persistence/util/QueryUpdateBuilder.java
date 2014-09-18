@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
-import org.hibernate.Query;
 
 public class QueryUpdateBuilder {
 
@@ -53,10 +53,10 @@ public class QueryUpdateBuilder {
 		sqlConditions.append(condition);
 		sqlConditions.append(" ");
 		sqlConditions.append(operator);
-		sqlConditions.append(" :?");
+		sqlConditions.append(" :");
 		sqlConditions.append(condition);
 		
-		parameters.put("?"+condition, value);
+		parameters.put(condition, value);
 		
 		return sqlConditions;
 	}

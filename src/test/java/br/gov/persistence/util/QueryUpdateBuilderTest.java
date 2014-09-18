@@ -52,7 +52,7 @@ public class QueryUpdateBuilderTest {
 	public void appendCondition() {
 		builder.appendCondition("field1", "=", 1);
 		
-		assertEquals(" WHERE field1 = :?field1", builder.getSqlConditions().toString());
+		assertEquals(" WHERE field1 = :field1", builder.getSqlConditions().toString());
 		assertTrue(builder.getParameters().size() == 1);
 	}
 	
@@ -61,7 +61,7 @@ public class QueryUpdateBuilderTest {
 		builder.appendCondition("field1", "=", 1);
 		builder.appendAndCondition("field2", "=", 2);
 		
-		assertEquals(" WHERE field1 = :?field1 AND field2 = :?field2", builder.getSqlConditions().toString());
+		assertEquals(" WHERE field1 = :field1 AND field2 = :field2", builder.getSqlConditions().toString());
 		assertTrue(builder.getParameters().size() == 2);
 	}
 	
@@ -70,7 +70,7 @@ public class QueryUpdateBuilderTest {
 		builder.appendCondition("field1", "=", 1);
 		builder.appendOrCondition("field2", "=", 2);
 		
-		assertEquals(" WHERE field1 = :?field1 OR field2 = :?field2", builder.getSqlConditions().toString());
+		assertEquals(" WHERE field1 = :field1 OR field2 = :field2", builder.getSqlConditions().toString());
 		assertTrue(builder.getParameters().size() == 2);
 	}
 	
@@ -78,10 +78,10 @@ public class QueryUpdateBuilderTest {
 	public void sqlFormatted() {
 		builder.appendIfNotNull("field1", 0);
 		builder.appendIfNotNull("field2", 2);
-		builder.appendCondition("field1", "=", 1);
-		builder.appendOrCondition("field2", "=", 2);
+		builder.appendCondition("field3", "=", 1);
+		builder.appendOrCondition("field4", "=", 2);
 		
-		assertEquals("UPDATE Class SET field1 = :field1, field2 = :field2 WHERE field1 = :?field1 OR field2 = :?field2", builder.sql());
+		assertEquals("UPDATE Class SET field1 = :field1, field2 = :field2 WHERE field3 = :field3 OR field4 = :field4", builder.sql());
 		assertTrue(builder.getParameters().size() == 4);
 	}
 }
