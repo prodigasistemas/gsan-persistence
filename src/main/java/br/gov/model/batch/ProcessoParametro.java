@@ -15,10 +15,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="processo_parametros",schema="batch")
 public class ProcessoParametro implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4319013335858219463L;
 
 	@Id
