@@ -134,6 +134,69 @@ public class CreditoRealizar implements Serializable {
 		this.id = id;
 	}
 
+	public short prestacaoRealizada() {
+		return numeroPrestacaoRealizada != null ? numeroPrestacaoRealizada.shortValue() : 0;
+	}
+	
+	public short prestacaoCredito() {
+		return numeroPrestacaoCredito != null ? numeroPrestacaoCredito.shortValue() : 0;
+	}
+	
+	public short parcelaBonus() {
+		return numeroParcelaBonus != null ? numeroParcelaBonus: 0;
+	}
+	
+	public BigDecimal residuoMesAnterior(){
+		return valorResidualMesAnterior != null ? valorResidualMesAnterior : BigDecimal.ZERO;
+	}
+	
+	public void incrementaPrestacaoRealizada(){
+		numeroPrestacaoRealizada = (short) (prestacaoRealizada() + 1);
+
+	}
+
+	public boolean numeroPrestacoesRealizadasMenorQueNumeroPrestacoesCredito() {
+		return prestacaoRealizada() < prestacaoCredito() - parcelaBonus();
+	}
+	
+	public boolean ehUltimaParcela() {
+		return prestacaoRealizada() == prestacaoCredito() - parcelaBonus() - 1;
+	}
+	
+	public BigDecimal calculaValorCorrespondenteParcelaMes() {
+		BigDecimal valorCorrespondenteParcelaMes = BigDecimal.ZERO;
+
+		if (numeroPrestacoesRealizadasMenorQueNumeroPrestacoesCredito()) {
+			valorCorrespondenteParcelaMes = getValorCredito().divide(new BigDecimal(
+					prestacaoCredito()), 2, BigDecimal.ROUND_DOWN);
+
+			if (ehUltimaParcela()) {
+				BigDecimal valorMesVezesPrestacaoCredito = valorCorrespondenteParcelaMes.multiply(
+						new BigDecimal(getNumeroPrestacaoCredito())).setScale(2);
+
+				valorCorrespondenteParcelaMes = valorCorrespondenteParcelaMes.add(getValorCredito()).subtract(valorMesVezesPrestacaoCredito);
+			}
+		}
+
+		return valorCorrespondenteParcelaMes;
+	}
+	
+	public BigDecimal calculaValorCredito(){
+		BigDecimal valorCredito = BigDecimal.ZERO;
+		
+		if (numeroPrestacoesRealizadasMenorQueNumeroPrestacoesCredito()) {
+			valorCredito = calculaValorCorrespondenteParcelaMes();
+			incrementaPrestacaoRealizada();
+		}
+		
+		valorCredito = valorCredito.add(residuoMesAnterior());
+		
+		return valorCredito;
+	}
+	
+	/***********************************************
+	 * GETTERS AND SETTERS 
+	 ***********************************************/
 	public Integer getId() {
 		return id;
 	}
@@ -201,7 +264,7 @@ public class CreditoRealizar implements Serializable {
 	public Short getNumeroPrestacaoRealizada() {
 		return numeroPrestacaoRealizada;
 	}
-
+	
 	public void setNumeroPrestacaoRealizada(Short numeroPrestacaoRealizada) {
 		this.numeroPrestacaoRealizada = numeroPrestacaoRealizada;
 	}
@@ -247,11 +310,7 @@ public class CreditoRealizar implements Serializable {
 	}
 
 	public Short getNumeroParcelaBonus() {
-		if (numeroParcelaBonus != null) {
-			return numeroParcelaBonus;
-		} else {
-			return 0;
-		}
+		return numeroParcelaBonus;
 	}
 
 	public void setNumeroParcelaBonus(Short numeroParcelaBonus) {

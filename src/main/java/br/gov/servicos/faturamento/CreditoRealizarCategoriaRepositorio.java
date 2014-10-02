@@ -14,7 +14,7 @@ public class CreditoRealizarCategoriaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public Collection<CreditoRealizarCategoria> buscarCreditoRealizarCategoria(Integer id) {
+	public Collection<CreditoRealizarCategoria> buscarCreditoRealizarCategoria(Integer idCreditoRealizar) {
 
 		StringBuilder consulta = new StringBuilder();
 		
@@ -25,7 +25,7 @@ public class CreditoRealizarCategoriaRepositorio {
 				.append("where creditoARealizar.id = :creditoARealizarID");
 
 		return entity.createQuery(consulta.toString(), CreditoRealizarCategoria.class)
-						.setParameter("creditoARealizarID", id)
+						.setParameter("creditoARealizarID", idCreditoRealizar)
 						.getResultList();
 	}
 }
