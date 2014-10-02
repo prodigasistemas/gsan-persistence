@@ -1,3 +1,6 @@
+financeiro.financiamento_tipo:
+  - fntp_id: 2
+
 faturamento.conta:
   - cnta_id: 1
   - cnta_id: 2
@@ -7,9 +10,13 @@ faturamento.conta:
 faturamento.debito_cobrado:
   - dbcb_id: 1
     cnta_id: 1
+    fntp_id: 2
   - dbcb_id: 2
     cnta_id: 2
+    fntp_id: 2
   - dbcb_id: 3
     cnta_id: 3
+    fntp_id: 2
   - dbcb_id: 4
     cnta_id: 4
+    fntp_id: 2

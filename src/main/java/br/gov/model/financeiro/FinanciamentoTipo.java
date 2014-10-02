@@ -11,4 +11,9 @@ public class FinanciamentoTipo {
 	@Id
 	@Column(name="fntp_id")
 	private Long id;
+	
+	public final static Integer SERVICO_NORMAL = 1;
+    public final static Integer PARCELAMENTO_AGUA = 2;
+    public final static Integer PARCELAMENTO_ESGOTO = 3;
+    public final static Integer PARCELAMENTO_SERVICO = 4;
 }

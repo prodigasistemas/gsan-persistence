@@ -1,11 +1,42 @@
 package br.gov.model.util;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
 
 public class Utilitarios {
+	
+	public static String formatarBigDecimalComPonto(BigDecimal numero) {
+
+		if (numero == null) {
+			numero = new BigDecimal("0.00");
+		}
+
+		NumberFormat formato = NumberFormat.getInstance(new Locale("pt", "BR"));
+		formato.setMaximumFractionDigits(2);
+		formato.setMinimumFractionDigits(2);
+		formato.setGroupingUsed(false);
+
+		return (formato.format(numero)).replace(",", ".");
+	}
+	
+	public static String formatarAnoMesParaMesAno(int anoMes) {
+
+		String anoMesFormatado = "";
+		String anoMesRecebido = "" + anoMes;
+		if (anoMesRecebido.length() < 6) {
+			anoMesFormatado = anoMesRecebido;
+		} else {
+			String mes = anoMesRecebido.substring(4, 6);
+			String ano = anoMesRecebido.substring(0, 4);
+			anoMesFormatado = mes + "/" + ano;
+		}
+		return anoMesFormatado;
+	}
 	
 	public static Integer representacaoNumericaCodigoBarrasModulo10(Integer numero) {
 		int entrada = numero.intValue();
@@ -92,14 +123,22 @@ public class Utilitarios {
 	}
 	
 	public static String completaComZerosEsquerda(int tamanhoCampo, Object campo) {
-		return completaString(tamanhoCampo, campo, '0');
+		return completaStringAEsquerda(tamanhoCampo, campo, '0');
 	}
 	
 	public static String completaTexto(int tamanhoCampo, Object campo) {
-		return completaString(tamanhoCampo, campo, ' ');
+		return completaStringAEsquerda(tamanhoCampo, campo, ' ');
 	}
 	
-	private static String completaString(int tamanhoCampo, Object campo, char caractere) {
+	public static String completaComEspacosADireita(int tamanhoCampo, Object campo) {
+		return completaStringADireita(tamanhoCampo, campo, ' ');
+	}
+	
+	private static String completaStringAEsquerda(int tamanhoCampo, Object campo, char caractere) {
 		return StringUtils.leftPad(campo != null ? String.valueOf(campo) : "", tamanhoCampo, caractere);
+	}
+	
+	private static String completaStringADireita(int tamanhoCampo, Object campo, char caractere) {
+		return StringUtils.rightPad(campo != null ? String.valueOf(campo) : "", tamanhoCampo, caractere);
 	}
 }

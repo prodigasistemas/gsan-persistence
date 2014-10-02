@@ -38,6 +38,9 @@ public class DebitoCobrado implements IDebito{
 	
 	@Column(name="dbcb_nnprestacaodebito")
 	private Short numeroPrestacaoDebito;
+	
+	@Column(name="numeroParcelaBonus")
+	private Short numeroParcelaBonus;
 
 	@Column(name="dbcb_tmdebitocobrado")
 	private Date cobradoEm;
@@ -135,6 +138,14 @@ public class DebitoCobrado implements IDebito{
 		this.numeroPrestacaoDebito = numeroPrestacaoDebito;
 	}
 	
+	public Short getNumeroParcelaBonus() {
+		return numeroParcelaBonus;
+	}
+
+	public void setNumeroParcelaBonus(Short numeroParcelaBonus) {
+		this.numeroParcelaBonus = numeroParcelaBonus;
+	}
+
 	public Date getCobradoEm() {
 		return cobradoEm;
 	}
