@@ -1,7 +1,7 @@
 package br.gov.model.batch;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +29,7 @@ public class ProcessoIniciado implements Serializable{
 	private Long id;
 	
 	@Column(name="proi_idprecedente")
-	private Integer processo_precedente;
+	private Integer processoPrecedente;
 	
 	@ManyToOne
 	@JoinColumn(name="proc_id")
@@ -66,12 +66,12 @@ public class ProcessoIniciado implements Serializable{
 		this.id = id;
 	}
 
-	public Integer getProcesso_precedente() {
-		return processo_precedente;
+	public Integer getProcessoPrecedente() {
+		return processoPrecedente;
 	}
 
-	public void setProcesso_precedente(Integer processo_precedente) {
-		this.processo_precedente = processo_precedente;
+	public void setProcessoPrecedente(Integer processoPrecedente) {
+		this.processoPrecedente = processoPrecedente;
 	}
 
 	public Processo getProcesso() {
@@ -141,9 +141,10 @@ public class ProcessoIniciado implements Serializable{
 	public void setPrioridade(Integer prioridade) {
 		this.prioridade = prioridade;
 	}
-	
+
 	@Override
 	public String toString(){
 		return "ProcessoIniciado@"+this.getId();
 	}
+
 }
