@@ -17,11 +17,26 @@ public class ProcessoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
+	public boolean iniciaExecucaoProcesso(Long idProcessoIniciado, Long executionId){
+		StringBuilder sql = new StringBuilder();
+		sql.append("update ProcessoIniciado ")
+			.append(" set situacao = :situacao, inicio = :inicio, ultimaAlteracao = :ultimaAlteracao, executionId = :executionId ")
+			.append(" where id = :processoId ");
+		
+		int result = entity.createQuery(sql.toString())
+						.setParameter("situacao", ProcessoSituacao.EM_PROCESSAMENTO.getId())
+						.setParameter("executionId", executionId)
+						.setParameter("inicio", new Date())
+						.setParameter("ultimaAlteracao", new Date())
+						.setParameter("processoId", idProcessoIniciado)
+						.executeUpdate();
+		return result >= 1;
+	}
+
 	public boolean atualizaSituacaoProcesso(Long idProcessoIniciado, ProcessoSituacao situacao){
-		int result = entity.createQuery("update ProcessoIniciado set situacao = :situacao, inicio = :inicio, ultimaAlteracao = :ultimaAlteracao "
+		int result = entity.createQuery("update ProcessoIniciado set situacao = :situacao, ultimaAlteracao = :ultimaAlteracao "
 										+ "where id = :processoId ")
 						.setParameter("situacao", situacao.getId())
-						.setParameter("inicio", new Date())
 						.setParameter("ultimaAlteracao", new Date())
 						.setParameter("processoId", idProcessoIniciado)
 						.executeUpdate();
@@ -32,6 +47,10 @@ public class ProcessoRepositorio {
 		return entity.createQuery("from ProcessoIniciado where situacao = :idSituacao order by prioridade desc", ProcessoIniciado.class)
 						.setParameter("idSituacao", situacao.getId())
 						.getResultList();
+	}
+	
+	public ProcessoIniciado buscarProcessoIniciadoPorId(Long idProcessoIniciado){
+		return entity.find(ProcessoIniciado.class, idProcessoIniciado);
 	}
 	
 	public boolean atualizaSituacaoProcesso(ProcessoIniciado processo, ProcessoSituacao situacao){

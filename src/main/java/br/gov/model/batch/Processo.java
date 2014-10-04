@@ -13,10 +13,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="processo",schema="batch")
 public class Processo implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 850098728677684441L;
 
 	@Id
@@ -77,5 +73,9 @@ public class Processo implements Serializable{
 
 	public void setNomeArquivoBatch(String nomeArquivoBatch) {
 		this.nomeArquivoBatch = nomeArquivoBatch;
+	}
+
+	public String toString() {
+		return "Processo [id=" + id + ", nomeArquivoBatch=" + nomeArquivoBatch + "]";
 	}
 }

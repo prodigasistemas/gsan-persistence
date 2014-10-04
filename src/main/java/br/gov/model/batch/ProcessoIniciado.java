@@ -16,10 +16,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="processo_iniciado", schema="batch")
 public class ProcessoIniciado implements Serializable{
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5521429898381550452L;
 
 	@Id
@@ -56,8 +52,15 @@ public class ProcessoIniciado implements Serializable{
 	@Column(name="proi_prioridade")
 	private Integer prioridade;
 	
+	@Column(name="proi_execution_id")
+	private Long executionId;
+	
 	public ProcessoIniciado(){}
-
+	
+	/***********************************************
+	 * GETTERS AND SETTERS
+	 ***********************************************/
+	
 	public Long getId() {
 		return id;
 	}
@@ -142,8 +145,15 @@ public class ProcessoIniciado implements Serializable{
 		this.prioridade = prioridade;
 	}
 	
-	@Override
-	public String toString(){
-		return "ProcessoIniciado@"+this.getId();
+	public Long getExecutionId() {
+		return executionId;
+	}
+
+	public void setExecutionId(Long executionId) {
+		this.executionId = executionId;
+	}
+
+	public String toString() {
+		return "ProcessoIniciado [id=" + id + ", processo=" + processo + ", executionId=" + executionId + "]";
 	}
 }
