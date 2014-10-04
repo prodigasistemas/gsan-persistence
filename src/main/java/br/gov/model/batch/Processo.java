@@ -1,6 +1,8 @@
 package br.gov.model.batch;
 
 import java.io.Serializable;
+import java.time.Instant;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import br.gov.model.util.Utilitarios;
 
 @Entity
 @Table(name="processo",schema="batch")
@@ -32,6 +36,9 @@ public class Processo implements Serializable{
 	
 	@Column(name="proc_nmarquivobatch")
 	private String nomeArquivoBatch;
+	
+	@Column(name="prtp_id")
+	private Integer tipo;
 	
 	public Processo(){}
 
@@ -75,6 +82,38 @@ public class Processo implements Serializable{
 		this.nomeArquivoBatch = nomeArquivoBatch;
 	}
 
+	public Integer getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
+	}
+	
+	public boolean isRecorrente() {
+		return tipo == ProcessoTipo.MENSAL.getId() || tipo == ProcessoTipo.SEMANAL.getId() || tipo == ProcessoTipo.DIARIO.getId();
+	}
+
+	public Date calculaProximaExecucao() {
+		if(tipo == ProcessoTipo.DIARIO.getId() || tipo == ProcessoTipo.SEMANAL.getId()) {
+			return Utilitarios.adicionarDias(Date.from(Instant.now()), calculaDias(tipo));
+		} else if (tipo == ProcessoTipo.MENSAL.getId()) {
+			return Utilitarios.adicionarMeses(Date.from(Instant.now()), 1);
+		}
+		
+		return null;
+	}
+	
+	private int calculaDias(int idTipo) {
+		if (idTipo == ProcessoTipo.DIARIO.getId()) {
+			return 1;
+		} else if (idTipo == ProcessoTipo.SEMANAL.getId()) {
+			return 7;
+		}
+		
+		return 0;
+	}
+	
 	public String toString() {
 		return "Processo [id=" + id + ", nomeArquivoBatch=" + nomeArquivoBatch + "]";
 	}

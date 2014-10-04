@@ -73,4 +73,8 @@ public class ProcessoRepositorio {
 						.setParameter("situacao", situacao.getId())
 						.getResultList();
 	}
+	
+	public void inserirProcesso(ProcessoIniciado processoIniciado) {
+		entity.persist(processoIniciado);
+	}
 }
