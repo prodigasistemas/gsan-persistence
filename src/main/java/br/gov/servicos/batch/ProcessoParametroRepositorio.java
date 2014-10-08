@@ -40,7 +40,7 @@ public class ProcessoParametroRepositorio {
 		Properties parametros = new Properties();
 		
 		parametros.setProperty("idProcessoIniciado", String.valueOf(processoIniciado.getId()));
-		parametros.setProperty("percentualProcessado", "0");
+		parametros.setProperty("percentualProcessado", "1");
 		if (processoIniciado.getProcesso().getNomeArquivoBatch() != null){
 			parametros.setProperty("nomeArquivoBatch", processoIniciado.getProcesso().getNomeArquivoBatch());
 		}
