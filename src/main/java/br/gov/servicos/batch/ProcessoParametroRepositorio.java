@@ -64,4 +64,17 @@ public class ProcessoParametroRepositorio {
 		
 		return parametrosInseridos;
 	}
+	
+	public void inserirParametro(ProcessoIniciado processoIniciado, String chave, String valor){
+		ProcessoParametro parametro = new ProcessoParametro(processoIniciado, chave, valor);
+		entity.persist(parametro);
+	}
+	
+	public void atualizarParametro(ProcessoIniciado processoIniciado, String chave, String valor){
+		entity.createQuery("update from ProcessoParametro pp SET pp.valor = :valor WHERE pp.processoIniciado.id = :processoIniciadoId AND pp.nomeParametro = :nomeParametro")
+				.setParameter("processoIniciadoId", processoIniciado.getId())
+				.setParameter("valor", valor)
+				.setParameter("nomeParametro", chave)
+				.executeUpdate();
+	}
 }

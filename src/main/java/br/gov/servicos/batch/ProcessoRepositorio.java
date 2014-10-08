@@ -16,13 +16,13 @@ public class ProcessoRepositorio {
 
 	@PersistenceContext
 	private EntityManager entity;
-	
+
 	public boolean iniciaExecucaoProcesso(Long idProcessoIniciado, Long executionId){
 		StringBuilder sql = new StringBuilder();
 		sql.append("update ProcessoIniciado ")
 			.append(" set situacao = :situacao, inicio = :inicio, ultimaAlteracao = :ultimaAlteracao, executionId = :executionId ")
 			.append(" where id = :processoId ");
-		
+
 		int result = entity.createQuery(sql.toString())
 						.setParameter("situacao", ProcessoSituacao.EM_PROCESSAMENTO.getId())
 						.setParameter("executionId", executionId)
@@ -42,17 +42,23 @@ public class ProcessoRepositorio {
 						.executeUpdate();
 		return result >= 1;
 	}
-	
+
 	public List<ProcessoIniciado> buscarProcessosPorSituacao(ProcessoSituacao situacao){
 		return entity.createQuery("from ProcessoIniciado where situacao = :idSituacao order by prioridade desc", ProcessoIniciado.class)
 						.setParameter("idSituacao", situacao.getId())
 						.getResultList();
 	}
-	
+
 	public ProcessoIniciado buscarProcessoIniciadoPorId(Long idProcessoIniciado){
 		return entity.find(ProcessoIniciado.class, idProcessoIniciado);
+  }
+
+	public ProcessoIniciado buscarProcessosIniciado(Long idProcesso){
+		return entity.createQuery("from ProcessoIniciado where id = :idProcesso", ProcessoIniciado.class)
+						.setParameter("idProcesso", idProcesso)
+						.getSingleResult();
 	}
-	
+
 	public boolean atualizaSituacaoProcesso(ProcessoIniciado processo, ProcessoSituacao situacao){
 		int result = entity.createQuery("update ProcessoIniciado set situacao = :situacao where id = :processoId ")
 						.setParameter("situacao", situacao.getId())
@@ -60,20 +66,20 @@ public class ProcessoRepositorio {
 						.executeUpdate();
 		return result >= 1;
 	}
-	
+
 	public int buscarLimitePorProcesso(Processo processo){
 		return entity.createQuery("select coalesce(limite, 0) from Processo where id = :id", Integer.class)
 						.setParameter("id", processo.getId())
 						.getSingleResult();
 	}
-	
+
 	public List<ProcessoIniciado> buscarProcessosPorSituacao(Processo processo, ProcessoSituacao situacao) {
 		return entity.createQuery("from ProcessoIniciado where processo.id = :processoId and situacao = :situacao", ProcessoIniciado.class)
 						.setParameter("processoId", processo.getId())
 						.setParameter("situacao", situacao.getId())
 						.getResultList();
 	}
-	
+
 	public void inserirProcesso(ProcessoIniciado processoIniciado) {
 		entity.persist(processoIniciado);
 	}
