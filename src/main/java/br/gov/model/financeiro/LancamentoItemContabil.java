@@ -1,7 +1,7 @@
 package br.gov.model.financeiro;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ public class LancamentoItemContabil implements Serializable{
 	@Column(name="lict_dsitemlancamentocontabil")
 	private String descricao;
 	
-	@Column(name="lict_dsabreviado")
+	@Column(name="lict_dsabreviado", columnDefinition="bpchar(5)")
 	private String descricaoAbreviada;
 	
 	@Column(name="lict_nnsequenciaimpressao")

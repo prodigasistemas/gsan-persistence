@@ -2,7 +2,7 @@ package br.gov.model.faturamento;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +30,7 @@ public class CreditoTipo implements Serializable{
 	private String descricaoAbreviada;
 
 	@Column(name="crti_icuso")
-	private Integer indicadorUso;
+	private Short indicadorUso;
 	
 	@Column(name="crti_tmultimaalteracao")
 	private Date ultimaAlteracao;
@@ -73,11 +73,11 @@ public class CreditoTipo implements Serializable{
 		this.descricaoAbreviada = descricaoAbreviada;
 	}
 
-	public Integer getIndicadorUso() {
+	public Short getIndicadorUso() {
 		return indicadorUso;
 	}
 
-	public void setIndicadorUso(Integer indicadorUso) {
+	public void setIndicadorUso(Short indicadorUso) {
 		this.indicadorUso = indicadorUso;
 	}
 

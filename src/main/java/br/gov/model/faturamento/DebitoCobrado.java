@@ -50,22 +50,22 @@ public class DebitoCobrado implements IDebito{
 	@Column(name="dbcb_tmdebitocobrado")
 	private Date cobradoEm;
 	
-	@Column(name="dbac_cdsetorcomercial")
+	@Column(name="dbcb_cdsetorcomercial")
 	private Integer codigoSetorComercial;
 	
-	@Column(name="dbac_nnquadra")
+	@Column(name="dbcb_nnquadra")
 	private Integer numeroQuadra;
 	
-	@Column(name="dbac_nnlote")
+	@Column(name="dbcb_nnlote")
 	private Short numeroLote;
 
-	@Column(name="dbac_nnsublote")
+	@Column(name="dbcb_nnsublote")
 	private Short numeroSubLote;
 
-	@Column(name="dbac_amreferenciadebito")
+	@Column(name="dbcb_amreferenciadebito")
 	private Integer anoMesReferenciaDebito;
 
-	@Column(name="dbac_amcobrancadebito")
+	@Column(name="dbcb_amcobrancadebito")
 	private Integer anoMesCobrancaDebito;
 	
 	@ManyToOne

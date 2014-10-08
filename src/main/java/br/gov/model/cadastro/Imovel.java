@@ -38,7 +38,7 @@ public class Imovel implements Serializable{
 	private Integer id;
 
 		
-	@Column(name="imov_nnimovel")
+	@Column(name="imov_nnimovel", columnDefinition="bpchar(5)")
 	private String numeroImovel;
 	
 	@Column(name="imov_nnsequencialrota")
@@ -66,13 +66,13 @@ public class Imovel implements Serializable{
 	private Short indicadorVencimentoMesSeguinte;
 	
 	@Column(name="icte_id")
-	private Short imovelContaEnvio;
+	private Integer imovelContaEnvio;
 	
 	@Column(name="imov_icdebitoconta")
 	private Short indicadorDebitoConta;
 	
 	@Column(name="poco_id")
-	private Short pocoTipo;
+	private Integer pocoTipo;
 	
 	@Column(name="imov_dscomplementoendereco")
 	private String complementoEndereco;
@@ -473,11 +473,11 @@ public class Imovel implements Serializable{
 		this.indicadorVencimentoMesSeguinte = indicadorVencimentoMesSeguinte;
 	}
 
-	public Short getImovelContaEnvio() {
+	public Integer getImovelContaEnvio() {
 		return imovelContaEnvio;
 	}
 
-	public void setImovelContaEnvio(Short imovelContaEnvio) {
+	public void setImovelContaEnvio(Integer imovelContaEnvio) {
 		this.imovelContaEnvio = imovelContaEnvio;
 	}
 	
@@ -489,11 +489,11 @@ public class Imovel implements Serializable{
 		this.indicadorDebitoConta = indicadorDebitoConta;
 	}
 	
-	public Short getPocoTipo() {
+	public Integer getPocoTipo() {
 		return pocoTipo;
 	}
 
-	public void setPocoTipo(Short pocoTipo) {
+	public void setPocoTipo(Integer pocoTipo) {
 		this.pocoTipo = pocoTipo;
 	}
 

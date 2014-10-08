@@ -2,7 +2,7 @@ package br.gov.model.cadastro;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +14,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="imovel_economia", schema="cadastro")
@@ -39,12 +41,13 @@ public class ImovelEconomia implements Serializable{
 	private String numeroIptu;
 	
 	@Column(name="imec_nncontratoenergia")
-	private Integer numeroCelpa;
+	private BigDecimal numeroCelpa;
 	
 	@Column(name="imec_nnareaconstruida")
 	private BigDecimal areaConstruida;
 	
 	@Column(name="imec_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)	
 	private Date ultimaAlteracao;
 	
 	@ManyToOne
@@ -96,11 +99,11 @@ public class ImovelEconomia implements Serializable{
 		this.numeroIptu = numeroIptu;
 	}
 
-	public Integer getNumeroCelpa() {
+	public BigDecimal getNumeroCelpa() {
 		return numeroCelpa;
 	}
 
-	public void setNumeroCelpa(Integer numeroCelpa) {
+	public void setNumeroCelpa(BigDecimal numeroCelpa) {
 		this.numeroCelpa = numeroCelpa;
 	}
 

@@ -25,7 +25,7 @@ public class HidrometroInstalacaoHistorico implements Serializable{
 	private Integer id;
 	
 	@Column(name="medt_id")
-	private Short medicaoTipo;
+	private Integer medicaoTipo;
 	
 	@Column(name="hidi_dtinstalacaohidrometro")
 	@Temporal(TemporalType.DATE)
@@ -72,11 +72,11 @@ public class HidrometroInstalacaoHistorico implements Serializable{
 		this.id = id;
 	}
 
-	public Short getMedicaoTipo() {
+	public Integer getMedicaoTipo() {
 		return medicaoTipo;
 	}
 
-	public void setMedicaoTipo(Short medicaoTipo) {
+	public void setMedicaoTipo(Integer medicaoTipo) {
 		this.medicaoTipo = medicaoTipo;
 	}
 

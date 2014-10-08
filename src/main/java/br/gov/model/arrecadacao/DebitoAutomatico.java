@@ -45,6 +45,7 @@ public class DebitoAutomatico implements Serializable {
 	private Date dataExclusao;
 	
 	@Column(name="deba_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 
 	@ManyToOne

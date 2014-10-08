@@ -43,7 +43,7 @@ public class ConsumoAnormalidade implements Serializable{
 	@Column(name="csan_dsconsumoanormalidade")
 	private String descricao;
 	
-	@Column(name="csan_dsabrvconsanormalidade")
+	@Column(name="csan_dsabrvconsanormalidade", columnDefinition="bpchar(5)")
 	private String descricaoAbreviada;
 	
 	@Column(name="csan_dsmensagemconta")

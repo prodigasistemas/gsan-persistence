@@ -27,7 +27,7 @@ public class Rota implements Serializable {
 	private Short codigo;
 	
 	@Column(name="lttp_id")
-	private Short leituraTipo;
+	private Integer leituraTipo;
 	
 	@Column(name="rota_icalternativa")
 	private Short indicadorRotaAlternativa;
@@ -62,11 +62,11 @@ public class Rota implements Serializable {
 		this.id = id;
 	}
 
-	public Short getLeituraTipo() {
+	public Integer getLeituraTipo() {
 		return leituraTipo;
 	}
 
-	public void setLeituraTipo(Short leituraTipo) {
+	public void setLeituraTipo(Integer leituraTipo) {
 		this.leituraTipo = leituraTipo;
 	}
 	

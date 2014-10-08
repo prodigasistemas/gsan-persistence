@@ -51,7 +51,7 @@ public class GuiaPagamento implements Serializable{
 	private Integer documentoTipo;
 	
 	@Column(name="dcst_idatual")
-	private Short situacao;
+	private Integer situacao;
 	
 	@ManyToOne
 	@JoinColumn(name="parc_id")
@@ -152,11 +152,11 @@ public class GuiaPagamento implements Serializable{
 		this.documentoTipo = documentoTipo;
 	}
 
-	public Short getSituacao() {
+	public Integer getSituacao() {
 		return situacao;
 	}
 
-	public void setSituacao(Short situacao) {
+	public void setSituacao(Integer situacao) {
 		this.situacao = situacao;
 	}
 }

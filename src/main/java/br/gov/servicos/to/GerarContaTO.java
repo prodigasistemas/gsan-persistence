@@ -25,7 +25,7 @@ public class GerarContaTO implements Serializable{
 	
 	private BigDecimal percentualEsgoto;
 	
-	private BigDecimal percentualColeta;
+	private Short      percentualColeta;
 	
 	private FaturamentoGrupo faturamentoGrupo;
 	
@@ -87,11 +87,11 @@ public class GerarContaTO implements Serializable{
 		this.percentualEsgoto = percentualEsgoto;
 	}
 
-	public BigDecimal getPercentualColeta() {
+	public Short getPercentualColeta() {
 		return percentualColeta;
 	}
 
-	public void setPercentualColeta(BigDecimal percentualColeta) {
+	public void setPercentualColeta(Short percentualColeta) {
 		this.percentualColeta = percentualColeta;
 	}
 

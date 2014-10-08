@@ -20,7 +20,7 @@ public class LeituraAnormalidade implements Serializable{
 	@Column(name="ltan_dsleituraanormalidade")
 	private String descricao;
 	
-	@Column(name="ltan_dsabrevleituraanormalidad")
+	@Column(name="ltan_dsabrevleituraanormalidad", columnDefinition="bpchar(5)")
 	private String descricaoAbreviada;
 	
 	@Column(name="ltan_icrelativohidrometro")

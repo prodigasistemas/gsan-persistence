@@ -24,7 +24,7 @@ public class Localidade implements Serializable{
 	@Column(name="loca_nmlocalidade")
 	private String descricao;
 	
-	@Column(name="loca_nnimovel")
+	@Column(name="loca_nnimovel", columnDefinition="bpchar(5)")
 	private String numeroImovel;
 	
 	@Column(name="loca_dscomplementoendereco")

@@ -24,7 +24,7 @@ public class UnidadeFederacao implements Serializable {
 	@Column(name="unfe_dsuf")
 	private String descricao;
 	
-	@Column(name="unfe_dsufsigla")
+	@Column(name="unfe_dsufsigla", columnDefinition="bpchar(2)")
 	private String sigla;
 	
 	public Integer getId() {

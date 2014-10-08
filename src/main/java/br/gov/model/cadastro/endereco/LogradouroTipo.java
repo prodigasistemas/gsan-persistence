@@ -24,7 +24,7 @@ public class LogradouroTipo implements Serializable {
 	@Column(name="lgtp_dslogradourotipo")
 	private String descricao; 
 	
-	@Column(name="lgtp_dsabreviado")
+	@Column(name="lgtp_dsabreviado", columnDefinition="bpchar(3)")
 	private String descricaoAbreviada; 
 	
     public boolean temDescricao(){

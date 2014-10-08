@@ -2,7 +2,7 @@ package br.gov.model.cadastro;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="subcategoria", schema="cadastro")
@@ -35,9 +37,10 @@ public class Subcategoria implements Serializable, ICategoria {
 	private Short indicadorUso;
 	
 	@Column(name="scat_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)	
 	private Date ultimaAlteracao;
 	
-	@Column(name="scat_cdtarifasocial")
+	@Column(name="scat_cdtarifasocial", columnDefinition="bpchar(1)")
 	private String codigoTarifaSocial;
 	
 	@Column(name="scat_nnfatorfiscalizacao")
@@ -59,7 +62,7 @@ public class Subcategoria implements Serializable, ICategoria {
 	@JoinColumn(name="catg_id")
 	private Categoria categoria;
 	
-	private Integer quantidadeEconomias;
+	private transient Integer quantidadeEconomias;
 	
 	public static final Subcategoria SUBCATEGORIA_ZERO;
 	

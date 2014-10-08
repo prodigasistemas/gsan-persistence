@@ -51,6 +51,7 @@ public class DebitoAutomaticoMovimento implements Serializable{
 	private Date retornoBanco;
 	
 	@Column(name="damv_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 	
 	@Column(name="damv_nnnsaenvio")

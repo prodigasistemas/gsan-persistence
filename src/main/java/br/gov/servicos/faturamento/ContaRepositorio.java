@@ -36,7 +36,7 @@ public class ContaRepositorio {
 		.executeUpdate();
 	}
 	
-	public List<Integer> idsContasDeImovelSemRotaAlternativa(Integer idRota, Integer referencia, Short debitoCreditoSistuacao, Integer grupoFaturamento){
+	public List<Integer> idsContasDeImovelSemRotaAlternativa(Integer idRota, Integer referencia, Integer debitoCreditoSistuacao, Integer grupoFaturamento){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select cnta.cnta_id ")
 		.append(" from faturamento.conta cnta ")
@@ -66,7 +66,7 @@ public class ContaRepositorio {
 		return result;
 	}
 	
-	public List<Integer> idsContasDeImovelComRotaAlternativa(Integer idRota, Integer referencia, Short debitoCreditoSistuacao, Integer grupoFaturamento){
+	public List<Integer> idsContasDeImovelComRotaAlternativa(Integer idRota, Integer referencia, Integer debitoCreditoSistuacao, Integer grupoFaturamento){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select cnta.cnta_id ")
 		.append(" from faturamento.conta cnta ")
@@ -94,7 +94,7 @@ public class ContaRepositorio {
 		return result;
 	}
 	
-	public List<Integer> imoveisDeContasSemRotaAlternativa(Integer idRota, Integer referencia, Short debitoCreditoSistuacao, Integer grupoFaturamento){
+	public List<Integer> imoveisDeContasSemRotaAlternativa(Integer idRota, Integer referencia, Integer debitoCreditoSistuacao, Integer grupoFaturamento){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select distinct cnta.imov_id ")
 		.append(" from faturamento.conta cnta ")
@@ -124,7 +124,7 @@ public class ContaRepositorio {
 		return result;
 	}
 	
-	public List<Integer> imoveisDeContasComRotaAlternativa(Integer idRota, Integer referencia, Short debitoCreditoSistuacao, Integer grupoFaturamento){
+	public List<Integer> imoveisDeContasComRotaAlternativa(Integer idRota, Integer referencia, Integer debitoCreditoSistuacao, Integer grupoFaturamento){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select distinct cnta.imov_id ")
 		.append(" from faturamento.conta cnta ")

@@ -1,16 +1,16 @@
 package br.gov.model.cadastro;
 
 public enum CategoriaTipo {
-    PARTICULAR ((short) 1),
-    PUBLICO    ((short) 2);
+    PARTICULAR (1),
+    PUBLICO    (2);
     
-    private short id;
+    private int id;
     
-    CategoriaTipo(short id){
+    CategoriaTipo(int id){
     	this.id = id;
     }
 
-	public short getId() {
+	public int getId() {
 		return id;
 	}
 }

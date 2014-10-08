@@ -27,7 +27,7 @@ public class ClienteEndereco implements Serializable {
 	@Column(name="cled_id")
 	private Integer id;
 	
-	@Column(name="cled_nnimovel")
+	@Column(name="cled_nnimovel", columnDefinition="bpchar(5)")
 	private String numero;
 	
 	@Column(name="cled_dscomplementoendereco")

@@ -6,13 +6,13 @@ import javax.persistence.Converter;
 import br.gov.model.faturamento.DebitoCreditoSituacao;
 
 @Converter
-public class DebitoCreditoSituacaoConverter implements AttributeConverter<DebitoCreditoSituacao, Short>{
+public class DebitoCreditoSituacaoConverter implements AttributeConverter<DebitoCreditoSituacao, Integer>{
 
-	public Short convertToDatabaseColumn(DebitoCreditoSituacao attribute) {
+	public Integer convertToDatabaseColumn(DebitoCreditoSituacao attribute) {
 		return attribute.getId();
 	}
 
-	public DebitoCreditoSituacao convertToEntityAttribute(Short dbData) {
+	public DebitoCreditoSituacao convertToEntityAttribute(Integer dbData) {
         DebitoCreditoSituacao DebitoCreditoSituacao = null;
         for (DebitoCreditoSituacao item : DebitoCreditoSituacao.values()) {
             if (item.getId() == dbData.shortValue()) {

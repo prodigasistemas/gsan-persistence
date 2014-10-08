@@ -1,7 +1,7 @@
 package br.gov.model.cadastro;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="cliente_relacao_tipo", schema="cadastro")
@@ -34,6 +36,7 @@ public class ClienteRelacaoTipo implements Serializable{
 	private Short indicadorUso;
 	
 	@Column(name="crtp_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 
 	public ClienteRelacaoTipo(){}

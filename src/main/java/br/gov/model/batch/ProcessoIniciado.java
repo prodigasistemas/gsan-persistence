@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="processo_iniciado", schema="batch")
@@ -41,6 +43,7 @@ public class ProcessoIniciado implements Serializable{
 	private Date termino;
 	
 	@Column(name="proi_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)	
 	private Date ultimaAlteracao;
 	
 	@Column(name="prst_id")

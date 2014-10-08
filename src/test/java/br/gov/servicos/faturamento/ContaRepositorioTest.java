@@ -35,7 +35,7 @@ public class ContaRepositorioTest {
 	@UsingDataSet({"contas.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void idsContasDeImovelSemRotaAlternativa(){
-		List<Integer> resultado = repositorio.idsContasDeImovelSemRotaAlternativa(1, 201404, (short) 3, 1);
+		List<Integer> resultado = repositorio.idsContasDeImovelSemRotaAlternativa(1, 201404, 3, 1);
 		
 		assertEquals(1L, resultado.get(0).longValue());
 	}
@@ -44,7 +44,7 @@ public class ContaRepositorioTest {
 	@UsingDataSet({"contas.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void idsContasDeImovelComRotaAlternativa(){
-		List<Integer> resultado = repositorio.idsContasDeImovelComRotaAlternativa(2, 201404, (short) 3, 1);
+		List<Integer> resultado = repositorio.idsContasDeImovelComRotaAlternativa(2, 201404, 3, 1);
 		
 		assertEquals(2L, resultado.get(0).longValue());
 	}

@@ -27,7 +27,7 @@ public class LigacaoAgua implements Serializable{
 	private Integer consumoMinimoAgua;
 	
 	@OneToOne
-	@JoinColumn(name="imov_id")
+	@JoinColumn(name="lagu_id", referencedColumnName="imov_id")
 	private Imovel imovel;
 	
 	@OneToMany(mappedBy="ligacaoAgua")

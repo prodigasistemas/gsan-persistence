@@ -38,6 +38,7 @@ public class ClienteImovel implements Serializable{
 	private Date dataFimRelacao;
 	
 	@Column(name="clim_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)	
 	private Date ultimaAlteracao;
 	
 	@Column(name="clim_icnomeconta")

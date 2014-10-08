@@ -41,6 +41,7 @@ public class Devolucao implements Serializable{
 	private Date dataDevolucao;
 	
 	@Column(name="devl_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 	
 	@Column(name="devl_amreferenciadevolucao")

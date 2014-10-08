@@ -2,8 +2,10 @@ package br.gov.model.faturamento;
 
 import java.beans.Transient;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -14,10 +16,14 @@ import javax.persistence.Table;
 import br.gov.model.cadastro.Categoria;
 
 @Entity
-@Table(name="cred_a_realizar_catg", schema="faturamento")
+@Table(name="cred_a_realiz_catg", schema="faturamento")
 public class CreditoRealizarCategoria {
 	
 	@EmbeddedId
+	@AttributeOverrides( {
+	      @AttributeOverride(name = "creditoRealizarId", column = @Column(name = "crar_id")),
+	      @AttributeOverride(name = "categoriaId", column = @Column(name = "catg_id")) 
+	})	
 	private CreditoRealizarCategoriaPK pk;
 	
 	@ManyToOne

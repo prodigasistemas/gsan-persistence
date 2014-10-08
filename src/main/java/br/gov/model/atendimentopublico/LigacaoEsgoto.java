@@ -39,6 +39,7 @@ public class LigacaoEsgoto implements Serializable {
 	private BigDecimal percentualAguaConsumidaColetada;
 	
 	@Column(name="lesg_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)	
 	private Date ultimaAlteracao;
 	
 	@Column(name="lesg_iccaixagordura")
@@ -54,10 +55,14 @@ public class LigacaoEsgoto implements Serializable {
 	private Integer numeroConsumoPercentualAlternativo;
 	
 	@OneToOne
-	@JoinColumn(name="imov_id")
+	@JoinColumn(name="lesg_id", referencedColumnName="imov_id")
 	private Imovel imovel;
 	
 	public LigacaoEsgoto(){}
+
+	public Short valorPercentualAguaConsumidaColetada() {
+		return percentualAguaConsumidaColetada != null ? percentualAguaConsumidaColetada.shortValue() : 0;
+	}
 
 	public Integer getId() {
 		return id;

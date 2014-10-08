@@ -59,7 +59,8 @@ public class Cliente implements Serializable {
 	@Column(name="clie_icuso")
 	private Short indicadorUso;
 	
-	@Column(name="tmultimaalteracao")
+	@Column(name="clie_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 	
 	@Column(name="clie_icacaocobranca")
@@ -75,7 +76,7 @@ public class Cliente implements Serializable {
 	private Short indicadorGeraArquivoTexto;
 	
 	@Column(name="clie_icgerafaturaantecipada")
-	private Short indicadorGeraFaturaAntecipada;
+	private Integer indicadorGeraFaturaAntecipada;
 	
 	@Column(name="clie_icvencimentomesseguinte")
 	private Short indicadorVencimentoMesSeguinte;
@@ -224,11 +225,11 @@ public class Cliente implements Serializable {
 		this.indicadorGeraArquivoTexto = indicadorGeraArquivoTexto;
 	}
 
-	public Short getIndicadorGeraFaturaAntecipada() {
+	public Integer getIndicadorGeraFaturaAntecipada() {
 		return indicadorGeraFaturaAntecipada;
 	}
 
-	public void setIndicadorGeraFaturaAntecipada(Short indicadorGeraFaturaAntecipada) {
+	public void setIndicadorGeraFaturaAntecipada(Integer indicadorGeraFaturaAntecipada) {
 		this.indicadorGeraFaturaAntecipada = indicadorGeraFaturaAntecipada;
 	}
 

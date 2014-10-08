@@ -27,7 +27,7 @@ public class ArquivoTextoRoteiroEmpresa implements Serializable{
 	private Integer anoMesReferencia;
 	
 	@Column(name="sitl_id")
-	private Short situacaoTransmissaoLeitura;
+	private Integer situacaoTransmissaoLeitura;
 	
 	@ManyToOne
 	@JoinColumn(name="rota_id")
@@ -49,11 +49,11 @@ public class ArquivoTextoRoteiroEmpresa implements Serializable{
 		this.anoMesReferencia = anoMesReferencia;
 	}
 
-	public Short getSituacaoTransmissaoLeitura() {
+	public Integer getSituacaoTransmissaoLeitura() {
 		return situacaoTransmissaoLeitura;
 	}
 
-	public void setSituacaoTransmissaoLeitura(Short situacaoTransmissaoLeitura) {
+	public void setSituacaoTransmissaoLeitura(Integer situacaoTransmissaoLeitura) {
 		this.situacaoTransmissaoLeitura = situacaoTransmissaoLeitura;
 	}
 

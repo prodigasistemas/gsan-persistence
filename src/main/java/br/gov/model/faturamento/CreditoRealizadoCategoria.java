@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.cadastro.Categoria;
 
@@ -35,6 +37,7 @@ public class CreditoRealizadoCategoria implements Serializable{
 	private BigDecimal valorCategoria;
 	
 	@Column(name="crcg_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 	
 	@ManyToOne

@@ -1,7 +1,7 @@
 package br.gov.model.cadastro;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,6 +12,8 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="imovel_subcategoria", schema="cadastro")
@@ -31,6 +33,7 @@ public class ImovelSubcategoria implements Serializable{
 	private Short quantidadeUnidadesColetivas;
 	
 	@Column(name="imsb_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)	
 	private Date ultimaAlteracao;
 	
 	@OneToMany

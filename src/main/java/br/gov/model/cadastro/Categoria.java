@@ -2,7 +2,7 @@ package br.gov.model.cadastro;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="categoria", schema="cadastro")
@@ -26,7 +28,7 @@ public class Categoria implements Serializable, ICategoria{
 	@Column(name="catg_dscategoria")
 	private String descricao;
 	
-	@Column(name="catg_dsabreviado")
+	@Column(name="catg_dsabreviado", columnDefinition="bpchar(3)")
 	private String descricaoAbreviada;
 	
 	@Column(name="catg_nnconsumominimo")
@@ -54,6 +56,7 @@ public class Categoria implements Serializable, ICategoria{
 	private Short indicadorUso;
 	
 	@Column(name="catg_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)	
 	private Date ultimaAlteracao;
 	
 	@Column(name="catg_nnconsumomaximoec")
@@ -63,7 +66,7 @@ public class Categoria implements Serializable, ICategoria{
 	private Short indicadorCobrancaAcrescimos;
 	
 	@Column(name="catg_nnmaxeconomiasvalidacao")
-	private Short consumoMaximoEconomiasValidacao;
+	private Integer consumoMaximoEconomiasValidacao;
 	
 	@Column(name="catg_nnfatoreconomias")
 	private Short fatorEconomias;
@@ -72,9 +75,9 @@ public class Categoria implements Serializable, ICategoria{
 	private Short indicadorPermissaoEspecial;
 	
 	@Column(name="cgtp_id")
-	private Short categoriaTipo;
+	private Integer categoriaTipo;
 	
-	private Integer quantidadeEconomias;
+	private transient Integer quantidadeEconomias;
 	
 	public Categoria(){}
 	
@@ -206,11 +209,11 @@ public class Categoria implements Serializable, ICategoria{
 		this.indicadorCobrancaAcrescimos = indicadorCobrancaAcrescimos;
 	}
 
-	public Short getConsumoMaximoEconomiasValidacao() {
+	public Integer getConsumoMaximoEconomiasValidacao() {
 		return consumoMaximoEconomiasValidacao;
 	}
 
-	public void setConsumoMaximoEconomiasValidacao(Short consumoMaximoEconomiasValidacao) {
+	public void setConsumoMaximoEconomiasValidacao(Integer consumoMaximoEconomiasValidacao) {
 		this.consumoMaximoEconomiasValidacao = consumoMaximoEconomiasValidacao;
 	}
 
@@ -238,11 +241,11 @@ public class Categoria implements Serializable, ICategoria{
 		this.quantidadeEconomias = quantidadeEconomias;
 	}
 	
-	public Short getCategoriaTipo() {
+	public Integer getCategoriaTipo() {
 		return categoriaTipo;
 	}
 
-	public void setCategoriaTipo(Short categoriaTipo) {
+	public void setCategoriaTipo(Integer categoriaTipo) {
 		this.categoriaTipo = categoriaTipo;
 	}
 
