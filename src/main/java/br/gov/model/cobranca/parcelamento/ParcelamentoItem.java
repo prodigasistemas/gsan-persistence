@@ -23,7 +23,7 @@ public class ParcelamentoItem implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_PARCELAMENTO_ITEM")
 	@SequenceGenerator(name="SEQ_PARCELAMENTO_ITEM", schema="cobranca", sequenceName="seq_parcelamento_item", allocationSize=1)	
 	@Column(name="pcit_id")
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name="cnta_id")
@@ -32,11 +32,11 @@ public class ParcelamentoItem implements Serializable{
 	public ParcelamentoItem() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

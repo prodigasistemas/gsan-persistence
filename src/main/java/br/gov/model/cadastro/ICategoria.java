@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 public interface ICategoria {
 
-	public void setId(Long id);
-	public Long getId();
+	public void setId(Integer id);
+	public Integer getId();
 	public Integer getQuantidadeEconomias();
 	public ICategoria getCategoria();
 	public ICategoria getSubcategoria();

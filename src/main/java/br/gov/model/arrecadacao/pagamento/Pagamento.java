@@ -13,9 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.faturamento.ContaGeral;
 import br.gov.model.faturamento.DebitoCobrarGeral;
+import br.gov.model.faturamento.GuiaPagamento;
 
 @Entity
 @Table(name="pagamento", schema="arrecadacao")
@@ -26,7 +29,7 @@ public class Pagamento implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_PAGAMENTO")
 	@SequenceGenerator(name="SEQ_PAGAMENTO", schema="arrecadacao", sequenceName="seq_pagamento", allocationSize=1)	
 	@Column(name="pgmt_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="pgmt_vlpagamento")
 	private BigDecimal valorPagamento;
@@ -38,6 +41,7 @@ public class Pagamento implements Serializable{
 	private Integer anoMesReferenciaPagamento;
 	
 	@Column(name="pgmt_dtpagamento")
+	@Temporal(TemporalType.DATE)
 	private Date dataPagamento;
 	
 	@Column(name="pgmt_amreferenciaarrecadacao")
@@ -58,11 +62,11 @@ public class Pagamento implements Serializable{
 	public Pagamento() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -10,43 +10,43 @@ public class ContaCategoriaPK implements Serializable {
 	private static final long serialVersionUID = -3831797635543265756L;
 
 	@Column(name="cnta_id")
-	private Long contaId;
+	private Integer contaId;
 	
 	@Column(name="catg_id")
-	private Long categoriaId;
+	private Integer categoriaId;
 	
 	@Column(name="scat_id")
-	private Long subcategoriaId;
+	private Integer subcategoriaId;
 	
 	public ContaCategoriaPK(){}
 	
-	public ContaCategoriaPK(Long contaId, Long categoriaId, Long subcategoriaId){
+	public ContaCategoriaPK(Integer contaId, Integer categoriaId, Integer subcategoriaId){
 		this.contaId = contaId;
 		this.categoriaId = categoriaId;
 		this.subcategoriaId = subcategoriaId;
 	}
 
-	public Long getContaId() {
+	public Integer getContaId() {
 		return contaId;
 	}
 
-	public void setContaId(Long contaId) {
+	public void setContaId(Integer contaId) {
 		this.contaId = contaId;
 	}
 
-	public Long getCategoriaId() {
+	public Integer getCategoriaId() {
 		return categoriaId;
 	}
 
-	public void setCategoriaId(Long categoriaId) {
+	public void setCategoriaId(Integer categoriaId) {
 		this.categoriaId = categoriaId;
 	}
 
-	public Long getSubcategoriaId() {
+	public Integer getSubcategoriaId() {
 		return subcategoriaId;
 	}
 
-	public void setSubcategoriaId(Long subcategoriaId) {
+	public void setSubcategoriaId(Integer subcategoriaId) {
 		this.subcategoriaId = subcategoriaId;
 	}
 

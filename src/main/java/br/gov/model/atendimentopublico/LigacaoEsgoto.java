@@ -2,7 +2,7 @@ package br.gov.model.atendimentopublico;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.cadastro.Imovel;
 
@@ -21,9 +23,10 @@ public class LigacaoEsgoto implements Serializable {
 
 	@Id
 	@Column(name="lesg_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="lesg_dtligacao")
+	@Temporal(TemporalType.DATE)
 	private Date dataLigacao;
 	
 	@Column(name="lesg_nnconsumominimoesgoto")
@@ -56,11 +59,11 @@ public class LigacaoEsgoto implements Serializable {
 	
 	public LigacaoEsgoto(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

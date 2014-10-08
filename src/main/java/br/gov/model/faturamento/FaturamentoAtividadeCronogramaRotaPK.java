@@ -7,33 +7,29 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class FaturamentoAtividadeCronogramaRotaPK implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6787932542572455810L;
 
 	@Column(name="ftac_id")
-	private Long faturamentoAtividadeCronogramaId;
+	private Integer faturamentoAtividadeCronogramaId;
 	
 	@Column(name="rota_id")
-	private Long rotaId;
+	private Integer rotaId;
 	
 	public FaturamentoAtividadeCronogramaRotaPK(){}
 
-	public Long getFaturamentoAtividadeCronogramaId() {
+	public Integer getFaturamentoAtividadeCronogramaId() {
 		return faturamentoAtividadeCronogramaId;
 	}
 
-	public void setFaturamentoAtividadeCronogramaId(Long faturamentoAtividadeCronogramaId) {
+	public void setFaturamentoAtividadeCronogramaId(Integer faturamentoAtividadeCronogramaId) {
 		this.faturamentoAtividadeCronogramaId = faturamentoAtividadeCronogramaId;
 	}
 
-	public Long getRotaId() {
+	public Integer getRotaId() {
 		return rotaId;
 	}
 
-	public void setRotaId(Long rotaId) {
+	public void setRotaId(Integer rotaId) {
 		this.rotaId = rotaId;
 	}
 

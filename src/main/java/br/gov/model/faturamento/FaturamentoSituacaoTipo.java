@@ -5,15 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import br.gov.model.Status;
-
 @Entity
 @Table(name="fatur_situacao_tipo", schema="faturamento")
 public class FaturamentoSituacaoTipo {
 	
 	@Id
 	@Column(name="ftst_id")
-	private Long id;
+	private Integer id;
 	
     @Column(name="ftst_icfaturamentoparalisacao")
 	private Short paralisacaoFaturamento;
@@ -24,11 +22,11 @@ public class FaturamentoSituacaoTipo {
     public FaturamentoSituacaoTipo() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

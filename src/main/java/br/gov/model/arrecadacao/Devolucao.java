@@ -2,7 +2,7 @@ package br.gov.model.arrecadacao;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.faturamento.CreditoRealizar;
 import br.gov.model.faturamento.CreditoRealizarGeral;
@@ -20,17 +22,13 @@ import br.gov.model.faturamento.CreditoRealizarGeral;
 @Entity
 @Table(name="devolucao", schema="arrecadacao")
 public class Devolucao implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1436655534238046275L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_DEVOLUCAO")
 	@SequenceGenerator(name="SEQ_DEVOLUCAO", schema="arrecadacao", sequenceName="seq_devolucao", allocationSize=1)
 	@Column(name="devl_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="devl_vldevolucao")
 	private BigDecimal valorDevolucao;
@@ -39,6 +37,7 @@ public class Devolucao implements Serializable{
 	private Integer anoMesReferenciaArrecadacao;
 	
 	@Column(name="devl_dtdevolucao")
+	@Temporal(TemporalType.DATE)
 	private Date dataDevolucao;
 	
 	@Column(name="devl_tmultimaalteracao")
@@ -57,11 +56,11 @@ public class Devolucao implements Serializable{
 	
 	public Devolucao(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

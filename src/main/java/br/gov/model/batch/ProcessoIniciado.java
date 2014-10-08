@@ -22,7 +22,7 @@ public class ProcessoIniciado implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_PROCESSO_INICIADO")
 	@SequenceGenerator(name="SEQ_PROCESSO_INICIADO", schema="batch", sequenceName="seq_processo_iniciado", allocationSize=1)
 	@Column(name="proi_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="proi_idprecedente")
 	private Integer processoPrecedente;
@@ -61,11 +61,11 @@ public class ProcessoIniciado implements Serializable{
 	 * GETTERS AND SETTERS
 	 ***********************************************/
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

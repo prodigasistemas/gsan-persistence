@@ -39,7 +39,7 @@ public class CreditoRealizarCategoria {
 
 	public CreditoRealizarCategoria(){}
 	
-	public CreditoRealizarCategoria(Long creditorealizarId, Long categoriaId){
+	public CreditoRealizarCategoria(Integer creditorealizarId, Integer categoriaId){
 		pk = new CreditoRealizarCategoriaPK(creditorealizarId, categoriaId);
 	}
 
@@ -52,12 +52,12 @@ public class CreditoRealizarCategoria {
 	}
 	
 	@Transient
-	public Long getCreditoRealizarId(){
+	public Integer getCreditoRealizarId(){
 		return this.pk.getCreditoRealizarId();
 	}
 	
 	@Transient
-	public void setCreditoRealizarId(Long creditoRealizarId){
+	public void setCreditoRealizarId(Integer creditoRealizarId){
 		if (pk == null){
 			this.pk = new CreditoRealizarCategoriaPK();
 		}
@@ -66,12 +66,12 @@ public class CreditoRealizarCategoria {
 	}
 	
 	@Transient
-	public Long getCategoriaId(){
+	public Integer getCategoriaId(){
 		return this.pk.getCategoriaId();
 	}
 	
 	@Transient
-	public void setCategoriaId(Long categoriaId){
+	public void setCategoriaId(Integer categoriaId){
 		if (pk == null){
 			this.pk = new CreditoRealizarCategoriaPK();
 		}

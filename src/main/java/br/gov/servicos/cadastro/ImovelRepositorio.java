@@ -87,7 +87,7 @@ public class ImovelRepositorio{
 		sql.append("select count (im) from Imovel im ")
 		.append("where im.id = :idImovel");
 		
-		Long qtd = entity.createQuery(sql.toString(), Long.class)
+		long qtd = entity.createQuery(sql.toString(), Long.class)
 			.setParameter("idImovel", idImovel)
 			.getSingleResult();
 		

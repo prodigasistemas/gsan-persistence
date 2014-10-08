@@ -13,7 +13,7 @@ public class ImpostoTipoAliquotaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public ImpostoTipoAliquota buscarAliquotaImposto(Long idImpostoTipo, Integer anoMesReferencia) {
+	public ImpostoTipoAliquota buscarAliquotaImposto(Integer idImpostoTipo, Integer anoMesReferencia) {
 
 		try{
 			StringBuilder consulta = new StringBuilder(); 

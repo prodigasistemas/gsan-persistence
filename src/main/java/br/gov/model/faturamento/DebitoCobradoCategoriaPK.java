@@ -13,7 +13,7 @@ public class DebitoCobradoCategoriaPK implements Serializable{
 	private Integer debitoCobradoId;
 	
 	@Column(name="catg_id")
-	private Long categoriaId;
+	private Integer categoriaId;
 	
 	public DebitoCobradoCategoriaPK() {
 	}
@@ -26,11 +26,11 @@ public class DebitoCobradoCategoriaPK implements Serializable{
 		this.debitoCobradoId = debitoCobradoId;
 	}
 
-	public Long getCategoriaId() {
+	public Integer getCategoriaId() {
 		return categoriaId;
 	}
 
-	public void setCategoriaId(Long categoriaId) {
+	public void setCategoriaId(Integer categoriaId) {
 		this.categoriaId = categoriaId;
 	}
 

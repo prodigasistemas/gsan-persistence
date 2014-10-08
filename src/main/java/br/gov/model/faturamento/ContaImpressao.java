@@ -14,16 +14,16 @@ public class ContaImpressao implements Serializable{
 	
 	@Id
 	@Column(name = "cnta_id")
-	private Long id;
+	private Integer id;
 	
 	public ContaImpressao() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 }

@@ -21,17 +21,13 @@ import br.gov.model.cadastro.Subcategoria;
 @Entity
 @Table(name="conta_catg_cons_fx", schema="faturamento")
 public class ContaCategoriaConsumoFaixa implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2287635202479403837L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CONTA_CATEGORIA_CONSUMO_FAIXA")
 	@SequenceGenerator(name="SEQ_CONTA_CATEGORIA_CONSUMO_FAIXA", schema="faturamento", sequenceName="seq_conta_catg_cons_fx", allocationSize=1)
 	@Column(name="cccf_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="cccf_vlagua")
 	private BigDecimal valorAgua;
@@ -75,11 +71,11 @@ public class ContaCategoriaConsumoFaixa implements Serializable{
 	
 	public ContaCategoriaConsumoFaixa(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

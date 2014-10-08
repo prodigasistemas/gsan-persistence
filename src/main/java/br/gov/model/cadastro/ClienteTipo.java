@@ -23,7 +23,7 @@ public class ClienteTipo implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CLIENTE_TIPO")
 	@SequenceGenerator(name="SEQ_CLIENTE_TIPO", schema="cadastro", sequenceName="seq_cliente_tipo", allocationSize=1)
 	@Column(name="cltp_id")
-	private Long id;
+	private Integer id;
 
 	@Column(name="cltp_dsclientetipo")
 	private String descricao;
@@ -43,11 +43,11 @@ public class ClienteTipo implements Serializable{
 	
 	public ClienteTipo(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

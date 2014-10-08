@@ -21,7 +21,7 @@ public class Categoria implements Serializable, ICategoria{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CATEGORIA")
 	@SequenceGenerator(name="SEQ_CATEGORIA", schema="cadastro", sequenceName="seq_categoria", allocationSize=1)
 	@Column(name="catg_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="catg_dscategoria")
 	private String descricao;
@@ -78,15 +78,15 @@ public class Categoria implements Serializable, ICategoria{
 	
 	public Categoria(){}
 	
-	public Categoria(Long id){
+	public Categoria(Integer id){
 		this.id = id;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

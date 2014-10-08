@@ -25,7 +25,7 @@ public class CobrancaDocumento implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_COBRANCA_DOCUMENTO")
 	@SequenceGenerator(name="SEQ_COBRANCA_DOCUMENTO", schema="cobranca", sequenceName="seq_cobranca_documento", allocationSize=1)	
 	@Column(name="cbdo_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="dotp_id")
 	private Short documentoTipo;
@@ -47,11 +47,11 @@ public class CobrancaDocumento implements Serializable {
 	public CobrancaDocumento() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

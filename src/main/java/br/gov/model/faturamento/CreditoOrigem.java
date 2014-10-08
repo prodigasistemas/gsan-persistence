@@ -14,17 +14,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name="credito_origem", schema="faturamento")
 public class CreditoOrigem implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8511208914892676377L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CREDITO_ORIGEM")
 	@SequenceGenerator(name="SEQ_CREDITO_ORIGEM", schema="faturamento", sequenceName="seq_credito_origem", allocationSize=1)
 	@Column(name="crog_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="crog_dscreditoorigem")
 	private String descricaoCreditoOrigem;
@@ -40,11 +36,11 @@ public class CreditoOrigem implements Serializable{
 	
 	public CreditoOrigem(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -1,4 +1,4 @@
-package br.gov.model.arrecadacao.pagamento;
+package br.gov.model.faturamento;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -10,9 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.cobranca.Parcelamento;
-import br.gov.model.faturamento.DebitoTipo;
 
 @Entity
 @Table(name="guia_pagamento", schema="faturamento")
@@ -27,9 +28,11 @@ public class GuiaPagamento implements Serializable{
 	private BigDecimal valorDebito;
 	
 	@Column(name="gpag_dtemissao")
+	@Temporal(TemporalType.DATE)
 	private Date dataEmissao;
 
 	@Column(name="gpag_dtvencimento")
+	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
 	
 	@Column(name="gpag_amreferenciacontabil")

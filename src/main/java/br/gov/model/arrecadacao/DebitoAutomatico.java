@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.cadastro.Imovel;
 
@@ -25,18 +27,21 @@ public class DebitoAutomatico implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_DEBITO_AUTOMATICO")
 	@SequenceGenerator(name="SEQ_DEBITO_AUTOMATICO", schema="arrecadacao", sequenceName="seq_debito_automatico", allocationSize=1)		
 	@Column(name="deba_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="deba_dsidentificacaoclientebco")
 	private String identificacaoClienteBanco;
 	
 	@Column(name="deba_dtopcao")
+	@Temporal(TemporalType.DATE)
 	private Date opcaoDebitoContaCorrente;
 	
 	@Column(name="deba_dtinclusao")
+	@Temporal(TemporalType.DATE)
 	private Date inclusaoNovoDebitoAutomatico;
 	
 	@Column(name="deba_dtexclusao")
+	@Temporal(TemporalType.DATE)
 	private Date dataExclusao;
 	
 	@Column(name="deba_tmultimaalteracao")
@@ -52,11 +57,11 @@ public class DebitoAutomatico implements Serializable {
 	
 	public DebitoAutomatico(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

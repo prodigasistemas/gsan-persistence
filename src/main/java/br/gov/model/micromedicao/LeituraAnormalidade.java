@@ -15,7 +15,7 @@ public class LeituraAnormalidade implements Serializable{
 
 	@Id
 	@Column(name="ltan_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="ltan_dsleituraanormalidade")
 	private String descricao;
@@ -55,11 +55,11 @@ public class LeituraAnormalidade implements Serializable{
 	
 	public LeituraAnormalidade(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -23,7 +23,7 @@ public class Subcategoria implements Serializable, ICategoria {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_SUBCATEGORIA")
 	@SequenceGenerator(name="SEQ_SUBCATEGORIA", schema="cadastro", sequenceName="seq_subcategoria", allocationSize=1)
 	@Column(name="scat_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="scat_cdsubcategoria")
 	private Integer codigo;
@@ -65,16 +65,16 @@ public class Subcategoria implements Serializable, ICategoria {
 	
 	static {
     	SUBCATEGORIA_ZERO = new Subcategoria();
-    	SUBCATEGORIA_ZERO.setId(0L);
+    	SUBCATEGORIA_ZERO.setId(0);
     }
 	
 	public Subcategoria(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

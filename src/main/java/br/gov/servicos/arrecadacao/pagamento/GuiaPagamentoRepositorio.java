@@ -8,8 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
-import br.gov.model.arrecadacao.pagamento.GuiaPagamento;
 import br.gov.model.faturamento.DebitoCreditoSituacao;
+import br.gov.model.faturamento.GuiaPagamento;
 import br.gov.servicos.to.GuiaPagamentoTO;
 
 @Stateless
@@ -18,7 +18,7 @@ public class GuiaPagamentoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public GuiaPagamento guiaDoParcelamento(Long idParcelamento) {
+	public GuiaPagamento guiaDoParcelamento(Integer idParcelamento) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select g from GuiaPagamento g")
 		.append(" where g.parcelamento.id = :idParcelamento");

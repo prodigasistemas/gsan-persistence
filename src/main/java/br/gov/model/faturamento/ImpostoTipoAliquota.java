@@ -24,7 +24,7 @@ public class ImpostoTipoAliquota implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_IMPOSTO_TIPO_ALIQUOTA")
 	@SequenceGenerator(name="SEQ_IMPOSTO_TIPO_ALIQUOTA", schema="faturamento", sequenceName="seq_imposto_tipo_aliquota", allocationSize=1)
 	@Column(name="imta_id")
-	private Long id;
+	private Integer id;
 
 	@Column(name="imta_amreferencia")
 	private Integer anoMesReferencia;
@@ -41,11 +41,11 @@ public class ImpostoTipoAliquota implements Serializable {
 
 	public ImpostoTipoAliquota(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

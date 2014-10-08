@@ -1,7 +1,7 @@
 package br.gov.model.faturamento;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
@@ -41,17 +43,15 @@ public class DebitoCobrar implements IDebito{
 	@Column(name="dbac_nnparcelabonus")
 	private Short numeroParcelaBonus;
 	
-	@ManyToOne
-	@JoinColumn(name="lict_id")
-	private LancamentoItemContabil lancamentoItemContabil;
+	@Column(name="dcst_idatual")
+	private DebitoCreditoSituacao situacaoAtual;
 	
-	@ManyToOne
-	@JoinColumn(name="loca_id")
-	private Localidade localidade;
+	@Column(name="dbac_dtrevisao")
+	@Temporal(TemporalType.DATE)
+	private Date dataRevisao;
 	
-	@ManyToOne
-	@JoinColumn(name="qdra_id")
-	private Quadra quadra;
+	@Column(name="cmrv_id")
+	private Integer contaMotivoRevisao;
 	
 	@Column(name="dbac_cdsetorcomercial")
 	private Integer codigoSetorComercial;
@@ -74,6 +74,9 @@ public class DebitoCobrar implements IDebito{
 	@Column(name="dbac_amreferenciaprestacao")
 	private Integer anoMesReferenciaPrestacao;
 	
+	@Column(name="dbac_tmultimaalteracao")
+	private Date ultimaAlteracao;
+	
 	@ManyToOne
 	@JoinColumn(name="fntp_id")
 	private FinanciamentoTipo financiamentoTipo;
@@ -82,21 +85,21 @@ public class DebitoCobrar implements IDebito{
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 	
-	@Column(name="dcst_idatual")
-	private DebitoCreditoSituacao situacaoAtual;
-	
-	@Column(name="dbac_dtrevisao")
-	private Date dataRevisao;
-	
-	@Column(name="cmrv_id")
-	private Integer contaMotivoRevisao;
-	
 	@ManyToOne
 	@JoinColumn(name="parc_id")
 	private Parcelamento parcelamento;	
 	
-	@Column(name="dbac_tmultimaalteracao")
-	private Date ultimaAlteracao;
+	@ManyToOne
+	@JoinColumn(name="lict_id")
+	private LancamentoItemContabil lancamentoItemContabil;
+	
+	@ManyToOne
+	@JoinColumn(name="loca_id")
+	private Localidade localidade;
+	
+	@ManyToOne
+	@JoinColumn(name="qdra_id")
+	private Quadra quadra;
 
 	public DebitoCobrar(){}
 

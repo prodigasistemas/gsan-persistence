@@ -14,10 +14,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="credito_a_realizar_geral", schema="faturamento")
 public class CreditoRealizarGeral implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3879584951246435653L;
 
 	@Id

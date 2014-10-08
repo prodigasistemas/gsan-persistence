@@ -9,12 +9,10 @@ import br.gov.model.faturamento.DebitoCreditoSituacao;
 public class DebitoCreditoSituacaoConverter implements AttributeConverter<DebitoCreditoSituacao, Short>{
 
 	public Short convertToDatabaseColumn(DebitoCreditoSituacao attribute) {
-		System.out.println("REETETETEZTEZTEZTEZTEZTEZTEZTEZTEZTEZTEZTEZTEZTEZTEZTEZT");
 		return attribute.getId();
 	}
 
 	public DebitoCreditoSituacao convertToEntityAttribute(Short dbData) {
-		System.out.println("VCXVCVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVCXVXXVXC");
         DebitoCreditoSituacao DebitoCreditoSituacao = null;
         for (DebitoCreditoSituacao item : DebitoCreditoSituacao.values()) {
             if (item.getId() == dbData.shortValue()) {

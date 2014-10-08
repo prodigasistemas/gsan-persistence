@@ -14,7 +14,7 @@ public class ClienteEnderecoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public ClienteEndereco pesquisarEnderecoCliente(Long idCliente){
+	public ClienteEndereco pesquisarEnderecoCliente(Integer idCliente){
 		StringBuilder sql = new StringBuilder();
 	
 		 sql.append("select clienteEndereco from ClienteEndereco clienteEndereco ")

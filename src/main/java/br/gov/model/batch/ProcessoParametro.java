@@ -21,7 +21,7 @@ public class ProcessoParametro implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_PROCESSO_PARAMETROS")
 	@SequenceGenerator(name="SEQ_PROCESSO_PARAMETROS", schema="batch", sequenceName="seq_processo_parametros", allocationSize=1)
 	@Column(name="prpr_id")
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name="proi_id")
@@ -41,11 +41,11 @@ public class ProcessoParametro implements Serializable {
 		this.valor = valor;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

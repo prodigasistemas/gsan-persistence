@@ -15,7 +15,7 @@ public class FaturamentoSituacaoHistorico {
 	
 	@Id
 	@Column(name="ftsh_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="ftsh_amfatmtsitinicio")
     private Integer anoMesFaturamentoSituacaoInicio;
@@ -33,11 +33,11 @@ public class FaturamentoSituacaoHistorico {
 	public FaturamentoSituacaoHistorico() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

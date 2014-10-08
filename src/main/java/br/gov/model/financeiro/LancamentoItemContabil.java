@@ -11,15 +11,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name="lancamento_item_contabil", schema="financeiro")
 public class LancamentoItemContabil implements Serializable{
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2858340796245862531L;
 
 	@Id
 	@Column(name="lict_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="lict_dsitemlancamentocontabil")
 	private String descricao;
@@ -38,11 +34,11 @@ public class LancamentoItemContabil implements Serializable{
 	
 	public LancamentoItemContabil(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

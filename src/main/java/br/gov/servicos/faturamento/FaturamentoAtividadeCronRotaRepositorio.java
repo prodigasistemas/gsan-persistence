@@ -17,7 +17,7 @@ public class FaturamentoAtividadeCronRotaRepositorio {
 	public CronogramaFaturamentoRotaTO pesquisaFaturamentoAtividadeCronogramaRota(Integer idRota, Integer idFaturamentoGrupo, Integer anoMesReferencia){
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT new br.gov.servicos.to.CronogramaFaturamentoRotaTO(facr.dataContaVencimento, facr.rota.faturamentoGrupo.id) ")
-		.append(" FROM FaturamentoAtivCronRota facr ")
+		.append(" FROM FaturamentoAtividadeCronogramaRota facr ")
 		.append(" INNER JOIN facr.rota rota ")
 		.append(" INNER JOIN facr.faturamentoAtividadeCronograma ftac ")
 		.append(" INNER JOIN ftac.faturamentoAtividade ftat ")

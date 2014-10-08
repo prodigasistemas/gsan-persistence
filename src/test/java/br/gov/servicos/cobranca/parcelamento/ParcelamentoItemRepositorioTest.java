@@ -35,9 +35,9 @@ public class ParcelamentoItemRepositorioTest {
 	@ShouldMatchDataSet("parcelamento_item_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void apagarParcelamentosDasContas(){
-		List<Long> ids = new ArrayList<Long>();
-		ids.add(1L);
-		ids.add(4L);
+		List<Integer> ids = new ArrayList<Integer>();
+		ids.add(1);
+		ids.add(4);
 		repositorio.eliminarParcelamentosDeContas(ids);
 	}
 }

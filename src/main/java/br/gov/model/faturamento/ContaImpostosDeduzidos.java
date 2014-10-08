@@ -24,7 +24,7 @@ public class ContaImpostosDeduzidos implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CONTA_IMPOSTOS_DEDUZIDOS")
 	@SequenceGenerator(name="SEQ_CONTA_IMPOSTOS_DEDUZIDOS", schema="faturamento", sequenceName="seq_conta_impostos_deduzidos", allocationSize=1)	
 	@Column(name="cnid_id")
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name="cnta_id")
@@ -49,11 +49,11 @@ public class ContaImpostosDeduzidos implements Serializable{
 	public ContaImpostosDeduzidos() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

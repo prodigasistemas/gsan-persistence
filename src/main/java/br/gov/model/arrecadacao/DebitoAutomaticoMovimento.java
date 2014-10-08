@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.faturamento.ContaGeral;
 import br.gov.model.faturamento.FaturamentoGrupo;
@@ -26,13 +28,14 @@ public class DebitoAutomaticoMovimento implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_DEBITO_AUTO_MOVIMENTO")
 	@SequenceGenerator(name="SEQ_DEBITO_AUTO_MOVIMENTO", schema="arrecadacao", sequenceName="seq_debito_auto_movimento", allocationSize=1)		
 	@Column(name="damv_id")
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name="cnta_id")
 	private ContaGeral contaGeral;
 	
 	@Column(name="damv_dtvencimento")
+	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
 	
 	@Column(name="damv_vldebito")
@@ -67,11 +70,11 @@ public class DebitoAutomaticoMovimento implements Serializable{
 	public DebitoAutomaticoMovimento() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

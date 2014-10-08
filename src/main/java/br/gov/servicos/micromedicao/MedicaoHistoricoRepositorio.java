@@ -54,7 +54,7 @@ public class MedicaoHistoricoRepositorio {
 		}
 	}
 	
-	public Long buscarLeituraAnormalidadeFaturamento(ConsumoHistorico consumoHistorico) {
+	public Integer buscarLeituraAnormalidadeFaturamento(ConsumoHistorico consumoHistorico) {
 		StringBuilder sql = new StringBuilder();
 
 		sql.append("SELECT leituraAnormalidadeFaturamento.id ");
@@ -69,7 +69,7 @@ public class MedicaoHistoricoRepositorio {
 			sql.append("WHERE imovel.id = :idImovel AND medicaoHistorico.anoMesReferencia = :anoMesReferencia ");
 		}
 
-		Long retorno = entity.createQuery(sql.toString(), Long.class)
+		Integer retorno = entity.createQuery(sql.toString(), Integer.class)
 				.setParameter("idImovel", consumoHistorico.getImovel().getId())
 				.setParameter("anoMesReferencia",consumoHistorico.getReferenciaFaturamento())
 				.setMaxResults(1).getSingleResult();

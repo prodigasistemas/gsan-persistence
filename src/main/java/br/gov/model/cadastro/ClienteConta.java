@@ -24,7 +24,7 @@ public class ClienteConta implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CLIENTE_CONTA")
 	@SequenceGenerator(name="SEQ_CLIENTE_CONTA", schema="cadastro", sequenceName="seq_cliente_conta", allocationSize=1)
 	@Column(name="clct_id")
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name="clie_id")
@@ -47,11 +47,11 @@ public class ClienteConta implements Serializable{
 	public ClienteConta() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

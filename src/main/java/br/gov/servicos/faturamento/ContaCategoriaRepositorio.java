@@ -19,7 +19,7 @@ public class ContaCategoriaRepositorio {
 		contasCategoria.forEach(c -> entity.persist(c));
 	}
 
-	public void apagarCategoriaDasContas(List<Long> ids){
+	public void apagarCategoriaDasContas(List<Integer> ids){
 		String delete = "delete from faturamento.conta_categoria where cnta_id in (:ids)";
 		
 		entity.createNativeQuery(delete)

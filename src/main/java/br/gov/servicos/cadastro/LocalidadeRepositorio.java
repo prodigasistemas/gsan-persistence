@@ -18,7 +18,7 @@ public class LocalidadeRepositorio{
 		sql.append("select count (lo) from Localidade lo ")
 			.append("where lo.id = :idLocalidade");
 		
-		Long qtd = entity.createQuery(sql.toString(), Long.class)
+		long qtd = entity.createQuery(sql.toString(), Long.class)
 							.setParameter("idLocalidade", idLocalidade)
 							.getSingleResult();
 		

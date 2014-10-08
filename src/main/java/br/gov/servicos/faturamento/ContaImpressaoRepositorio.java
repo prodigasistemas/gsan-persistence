@@ -11,7 +11,7 @@ public class ContaImpressaoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public void apagarImpressaoDasContas(List<Long> ids){
+	public void apagarImpressaoDasContas(List<Integer> ids){
 		String delete = "delete from faturamento.conta_impressao where cnta_id in (:ids)";
 		
 		entity.createNativeQuery(delete)

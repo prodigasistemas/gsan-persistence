@@ -18,7 +18,7 @@ public class Parcelamento {
 	
 	@Id
 	@Column(name="parc_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="parc_amreferenciafaturamento")
 	private Integer anoMesReferenciaFaturamento;
@@ -39,11 +39,11 @@ public class Parcelamento {
 	public Parcelamento() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
 import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
@@ -36,7 +38,7 @@ public class Conta implements Serializable{
 
 	@Id
 	@Column(name = "cnta_id")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "cnta_amreferenciacontabil")
 	private Integer referenciaContabil;
@@ -81,15 +83,19 @@ public class Conta implements Serializable{
 	private Short indicadorAlteracaoVencimento;
 	
 	@Column(name="cnta_dtvencimentoconta")
+	@Temporal(TemporalType.DATE)
 	private Date dataVencimentoConta;
 	
 	@Column(name="cnta_dtvencimentooriginal")
+	@Temporal(TemporalType.DATE)
 	private Date dataVencimentoOriginal;
 	
 	@Column(name="cnta_dtvalidadeconta")
+	@Temporal(TemporalType.DATE)
 	private Date dataValidadeConta;
 	
 	@Column(name="cnta_dtemissao")
+	@Temporal(TemporalType.DATE)
 	private Date dataEmissao;
 	
 	@Column(name="cnta_nnconsumoagua")
@@ -183,7 +189,7 @@ public class Conta implements Serializable{
 	
 	public Conta() {}
 	
-	public Conta(Long id){
+	public Conta(Integer id){
 		this.id = id;
 	}
 
@@ -365,11 +371,11 @@ public class Conta implements Serializable{
 		}
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.atendimentopublico.LigacaoAgua;
 import br.gov.model.cadastro.Imovel;
@@ -41,12 +43,15 @@ public class MedicaoHistorico implements Serializable{
 	private Integer consumoMedioHidrometro;
 	
 	@Column(name="mdhi_dtleitantfatmt")
+	@Temporal(TemporalType.DATE)
 	private Date dataLeituraAnteriorFaturamento;
 	
 	@Column(name="mdhi_dtleituraatualfaturamento")
+	@Temporal(TemporalType.DATE)
 	private Date dataLeituraAtualFaturamento;
 	
 	@Column(name="mdhi_dtleituraatualinformada")
+	@Temporal(TemporalType.DATE)
 	private Date dataLeituraAtualInformada;
 	
 	@ManyToOne
