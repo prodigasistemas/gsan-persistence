@@ -80,7 +80,7 @@ public class ClienteEndereco implements Serializable {
 			}
 
 			if (numero != null) {
-				endereco.append(numero);
+				endereco.append(numero.trim());
 			}
 
 			if (complemento != null) {

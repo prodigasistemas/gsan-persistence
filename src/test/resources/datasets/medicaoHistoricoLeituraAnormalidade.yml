@@ -4,7 +4,6 @@ cadastro.imovel:
 
 atendimentopublico.ligacao_agua:
   - lagu_id: 1
-    imov_id: 2
 
 micromedicao.leitura_anormalidade:
   - ltan_id: 1

@@ -12,7 +12,7 @@ micromedicao.hidrometro:
 
 atendimentopublico.ligacao_agua:
   - lagu_id: 1
-    imov_id: 2
+  - lagu_id: 2
 
 micromedicao.hidrometro_inst_hist:
   - hidi_id: 1
@@ -21,7 +21,7 @@ micromedicao.hidrometro_inst_hist:
     medt_id: 2
     rttp_id: 3
   - hidi_id: 2
-    lagu_id: 1
+    lagu_id: 2
     hidr_id: 2
     medt_id: 2
     rttp_id: 3

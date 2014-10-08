@@ -4,7 +4,6 @@ cadastro.imovel:
 
 atendimentopublico.ligacao_agua:
   - lagu_id: 1
-    imov_id: 2
 
 micromedicao.medicao_historico:
   - mdhi_id: 1
@@ -16,6 +15,7 @@ micromedicao.medicao_historico:
     ltst_idleiturasituacaoatual: 2
   - mdhi_id: 2
     lagu_id: 1
+    imov_id: 2    
     mdhi_amleitura: 201408
     mdhi_nnleitantfatmt: 100
     mdhi_nnleituraatualfaturamento: 200

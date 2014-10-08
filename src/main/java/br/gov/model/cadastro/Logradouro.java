@@ -46,11 +46,11 @@ public class Logradouro implements Serializable {
 		StringBuilder retorno = new StringBuilder();
 
 		if (logradouroTipo != null && logradouroTipo.getDescricaoAbreviada() != null) {
-			retorno.append(this.getLogradouroTipo().getDescricaoAbreviada());
+			retorno.append(this.getLogradouroTipo().getDescricaoAbreviada().trim());
 		}
 
 		if (logradouroTitulo != null && logradouroTitulo.getDescricaoAbreviada() != null) {
-			retorno.append(logradouroTitulo.getDescricaoAbreviada());
+			retorno.append(logradouroTitulo.getDescricaoAbreviada().trim());
 		}
 
 		if (nome != null) {

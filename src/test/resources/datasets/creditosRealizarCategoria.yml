@@ -49,7 +49,7 @@ faturamento.credito_a_realizar:
     crar_vlcredito: 10
     crar_vlresidualmesanterior: 5
 
-faturamento.cred_a_realizar_catg:
+faturamento.cred_a_realiz_catg:
   - crar_id: 1
     catg_id: 1
     cacg_qteconomia: 0

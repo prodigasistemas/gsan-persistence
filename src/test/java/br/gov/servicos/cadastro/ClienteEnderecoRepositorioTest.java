@@ -85,6 +85,8 @@ public class ClienteEnderecoRepositorioTest {
 		.append(" ")
 		.append(cepFormatado);
 		
+		System.out.println("|" + clienteEndereco.getNumero() + "|");
+		
 		assertEquals(endereco.toString(), clienteEndereco.getEnderecoFormatadoAbreviado().toString());
 	}
 	
