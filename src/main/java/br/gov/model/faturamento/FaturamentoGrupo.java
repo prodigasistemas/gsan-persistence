@@ -1,7 +1,7 @@
 package br.gov.model.faturamento;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ public class FaturamentoGrupo implements Serializable{
 	@Column(name="ftgr_dsfaturamentogrupo")
 	private String descricao;
 	
-	@Column(name="ftgr_dsabreviado")
+	@Column(name="ftgr_dsabreviado", columnDefinition="bpchar(3)")
 	private String descricaoAbreviada;
 	
 	@Column(name="ftgr_icuso")

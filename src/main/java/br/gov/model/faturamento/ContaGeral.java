@@ -17,7 +17,7 @@ public class ContaGeral {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CONTA_GERAL")
 	@SequenceGenerator(name="SEQ_CONTA_GERAL", schema="faturamento", sequenceName="seq_conta_geral", allocationSize=1)	
 	@Column(name = "cnta_id")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "cntg_ichistorico")
 	private Short indicadorHistorico;
@@ -25,11 +25,11 @@ public class ContaGeral {
 	public ContaGeral() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

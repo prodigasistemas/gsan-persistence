@@ -2,7 +2,7 @@ package br.gov.model.cadastro;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,21 +14,19 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="imovel_economia", schema="cadastro")
 public class ImovelEconomia implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5595073207698176858L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_IMOVEL_ECONOMIA")
 	@SequenceGenerator(name="SEQ_IMOVEL_ECONOMIA", schema="cadastro", sequenceName="seq_imovel_economia", allocationSize=1)
 	@Column(name="imec_id")
-	private Long id;
+	private Integer id;
 
 	@Column(name="imec_dscomplementoendereco")
 	private String complementoEndereco;
@@ -43,12 +41,13 @@ public class ImovelEconomia implements Serializable{
 	private String numeroIptu;
 	
 	@Column(name="imec_nncontratoenergia")
-	private Long numeroCelpa;
+	private BigDecimal numeroCelpa;
 	
 	@Column(name="imec_nnareaconstruida")
 	private BigDecimal areaConstruida;
 	
 	@Column(name="imec_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)	
 	private Date ultimaAlteracao;
 	
 	@ManyToOne
@@ -60,11 +59,11 @@ public class ImovelEconomia implements Serializable{
 	
 	public ImovelEconomia(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -100,11 +99,11 @@ public class ImovelEconomia implements Serializable{
 		this.numeroIptu = numeroIptu;
 	}
 
-	public Long getNumeroCelpa() {
+	public BigDecimal getNumeroCelpa() {
 		return numeroCelpa;
 	}
 
-	public void setNumeroCelpa(Long numeroCelpa) {
+	public void setNumeroCelpa(BigDecimal numeroCelpa) {
 		this.numeroCelpa = numeroCelpa;
 	}
 

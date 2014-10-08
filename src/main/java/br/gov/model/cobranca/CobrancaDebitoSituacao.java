@@ -2,19 +2,19 @@ package br.gov.model.cobranca;
 
 public enum CobrancaDebitoSituacao {
 
-    PENDENTE    ((short) 1),
-    PAGO        ((short) 2),
-    PARCELADO   ((short) 3),
-    CANCELADO   ((short) 4),
-    SEM_DEBITOS ((short) 5);
+    PENDENTE    (1),
+    PAGO        (2),
+    PARCELADO   (3),
+    CANCELADO   (4),
+    SEM_DEBITOS (5);
 	
-	private short id;
+	private int id;
 	
-	CobrancaDebitoSituacao(short idSituacao){
+	CobrancaDebitoSituacao(int idSituacao){
 		this.id = idSituacao;
 	}
 	
-	public short getId(){
+	public int getId(){
 		return id;
 	}	
 }

@@ -28,7 +28,7 @@ public class ContaRepositorio {
 		}
 	}
 	
-	public void apagar(List<Long> ids) {
+	public void apagar(List<Integer> ids) {
 		String delete = "delete from faturamento.conta where cnta_id in (:ids)";
 		
 		entity.createNativeQuery(delete)
@@ -36,7 +36,7 @@ public class ContaRepositorio {
 		.executeUpdate();
 	}
 	
-	public List<Long> idsContasDeImovelSemRotaAlternativa(Integer idRota, Integer referencia, Short debitoCreditoSistuacao, Integer grupoFaturamento){
+	public List<Integer> idsContasDeImovelSemRotaAlternativa(Integer idRota, Integer referencia, Integer debitoCreditoSistuacao, Integer grupoFaturamento){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select cnta.cnta_id ")
 		.append(" from faturamento.conta cnta ")
@@ -57,16 +57,16 @@ public class ContaRepositorio {
 			.setParameter("grupoFaturamento", grupoFaturamento)
 			.getResultList();
 		
-		List<Long> result = new ArrayList<Long>();
+		List<Integer> result = new ArrayList<Integer>();
 		
 		for (Object item : lista) {
-			result.add(Long.valueOf(String.valueOf(item)));
+			result.add(Integer.valueOf(String.valueOf(item)));
 		}
 		
 		return result;
 	}
 	
-	public List<Long> idsContasDeImovelComRotaAlternativa(Integer idRota, Integer referencia, Short debitoCreditoSistuacao, Integer grupoFaturamento){
+	public List<Integer> idsContasDeImovelComRotaAlternativa(Integer idRota, Integer referencia, Integer debitoCreditoSistuacao, Integer grupoFaturamento){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select cnta.cnta_id ")
 		.append(" from faturamento.conta cnta ")
@@ -85,16 +85,16 @@ public class ContaRepositorio {
 				.setParameter("grupoFaturamento", grupoFaturamento)				
 				.getResultList();
 		
-		List<Long> result = new ArrayList<Long>();
+		List<Integer> result = new ArrayList<Integer>();
 		
 		for (Object item : lista) {
-			result.add(Long.valueOf(String.valueOf(item)));
+			result.add(Integer.valueOf(String.valueOf(item)));
 		}
 		
 		return result;
 	}
 	
-	public List<Integer> imoveisDeContasSemRotaAlternativa(Integer idRota, Integer referencia, Short debitoCreditoSistuacao, Integer grupoFaturamento){
+	public List<Integer> imoveisDeContasSemRotaAlternativa(Integer idRota, Integer referencia, Integer debitoCreditoSistuacao, Integer grupoFaturamento){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select distinct cnta.imov_id ")
 		.append(" from faturamento.conta cnta ")
@@ -124,7 +124,7 @@ public class ContaRepositorio {
 		return result;
 	}
 	
-	public List<Integer> imoveisDeContasComRotaAlternativa(Integer idRota, Integer referencia, Short debitoCreditoSistuacao, Integer grupoFaturamento){
+	public List<Integer> imoveisDeContasComRotaAlternativa(Integer idRota, Integer referencia, Integer debitoCreditoSistuacao, Integer grupoFaturamento){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select distinct cnta.imov_id ")
 		.append(" from faturamento.conta cnta ")
@@ -176,7 +176,7 @@ public class ContaRepositorio {
 		.append(" AND debitoCreditoSituacaoAtual.id = :preFaturada ")
 		.append(" AND not exists ( from MovimentoContaPrefaturada mcpf where mcpf.anoMesReferenciaPreFaturamento = fg.anoMesReferencia and imovel.id = mcpf.imovel.id  )");
 
-		Long count = entity.createQuery(sql.toString(), Long.class)
+		long count = entity.createQuery(sql.toString(), Long.class)
 			.setParameter("idClienteRelacaoTipoUsuario", ClienteRelacaoTipo.USUARIO)
 			.setParameter("idClienteRelacaoTipoResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
 			.setParameter("preFaturada",DebitoCreditoSituacao.PRE_FATURADA)
@@ -222,7 +222,7 @@ public class ContaRepositorio {
 		.getResultList();
 	}
 	
-	public List<Conta> recuperarPeloParcelamento(Long idParcelamento){
+	public List<Conta> recuperarPeloParcelamento(Integer idParcelamento){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select c from Conta")
 			.append(" where c.parcelamento.id = : idParcelamento");

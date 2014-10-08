@@ -36,10 +36,10 @@ public class ContaCategoriaRepositorioTest {
 	@ShouldMatchDataSet("conta_categoria_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void apagarCategoriasDasContas(){
-		List<Long> ids = new ArrayList<Long>();
-		ids.add(1L);
-		ids.add(2L);
-		ids.add(4L);
+		List<Integer> ids = new ArrayList<Integer>();
+		ids.add(1);
+		ids.add(2);
+		ids.add(4);
 		repositorio.apagarCategoriaDasContas(ids);
 	}
 	
@@ -52,18 +52,18 @@ public class ContaCategoriaRepositorioTest {
 		
 		ContaCategoria contaCategoria = new ContaCategoria();
 		ContaCategoriaPK contaCategoriaPK = new ContaCategoriaPK();
-		contaCategoriaPK.setContaId(5L);
-		contaCategoriaPK.setCategoriaId(1L);
-		contaCategoriaPK.setSubcategoriaId(1L);
+		contaCategoriaPK.setContaId(5);
+		contaCategoriaPK.setCategoriaId(1);
+		contaCategoriaPK.setSubcategoriaId(1);
 		contaCategoria.setPk(contaCategoriaPK);
 		
 		contasCategoria.add(contaCategoria);
 		
 		contaCategoria = new ContaCategoria();
 		contaCategoriaPK = new ContaCategoriaPK();
-		contaCategoriaPK.setContaId(6L);
-		contaCategoriaPK.setCategoriaId(2L);
-		contaCategoriaPK.setSubcategoriaId(2L);
+		contaCategoriaPK.setContaId(6);
+		contaCategoriaPK.setCategoriaId(2);
+		contaCategoriaPK.setSubcategoriaId(2);
 		contaCategoria.setPk(contaCategoriaPK);
 		
 		contasCategoria.add(contaCategoria);

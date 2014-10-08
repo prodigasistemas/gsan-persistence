@@ -1,7 +1,7 @@
 package br.gov.model.financeiro;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,20 +11,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name="lancamento_item_contabil", schema="financeiro")
 public class LancamentoItemContabil implements Serializable{
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2858340796245862531L;
 
 	@Id
 	@Column(name="lict_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="lict_dsitemlancamentocontabil")
 	private String descricao;
 	
-	@Column(name="lict_dsabreviado")
+	@Column(name="lict_dsabreviado", columnDefinition="bpchar(5)")
 	private String descricaoAbreviada;
 	
 	@Column(name="lict_nnsequenciaimpressao")
@@ -38,11 +34,11 @@ public class LancamentoItemContabil implements Serializable{
 	
 	public LancamentoItemContabil(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

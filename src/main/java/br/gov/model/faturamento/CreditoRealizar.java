@@ -2,7 +2,7 @@ package br.gov.model.faturamento;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
@@ -30,8 +32,6 @@ public class CreditoRealizar implements Serializable {
 	private static final long serialVersionUID = 3722253374008713740L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CREDITO_REALIZAR")
-	@SequenceGenerator(name="SEQ_CREDITO_REALIZAR", schema="faturamento", sequenceName="seq_credito_realizar", allocationSize=1)
 	@Column(name="crar_id")
 	private Integer id;
 	
@@ -72,6 +72,7 @@ public class CreditoRealizar implements Serializable {
 	private Short numeroSublote;
 	
 	@Column(name="crar_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 	
 	@Column(name="crar_nnparcelabonus")

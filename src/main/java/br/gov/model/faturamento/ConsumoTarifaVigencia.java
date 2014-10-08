@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="consumo_tarifa_vigencia", schema="faturamento")
@@ -20,6 +22,7 @@ public class ConsumoTarifaVigencia implements Serializable{
 	private Integer id;
 	
 	@Column(name = "cstv_dtvigencia")
+	@Temporal(TemporalType.DATE)
 	private Date dataVigencia;
 	
 	@ManyToOne

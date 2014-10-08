@@ -1,7 +1,7 @@
 package br.gov.model.cadastro;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="esfera_poder", schema="cadastro")
@@ -41,6 +43,7 @@ public class EsferaPoder implements Serializable{
 	private Short indicadorPermiteCertidaoNegativaDebitosParaCliente;
 	
 	@Column(name="epod_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 	
 	public EsferaPoder(){}

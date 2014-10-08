@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.financeiro.LancamentoItemContabil;
@@ -59,6 +61,7 @@ public class CreditoRealizado implements Serializable{
 	private Short numeroPrestacaoCredito;
 	
 	@Column(name="crrz_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 	
 	@Column(name="crrz_nnparcelabonus")

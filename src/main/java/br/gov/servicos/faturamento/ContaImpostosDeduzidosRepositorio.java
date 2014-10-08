@@ -15,7 +15,7 @@ public class ContaImpostosDeduzidosRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public void apagarImpostosDeduzidosDeContas(List<Long> ids){
+	public void apagarImpostosDeduzidosDeContas(List<Integer> ids){
 		String delete = "delete from faturamento.conta_impostos_deduzidos where cnta_id in (:ids)";
 		
 		entity.createNativeQuery(delete)

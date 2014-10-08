@@ -40,9 +40,9 @@ public class ClienteContaRepositorioTest {
 	@ShouldMatchDataSet("cliente_conta_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.BEFORE, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void apagarClienteConta(){
-		List<Long> ids = new ArrayList<Long>();
-		ids.add(1L);
-		ids.add(3L);
+		List<Integer> ids = new ArrayList<Integer>();
+		ids.add(1);
+		ids.add(3);
 		repositorio.apagarClientesConta(ids);
 	}
 }

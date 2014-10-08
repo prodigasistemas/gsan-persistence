@@ -1,7 +1,7 @@
 package br.gov.model.cadastro;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.Status;
 
@@ -25,15 +27,18 @@ public class ClienteImovel implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CLIENTE_IMOVEL")
 	@SequenceGenerator(name="SEQ_CLIENTE_IMOVEL", schema="cadastro", sequenceName="seq_cliente_imovel", allocationSize=1)
 	@Column(name="clim_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="clim_dtrelacaoinicio")
+	@Temporal(TemporalType.DATE)
 	private Date dataInicioRelacao;
 	
 	@Column(name="clim_dtrelacaofim")
+	@Temporal(TemporalType.DATE)
 	private Date dataFimRelacao;
 	
 	@Column(name="clim_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)	
 	private Date ultimaAlteracao;
 	
 	@Column(name="clim_icnomeconta")
@@ -53,11 +58,11 @@ public class ClienteImovel implements Serializable{
 	
 	public ClienteImovel(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

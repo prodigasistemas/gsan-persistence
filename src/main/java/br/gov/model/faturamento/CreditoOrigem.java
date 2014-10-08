@@ -1,7 +1,7 @@
 package br.gov.model.faturamento;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,21 +10,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="credito_origem", schema="faturamento")
 public class CreditoOrigem implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8511208914892676377L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CREDITO_ORIGEM")
 	@SequenceGenerator(name="SEQ_CREDITO_ORIGEM", schema="faturamento", sequenceName="seq_credito_origem", allocationSize=1)
 	@Column(name="crog_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="crog_dscreditoorigem")
 	private String descricaoCreditoOrigem;
@@ -36,15 +34,16 @@ public class CreditoOrigem implements Serializable{
 	private Short indicadorUso;
 	
 	@Column(name="crog_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 	
 	public CreditoOrigem(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.atendimentopublico.LigacaoAgua;
 import br.gov.model.cadastro.Imovel;
@@ -20,15 +22,17 @@ public class HidrometroInstalacaoHistorico implements Serializable{
 
 	@Id
 	@Column(name = "hidi_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="medt_id")
-	private Short medicaoTipo;
+	private Integer medicaoTipo;
 	
 	@Column(name="hidi_dtinstalacaohidrometro")
+	@Temporal(TemporalType.DATE)
 	private Date dataInstalacao;
 	
 	@Column(name="hidi_dtretiradahidrometro")
+	@Temporal(TemporalType.DATE)
 	private Date dataRetirada;
 	
 	@Column(name="hidi_nnleitinstalacaohidmt")
@@ -60,19 +64,19 @@ public class HidrometroInstalacaoHistorico implements Serializable{
 	public HidrometroInstalacaoHistorico() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Short getMedicaoTipo() {
+	public Integer getMedicaoTipo() {
 		return medicaoTipo;
 	}
 
-	public void setMedicaoTipo(Short medicaoTipo) {
+	public void setMedicaoTipo(Integer medicaoTipo) {
 		this.medicaoTipo = medicaoTipo;
 	}
 

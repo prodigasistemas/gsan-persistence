@@ -14,7 +14,7 @@ public class ClienteContaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public void apagarClientesConta(List<Long> ids){
+	public void apagarClientesConta(List<Integer> ids){
 		String delete = "delete from cadastro.cliente_conta where cnta_id in (:ids)";
 		
 		entity.createNativeQuery(delete)

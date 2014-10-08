@@ -12,7 +12,7 @@ public class ConsumoAnormalidadeAcaoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public ConsumoAnormalidadeAcao consumoAnormalidadeAcao(Integer idConsumoAnormalidade, Long idCategoria, Integer idPerfilImovel){ 
+	public ConsumoAnormalidadeAcao consumoAnormalidadeAcao(Integer idConsumoAnormalidade, Integer idCategoria, Integer idPerfilImovel){ 
 		StringBuilder sql = new StringBuilder();
 		sql.append("select csaa ")
 		.append(" from ConsumoAnormalidadeAcao csaa")

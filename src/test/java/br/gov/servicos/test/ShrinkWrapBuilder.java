@@ -7,7 +7,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 public class ShrinkWrapBuilder {
 	
 	public static Archive<WebArchive> createDeployment(){
-        return ShrinkWrap.create(WebArchive.class, "test.war")
+        return ShrinkWrap.create(WebArchive.class, "gsan-persistence-test.war")
                 .addPackages(true, "br.gov.model")
                 .addPackages(true, "br.gov.model.arrecadacao")
                 .addPackages(true, "br.gov.model.arrecadacao.pagamento")

@@ -60,7 +60,7 @@ public class DebitoCobrarRepositorioTest {
 	@ShouldMatchDataSet("debito_cobrar_atualizacao_contas_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void atualizarParaImoveisDeContasSemRotaAlternativa() throws Exception{
-		List<Integer> imoveis = contaRepositorio.imoveisDeContasSemRotaAlternativa(1, 201404, (short) 3, 1);
+		List<Integer> imoveis = contaRepositorio.imoveisDeContasSemRotaAlternativa(1, 201404, 3, 1);
 		
 		repositorio.reduzirParcelasCobradas(201404, 1, imoveis);
 	}
@@ -70,7 +70,7 @@ public class DebitoCobrarRepositorioTest {
 	@ShouldMatchDataSet("debito_cobrar_atualizacao_contas_alternativas_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void atualizarParaImoveisDeContasComRotaAlternativa() throws Exception{
-		List<Integer> imoveis = contaRepositorio.imoveisDeContasComRotaAlternativa(2, 201404, (short) 3, 1);
+		List<Integer> imoveis = contaRepositorio.imoveisDeContasComRotaAlternativa(2, 201404, 3, 1);
 		
 		repositorio.reduzirParcelasCobradas(201404, 1, imoveis);
 		

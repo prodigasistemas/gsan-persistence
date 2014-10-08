@@ -34,10 +34,10 @@ public class DebitoCobradoRepositorioTest {
 	@ShouldMatchDataSet("debito_cobrado_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void apagarDebitosCobrados(){
-		List<Long> ids = new ArrayList<Long>();
-		ids.add(1L);
-		ids.add(3L);
-		ids.add(4L);
+		List<Integer> ids = new ArrayList<Integer>();
+		ids.add(1);
+		ids.add(3);
+		ids.add(4);
 		repositorio.apagarDebitosCobradosDasContas(ids);
 	}
 }

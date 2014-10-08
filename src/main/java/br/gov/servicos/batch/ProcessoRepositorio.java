@@ -17,7 +17,7 @@ public class ProcessoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public boolean iniciaExecucaoProcesso(Long idProcessoIniciado, Long executionId){
+	public boolean iniciaExecucaoProcesso(Integer idProcessoIniciado, Long executionId){
 		StringBuilder sql = new StringBuilder();
 		sql.append("update ProcessoIniciado ")
 			.append(" set situacao = :situacao, inicio = :inicio, ultimaAlteracao = :ultimaAlteracao, executionId = :executionId ")
@@ -33,7 +33,7 @@ public class ProcessoRepositorio {
 		return result >= 1;
 	}
 
-	public boolean atualizaSituacaoProcesso(Long idProcessoIniciado, ProcessoSituacao situacao){
+	public boolean atualizaSituacaoProcesso(Integer idProcessoIniciado, ProcessoSituacao situacao){
 		int result = entity.createQuery("update ProcessoIniciado set situacao = :situacao, ultimaAlteracao = :ultimaAlteracao "
 										+ "where id = :processoId ")
 						.setParameter("situacao", situacao.getId())
@@ -49,11 +49,11 @@ public class ProcessoRepositorio {
 						.getResultList();
 	}
 
-	public ProcessoIniciado buscarProcessoIniciadoPorId(Long idProcessoIniciado){
+	public ProcessoIniciado buscarProcessoIniciadoPorId(Integer idProcessoIniciado){
 		return entity.find(ProcessoIniciado.class, idProcessoIniciado);
   }
 
-	public ProcessoIniciado buscarProcessosIniciado(Long idProcesso){
+	public ProcessoIniciado buscarProcessosIniciado(Integer idProcesso){
 		return entity.createQuery("from ProcessoIniciado where id = :idProcesso", ProcessoIniciado.class)
 						.setParameter("idProcesso", idProcesso)
 						.getSingleResult();

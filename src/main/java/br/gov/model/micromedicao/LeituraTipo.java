@@ -1,18 +1,18 @@
 package br.gov.model.micromedicao;
 
 public enum LeituraTipo {
-    CONVENCIONAL                ((short) 1),
-    MICROCOLETOR                ((short) 2),
-    LEITURA_E_ENTRADA_SIMULTANEA((short) 3),
-    CELULAR_MOBILE              ((short) 4);
+    CONVENCIONAL                (1),
+    MICROCOLETOR                (2),
+    LEITURA_E_ENTRADA_SIMULTANEA(3),
+    CELULAR_MOBILE              (4);
     
-    private short id = 0;
+    private int id = 0;
 
-    LeituraTipo(short id){
+    LeituraTipo(int id){
     	this.id = id;
     }
 
-	public short getId() {
+	public int getId() {
 		return id;
 	}
 }

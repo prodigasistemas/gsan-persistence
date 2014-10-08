@@ -2,7 +2,7 @@ package br.gov.model.faturamento;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,17 +15,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name="credito_tipo", schema="faturamento")
 public class CreditoTipo implements Serializable{
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8312043866327375299L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CREDITO_TIPO")
 	@SequenceGenerator(name="SEQ_CREDITO_TIPO", schema="faturamento", sequenceName="seq_credito_tipo", allocationSize=1)
 	@Column(name="crti_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="crti_dscreditotipo")
 	private String descricao;
@@ -34,7 +30,7 @@ public class CreditoTipo implements Serializable{
 	private String descricaoAbreviada;
 
 	@Column(name="crti_icuso")
-	private Integer indicadorUso;
+	private Short indicadorUso;
 	
 	@Column(name="crti_tmultimaalteracao")
 	private Date ultimaAlteracao;
@@ -46,18 +42,18 @@ public class CreditoTipo implements Serializable{
 	private Short indicadorGeracaoAutomatica;
 	
 	@Column(name="lict_id")
-	private Long lancamentoItemContabil;
+	private Integer lancamentoItemContabil;
 	
 	@Column(name="crtp_nncodigoconstante")
 	private Integer codigoConstante;
 	
 	public CreditoTipo(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -77,11 +73,11 @@ public class CreditoTipo implements Serializable{
 		this.descricaoAbreviada = descricaoAbreviada;
 	}
 
-	public Integer getIndicadorUso() {
+	public Short getIndicadorUso() {
 		return indicadorUso;
 	}
 
-	public void setIndicadorUso(Integer indicadorUso) {
+	public void setIndicadorUso(Short indicadorUso) {
 		this.indicadorUso = indicadorUso;
 	}
 
@@ -109,11 +105,11 @@ public class CreditoTipo implements Serializable{
 		this.indicadorGeracaoAutomatica = indicadorGeracaoAutomatica;
 	}
 
-	public Long getLancamentoItemContabil() {
+	public Integer getLancamentoItemContabil() {
 		return lancamentoItemContabil;
 	}
 
-	public void setLancamentoItemContabil(Long lancamentoItemContabil) {
+	public void setLancamentoItemContabil(Integer lancamentoItemContabil) {
 		this.lancamentoItemContabil = lancamentoItemContabil;
 	}
 

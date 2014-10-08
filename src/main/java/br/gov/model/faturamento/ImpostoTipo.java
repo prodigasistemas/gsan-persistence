@@ -1,7 +1,7 @@
 package br.gov.model.faturamento;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,15 +11,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name="imposto_tipo", schema="faturamento")
 public class ImpostoTipo implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1481938110100134163L;
 
 	@Id
 	@Column(name="imtp_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="imtp_dsimposto")
 	private String descricaoImposto;
@@ -35,11 +31,11 @@ public class ImpostoTipo implements Serializable {
 	
 	public ImpostoTipo(){}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

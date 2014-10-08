@@ -14,7 +14,7 @@ public class DebitoCobradoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public List<Integer> debitosCobradosDasContas(List<Long> ids){
+	public List<Integer> debitosCobradosDasContas(List<Integer> ids){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select id from DebitoCobrado as debitoCobrado where debitoCobrado.conta.id in (:ids) ");
 		
@@ -25,7 +25,7 @@ public class DebitoCobradoRepositorio {
 		return lista;		
 	}
 	
-	public void apagarDebitosCobradosDasContas(List<Long> ids){
+	public void apagarDebitosCobradosDasContas(List<Integer> ids){
 		String delete = "delete from faturamento.debito_cobrado where cnta_id in (:ids)";
 		
 		entity.createNativeQuery(delete)

@@ -1,7 +1,7 @@
 package br.gov.model.cadastro;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="cliente",schema="cadastro")
@@ -23,7 +25,7 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CLIENTE")
 	@SequenceGenerator(name="SEQ_CLIENTE", schema="cadastro", sequenceName="seq_cliente", allocationSize=1)
 	@Column(name="clie_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="clie_nmcliente")
 	private String nome;
@@ -38,12 +40,14 @@ public class Cliente implements Serializable {
 	private String rg;
 	
 	@Column(name="clie_dtrgemissao")
+	@Temporal(TemporalType.DATE)
 	private Date dataEmissaoRg;
 	
 	@Column(name="clie_ddvencimento")
 	private Short diaVencimento;
 	
 	@Column(name="clie_dtnascimento")
+	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 
 	@Column(name="clie_nncnpj")
@@ -55,7 +59,8 @@ public class Cliente implements Serializable {
 	@Column(name="clie_icuso")
 	private Short indicadorUso;
 	
-	@Column(name="tmultimaalteracao")
+	@Column(name="clie_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 	
 	@Column(name="clie_icacaocobranca")
@@ -71,7 +76,7 @@ public class Cliente implements Serializable {
 	private Short indicadorGeraArquivoTexto;
 	
 	@Column(name="clie_icgerafaturaantecipada")
-	private Short indicadorGeraFaturaAntecipada;
+	private Integer indicadorGeraFaturaAntecipada;
 	
 	@Column(name="clie_icvencimentomesseguinte")
 	private Short indicadorVencimentoMesSeguinte;
@@ -88,15 +93,15 @@ public class Cliente implements Serializable {
 	
 	public Cliente(){}
 	
-	public Cliente(Long id){
+	public Cliente(Integer id){
 		this.id = id;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -220,11 +225,11 @@ public class Cliente implements Serializable {
 		this.indicadorGeraArquivoTexto = indicadorGeraArquivoTexto;
 	}
 
-	public Short getIndicadorGeraFaturaAntecipada() {
+	public Integer getIndicadorGeraFaturaAntecipada() {
 		return indicadorGeraFaturaAntecipada;
 	}
 
-	public void setIndicadorGeraFaturaAntecipada(Short indicadorGeraFaturaAntecipada) {
+	public void setIndicadorGeraFaturaAntecipada(Integer indicadorGeraFaturaAntecipada) {
 		this.indicadorGeraFaturaAntecipada = indicadorGeraFaturaAntecipada;
 	}
 

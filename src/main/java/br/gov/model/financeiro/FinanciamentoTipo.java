@@ -10,5 +10,13 @@ import javax.persistence.Table;
 public class FinanciamentoTipo {
 	@Id
 	@Column(name="fntp_id")
-	private Long id;
+	private Integer id;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }

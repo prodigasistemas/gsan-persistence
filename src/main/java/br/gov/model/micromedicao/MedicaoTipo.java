@@ -2,16 +2,16 @@ package br.gov.model.micromedicao;
 
 public enum MedicaoTipo {
 
-    LIGACAO_AGUA ((short) 1),
-    POCO         ((short) 2);
+    LIGACAO_AGUA (1),
+    POCO         (2);
     
-    private short id = 0;
+    private int id = 0;
 
-    MedicaoTipo(short id){
+    MedicaoTipo(int id){
     	this.id = id;
     }
 
-	public short getId() {
+	public int getId() {
 		return id;
 	}
 }

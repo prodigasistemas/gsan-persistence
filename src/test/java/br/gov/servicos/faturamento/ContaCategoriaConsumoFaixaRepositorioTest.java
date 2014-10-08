@@ -34,8 +34,8 @@ public class ContaCategoriaConsumoFaixaRepositorioTest {
 	@ShouldMatchDataSet("conta_categoria_consumo_faixa_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void apagarConsumoFaixaDasConta(){
-		List<Long> ids = new ArrayList<Long>();
-		ids.add(1L);
+		List<Integer> ids = new ArrayList<Integer>();
+		ids.add(1);
 		repositorio.apagarCategoriaConsumoFaixaDasContas(ids);
 	}
 }

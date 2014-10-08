@@ -2,7 +2,7 @@ package br.gov.model.faturamento;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -10,6 +10,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="conta_categoria", schema="faturamento")
@@ -23,6 +25,7 @@ public class ContaCategoria implements Serializable{
 	private Short quantidadeEconomia;
 	
 	@Column(name="ctcg_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 	
 	@Column(name="ctcg_vlagua")

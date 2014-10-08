@@ -66,8 +66,8 @@ public class MedicaoHistoricoRepositorioTest {
 		consumoHistorico.setReferenciaFaturamento(201408);
 		consumoHistorico.setLigacaoTipo(LigacaoTipo.AGUA.getId());
 		
-		Long idLeituraAnormalidade = repositorio.buscarLeituraAnormalidadeFaturamento(consumoHistorico);
+		Integer idLeituraAnormalidade = repositorio.buscarLeituraAnormalidadeFaturamento(consumoHistorico);
 		
-		assertEquals(new Long(2), idLeituraAnormalidade);
+		assertEquals(new Integer(2), idLeituraAnormalidade);
 	}
 }

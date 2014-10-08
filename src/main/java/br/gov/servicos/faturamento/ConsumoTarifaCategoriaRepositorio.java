@@ -36,7 +36,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 		}
 	}
 	
-	public Integer consumoMinimoTarifaCategoria(Long idCategoria, Integer idVigencia){
+	public Integer consumoMinimoTarifaCategoria(Integer idCategoria, Integer idVigencia){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ctca.numeroConsumoMinimo ")
 			.append(" from ConsumoTarifaCategoria ctca ")
@@ -56,7 +56,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 		}
 	}
 	
-	public Integer consumoMinimoTarifaSubCategoria(Long idSubCategoria, Integer idVigencia){
+	public Integer consumoMinimoTarifaSubCategoria(Integer idSubCategoria, Integer idVigencia){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ctca.numeroConsumoMinimo ")
 		.append(" from ConsumoTarifaCategoria ctca ")

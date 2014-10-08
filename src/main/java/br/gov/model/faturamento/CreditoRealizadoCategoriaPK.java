@@ -13,11 +13,11 @@ public class CreditoRealizadoCategoriaPK implements Serializable{
 	private Integer creditoRealizadoId;
 	
 	@Column(name="catg_id")
-	private Long categoriaId;
+	private Integer categoriaId;
 	
 	public CreditoRealizadoCategoriaPK(){}
 	
-	public CreditoRealizadoCategoriaPK(Integer creditoRealizadoId, Long categoriaId){
+	public CreditoRealizadoCategoriaPK(Integer creditoRealizadoId, Integer categoriaId){
 		this.creditoRealizadoId = creditoRealizadoId;
 		this.categoriaId = categoriaId;
 	}
@@ -30,11 +30,11 @@ public class CreditoRealizadoCategoriaPK implements Serializable{
 		this.creditoRealizadoId = creditoRealizadoId;
 	}
 
-	public Long getCategoriaId() {
+	public Integer getCategoriaId() {
 		return categoriaId;
 	}
 
-	public void setCategoriaId(Long categoriaId) {
+	public void setCategoriaId(Integer categoriaId) {
 		this.categoriaId = categoriaId;
 	}
 

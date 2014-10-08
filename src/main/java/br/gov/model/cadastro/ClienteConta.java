@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.faturamento.Conta;
 
@@ -24,7 +26,7 @@ public class ClienteConta implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CLIENTE_CONTA")
 	@SequenceGenerator(name="SEQ_CLIENTE_CONTA", schema="cadastro", sequenceName="seq_cliente_conta", allocationSize=1)
 	@Column(name="clct_id")
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name="clie_id")
@@ -42,16 +44,17 @@ public class ClienteConta implements Serializable{
 	private Short indicadorNomeConta;
 	
 	@Column(name="clct_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)	
 	private Date ultimaAlteracao;
 	
 	public ClienteConta() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

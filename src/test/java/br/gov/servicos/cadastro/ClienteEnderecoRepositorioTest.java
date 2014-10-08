@@ -43,7 +43,7 @@ public class ClienteEnderecoRepositorioTest {
 	@UsingDataSet("cliente_endereco.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void clienteEndereco() throws Exception {
-		ClienteEndereco clienteEndereco = repositorio.pesquisarEnderecoCliente(1L);
+		ClienteEndereco clienteEndereco = repositorio.pesquisarEnderecoCliente(1);
 		
 		StringBuilder endereco = new StringBuilder();
 		endereco.append(logradouroTipo)
@@ -65,7 +65,7 @@ public class ClienteEnderecoRepositorioTest {
 	@UsingDataSet("cliente_endereco.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void imovelEndereco02() throws Exception {
-		ClienteEndereco clienteEndereco = repositorio.pesquisarEnderecoCliente(2L);
+		ClienteEndereco clienteEndereco = repositorio.pesquisarEnderecoCliente(2);
 		
 		StringBuilder endereco = new StringBuilder();
 		endereco.append(logradouroTipo)
@@ -92,7 +92,7 @@ public class ClienteEnderecoRepositorioTest {
 	@UsingDataSet("cliente_endereco.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void imovelEndereco03() throws Exception {
-		ClienteEndereco clienteEndereco = repositorio.pesquisarEnderecoCliente(3L);
+		ClienteEndereco clienteEndereco = repositorio.pesquisarEnderecoCliente(3);
 		
 		StringBuilder endereco = new StringBuilder();
 		endereco.append(logradouroTipo)

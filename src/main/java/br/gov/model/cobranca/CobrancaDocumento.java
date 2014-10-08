@@ -25,13 +25,13 @@ public class CobrancaDocumento implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_COBRANCA_DOCUMENTO")
 	@SequenceGenerator(name="SEQ_COBRANCA_DOCUMENTO", schema="cobranca", sequenceName="seq_cobranca_documento", allocationSize=1)	
 	@Column(name="cbdo_id")
-	private Long id;
+	private Integer id;
 	
 	@Column(name="dotp_id")
-	private Short documentoTipo;
+	private Integer documentoTipo;
 	
 	@Column(name="cdst_id")
-	private Short cobrancaDebitoSituacao;
+	private Integer cobrancaDebitoSituacao;
 	
 	@Column(name="cbdo_tmemissao")
 	private Date emissao;
@@ -47,27 +47,27 @@ public class CobrancaDocumento implements Serializable {
 	public CobrancaDocumento() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Short getDocumentoTipo() {
+	public Integer getDocumentoTipo() {
 		return documentoTipo;
 	}
 
-	public void setDocumentoTipo(Short documentoTipo) {
+	public void setDocumentoTipo(Integer documentoTipo) {
 		this.documentoTipo = documentoTipo;
 	}
 
-	public Short getCobrancaDebitoSituacao() {
+	public Integer getCobrancaDebitoSituacao() {
 		return cobrancaDebitoSituacao;
 	}
 
-	public void setCobrancaDebitoSituacao(Short cobrancaDebitoSituacao) {
+	public void setCobrancaDebitoSituacao(Integer cobrancaDebitoSituacao) {
 		this.cobrancaDebitoSituacao = cobrancaDebitoSituacao;
 	}
 

@@ -2,27 +2,27 @@ package br.gov.model.faturamento;
 
 
 public enum DebitoCreditoSituacao {
-	NORMAL( (short) 0),
-	RETIFICADA( (short) 1),
-	INCLUIDA( (short) 2),
-	CANCELADA( (short) 3),
-	CANCELADA_POR_RETIFICACAO( (short) 4),
-	PARCELADA( (short) 5),
-	ARRASTADA( (short) 6),
-	ENTRADA_DE_PARCELAMENTO( (short) 7),
-	PAGA_OU_PRESCRITO( (short) 8),
-	PRE_FATURADA( (short) 9),
-	CARTAO_CREDITO( (short) 10),
-	ERRO_PROCESSAMENTO( (short) 11),
-	DEBITO_PRESCRITO_CONTAS_INCLUIDAS( (short) 12);
+	NORMAL                      (0),
+	RETIFICADA                  (1),
+	INCLUIDA                    (2),
+	CANCELADA                   (3),
+	CANCELADA_POR_RETIFICACAO   (4),
+	PARCELADA                   (5),
+	ARRASTADA                   (6),
+	ENTRADA_DE_PARCELAMENTO     (7),
+	PAGA_OU_PRESCRITO           (8),
+	PRE_FATURADA                (9),
+	CARTAO_CREDITO              (10),
+	ERRO_PROCESSAMENTO          (11),
+	DEBITO_PRESCRITO_CONTAS_INCLUIDAS(12);
 	
-	private short id;
+	private int id;
 	
-	private DebitoCreditoSituacao(short id) {
+	private DebitoCreditoSituacao(int id) {
 		this.id = id;
 	}
 	
-	public short getId(){
+	public int getId(){
 		return id;
 	}
 }

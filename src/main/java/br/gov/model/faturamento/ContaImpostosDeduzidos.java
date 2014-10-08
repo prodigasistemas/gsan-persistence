@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @Entity
@@ -24,7 +26,7 @@ public class ContaImpostosDeduzidos implements Serializable{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CONTA_IMPOSTOS_DEDUZIDOS")
 	@SequenceGenerator(name="SEQ_CONTA_IMPOSTOS_DEDUZIDOS", schema="faturamento", sequenceName="seq_conta_impostos_deduzidos", allocationSize=1)	
 	@Column(name="cnid_id")
-	private Long id;
+	private Integer id;
 	
 	@ManyToOne
 	@JoinColumn(name="cnta_id")
@@ -44,16 +46,17 @@ public class ContaImpostosDeduzidos implements Serializable{
 	private BigDecimal percentualAliquota;
 	
 	@Column(name="cnid_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)	
     private Date ultimaAlteracao;
 	
 	public ContaImpostosDeduzidos() {
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

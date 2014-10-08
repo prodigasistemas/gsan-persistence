@@ -10,11 +10,11 @@ import br.gov.model.cadastro.Subcategoria;
 public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	private static final long serialVersionUID = 2664222681959912779L;
 	
-	private Long categoriaId;
+	private Integer categoriaId;
 	private String categoriaDescricao;
 	private Integer consumoEstouro;
 	private BigDecimal vezesMediaEstouro;
-	private Long subcategoriaQuantidadeEconomias;
+	private Integer subcategoriaQuantidadeEconomias;
 	private Integer imovelId;
 	private Integer consumoAlto;
 	private Integer mediaBaixoConsumo;
@@ -26,7 +26,7 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	private Short fatorEconomias;
 	private Short categoriaTipoId;
 	
-	private Long subcategoriaId;
+	private Integer subcategoriaId;
 	private Integer codigo;
 	private String subcategoriaDescricao;
 	private String subcategoriaDescricaoAbreviada;
@@ -42,8 +42,8 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	public ImovelSubcategoriaTO(){}
 	
 	
-	public ImovelSubcategoriaTO(Long categoriaId, String categoriaDescricao, Integer consumoEstouro, BigDecimal vezesMediaEstouro,
-			Long subcategoriaQuantidadeEconomias, Integer imovelId, Integer consumoAlto, Integer mediaBaixoConsumo, BigDecimal vezesMediaAltoConsumo,
+	public ImovelSubcategoriaTO(Integer categoriaId, String categoriaDescricao, Integer consumoEstouro, BigDecimal vezesMediaEstouro,
+			Integer subcategoriaQuantidadeEconomias, Integer imovelId, Integer consumoAlto, Integer mediaBaixoConsumo, BigDecimal vezesMediaAltoConsumo,
 			BigDecimal porcentagemMediaBaixoConsumo, String categoriaDescricaoAbreviada, Integer numeroConsumoMaximoEc, Short indicadorCobrancaAcrescimos,
 			Short fatorEconomias, Short categoriaTipoId) {
 		this.categoriaId = categoriaId;
@@ -64,12 +64,12 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	}
 
 
-	public void setId(Long id){
+	public void setId(Integer id){
 		setCategoriaId(id);
 		setSubcategoriaId(id);
 	}
 	
-	public Long getId(){
+	public Integer getId(){
 		if (getSubcategoriaId() == null) {
 			return getCategoriaId();
 		} else {
@@ -77,11 +77,11 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 		}
 	}
 
-	public Long getSubcategoriaId() {
+	public Integer getSubcategoriaId() {
 		return subcategoriaId;
 	}
 
-	public void setSubcategoriaId(Long subcategoriaId) {
+	public void setSubcategoriaId(Integer subcategoriaId) {
 		this.subcategoriaId = subcategoriaId;
 	}
 
@@ -133,11 +133,11 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 		}
 	}
 
-	public Long getSubcategoriaQuantidadeEconomias() {
+	public Integer getSubcategoriaQuantidadeEconomias() {
 		return subcategoriaQuantidadeEconomias;
 	}
 
-	public void setSubcategoriaQuantidadeEconomias(Long subcategoriaQuantidadeEconomias) {
+	public void setSubcategoriaQuantidadeEconomias(Integer subcategoriaQuantidadeEconomias) {
 		this.subcategoriaQuantidadeEconomias = subcategoriaQuantidadeEconomias;
 	}
 
@@ -173,11 +173,11 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 		this.indicadorSazonalidade = indicadorSazonalidade;
 	}
 
-	public Long getCategoriaId() {
+	public Integer getCategoriaId() {
 		return categoriaId;
 	}
 
-	public void setCategoriaId(Long categoriaId) {
+	public void setCategoriaId(Integer categoriaId) {
 		this.categoriaId = categoriaId;
 	}
 

@@ -39,7 +39,7 @@ public class PagamentoRepositorio {
 		return count == 0 ? false: true;
 	}
 	
-	public boolean contaPaga(Long idConta) {
+	public boolean contaPaga(Integer idConta) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(pg) from Pagamento pg")
 		.append(" where pg.contaGeral.id = :idConta");
@@ -64,7 +64,7 @@ public class PagamentoRepositorio {
 		return existeDebitoSemPagamento;
 	}
 
-	public void apagarPagamentosDasConta(List<Long> ids){
+	public void apagarPagamentosDasConta(List<Integer> ids){
 		String delete = "update arrecadacao.pagamento set cnta_id = null where cnta_id in (:ids)";
 		
 		entity.createNativeQuery(delete)

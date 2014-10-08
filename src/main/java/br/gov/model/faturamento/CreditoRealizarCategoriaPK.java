@@ -7,38 +7,34 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class CreditoRealizarCategoriaPK implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4766555644866308534L;
 
 	@Column(name="crar_id")
-	private Long creditoRealizarId;
+	private Integer creditoRealizarId;
 	
 	@Column(name="catg_id")
-	private Long categoriaId;
+	private Integer categoriaId;
 	
 	public CreditoRealizarCategoriaPK(){}
 	
-	public CreditoRealizarCategoriaPK(Long creditoRealizarId, Long categoriaId){
+	public CreditoRealizarCategoriaPK(Integer creditoRealizarId, Integer categoriaId){
 		this.creditoRealizarId = creditoRealizarId;
 		this.categoriaId = categoriaId;
 	}
 
-	public Long getCreditoRealizarId() {
+	public Integer getCreditoRealizarId() {
 		return creditoRealizarId;
 	}
 
-	public void setCreditoRealizarId(Long creditoRealizarId) {
+	public void setCreditoRealizarId(Integer creditoRealizarId) {
 		this.creditoRealizarId = creditoRealizarId;
 	}
 
-	public Long getCategoriaId() {
+	public Integer getCategoriaId() {
 		return categoriaId;
 	}
 
-	public void setCategoriaId(Long categoriaId) {
+	public void setCategoriaId(Integer categoriaId) {
 		this.categoriaId = categoriaId;
 	}
 

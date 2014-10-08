@@ -1,21 +1,17 @@
 package br.gov.model.cadastro;
 
 public enum PocoTipo {
-    SEM_POCO                ((short) 0),
-    POCO_ABERTO_AMAZONAS    ((short) 1),
-    POCO_PROFUNDO_ARTESIANO ((short) 2);
+    SEM_POCO                (0),
+    POCO_ABERTO_AMAZONAS    (1),
+    POCO_PROFUNDO_ARTESIANO (2);
     
-    private short id = 0;
+    private int id = 0;
 
-    PocoTipo(short id){
+    PocoTipo(int id){
     	this.id = id;
     }
 
-	public short getId() {
+	public int getId() {
 		return id;
-	}
-
-	public void setId(short id) {
-		this.id = id;
 	}
 }

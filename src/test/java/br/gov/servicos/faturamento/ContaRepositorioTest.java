@@ -35,7 +35,7 @@ public class ContaRepositorioTest {
 	@UsingDataSet({"contas.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void idsContasDeImovelSemRotaAlternativa(){
-		List<Long> resultado = repositorio.idsContasDeImovelSemRotaAlternativa(1, 201404, (short) 3, 1);
+		List<Integer> resultado = repositorio.idsContasDeImovelSemRotaAlternativa(1, 201404, 3, 1);
 		
 		assertEquals(1L, resultado.get(0).longValue());
 	}
@@ -44,7 +44,7 @@ public class ContaRepositorioTest {
 	@UsingDataSet({"contas.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void idsContasDeImovelComRotaAlternativa(){
-		List<Long> resultado = repositorio.idsContasDeImovelComRotaAlternativa(2, 201404, (short) 3, 1);
+		List<Integer> resultado = repositorio.idsContasDeImovelComRotaAlternativa(2, 201404, 3, 1);
 		
 		assertEquals(2L, resultado.get(0).longValue());
 	}
@@ -54,10 +54,10 @@ public class ContaRepositorioTest {
 	@ShouldMatchDataSet("contas_apagar_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void apagarContas(){
-		List<Long> ids = new ArrayList<Long>();
-		ids.add(1L);
-		ids.add(3L);
-		ids.add(5L);
+		List<Integer> ids = new ArrayList<Integer>();
+		ids.add(1);
+		ids.add(3);
+		ids.add(5);
 		repositorio.apagar(ids);
 	}
 }

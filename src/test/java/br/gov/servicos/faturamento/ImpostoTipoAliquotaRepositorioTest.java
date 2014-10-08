@@ -33,7 +33,7 @@ public class ImpostoTipoAliquotaRepositorioTest {
 	@UsingDataSet({"impostoTipoAliquota.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarImpostoTipoAtivosInexistente(){
-		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(2L, 201405);
+		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(2, 201405);
 		
 		assertEquals(null, resultado);
 	}
@@ -42,7 +42,7 @@ public class ImpostoTipoAliquotaRepositorioTest {
 	@UsingDataSet({"impostoTipoAliquota.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarImpostoTipoAtivosExistente(){
-		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(1L, 201405);
+		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(1, 201405);
 		
 		assertTrue(1L == resultado.getId());
 	}
@@ -51,7 +51,7 @@ public class ImpostoTipoAliquotaRepositorioTest {
 	@UsingDataSet({"impostoTipoAliquota.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarImpostoTipoAtivosComAnoMesReferenciaMenor(){
-		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(1L, 190001);
+		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(1, 190001);
 		
 		assertEquals(null, resultado);
 	}
@@ -60,7 +60,7 @@ public class ImpostoTipoAliquotaRepositorioTest {
 	@UsingDataSet({"impostoTipoAliquota.yml"})
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void buscarImpostoTipoAtivosComImpostoTipoCOFINS(){
-		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(1L, 201405);
+		ImpostoTipoAliquota resultado = repositorio.buscarAliquotaImposto(1, 201405);
 		
 		assertTrue(1L == resultado.getImpostoTipo().getId());
 	}

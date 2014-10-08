@@ -13,7 +13,7 @@ public class ParcelamentoItemRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public void eliminarParcelamentosDeContas(List<Long> contas) {
+	public void eliminarParcelamentosDeContas(List<Integer> contas) {
 		String sql = "update cobranca.parcelamento_item set cnta_id = null where cnta_id in (:ids)";
 		
 		entity.createNativeQuery(sql, MedicaoHistorico.class)

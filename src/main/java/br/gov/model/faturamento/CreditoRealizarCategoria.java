@@ -2,8 +2,10 @@ package br.gov.model.faturamento;
 
 import java.beans.Transient;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -14,10 +16,14 @@ import javax.persistence.Table;
 import br.gov.model.cadastro.Categoria;
 
 @Entity
-@Table(name="cred_a_realizar_catg", schema="faturamento")
+@Table(name="cred_a_realiz_catg", schema="faturamento")
 public class CreditoRealizarCategoria {
 	
 	@EmbeddedId
+	@AttributeOverrides( {
+	      @AttributeOverride(name = "creditoRealizarId", column = @Column(name = "crar_id")),
+	      @AttributeOverride(name = "categoriaId", column = @Column(name = "catg_id")) 
+	})	
 	private CreditoRealizarCategoriaPK pk;
 	
 	@ManyToOne
@@ -39,7 +45,7 @@ public class CreditoRealizarCategoria {
 
 	public CreditoRealizarCategoria(){}
 	
-	public CreditoRealizarCategoria(Long creditorealizarId, Long categoriaId){
+	public CreditoRealizarCategoria(Integer creditorealizarId, Integer categoriaId){
 		pk = new CreditoRealizarCategoriaPK(creditorealizarId, categoriaId);
 	}
 
@@ -52,12 +58,12 @@ public class CreditoRealizarCategoria {
 	}
 	
 	@Transient
-	public Long getCreditoRealizarId(){
+	public Integer getCreditoRealizarId(){
 		return this.pk.getCreditoRealizarId();
 	}
 	
 	@Transient
-	public void setCreditoRealizarId(Long creditoRealizarId){
+	public void setCreditoRealizarId(Integer creditoRealizarId){
 		if (pk == null){
 			this.pk = new CreditoRealizarCategoriaPK();
 		}
@@ -66,12 +72,12 @@ public class CreditoRealizarCategoria {
 	}
 	
 	@Transient
-	public Long getCategoriaId(){
+	public Integer getCategoriaId(){
 		return this.pk.getCategoriaId();
 	}
 	
 	@Transient
-	public void setCategoriaId(Long categoriaId){
+	public void setCategoriaId(Integer categoriaId){
 		if (pk == null){
 			this.pk = new CreditoRealizarCategoriaPK();
 		}

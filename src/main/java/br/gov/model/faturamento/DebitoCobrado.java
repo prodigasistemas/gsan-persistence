@@ -50,6 +50,24 @@ public class DebitoCobrado implements IDebito{
 	@Column(name="dbcb_tmdebitocobrado")
 	private Date cobradoEm;
 	
+	@Column(name="dbcb_cdsetorcomercial")
+	private Integer codigoSetorComercial;
+	
+	@Column(name="dbcb_nnquadra")
+	private Integer numeroQuadra;
+	
+	@Column(name="dbcb_nnlote")
+	private Short numeroLote;
+
+	@Column(name="dbcb_nnsublote")
+	private Short numeroSubLote;
+
+	@Column(name="dbcb_amreferenciadebito")
+	private Integer anoMesReferenciaDebito;
+
+	@Column(name="dbcb_amcobrancadebito")
+	private Integer anoMesCobrancaDebito;
+	
 	@ManyToOne
 	@JoinColumn(name="dbtp_id")
 	private DebitoTipo debitoTipo;
@@ -66,24 +84,6 @@ public class DebitoCobrado implements IDebito{
 	@JoinColumn(name="qdra_id")
 	private Quadra quadra;
 	
-	@Column(name="dbac_cdsetorcomercial")
-	private Integer codigoSetorComercial;
-	
-	@Column(name="dbac_nnquadra")
-	private Integer numeroQuadra;
-	
-	@Column(name="dbac_nnlote")
-	private Short numeroLote;
-
-	@Column(name="dbac_nnsublote")
-	private Short numeroSubLote;
-
-	@Column(name="dbac_amreferenciadebito")
-	private Integer anoMesReferenciaDebito;
-
-	@Column(name="dbac_amcobrancadebito")
-	private Integer anoMesCobrancaDebito;
-
 	@ManyToOne
 	@JoinColumn(name="fntp_id")
 	private FinanciamentoTipo financiamentoTipo;

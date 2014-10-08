@@ -13,7 +13,7 @@ public class ImovelSubcategoriaPK implements Serializable{
 	private Integer imovelId;
 	
 	@Column(name="scat_id")
-	private Long subcategoriaId;
+	private Integer subcategoriaId;
 	
 	public ImovelSubcategoriaPK(){}
 
@@ -25,11 +25,11 @@ public class ImovelSubcategoriaPK implements Serializable{
 		this.imovelId = imovelId;
 	}
 
-	public Long getSubcategoriaId() {
+	public Integer getSubcategoriaId() {
 		return subcategoriaId;
 	}
 
-	public void setSubcategoriaId(Long subcategoriaId) {
+	public void setSubcategoriaId(Integer subcategoriaId) {
 		this.subcategoriaId = subcategoriaId;
 	}
 

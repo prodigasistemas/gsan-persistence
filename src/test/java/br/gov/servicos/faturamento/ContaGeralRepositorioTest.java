@@ -34,8 +34,8 @@ public class ContaGeralRepositorioTest {
 	@ShouldMatchDataSet("conta_geral_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void atualizarHistoricoContaGeral(){
-		List<Long> ids = new ArrayList<Long>();
-		ids.add(4L);
+		List<Integer> ids = new ArrayList<Integer>();
+		ids.add(4);
 		repositorio.alterarHistoricoParaContasDeletadasPorReprocessamento(ids);
 	}
 }

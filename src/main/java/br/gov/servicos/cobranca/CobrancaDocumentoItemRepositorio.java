@@ -11,7 +11,7 @@ public class CobrancaDocumentoItemRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public void apagarItensCobrancaDasContas(List<Long> ids){
+	public void apagarItensCobrancaDasContas(List<Integer> ids){
 		String delete = "delete from cobranca.cobranca_documento_item where cnta_id in (:ids)";
 		
 		entity.createNativeQuery(delete)

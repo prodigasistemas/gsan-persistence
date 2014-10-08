@@ -34,9 +34,9 @@ public class ContaImpressaoRepositorioTest {
 	@ShouldMatchDataSet("contas_expected.yml")
 	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void apagarContasImpressao(){
-		List<Long> ids = new ArrayList<Long>();
-		ids.add(2L);
-		ids.add(4L);
+		List<Integer> ids = new ArrayList<Integer>();
+		ids.add(2);
+		ids.add(4);
 		repositorio.apagarImpressaoDasContas(ids);
 	}
 }

@@ -1,23 +1,23 @@
 package br.gov.model.micromedicao;
 
 public enum SituacaoTransmissaoLeitura {
-    DISPONIVEL                  ((short) 1),
-    LIBERADO                    ((short) 2),
-    EM_CAMPO                    ((short) 3),
-    TRANSMITIDO                 ((short) 4),
-    FINALIZADO_NAO_TRANSMITIDO  ((short) 5),
-    FINALIZADO_INCOMPLETO       ((short) 6),
-    FINALIZADO_USUARIO          ((short) 7),
-    FINALIZADO_POR_DIGITACAO    ((short) 8),
-    INFORMAR_MOTIVO_FINALIZACAO ((short) 9);
+    DISPONIVEL                  (1),
+    LIBERADO                    (2),
+    EM_CAMPO                    (3),
+    TRANSMITIDO                 (4),
+    FINALIZADO_NAO_TRANSMITIDO  (5),
+    FINALIZADO_INCOMPLETO       (6),
+    FINALIZADO_USUARIO          (7),
+    FINALIZADO_POR_DIGITACAO    (8),
+    INFORMAR_MOTIVO_FINALIZACAO (9);
     
-    private short id;
+    private int id;
 
-	SituacaoTransmissaoLeitura(short id){
+	SituacaoTransmissaoLeitura(int id){
     	this.id = id;
     }
 
-	public short getId() {
+	public int getId() {
 		return id;
 	}
 }

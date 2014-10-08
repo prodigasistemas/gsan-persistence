@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
 import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
@@ -36,7 +38,7 @@ public class Conta implements Serializable{
 
 	@Id
 	@Column(name = "cnta_id")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "cnta_amreferenciacontabil")
 	private Integer referenciaContabil;
@@ -51,7 +53,7 @@ public class Conta implements Serializable{
 	private Short digitoVerificadorConta;
 	
 	@Column(name="dcst_idatual")
-	private Short debitoCreditoSituacaoAtual;
+	private Integer debitoCreditoSituacaoAtual;
 	
 	@Column(name="cnta_nnleituraanterior")
 	private Integer leituraAnterior;
@@ -81,15 +83,19 @@ public class Conta implements Serializable{
 	private Short indicadorAlteracaoVencimento;
 	
 	@Column(name="cnta_dtvencimentoconta")
+	@Temporal(TemporalType.DATE)
 	private Date dataVencimentoConta;
 	
 	@Column(name="cnta_dtvencimentooriginal")
+	@Temporal(TemporalType.DATE)
 	private Date dataVencimentoOriginal;
 	
 	@Column(name="cnta_dtvalidadeconta")
+	@Temporal(TemporalType.DATE)
 	private Date dataValidadeConta;
 	
 	@Column(name="cnta_dtemissao")
+	@Temporal(TemporalType.DATE)
 	private Date dataEmissao;
 	
 	@Column(name="cnta_nnconsumoagua")
@@ -129,7 +135,7 @@ public class Conta implements Serializable{
 	private BigDecimal percentualEsgoto;
 	
 	@Column(name="cnta_pccoleta")
-	private BigDecimal percentualColeta;
+	private Short percentualColeta;
 	
 	@Column(name="cnta_vlrateioagua")
 	private BigDecimal valorRateioAgua;
@@ -183,7 +189,7 @@ public class Conta implements Serializable{
 	
 	public Conta() {}
 	
-	public Conta(Long id){
+	public Conta(Integer id){
 		this.id = id;
 	}
 
@@ -243,7 +249,7 @@ public class Conta implements Serializable{
 
 	public static class Builder{
 		private Integer          consumoAguaEsgoto = 0;
-		private Short            debitoCreditoSituacaoAtual;
+		private Integer          debitoCreditoSituacaoAtual;
 		private Date             dataVencimentoConta;
 		private Date             dataValidadeConta = new Date();
 		private FaturamentoGrupo faturamentoGrupo;
@@ -251,7 +257,7 @@ public class Conta implements Serializable{
 		private Short            indicadorCobrancaMulta = (short) 2;
 		private Short            indicadorAlteracaoVencimento;
 		private BigDecimal       percentualEsgoto;
-		private BigDecimal       percentualColeta;
+		private Short            percentualColeta;
 		private Integer          referencia;
 		private Integer          referenciaContabil;
 		private Rota             rota;
@@ -339,7 +345,7 @@ public class Conta implements Serializable{
 			return this;
 		}
 		
-		public Builder percentualColeta(BigDecimal percentual) {
+		public Builder percentualColeta(Short percentual) {
 			percentualColeta = percentual;
 			return this;
 		}
@@ -365,11 +371,11 @@ public class Conta implements Serializable{
 		}
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -525,11 +531,11 @@ public class Conta implements Serializable{
 		this.quadra = quadra;
 	}
 
-	public Short getDebitoCreditoSituacaoAtual() {
+	public Integer getDebitoCreditoSituacaoAtual() {
 		return debitoCreditoSituacaoAtual;
 	}
 
-	public void setDebitoCreditoSituacaoAtual(Short debitoCreditoSituacaoAtual) {
+	public void setDebitoCreditoSituacaoAtual(Integer debitoCreditoSituacaoAtual) {
 		this.debitoCreditoSituacaoAtual = debitoCreditoSituacaoAtual;
 	}
 
@@ -637,11 +643,11 @@ public class Conta implements Serializable{
 		this.percentualEsgoto = percentualEsgoto;
 	}
 
-	public BigDecimal getPercentualColeta() {
+	public Short getPercentualColeta() {
 		return percentualColeta;
 	}
 
-	public void setPercentualColeta(BigDecimal percentualColeta) {
+	public void setPercentualColeta(Short percentualColeta) {
 		this.percentualColeta = percentualColeta;
 	}
 
