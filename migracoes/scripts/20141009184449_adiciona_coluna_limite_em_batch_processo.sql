@@ -1,5 +1,6 @@
--- // adiciona_coluna_limite_em_batch_processo
+-- // adiciona coluna limite em batch processo
 -- Migration SQL that makes the change goes here.
+
 ALTER TABLE batch.processo ADD COLUMN proc_limite int default 0;
 
 UPDATE batch.processo

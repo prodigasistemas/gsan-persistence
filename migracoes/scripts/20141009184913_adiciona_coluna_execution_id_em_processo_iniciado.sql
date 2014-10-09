@@ -1,5 +1,6 @@
--- // adiciona_coluna_prioridade_em_batch_processo_iniciado
+-- // adiciona coluna execution_id em processo_iniciado
 -- Migration SQL that makes the change goes here.
+
 ALTER TABLE batch.processo_iniciado ADD COLUMN proi_execution_id bigint default 0;
 
 

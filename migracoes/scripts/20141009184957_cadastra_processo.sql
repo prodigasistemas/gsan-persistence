@@ -1,4 +1,4 @@
--- // cadastra_processos
+-- // cadastra processo
 -- Migration SQL that makes the change goes here.
 
 INSERT INTO batch.processo(

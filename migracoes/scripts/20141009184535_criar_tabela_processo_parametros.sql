@@ -1,4 +1,4 @@
--- // criar_tabela_processo_parametros
+-- // criar tabela processo parametros
 -- Migration SQL that makes the change goes here.
 CREATE SEQUENCE batch.seq_processo_parametros
   INCREMENT 1
@@ -34,5 +34,4 @@ TABLESPACE indices;
 -- //@UNDO
 -- SQL to undo the change goes here.
 DROP TABLE batch.processo_parametros;
-DROP INDEX batch.xfk1_processo_parametros;
 DROP SEQUENCE batch.seq_processo_parametros;

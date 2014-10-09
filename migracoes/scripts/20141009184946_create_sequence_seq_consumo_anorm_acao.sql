@@ -1,5 +1,6 @@
--- // create_sequence_seq_consumo_anorm_acao
+-- // create sequence seq_consumo_anorm_acao
 -- Migration SQL that makes the change goes here.
+
 CREATE SEQUENCE micromedicao.seq_consumo_anorm_acao
   INCREMENT 1
   MINVALUE 1

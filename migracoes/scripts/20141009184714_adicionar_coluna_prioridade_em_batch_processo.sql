@@ -1,5 +1,6 @@
 -- // adicionar coluna prioridade em batch processo
 -- Migration SQL that makes the change goes here.
+
 ALTER TABLE batch.processo ADD COLUMN proc_prioridade int default 0;
 
 UPDATE batch.processo
