@@ -38,7 +38,7 @@ public class CreditoRealizadoCategoria implements Serializable{
 	
 	@Column(name="crcg_tmultimaalteracao")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date ultimaAlteracao;
+	private Date ultimaAlteracao = new Date();
 	
 	@ManyToOne
 	@JoinColumn(name="crrz_id", insertable=false, updatable=false)

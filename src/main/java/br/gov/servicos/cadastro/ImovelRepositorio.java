@@ -17,6 +17,10 @@ public class ImovelRepositorio{
 	@PersistenceContext
 	private EntityManager entity;
 	
+	public Imovel buscarPeloId(Integer idImovel){
+		return entity.find(Imovel.class, idImovel);
+	}
+	
 	public long totalImoveisParaPreFaturamentoSemRotaAlternativa(int idRota){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(imovel) ").append(consultaImoveisSemRotaAlternativa(false));

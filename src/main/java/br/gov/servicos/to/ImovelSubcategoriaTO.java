@@ -14,7 +14,7 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	private String categoriaDescricao;
 	private Integer consumoEstouro;
 	private BigDecimal vezesMediaEstouro;
-	private Integer subcategoriaQuantidadeEconomias;
+	private Long subcategoriaQuantidadeEconomias;
 	private Integer imovelId;
 	private Integer consumoAlto;
 	private Integer mediaBaixoConsumo;
@@ -24,7 +24,7 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	private Integer numeroConsumoMaximoEc;
 	private Short indicadorCobrancaAcrescimos;
 	private Short fatorEconomias;
-	private Short categoriaTipoId;
+	private Integer categoriaTipoId;
 	
 	private Integer subcategoriaId;
 	private Integer codigo;
@@ -43,9 +43,9 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	
 	
 	public ImovelSubcategoriaTO(Integer categoriaId, String categoriaDescricao, Integer consumoEstouro, BigDecimal vezesMediaEstouro,
-			Integer subcategoriaQuantidadeEconomias, Integer imovelId, Integer consumoAlto, Integer mediaBaixoConsumo, BigDecimal vezesMediaAltoConsumo,
+			Long subcategoriaQuantidadeEconomias, Integer imovelId, Integer consumoAlto, Integer mediaBaixoConsumo, BigDecimal vezesMediaAltoConsumo,
 			BigDecimal porcentagemMediaBaixoConsumo, String categoriaDescricaoAbreviada, Integer numeroConsumoMaximoEc, Short indicadorCobrancaAcrescimos,
-			Short fatorEconomias, Short categoriaTipoId) {
+			Short fatorEconomias, Integer categoriaTipoId) {
 		this.categoriaId = categoriaId;
 		this.categoriaDescricao = categoriaDescricao;
 		this.consumoEstouro = consumoEstouro;
@@ -133,11 +133,11 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 		}
 	}
 
-	public Integer getSubcategoriaQuantidadeEconomias() {
+	public Long getSubcategoriaQuantidadeEconomias() {
 		return subcategoriaQuantidadeEconomias;
 	}
 
-	public void setSubcategoriaQuantidadeEconomias(Integer subcategoriaQuantidadeEconomias) {
+	public void setSubcategoriaQuantidadeEconomias(Long subcategoriaQuantidadeEconomias) {
 		this.subcategoriaQuantidadeEconomias = subcategoriaQuantidadeEconomias;
 	}
 
@@ -281,11 +281,11 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 		this.indicadorCobrancaAcrescimos = indicadorCobrancaAcrescimos;
 	}
 
-	public Short getCategoriaTipoId() {
+	public Integer getCategoriaTipoId() {
 		return categoriaTipoId;
 	}
 
-	public void setCategoriaTipoId(Short categoriaTipoId) {
+	public void setCategoriaTipoId(Integer categoriaTipoId) {
 		this.categoriaTipoId = categoriaTipoId;
 	}
 

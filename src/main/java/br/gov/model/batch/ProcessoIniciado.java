@@ -60,6 +60,10 @@ public class ProcessoIniciado implements Serializable{
 	
 	public ProcessoIniciado(){}
 	
+	public boolean emProcessamento() {
+		return situacao == ProcessoSituacao.EM_PROCESSAMENTO.getId();
+	}
+	
 	/***********************************************
 	 * GETTERS AND SETTERS
 	 ***********************************************/
