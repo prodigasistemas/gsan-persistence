@@ -1,3 +1,5 @@
+-- // create_sequence_seq_consumo_anorm_acao
+-- Migration SQL that makes the change goes here.
 CREATE SEQUENCE micromedicao.seq_consumo_anorm_acao
   INCREMENT 1
   MINVALUE 1
@@ -5,7 +7,7 @@ CREATE SEQUENCE micromedicao.seq_consumo_anorm_acao
   START 1
   CACHE 1;
 
-  -- //@UNDO
+-- //@UNDO
 -- SQL to undo the change goes here.
 
 DROP SEQUENCE micromedicao.seq_consumo_anorm_acao;
