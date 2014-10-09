@@ -44,7 +44,10 @@ public class ProcessoRepositorio {
 	}
 
 	public List<ProcessoIniciado> buscarProcessosPorSituacao(ProcessoSituacao situacao){
-		return entity.createQuery("from ProcessoIniciado where situacao = :idSituacao order by prioridade desc", ProcessoIniciado.class)
+		/** A condicao nomeArquivoBatch diferente de null foi colocada para manter a convivencia do antigo junto com o novo batch,
+		 *  dessa forma só os batchs migrados e que ja possuem o script de execucao na nova estrutura serao recuperados nessa busca. 
+		 */
+		return entity.createQuery("from ProcessoIniciado where situacao = :idSituacao and processo.nomeArquivoBatch is not null order by prioridade desc", ProcessoIniciado.class)
 						.setParameter("idSituacao", situacao.getId())
 						.getResultList();
 	}
