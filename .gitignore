@@ -4,3 +4,11 @@
 **/.DS_Store
 .classpath
 src/test/resources/arquillian.xml
+migracoes/environments/local.properties
+migracoes/environments/development.properties
+migracoes/environments/stage.properties
+migracoes/environments/production.properties
+migracoes-operacional/environments/local.properties
+migracoes-operacional/environments/development.properties
+migracoes-operacional/environments/stage.properties
+migracoes-operacional/environments/production.properties
