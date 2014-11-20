@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,9 +17,27 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="unidademedida",schema="operacao")
 public class UnidadeMedida  implements Serializable {
-	
-	private static final long serialVersionUID= 1L;
-	
+	private static final long serialVersionUID = 935733694050077851L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sequence_unidade_medida")
+	@SequenceGenerator(name="sequence_unidade_medida", sequenceName="sequence_unidade_medida", schema="operacao", allocationSize=1)
+    @Column(name="umed_id")
+    private Integer codigo;
+
+    @Column(name="umed_nmmedida", nullable=false, length=50) 
+    private String descricao;
+   
+    @Column(name="umed_sigla", nullable=false, length=3)
+    private String sigla;
+
+    @Column(name="umed_tmultimaalteracao", nullable=false, insertable=false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date ultimaAlteracao;
+
+    @Column(name="usur_id", nullable=false)
+    private Integer usuario;
+
     public UnidadeMedida() {
     }
 
@@ -28,21 +47,6 @@ public class UnidadeMedida  implements Serializable {
        this.sigla = sigla;
     }
    
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="umed_id", unique=true, nullable=false, precision=3, scale=0)
-    private Integer codigo;
-
-    @Column(name="umed_nmmedida", nullable=false, length=50) 
-    private String descricao;
-   
-    @Column(name="umed_sigla", nullable=false, length=3)
-    private String sigla;
-
-    @Column(name="umed_tmultimaalteracao", nullable=false, insertable=false, columnDefinition="timestamp default current_timestamp")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ultimaAlteracao;
-
     public Integer getCodigo() {
         return this.codigo;
     }
@@ -75,7 +79,15 @@ public class UnidadeMedida  implements Serializable {
 		this.ultimaAlteracao = ultimaAlteracao;
 	}
 
-	@Override
+	public Integer getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Integer usuario) {
+		this.usuario = usuario;
+	}
+
+	
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -88,7 +100,7 @@ public class UnidadeMedida  implements Serializable {
 		return result;
 	}
 
-	@Override
+	
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

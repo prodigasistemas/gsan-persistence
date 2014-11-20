@@ -3,6 +3,7 @@ package br.gov.model.util;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -12,7 +13,19 @@ import java.util.GregorianCalendar;
 import org.apache.commons.lang3.StringUtils;
 
 public class Utilitarios {
-	
+
+	public static String ordenarCamposConsulta(int tipoAgrupamento) {
+		
+		String [] campos = {"A.greg_id", "A.uneg_id", "A.muni_id", "A.loca_id", "B.unop_tipo, B.unop_id"};
+		String ordem ="";
+		for(int i = 0; i < tipoAgrupamento; i++) {
+			ordem += campos[i] + ", ";
+		}
+		 
+		ordem += "B.cons_data";
+		return ordem;
+	}
+
 	public static Integer representacaoNumericaCodigoBarrasModulo10(Integer numero) {
 		int entrada = numero.intValue();
 
@@ -152,4 +165,20 @@ public class Utilitarios {
 	public static Integer extrairAno(Integer anoMes) {
 		return Integer.valueOf(String.valueOf(anoMes).substring(0,4));
 	}
+	
+	public static Integer converteMesAnoParaAnoMes(String anoMes) {
+		if (anoMes!= null && anoMes.length() == 7)
+			return Integer.valueOf(String.valueOf(anoMes).substring(3) + String.valueOf(anoMes).substring(0,2));
+		else
+			return null;
+	}
+	
+	public static String converteAnoMesParaMesAno(Integer anoMes) {
+		return String.valueOf(anoMes).substring(4) + "/" + String.valueOf(anoMes).substring(0,4);
+	}
+	
+	public static String retiraCaracteresEspeciais(String texto){
+	    texto = Normalizer.normalize(texto,Normalizer.Form.NFD);
+	    return texto.replaceAll("[^\\p{ASCII}]", "");
+    }	
 }

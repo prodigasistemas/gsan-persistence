@@ -73,7 +73,7 @@ public class FaturamentoSituacaoHistorico {
 		this.imovel = imovel;
 	}
 
-	@Override
+	
 	public String toString() {
 		return "FaturamentoSituacaoHistorico [id=" + id + ", anoMesFaturamentoSituacaoInicio=" + anoMesFaturamentoSituacaoInicio
 				+ ", anoMesFaturamentoSituacaoFim=" + anoMesFaturamentoSituacaoFim + ", anoMesFaturamentoRetirada=" + anoMesFaturamentoRetirada + "]";
