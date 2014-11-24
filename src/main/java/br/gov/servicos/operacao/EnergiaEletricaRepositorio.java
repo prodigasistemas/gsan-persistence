@@ -29,21 +29,15 @@ public class EnergiaEletricaRepositorio extends GenericRepository<Integer, Energ
 	}
 
 	public EnergiaEletrica obterEnergiaPorData(Date dataReferencia) throws Exception {
-		try {
-			SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-			String dataAux = formataData.format(dataReferencia);
+		SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
+		String dataAux = formataData.format(dataReferencia);
 
-			TypedQuery<EnergiaEletrica> query = entity.createQuery("select c1 from EnergiaEletrica c1 where enel_referencia = '" + dataAux + "'",
-					EnergiaEletrica.class);
-			EnergiaEletrica energiaEletrica = query.getSingleResult();
+		EnergiaEletrica energiaEletrica = entity.createQuery("select c1 from EnergiaEletrica c1 where enel_referencia = '" + dataAux + "'",
+                EnergiaEletrica.class).getSingleResult();
 
-			for (int j = 0; j < energiaEletrica.getDados().size(); j++) {
-				energiaEletrica.getDados().get(j);
-			}
-			return energiaEletrica;
-		} catch (Exception e) {
-			e.getStackTrace();
+		for (int j = 0; j < energiaEletrica.getDados().size(); j++) {
+			energiaEletrica.getDados().get(j);
 		}
-		return null;
+		return energiaEletrica;
 	}
 }

@@ -27,7 +27,6 @@ import br.gov.model.operacao.UnidadeNegocioProxy;
 @Stateless
 @SuppressWarnings({ "rawtypes" })
 public class RelatorioEnergiaEletricaRepositorio {
-
 	@EJB
 	ProxyOperacionalRepositorio fachadaProxy;
 
@@ -191,17 +190,13 @@ public class RelatorioEnergiaEletricaRepositorio {
 	}
 
 	public List<EnergiaEletricaDados> getEnergiaEletricaDados(Date dataReferencia) throws Exception {
-		try {
-			List<EnergiaEletricaDados> energiaEletricaDados = new ArrayList<EnergiaEletricaDados>();
-			EnergiaEletrica energiaEletrica = fachadaEnergiaEletrica.obterEnergiaPorData(dataReferencia);
-			if (energiaEletrica != null) {
-				energiaEletricaDados = energiaEletrica.getDados();
-				energiaEletricaDados = fachadaEnergiaEletricaDados.CalculaDados(energiaEletricaDados);
-			}
-			return energiaEletricaDados;
-		} catch (Exception e) {
-			throw new Exception("Nenhuma Referência Encontrada");
+		List<EnergiaEletricaDados> energiaEletricaDados = new ArrayList<EnergiaEletricaDados>();
+		EnergiaEletrica energiaEletrica = fachadaEnergiaEletrica.obterEnergiaPorData(dataReferencia);
+		if (energiaEletrica != null) {
+			energiaEletricaDados = energiaEletrica.getDados();
+			energiaEletricaDados = fachadaEnergiaEletricaDados.calculaDados(energiaEletricaDados);
 		}
+		return energiaEletricaDados;
 	}
 
 	public List<RelatorioEnergiaEletrica> getEnergiaEletricaAnalise(Date dataReferenciaInicial, Date dataReferenciaFinal, Integer codigoMunicipio,
