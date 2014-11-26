@@ -3,7 +3,7 @@ package br.gov.servicos.operacao;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.TypedQuery;
+import javax.persistence.NoResultException;
 
 import br.gov.model.operacao.Produto;
 import br.gov.model.operacao.UnidadeMedida;
@@ -13,18 +13,20 @@ import br.gov.model.util.GenericRepository;
 public class ProdutoRepositorio extends GenericRepository<Integer, Produto>{
 
 	public List<Produto> obterLista() {
-		TypedQuery<Produto> query = entity.createQuery("select c1 from Produto c1", Produto.class);
-		return query.getResultList();
+		return entity.createQuery("select p from Produto p order by p.descricao", Produto.class)
+		        .getResultList();
 	}
 
 	public Produto obterProduto(Integer codigo) throws Exception {
-		TypedQuery<Produto> query = entity.createQuery("select c1 from Produto c1 where prod_id = " + codigo, Produto.class);
-		Produto produto = query.getSingleResult();
-		return produto;
+	    try {
+            return entity.createQuery("select p from Produto p where codigo = " + codigo, Produto.class)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
 	}
 
 	public List<UnidadeMedida> listarUnidadeMedidas() {
-		TypedQuery<UnidadeMedida> query = entity.createQuery("select c1 from UnidadeMedida c1", UnidadeMedida.class);
-		return query.getResultList();
+		return entity.createQuery("select u from UnidadeMedida u", UnidadeMedida.class).getResultList();
 	}
 }

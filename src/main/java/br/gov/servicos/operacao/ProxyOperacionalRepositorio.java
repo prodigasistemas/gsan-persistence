@@ -32,8 +32,6 @@ import br.gov.model.operacao.PerfilBeanEnum;
 import br.gov.model.operacao.Produto;
 import br.gov.model.operacao.RegionalProxy;
 import br.gov.model.operacao.SistemaAbastecimentoProxy;
-import br.gov.model.operacao.TabelaPreco;
-import br.gov.model.operacao.TabelaPrecoProduto;
 import br.gov.model.operacao.UnidadeConsumidoraOperacional;
 import br.gov.model.operacao.UnidadeNegocioProxy;
 import br.gov.model.operacao.UsuarioProxy;
@@ -1516,49 +1514,6 @@ public class ProxyOperacionalRepositorio {
 		return (pendencias);
 	}
 
-	public List<TabelaPrecoProduto> getTabelaProdutos(TabelaPreco tabelaPreco) throws Exception {
-
-		String query = "SELECT A.prod_id, A.prod_nmproduto, B.tbpp_preco, C.umed_sigla" + "  FROM operacao.produto A"
-				+ "  LEFT JOIN operacao.tabelapreco_produto B ON A.prod_id = B.prod_id AND B.tabp_id = " + tabelaPreco.getCodigo()
-				+ " INNER JOIN operacao.unidademedida C ON A.umed_id = C.umed_id" + " ORDER BY A.prod_nmproduto";
-
-		List<List> valores = selectRegistros(query);
-		List<TabelaPrecoProduto> tabelaPrecoProduto = new ArrayList<TabelaPrecoProduto>();
-
-		for (List colunas : valores) {
-			Produto produto = new Produto();
-			produto.setCodigo(Integer.parseInt(colunas.get(0).toString()));
-			produto.setDescricao(colunas.get(1).toString());
-			produto.getUnidadeMedidaProduto().setSigla(colunas.get(3).toString());
-			Double preco = 0.0;
-			if (colunas.get(2) != null)
-				preco = Double.parseDouble(colunas.get(2).toString());
-			tabelaPrecoProduto.add(new TabelaPrecoProduto(tabelaPreco, produto, preco));
-		}
-		return (tabelaPrecoProduto);
-	}
-
-	public List<TabelaPrecoProduto> getTabelaProdutosVigente() throws Exception {
-
-		String query = "SELECT A.prod_id, A.prod_nmproduto, B.tbpp_preco, C.umed_sigla" + "  FROM operacao.produto A"
-				+ "  LEFT JOIN operacao.tabelapreco_produto B ON A.prod_id = B.prod_id" + " INNER JOIN operacao.unidademedida C ON A.umed_id = C.umed_id"
-				+ " WHERE B.tabp_id IN (SELECT tabp_id FROM operacao.tabelapreco ORDER BY tabp_vigencia DESC LIMIT 1)" + " ORDER BY A.prod_nmproduto";
-
-		List<List> valores = selectRegistros(query);
-		List<TabelaPrecoProduto> tabelaPrecoProduto = new ArrayList<TabelaPrecoProduto>();
-
-		for (List colunas : valores) {
-			Produto produto = new Produto();
-			produto.setCodigo(Integer.parseInt(colunas.get(0).toString()));
-			produto.setDescricao(colunas.get(1).toString());
-			produto.getUnidadeMedidaProduto().setSigla(colunas.get(3).toString());
-			Double preco = 0.0;
-			if (colunas.get(2) != null)
-				preco = Double.parseDouble(colunas.get(2).toString());
-			tabelaPrecoProduto.add(new TabelaPrecoProduto(new TabelaPreco(), produto, preco));
-		}
-		return (tabelaPrecoProduto);
-	}
 
 	public boolean getEnergiaEletricaVerificaData(Date dataReferencia) throws Exception {
 

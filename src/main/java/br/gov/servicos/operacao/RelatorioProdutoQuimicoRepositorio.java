@@ -31,9 +31,8 @@ public class RelatorioProdutoQuimicoRepositorio {
 
 		String query = "";
 		String queryAux;
-		queryAux = "SUM(B.conp_quantidade), AVG(" + "	(SELECT tbpp_preco" + " FROM operacao.tabelapreco_produto X"
-				+ " INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id" + " WHERE Z.tabp_vigencia <= B.cons_data" + "  AND X.prod_id = C.prod_id"
-				+ " ORDER BY Z.tabp_vigencia DESC LIMIT 1))";
+		queryAux = "SUM(B.conp_quantidade), "+
+		"AVG((SELECT preco FROM operacao.preco_produto X WHERE X.vigencia <= B.cons_data  AND X.prod_id = C.prod_id ORDER BY X.vigencia DESC LIMIT 1))";
 
 		queryAux = queryAux + " , C.prod_nmproduto, D.umed_sigla" + " FROM (SELECT DISTINCT A.greg_id, A.greg_nmregional, B.uneg_id, B.uneg_nmunidadenegocio,"
 				+ " E.muni_id, E.muni_nmmunicipio, C.loca_id, C.loca_nmlocalidade" + " FROM cadastro.gerencia_regional A "
@@ -224,18 +223,18 @@ public class RelatorioProdutoQuimicoRepositorio {
 					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 12 THEN B.conp_quantidade ELSE 0 END) AS qtdDEZ,\n");
 		} else {// FINANCEIRO
 			queryAux.append(
-					"SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 1 THEN B.conp_quantidade * (SELECT tbpp_preco FROM operacao.tabelapreco_produto X INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id WHERE Z.tabp_vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY Z.tabp_vigencia DESC LIMIT 1) ELSE 0 END) AS qtdJAN,\n")
-					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 2 THEN B.conp_quantidade * (SELECT tbpp_preco FROM operacao.tabelapreco_produto X INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id WHERE Z.tabp_vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY Z.tabp_vigencia DESC LIMIT 1) ELSE 0 END) AS qtdFEV,\n")
-					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 3 THEN B.conp_quantidade * (SELECT tbpp_preco FROM operacao.tabelapreco_produto X INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id WHERE Z.tabp_vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY Z.tabp_vigencia DESC LIMIT 1) ELSE 0 END) AS qtdMAR,\n")
-					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 4 THEN B.conp_quantidade * (SELECT tbpp_preco FROM operacao.tabelapreco_produto X INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id WHERE Z.tabp_vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY Z.tabp_vigencia DESC LIMIT 1) ELSE 0 END) AS qtdABR,\n")
-					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 5 THEN B.conp_quantidade * (SELECT tbpp_preco FROM operacao.tabelapreco_produto X INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id WHERE Z.tabp_vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY Z.tabp_vigencia DESC LIMIT 1) ELSE 0 END) AS qtdMAI,\n")
-					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 6 THEN B.conp_quantidade * (SELECT tbpp_preco FROM operacao.tabelapreco_produto X INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id WHERE Z.tabp_vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY Z.tabp_vigencia DESC LIMIT 1) ELSE 0 END) AS qtdJUN,\n")
-					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 7 THEN B.conp_quantidade * (SELECT tbpp_preco FROM operacao.tabelapreco_produto X INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id WHERE Z.tabp_vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY Z.tabp_vigencia DESC LIMIT 1) ELSE 0 END) AS qtdJUL,\n")
-					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 8 THEN B.conp_quantidade * (SELECT tbpp_preco FROM operacao.tabelapreco_produto X INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id WHERE Z.tabp_vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY Z.tabp_vigencia DESC LIMIT 1) ELSE 0 END) AS qtdAGO,\n")
-					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 9 THEN B.conp_quantidade * (SELECT tbpp_preco FROM operacao.tabelapreco_produto X INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id WHERE Z.tabp_vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY Z.tabp_vigencia DESC LIMIT 1) ELSE 0 END) AS qtdSET,\n")
-					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 10 THEN B.conp_quantidade * (SELECT tbpp_preco FROM operacao.tabelapreco_produto X INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id WHERE Z.tabp_vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY Z.tabp_vigencia DESC LIMIT 1) ELSE 0 END) AS qtdOUT,\n")
-					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 11 THEN B.conp_quantidade * (SELECT tbpp_preco FROM operacao.tabelapreco_produto X INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id WHERE Z.tabp_vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY Z.tabp_vigencia DESC LIMIT 1) ELSE 0 END) AS qtdNOV,\n")
-					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 12 THEN B.conp_quantidade * (SELECT tbpp_preco FROM operacao.tabelapreco_produto X INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id WHERE Z.tabp_vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY Z.tabp_vigencia DESC LIMIT 1) ELSE 0 END) AS qtdDEZ,\n");
+					"SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 1 THEN B.conp_quantidade * (SELECT preco FROM operacao.preco_produto X WHERE X.vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY X.vigencia DESC LIMIT 1) ELSE 0 END) AS qtdJAN,\n")
+					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 2 THEN B.conp_quantidade * (SELECT preco FROM operacao.preco_produto X WHERE X.vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY X.vigencia DESC LIMIT 1) ELSE 0 END) AS qtdFEV,\n")
+					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 3 THEN B.conp_quantidade * (SELECT preco FROM operacao.preco_produto X WHERE X.vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY X.vigencia DESC LIMIT 1) ELSE 0 END) AS qtdMAR,\n")
+					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 4 THEN B.conp_quantidade * (SELECT preco FROM operacao.preco_produto X WHERE X.vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY X.vigencia DESC LIMIT 1) ELSE 0 END) AS qtdABR,\n")
+					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 5 THEN B.conp_quantidade * (SELECT preco FROM operacao.preco_produto X WHERE X.vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY X.vigencia DESC LIMIT 1) ELSE 0 END) AS qtdMAI,\n")
+					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 6 THEN B.conp_quantidade * (SELECT preco FROM operacao.preco_produto X WHERE X.vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY X.vigencia DESC LIMIT 1) ELSE 0 END) AS qtdJUN,\n")
+					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 7 THEN B.conp_quantidade * (SELECT preco FROM operacao.preco_produto X WHERE X.vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY X.vigencia DESC LIMIT 1) ELSE 0 END) AS qtdJUL,\n")
+					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 8 THEN B.conp_quantidade * (SELECT preco FROM operacao.preco_produto X WHERE X.vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY X.vigencia DESC LIMIT 1) ELSE 0 END) AS qtdAGO,\n")
+					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 9 THEN B.conp_quantidade * (SELECT preco FROM operacao.preco_produto X WHERE X.vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY X.vigencia DESC LIMIT 1) ELSE 0 END) AS qtdSET,\n")
+					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 10 THEN B.conp_quantidade * (SELECT preco FROM operacao.preco_produto X WHERE X.vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY X.vigencia DESC LIMIT 1) ELSE 0 END) AS qtdOUT,\n")
+					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 11 THEN B.conp_quantidade * (SELECT preco FROM operacao.preco_produto X WHERE X.vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY X.vigencia DESC LIMIT 1) ELSE 0 END) AS qtdNOV,\n")
+					.append("SUM(CASE EXTRACT(MONTH FROM B.cons_data) WHEN 12 THEN B.conp_quantidade * (SELECT preco FROM operacao.preco_produto X WHERE X.vigencia <= B.cons_data AND X.prod_id = C.prod_id ORDER BY X.vigencia DESC LIMIT 1) ELSE 0 END) AS qtdDEZ,\n");
 		}
 
 		queryAux.append("C.prod_nmproduto, D.umed_sigla\n")
@@ -440,24 +439,33 @@ public class RelatorioProdutoQuimicoRepositorio {
 		String dataIni = formataData.format(dataInicial);
 		String dataFim = formataData.format(dataFinal);
 
-		String query = " SELECT A.*, B.unop_id, B.unop_nmunidadeoperacional, B.cons_data, B.conp_quantidade, C.prod_nmproduto," + "	(SELECT tbpp_preco"
-				+ "  	   FROM operacao.tabelapreco_produto X" + " 	  INNER JOIN operacao.tabelapreco Z ON X.tabp_id = Z.tabp_id"
-				+ "  	  WHERE Z.tabp_vigencia <= B.cons_data" + " 	    AND X.prod_id = C.prod_id"
-				+ " 	  ORDER BY Z.tabp_vigencia DESC LIMIT 1) AS tbpp_preco, B.unop_tipo, D.umed_sigla"
+		String query = " SELECT A.*, B.unop_id, B.unop_nmunidadeoperacional, B.cons_data, B.conp_quantidade, C.prod_nmproduto," 
+		        + "	(SELECT preco"
+				+ "  	   FROM operacao.preco_produto X" 
+				+ "  	  WHERE X.vigencia <= B.cons_data" 
+				+ " 	    AND X.prod_id = C.prod_id"
+				+ " 	  ORDER BY X.vigencia DESC LIMIT 1) AS preco, B.unop_tipo, D.umed_sigla"
 				+ " FROM (SELECT DISTINCT A.greg_id, A.greg_nmregional, B.uneg_id, B.uneg_nmunidadenegocio,"
 				+ " E.muni_id, E.muni_nmmunicipio, C.loca_id, C.loca_nmlocalidade " + " FROM cadastro.gerencia_regional A "
 				+ "INNER JOIN cadastro.unidade_negocio B ON A.greg_id = B.greg_id "
 				+ "INNER JOIN cadastro.localidade C ON A.greg_id = C.greg_id AND B.uneg_id = C.uneg_ID "
-				+ "INNER JOIN cadastro.setor_comercial D ON C.loca_id = D.loca_id " + "INNER JOIN cadastro.municipio E ON D.muni_id = E.muni_id) AS A "
+				+ "INNER JOIN cadastro.setor_comercial D ON C.loca_id = D.loca_id " 
+				+ "INNER JOIN cadastro.municipio E ON D.muni_id = E.muni_id) AS A "
 				+ "INNER JOIN (SELECT A.greg_id, A.uneg_id, A.muni_id, A.loca_id,"
-				+ "				    C.eta_id AS unop_id, C.eta_nome AS unop_nmunidadeoperacional, 2 AS unop_tipo," + "				    A.cons_data, B.prod_id, B.conp_quantidade"
-				+ "			   FROM	operacao.consumoeta A" + "			  INNER JOIN operacao.consumoeta_produto B ON A.cons_id = B.cons_id"
-				+ "			  INNER JOIN operacao.eta C ON A.eta_id = C.eta_id" + "			  UNION ALL	" + "			  SELECT A.greg_id, A.uneg_id, A.muni_id, A.loca_id,"
+				+ "				    C.eta_id AS unop_id, C.eta_nome AS unop_nmunidadeoperacional, 2 AS unop_tipo," 
+				+ "				    A.cons_data, B.prod_id, B.conp_quantidade"
+				+ "			   FROM	operacao.consumoeta A" 
+				+ "			  INNER JOIN operacao.consumoeta_produto B ON A.cons_id = B.cons_id"
+				+ "			  INNER JOIN operacao.eta C ON A.eta_id = C.eta_id" 
+				+ "			  UNION ALL	" + "			  SELECT A.greg_id, A.uneg_id, A.muni_id, A.loca_id,"
 				+ "				    C.eeat_id AS unop_id, C.eeat_nome AS unop_nmunidadeoperacional, 3 AS unop_tipo,"
-				+ "				    A.cons_data, B.prod_id, B.conp_quantidade" + "			   FROM	operacao.consumoeat A"
-				+ "			  INNER JOIN operacao.consumoeat_produto B ON A.cons_id = B.cons_id" + "			  INNER JOIN operacao.eeat C ON A.eat_id = C.eeat_id)"
+				+ "				    A.cons_data, B.prod_id, B.conp_quantidade" 
+				+ "			   FROM	operacao.consumoeat A"
+				+ "			  INNER JOIN operacao.consumoeat_produto B ON A.cons_id = B.cons_id" 
+				+ "			  INNER JOIN operacao.eeat C ON A.eat_id = C.eeat_id)"
 				+ "  B ON A.greg_id = B.greg_id AND A.uneg_id = B.uneg_id AND A.muni_id = B.muni_id AND A.loca_id = B.loca_id "
-				+ "INNER JOIN operacao.produto C ON B.prod_id = C.prod_id " + "INNER JOIN operacao.unidademedida D ON C.umed_id = D.umed_id "
+				+ "INNER JOIN operacao.produto C ON B.prod_id = C.prod_id " 
+				+ "INNER JOIN operacao.unidademedida D ON C.umed_id = D.umed_id "
 				+ "WHERE B.cons_data BETWEEN '" + dataIni + "' AND '" + dataFim + "'" + "  AND B.conp_quantidade <> 0";
 
 		if (codigoRegional != -1) {
