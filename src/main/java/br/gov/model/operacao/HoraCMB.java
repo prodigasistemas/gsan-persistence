@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +34,11 @@ public class HoraCMB implements Serializable{
 
 	@Column(name="hcmb_medicao")
 	private BigDecimal medicao;
-
+	
+	@Column(name="hcmb_tipo_registro")
+	@Enumerated
+	private TipoRegistroHoras tipoRegistro;
+	
 	public HoraCMB() {
 		super();
 	}
@@ -69,6 +74,14 @@ public class HoraCMB implements Serializable{
 	public void setMedicao(BigDecimal medicao) {
 		this.medicao = medicao;
 	}
+
+    public TipoRegistroHoras getTipoRegistro() {
+        return tipoRegistro;
+    }
+
+    public void setTipoRegistro(TipoRegistroHoras tipoRegistro) {
+        this.tipoRegistro = tipoRegistro;
+    }
 
     public String toString() {
         return "HoraCMB [codigo=" + codigo + ", cmb=" + cmb + ", medicao=" + medicao + "]";
