@@ -1,6 +1,7 @@
 package br.gov.servicos.operacao.to;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +18,21 @@ public class HorasCadastroTO implements Serializable {
     private Integer codigo;
     private Integer referencia;
     private Integer quantidadeCmb;
-
+    
+    private BigDecimal paradaPorEnergia;
+    
+    private BigDecimal paradaPorManutencao;
+    
+    private BigDecimal paradaPorControle;
+    
     private List<HoraCmbTO> cmbs = new ArrayList<HoraCmbTO>();
 
     public HorasCadastroTO() {
     }
 
     public HorasCadastroTO(Integer cdRegional, Integer cdUnidadeNegocio, Integer cdMunicipio, Integer cdLocalidade, 
-            Integer tipoUnidadeOperacional, Integer cdUnidadeOperacional, Integer codigo, Integer referencia, Integer quantidadeCmb) {
+            Integer tipoUnidadeOperacional, Integer cdUnidadeOperacional, Integer codigo, Integer referencia, Integer quantidadeCmb,
+            BigDecimal paradaPorEnergia, BigDecimal paradaPorManutencao, BigDecimal paradaPorControle) {
         super();
         this.cdRegional = cdRegional;
         this.cdUnidadeNegocio = cdUnidadeNegocio;
@@ -35,6 +43,9 @@ public class HorasCadastroTO implements Serializable {
         this.codigo = codigo;
         this.referencia = referencia;
         this.quantidadeCmb = quantidadeCmb;
+        this.paradaPorEnergia = paradaPorEnergia;
+        this.paradaPorManutencao = paradaPorManutencao;
+        this.paradaPorControle = paradaPorControle;
     }
 
     public Integer getCodigo() {
@@ -115,6 +126,30 @@ public class HorasCadastroTO implements Serializable {
 
     public void setQuantidadeCmb(Integer quantidadeCmb) {
         this.quantidadeCmb = quantidadeCmb;
+    }
+
+    public BigDecimal getParadaPorEnergia() {
+        return paradaPorEnergia;
+    }
+
+    public void setParadaPorEnergia(BigDecimal paradaPorEnergia) {
+        this.paradaPorEnergia = paradaPorEnergia;
+    }
+
+    public BigDecimal getParadaPorManutencao() {
+        return paradaPorManutencao;
+    }
+
+    public void setParadaPorManutencao(BigDecimal paradaPorManutencao) {
+        this.paradaPorManutencao = paradaPorManutencao;
+    }
+
+    public BigDecimal getParadaPorControle() {
+        return paradaPorControle;
+    }
+
+    public void setParadaPorControle(BigDecimal paradaPorControle) {
+        this.paradaPorControle = paradaPorControle;
     }
 
     public String toString() {

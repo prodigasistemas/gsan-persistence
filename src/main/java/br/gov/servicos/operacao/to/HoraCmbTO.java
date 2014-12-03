@@ -3,8 +3,6 @@ package br.gov.servicos.operacao.to;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import br.gov.model.operacao.TipoRegistroHoras;
-
 public class HoraCmbTO implements Serializable {
 	private static final long serialVersionUID = -7159627292037705851L;
 	
@@ -14,17 +12,14 @@ public class HoraCmbTO implements Serializable {
 	
 	private BigDecimal medicao;
 	
-	private TipoRegistroHoras tipoRegistro;
-	
 	public HoraCmbTO() {
     }
 
-    public HoraCmbTO(Integer codigo, Integer cmb, BigDecimal medicao, TipoRegistroHoras tipo) {
+    public HoraCmbTO(Integer codigo, Integer cmb, BigDecimal medicao) {
         super();
         this.codigo = codigo;
         this.cmb = cmb;
         this.medicao = medicao;
-        this.tipoRegistro = tipo;
     }
 
     public Integer getCodigo() {
@@ -49,14 +44,6 @@ public class HoraCmbTO implements Serializable {
 
     public void setMedicao(BigDecimal medicao) {
         this.medicao = medicao;
-    }
-
-    public TipoRegistroHoras getTipoRegistro() {
-        return tipoRegistro;
-    }
-
-    public void setTipoRegistro(TipoRegistroHoras tipoRegistro) {
-        this.tipoRegistro = tipoRegistro;
     }
 
     public String toString() {

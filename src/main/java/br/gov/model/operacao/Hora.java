@@ -1,6 +1,7 @@
 package br.gov.model.operacao;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -54,6 +55,15 @@ public class Hora implements Serializable{
 	
 	@Column(name="hora_id_unidade")
 	private Integer idEstacao;
+	
+	@Column(name="hora_parada_energia")
+    private BigDecimal paradaPorEnergia;
+	
+	@Column(name="hora_parada_manutencao")
+	private BigDecimal paradaPorManutencao;
+	
+	@Column(name="hora_parada_controle")
+	private BigDecimal paradaPorControle;
 	
 	@Column(name="usur_id", nullable=false)
     private Integer usuario;
@@ -146,6 +156,30 @@ public class Hora implements Serializable{
 	public void setUnidadeConsumidoraOperacional(UnidadeConsumidoraOperacional unidadeConsumidoraOperacional) {
 		this.unidadeConsumidoraOperacional = unidadeConsumidoraOperacional;
 	}
+
+    public BigDecimal getParadaPorEnergia() {
+        return paradaPorEnergia;
+    }
+
+    public void setParadaPorEnergia(BigDecimal paradaPorEnergia) {
+        this.paradaPorEnergia = paradaPorEnergia;
+    }
+
+    public BigDecimal getParadaPorManutencao() {
+        return paradaPorManutencao;
+    }
+
+    public void setParadaPorManutencao(BigDecimal paradaPorManutencao) {
+        this.paradaPorManutencao = paradaPorManutencao;
+    }
+
+    public BigDecimal getParadaPorControle() {
+        return paradaPorControle;
+    }
+
+    public void setParadaPorControle(BigDecimal paradaPorControle) {
+        this.paradaPorControle = paradaPorControle;
+    }
 
     public String toString() {
         return "Hora [codigo=" + codigo + ", referencia=" + referencia + "]";

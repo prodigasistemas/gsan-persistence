@@ -22,7 +22,6 @@ public class HoraCmbRepositorio extends GenericRepository<Integer, HoraCMB>{
         .append("cmb.codigo")
         .append(", cmb.cmb")
         .append(", cmb.medicao")
-        .append(", cmb.tipoRegistro")
         .append(")")
         .append(" from HoraCMB cmb")
         .append(" inner join cmb.hora hora ")

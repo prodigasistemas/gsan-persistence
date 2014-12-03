@@ -26,6 +26,9 @@ public class HoraRepositorio extends GenericRepository<Integer, Hora>{
 		    .append(" , h.codigo")
 		    .append(" , h.referencia")
 		    .append(" , h.estacao.quantidadeCmb")
+		    .append(" , h.paradaPorEnergia")
+		    .append(" , h.paradaPorManutencao")
+		    .append(" , h.paradaPorControle")
 		    .append(")")
 		    .append(" from Hora h ")
 		    .append(" where codigo = :codigo");
