@@ -19,11 +19,11 @@ public class HorasCadastroTO implements Serializable {
     private Integer referencia;
     private Integer quantidadeCmb;
     
-    private BigDecimal paradaPorEnergia;
+    private BigDecimal paradaPorEnergia = BigDecimal.ZERO;
     
-    private BigDecimal paradaPorManutencao;
+    private BigDecimal paradaPorManutencao = BigDecimal.ZERO;
     
-    private BigDecimal paradaPorControle;
+    private BigDecimal paradaPorControle = BigDecimal.ZERO;
     
     private List<HoraCmbTO> cmbs = new ArrayList<HoraCmbTO>();
 
