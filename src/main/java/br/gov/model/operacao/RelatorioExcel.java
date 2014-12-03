@@ -3,7 +3,6 @@ package br.gov.model.operacao;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class RelatorioExcel implements Serializable{
@@ -16,8 +15,8 @@ public class RelatorioExcel implements Serializable{
 	private String nomeArquivoNovo;
 	private String nomeRelatorio;
 	private String dataReferencia;
-	private Date dataReferenciaInicial;
-	private Date dataReferenciaFinal;
+	private Integer referenciaInicial;
+	private Integer referenciaFinal;
 	private Integer codigoMunicipio;
 	private Integer codigoLocalidade;
 	private Integer tipoRelatorio;
@@ -63,19 +62,19 @@ public class RelatorioExcel implements Serializable{
 	public void setDataReferencia(String dataReferencia) {
 		this.dataReferencia = dataReferencia;
 	}
-	public Date getDataReferenciaInicial() {
-		return dataReferenciaInicial;
-	}
-	public void setDataReferenciaInicial(Date dataReferenciaInicial) {
-		this.dataReferenciaInicial = dataReferenciaInicial;
-	}
-	public Date getDataReferenciaFinal() {
-		return dataReferenciaFinal;
-	}
-	public void setDataReferenciaFinal(Date dataReferenciaFinal) {
-		this.dataReferenciaFinal = dataReferenciaFinal;
-	}
-	public Integer getCodigoMunicipio() {
+	public Integer getReferenciaInicial() {
+        return referenciaInicial;
+    }
+    public void setReferenciaInicial(Integer referenciaInicial) {
+        this.referenciaInicial = referenciaInicial;
+    }
+    public Integer getReferenciaFinal() {
+        return referenciaFinal;
+    }
+    public void setReferenciaFinal(Integer referenciaFinal) {
+        this.referenciaFinal = referenciaFinal;
+    }
+    public Integer getCodigoMunicipio() {
 		return codigoMunicipio;
 	}
 	public void setCodigoMunicipio(Integer codigoMunicipio) {

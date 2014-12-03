@@ -1513,33 +1513,4 @@ public class ProxyOperacionalRepositorio {
 		}
 		return (pendencias);
 	}
-
-
-	public boolean getEnergiaEletricaVerificaData(Date dataReferencia) throws Exception {
-
-		SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-		String dataAux = formataData.format(dataReferencia);
-
-		String query = "SELECT enel_referencia FROM operacao.energiaeletrica" + " WHERE enel_referencia = '" + dataAux + "'";
-
-		List<List> valores = selectRegistros(query);
-
-		if (valores.size() > 0) {
-			return true;
-		} else
-			return false;
-
-	}
-
-	public List<List> getEnergiaEletricaData() throws Exception {
-		String query = "SELECT enel_referencia FROM operacao.energiaeletrica" + " ORDER BY enel_referencia DESC";
-
-		List<List> valores = selectRegistros(query);
-
-		if (valores.size() == 0) {
-			return null;
-		} else
-			return valores;
-	}
-
 }

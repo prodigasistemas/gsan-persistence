@@ -157,6 +157,18 @@ public class Utilitarios {
 		return cal.getTime();
 	}
 	
+	public static Date converteParaDataComPrimeiroDiaMes(Integer anoMesNumerico) {
+	    String anoMes = String.valueOf(anoMesNumerico);
+	    int ano = Integer.parseInt(anoMes.substring(0, 4));
+	    int mes = Integer.parseInt(anoMes.substring(4, 6));
+	    Calendar cal = GregorianCalendar.getInstance();
+	    cal.set(Calendar.YEAR, ano);
+	    cal.set(Calendar.MONTH, (mes - 1));
+	    cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+	    
+	    return cal.getTime();
+	}
+	
 	public static String formataData(Date data){
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		return format.format(data);

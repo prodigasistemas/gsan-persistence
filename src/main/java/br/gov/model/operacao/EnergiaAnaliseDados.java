@@ -1,25 +1,27 @@
 package br.gov.model.operacao;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class EnergiaAnaliseDados implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	
-	private Date mesReferencia;
-	private double valor;
-	
-	public Date getMesReferencia() {
-		return mesReferencia;
-	}
-	public void setMesReferencia(Date mesReferencia) {
-		this.mesReferencia = mesReferencia;
-	}
-	public double getValor() {
-		return valor;
-	}
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
+    private static final long serialVersionUID = 8345738607632980748L;
+
+    private Integer referencia;
+
+    private double valor;
+
+    public Integer getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(Integer referencia) {
+        this.referencia = referencia;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
 }

@@ -1,5 +1,7 @@
 package br.gov.model.operacao;
 
+import static br.gov.model.util.Utilitarios.converteAnoMesParaMesAno;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,8 +11,7 @@ public class RelatorioEnergiaEletrica implements Serializable{
 	
 	private Integer codigoUC;
 	private String nomeUC;
-	private Date dataReferencia;
-	private String referencia;
+	private Integer referencia;
 	private String fatura;
 	private Double valorTotal;
 	private Double consumoKwh;
@@ -73,6 +74,25 @@ public class RelatorioEnergiaEletrica implements Serializable{
 	private Double ajusteFatorPotencia;
 	private Double ultrapassagemR$;
 	private Double ultrapassagemKwh;
+	
+	
+    
+	
+	public RelatorioEnergiaEletrica() {
+    }
+
+	public RelatorioEnergiaEletrica(Integer referencia, Integer codigoUC, String nomeUC, 
+            Double consumoKwh, Double ajusteFatorPotencia, Double total, Double ultrapassagemKwh, Double ultrapassagemR$){
+        this.referencia = referencia;
+        this.codigoUC = codigoUC;
+        this.nomeUC = nomeUC;
+        this.consumoKwh = consumoKwh;
+        this.ajusteFatorPotencia = ajusteFatorPotencia;
+        this.total = total;
+        this.ultrapassagemKwh = ultrapassagemKwh;
+        this.ultrapassagemR$ = ultrapassagemR$;
+    }
+	
 	public Integer getCodigoUC() {
 		return codigoUC;
 	}
@@ -85,19 +105,16 @@ public class RelatorioEnergiaEletrica implements Serializable{
 	public void setNomeUC(String nomeUC) {
 		this.nomeUC = nomeUC;
 	}
-	public Date getDataReferencia() {
-		return dataReferencia;
-	}
-	public void setDataReferencia(Date dataReferencia) {
-		this.dataReferencia = dataReferencia;
-	}
-	public String getReferencia() {
-		return referencia;
-	}
-	public void setReferencia(String referencia) {
-		this.referencia = referencia;
-	}
-	public String getFatura() {
+	public Integer getReferencia() {
+        return referencia;
+    }
+    public void setReferencia(Integer referencia) {
+        this.referencia = referencia;
+    }
+    public String getReferenciaMesAno() {
+        return converteAnoMesParaMesAno(referencia);
+    }
+    public String getFatura() {
 		return fatura;
 	}
 	public void setFatura(String fatura) {
@@ -458,462 +475,7 @@ public class RelatorioEnergiaEletrica implements Serializable{
 		this.ultrapassagemKwh = ultrapassagemKwh;
 	}
 	
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((DemandaFaturada == null) ? 0 : DemandaFaturada.hashCode());
-		result = prime * result
-				+ ((DemandaMedida == null) ? 0 : DemandaMedida.hashCode());
-		result = prime
-				* result
-				+ ((ajusteFatorPotencia == null) ? 0 : ajusteFatorPotencia
-						.hashCode());
-		result = prime * result + ((bairro == null) ? 0 : bairro.hashCode());
-		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
-		result = prime * result
-				+ ((codGrupo == null) ? 0 : codGrupo.hashCode());
-		result = prime * result + ((codTipo == null) ? 0 : codTipo.hashCode());
-		result = prime * result
-				+ ((codigoUC == null) ? 0 : codigoUC.hashCode());
-		result = prime * result + ((consumo == null) ? 0 : consumo.hashCode());
-		result = prime * result
-				+ ((consumoKwh == null) ? 0 : consumoKwh.hashCode());
-		result = prime * result
-				+ ((consumoKwhCv == null) ? 0 : consumoKwhCv.hashCode());
-		result = prime * result
-				+ ((consumoKwhFs == null) ? 0 : consumoKwhFs.hashCode());
-		result = prime * result
-				+ ((consumoKwhFu == null) ? 0 : consumoKwhFu.hashCode());
-		result = prime * result
-				+ ((consumoKwhPs == null) ? 0 : consumoKwhPs.hashCode());
-		result = prime * result
-				+ ((consumoKwhPu == null) ? 0 : consumoKwhPu.hashCode());
-		result = prime * result
-				+ ((dataLeitura == null) ? 0 : dataLeitura.hashCode());
-		result = prime * result
-				+ ((dataReferencia == null) ? 0 : dataReferencia.hashCode());
-		result = prime * result + ((dcv == null) ? 0 : dcv.hashCode());
-		result = prime * result
-				+ ((demFatCv == null) ? 0 : demFatCv.hashCode());
-		result = prime * result
-				+ ((demFatFp == null) ? 0 : demFatFp.hashCode());
-		result = prime * result
-				+ ((demFatPt == null) ? 0 : demFatPt.hashCode());
-		result = prime * result
-				+ ((demMedCv == null) ? 0 : demMedCv.hashCode());
-		result = prime * result
-				+ ((demMedFp == null) ? 0 : demMedFp.hashCode());
-		result = prime * result
-				+ ((demMedPt == null) ? 0 : demMedPt.hashCode());
-		result = prime * result
-				+ ((demUltCv == null) ? 0 : demUltCv.hashCode());
-		result = prime * result
-				+ ((demUltFp == null) ? 0 : demUltFp.hashCode());
-		result = prime * result
-				+ ((demUltPt == null) ? 0 : demUltPt.hashCode());
-		result = prime * result + ((dfs == null) ? 0 : dfs.hashCode());
-		result = prime * result + ((dfu == null) ? 0 : dfu.hashCode());
-		result = prime * result + ((dps == null) ? 0 : dps.hashCode());
-		result = prime * result + ((dpu == null) ? 0 : dpu.hashCode());
-		result = prime * result
-				+ ((endereco == null) ? 0 : endereco.hashCode());
-		result = prime * result + ((fPotCv == null) ? 0 : fPotCv.hashCode());
-		result = prime * result + ((fPotFp == null) ? 0 : fPotFp.hashCode());
-		result = prime * result + ((fPotPt == null) ? 0 : fPotPt.hashCode());
-		result = prime * result
-				+ ((fatorCarga == null) ? 0 : fatorCarga.hashCode());
-		result = prime * result + ((fatura == null) ? 0 : fatura.hashCode());
-		result = prime * result
-				+ ((localidade == null) ? 0 : localidade.hashCode());
-		result = prime * result
-				+ ((municipio == null) ? 0 : municipio.hashCode());
-		result = prime * result + ((nomeUC == null) ? 0 : nomeUC.hashCode());
-		result = prime * result
-				+ ((referencia == null) ? 0 : referencia.hashCode());
-		result = prime * result + ((total == null) ? 0 : total.hashCode());
-		result = prime
-				* result
-				+ ((ultrapassagemKwh == null) ? 0 : ultrapassagemKwh.hashCode());
-		result = prime * result
-				+ ((ultrapassagemR$ == null) ? 0 : ultrapassagemR$.hashCode());
-		result = prime * result
-				+ ((valorDemCv == null) ? 0 : valorDemCv.hashCode());
-		result = prime * result
-				+ ((valorDemFp == null) ? 0 : valorDemFp.hashCode());
-		result = prime * result
-				+ ((valorDemPt == null) ? 0 : valorDemPt.hashCode());
-		result = prime * result
-				+ ((valorDreCv == null) ? 0 : valorDreCv.hashCode());
-		result = prime * result
-				+ ((valorDreFp == null) ? 0 : valorDreFp.hashCode());
-		result = prime * result
-				+ ((valorDrePt == null) ? 0 : valorDrePt.hashCode());
-		result = prime * result
-				+ ((valorEreCv == null) ? 0 : valorEreCv.hashCode());
-		result = prime * result
-				+ ((valorEreFp == null) ? 0 : valorEreFp.hashCode());
-		result = prime * result
-				+ ((valorErePt == null) ? 0 : valorErePt.hashCode());
-		result = prime * result
-				+ ((valorICMS == null) ? 0 : valorICMS.hashCode());
-		result = prime * result
-				+ ((valorKwhCv == null) ? 0 : valorKwhCv.hashCode());
-		result = prime * result
-				+ ((valorKwhFs == null) ? 0 : valorKwhFs.hashCode());
-		result = prime * result
-				+ ((valorKwhFu == null) ? 0 : valorKwhFu.hashCode());
-		result = prime * result
-				+ ((valorKwhPs == null) ? 0 : valorKwhPs.hashCode());
-		result = prime * result
-				+ ((valorKwhPu == null) ? 0 : valorKwhPu.hashCode());
-		result = prime * result
-				+ ((valorMultas == null) ? 0 : valorMultas.hashCode());
-		result = prime * result
-				+ ((valorTotal == null) ? 0 : valorTotal.hashCode());
-		result = prime * result
-				+ ((valorUltCv == null) ? 0 : valorUltCv.hashCode());
-		result = prime * result
-				+ ((valorUltFp == null) ? 0 : valorUltFp.hashCode());
-		result = prime * result
-				+ ((valorUltPt == null) ? 0 : valorUltPt.hashCode());
-		return result;
-	}
-	
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RelatorioEnergiaEletrica other = (RelatorioEnergiaEletrica) obj;
-		if (DemandaFaturada == null) {
-			if (other.DemandaFaturada != null)
-				return false;
-		} else if (!DemandaFaturada.equals(other.DemandaFaturada))
-			return false;
-		if (DemandaMedida == null) {
-			if (other.DemandaMedida != null)
-				return false;
-		} else if (!DemandaMedida.equals(other.DemandaMedida))
-			return false;
-		if (ajusteFatorPotencia == null) {
-			if (other.ajusteFatorPotencia != null)
-				return false;
-		} else if (!ajusteFatorPotencia.equals(other.ajusteFatorPotencia))
-			return false;
-		if (bairro == null) {
-			if (other.bairro != null)
-				return false;
-		} else if (!bairro.equals(other.bairro))
-			return false;
-		if (cep == null) {
-			if (other.cep != null)
-				return false;
-		} else if (!cep.equals(other.cep))
-			return false;
-		if (codGrupo == null) {
-			if (other.codGrupo != null)
-				return false;
-		} else if (!codGrupo.equals(other.codGrupo))
-			return false;
-		if (codTipo == null) {
-			if (other.codTipo != null)
-				return false;
-		} else if (!codTipo.equals(other.codTipo))
-			return false;
-		if (codigoUC == null) {
-			if (other.codigoUC != null)
-				return false;
-		} else if (!codigoUC.equals(other.codigoUC))
-			return false;
-		if (consumo == null) {
-			if (other.consumo != null)
-				return false;
-		} else if (!consumo.equals(other.consumo))
-			return false;
-		if (consumoKwh == null) {
-			if (other.consumoKwh != null)
-				return false;
-		} else if (!consumoKwh.equals(other.consumoKwh))
-			return false;
-		if (consumoKwhCv == null) {
-			if (other.consumoKwhCv != null)
-				return false;
-		} else if (!consumoKwhCv.equals(other.consumoKwhCv))
-			return false;
-		if (consumoKwhFs == null) {
-			if (other.consumoKwhFs != null)
-				return false;
-		} else if (!consumoKwhFs.equals(other.consumoKwhFs))
-			return false;
-		if (consumoKwhFu == null) {
-			if (other.consumoKwhFu != null)
-				return false;
-		} else if (!consumoKwhFu.equals(other.consumoKwhFu))
-			return false;
-		if (consumoKwhPs == null) {
-			if (other.consumoKwhPs != null)
-				return false;
-		} else if (!consumoKwhPs.equals(other.consumoKwhPs))
-			return false;
-		if (consumoKwhPu == null) {
-			if (other.consumoKwhPu != null)
-				return false;
-		} else if (!consumoKwhPu.equals(other.consumoKwhPu))
-			return false;
-		if (dataLeitura == null) {
-			if (other.dataLeitura != null)
-				return false;
-		} else if (!dataLeitura.equals(other.dataLeitura))
-			return false;
-		if (dataReferencia == null) {
-			if (other.dataReferencia != null)
-				return false;
-		} else if (!dataReferencia.equals(other.dataReferencia))
-			return false;
-		if (dcv == null) {
-			if (other.dcv != null)
-				return false;
-		} else if (!dcv.equals(other.dcv))
-			return false;
-		if (demFatCv == null) {
-			if (other.demFatCv != null)
-				return false;
-		} else if (!demFatCv.equals(other.demFatCv))
-			return false;
-		if (demFatFp == null) {
-			if (other.demFatFp != null)
-				return false;
-		} else if (!demFatFp.equals(other.demFatFp))
-			return false;
-		if (demFatPt == null) {
-			if (other.demFatPt != null)
-				return false;
-		} else if (!demFatPt.equals(other.demFatPt))
-			return false;
-		if (demMedCv == null) {
-			if (other.demMedCv != null)
-				return false;
-		} else if (!demMedCv.equals(other.demMedCv))
-			return false;
-		if (demMedFp == null) {
-			if (other.demMedFp != null)
-				return false;
-		} else if (!demMedFp.equals(other.demMedFp))
-			return false;
-		if (demMedPt == null) {
-			if (other.demMedPt != null)
-				return false;
-		} else if (!demMedPt.equals(other.demMedPt))
-			return false;
-		if (demUltCv == null) {
-			if (other.demUltCv != null)
-				return false;
-		} else if (!demUltCv.equals(other.demUltCv))
-			return false;
-		if (demUltFp == null) {
-			if (other.demUltFp != null)
-				return false;
-		} else if (!demUltFp.equals(other.demUltFp))
-			return false;
-		if (demUltPt == null) {
-			if (other.demUltPt != null)
-				return false;
-		} else if (!demUltPt.equals(other.demUltPt))
-			return false;
-		if (dfs == null) {
-			if (other.dfs != null)
-				return false;
-		} else if (!dfs.equals(other.dfs))
-			return false;
-		if (dfu == null) {
-			if (other.dfu != null)
-				return false;
-		} else if (!dfu.equals(other.dfu))
-			return false;
-		if (dps == null) {
-			if (other.dps != null)
-				return false;
-		} else if (!dps.equals(other.dps))
-			return false;
-		if (dpu == null) {
-			if (other.dpu != null)
-				return false;
-		} else if (!dpu.equals(other.dpu))
-			return false;
-		if (endereco == null) {
-			if (other.endereco != null)
-				return false;
-		} else if (!endereco.equals(other.endereco))
-			return false;
-		if (fPotCv == null) {
-			if (other.fPotCv != null)
-				return false;
-		} else if (!fPotCv.equals(other.fPotCv))
-			return false;
-		if (fPotFp == null) {
-			if (other.fPotFp != null)
-				return false;
-		} else if (!fPotFp.equals(other.fPotFp))
-			return false;
-		if (fPotPt == null) {
-			if (other.fPotPt != null)
-				return false;
-		} else if (!fPotPt.equals(other.fPotPt))
-			return false;
-		if (fatorCarga == null) {
-			if (other.fatorCarga != null)
-				return false;
-		} else if (!fatorCarga.equals(other.fatorCarga))
-			return false;
-		if (fatura == null) {
-			if (other.fatura != null)
-				return false;
-		} else if (!fatura.equals(other.fatura))
-			return false;
-		if (localidade == null) {
-			if (other.localidade != null)
-				return false;
-		} else if (!localidade.equals(other.localidade))
-			return false;
-		if (municipio == null) {
-			if (other.municipio != null)
-				return false;
-		} else if (!municipio.equals(other.municipio))
-			return false;
-		if (nomeUC == null) {
-			if (other.nomeUC != null)
-				return false;
-		} else if (!nomeUC.equals(other.nomeUC))
-			return false;
-		if (referencia == null) {
-			if (other.referencia != null)
-				return false;
-		} else if (!referencia.equals(other.referencia))
-			return false;
-		if (total == null) {
-			if (other.total != null)
-				return false;
-		} else if (!total.equals(other.total))
-			return false;
-		if (ultrapassagemKwh == null) {
-			if (other.ultrapassagemKwh != null)
-				return false;
-		} else if (!ultrapassagemKwh.equals(other.ultrapassagemKwh))
-			return false;
-		if (ultrapassagemR$ == null) {
-			if (other.ultrapassagemR$ != null)
-				return false;
-		} else if (!ultrapassagemR$.equals(other.ultrapassagemR$))
-			return false;
-		if (valorDemCv == null) {
-			if (other.valorDemCv != null)
-				return false;
-		} else if (!valorDemCv.equals(other.valorDemCv))
-			return false;
-		if (valorDemFp == null) {
-			if (other.valorDemFp != null)
-				return false;
-		} else if (!valorDemFp.equals(other.valorDemFp))
-			return false;
-		if (valorDemPt == null) {
-			if (other.valorDemPt != null)
-				return false;
-		} else if (!valorDemPt.equals(other.valorDemPt))
-			return false;
-		if (valorDreCv == null) {
-			if (other.valorDreCv != null)
-				return false;
-		} else if (!valorDreCv.equals(other.valorDreCv))
-			return false;
-		if (valorDreFp == null) {
-			if (other.valorDreFp != null)
-				return false;
-		} else if (!valorDreFp.equals(other.valorDreFp))
-			return false;
-		if (valorDrePt == null) {
-			if (other.valorDrePt != null)
-				return false;
-		} else if (!valorDrePt.equals(other.valorDrePt))
-			return false;
-		if (valorEreCv == null) {
-			if (other.valorEreCv != null)
-				return false;
-		} else if (!valorEreCv.equals(other.valorEreCv))
-			return false;
-		if (valorEreFp == null) {
-			if (other.valorEreFp != null)
-				return false;
-		} else if (!valorEreFp.equals(other.valorEreFp))
-			return false;
-		if (valorErePt == null) {
-			if (other.valorErePt != null)
-				return false;
-		} else if (!valorErePt.equals(other.valorErePt))
-			return false;
-		if (valorICMS == null) {
-			if (other.valorICMS != null)
-				return false;
-		} else if (!valorICMS.equals(other.valorICMS))
-			return false;
-		if (valorKwhCv == null) {
-			if (other.valorKwhCv != null)
-				return false;
-		} else if (!valorKwhCv.equals(other.valorKwhCv))
-			return false;
-		if (valorKwhFs == null) {
-			if (other.valorKwhFs != null)
-				return false;
-		} else if (!valorKwhFs.equals(other.valorKwhFs))
-			return false;
-		if (valorKwhFu == null) {
-			if (other.valorKwhFu != null)
-				return false;
-		} else if (!valorKwhFu.equals(other.valorKwhFu))
-			return false;
-		if (valorKwhPs == null) {
-			if (other.valorKwhPs != null)
-				return false;
-		} else if (!valorKwhPs.equals(other.valorKwhPs))
-			return false;
-		if (valorKwhPu == null) {
-			if (other.valorKwhPu != null)
-				return false;
-		} else if (!valorKwhPu.equals(other.valorKwhPu))
-			return false;
-		if (valorMultas == null) {
-			if (other.valorMultas != null)
-				return false;
-		} else if (!valorMultas.equals(other.valorMultas))
-			return false;
-		if (valorTotal == null) {
-			if (other.valorTotal != null)
-				return false;
-		} else if (!valorTotal.equals(other.valorTotal))
-			return false;
-		if (valorUltCv == null) {
-			if (other.valorUltCv != null)
-				return false;
-		} else if (!valorUltCv.equals(other.valorUltCv))
-			return false;
-		if (valorUltFp == null) {
-			if (other.valorUltFp != null)
-				return false;
-		} else if (!valorUltFp.equals(other.valorUltFp))
-			return false;
-		if (valorUltPt == null) {
-			if (other.valorUltPt != null)
-				return false;
-		} else if (!valorUltPt.equals(other.valorUltPt))
-			return false;
-		return true;
-	}
-	
 	public String toString() {
 		return "RelatorioEnergiaEletrica [codigoUC=" + codigoUC + ", referencia=" + referencia + "]";
 	}
-	
-	
 }

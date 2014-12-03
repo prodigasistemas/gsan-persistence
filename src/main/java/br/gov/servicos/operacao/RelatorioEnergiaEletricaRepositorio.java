@@ -1,9 +1,6 @@
 package br.gov.servicos.operacao;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -22,6 +19,7 @@ import br.gov.model.operacao.LocalidadeProxy;
 import br.gov.model.operacao.MunicipioProxy;
 import br.gov.model.operacao.RegionalProxy;
 import br.gov.model.operacao.RelatorioEnergiaEletrica;
+import br.gov.model.operacao.TipoRelatorioEnergia;
 import br.gov.model.operacao.UnidadeNegocioProxy;
 
 @Stateless
@@ -39,33 +37,96 @@ public class RelatorioEnergiaEletricaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public List<RelatorioEnergiaEletrica> getEnergiaEletricaPeriodo(Date referenciaInicial, Date referenciaFinal, Integer codigoRegional,
+	public List<RelatorioEnergiaEletrica> getEnergiaEletricaPeriodo(Integer referenciaInicial, Integer referenciaFinal, Integer codigoRegional,
 			Integer codigoUnidadeNegocio, Integer codigoMunicipio, Integer codigoLocalidade, List<String> unidadesConsumidorasSelecionadas) throws Exception {
-
-		SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-		String refIni = formataData.format(referenciaInicial);
-		String refFim = formataData.format(referenciaFinal);
 
 		StringBuilder query = new StringBuilder();
 
-		query.append("SELECT to_char(B.enel_referencia, 'MM/yyyy'), A.enld_uc, C.ucon_nmconsumidora,")
-				.append("       (A.enld_c_kwh_cv + A.enld_c_kwh_fs + A.enld_c_kwh_fu + A.enld_c_kwh_ps + A.enld_c_kwh_pu) as consumo,")
-				.append(" 	    (A.enld_vlr_DRe_Cv + A.enld_vlr_DRe_Pt + A.enld_vlr_DRe_FP + A.enld_vlr_ERe_FP + A.enld_vlr_ERe_Cv + A.enld_vlr_ERe_Pt) as totalfatorpotencia,")
-				.append("		A.enld_vlr_TotalP as valorTotal,").append(" 		(enld_Dem_Ut_Cv + enld_Dem_Ut_FP + enld_Dem_Ut_Pt) as ultrapassagem_kwh,")
-				.append(" 		(enld_vlr_Ult_Pt + enld_vlr_Ult_FP + enld_vlr_Ult_Cv) as ultrapassagem_valor").append("  FROM operacao.energiaeletrica_dados A")
-				.append(" INNER JOIN operacao.energiaeletrica B ON A.enel_id = B.enel_id")
-				.append("  LEFT JOIN operacao.unidade_consumidora C ON A.ucon_id = C.ucon_id")
-				.append(" WHERE B.enel_referencia BETWEEN '" + refIni + "' AND '" + refFim + "'");
+		query.append("SELECT new br.gov.model.operacao.RelatorioEnergiaEletrica(")
+		.append(" e.referencia, d.codigoUC, u.descricao")
+		.append(" , d.C_Kwh_Cv + d.C_Kwh_FS + d.C_Kwh_FU + d.C_Kwh_PS + d.C_Kwh_PU")
+		.append(" , d.vlr_DRe_Cv + d.vlr_DRe_Pt + d.vlr_DRe_FP + d.vlr_ERe_FP + d.vlr_ERe_Cv + d.vlr_ERe_Pt")
+		.append(" , d.vlr_Total")
+		.append(" , d.Dem_Ut_Cv + d.Dem_Ut_FP + d.Dem_Ut_Pt")
+		.append(" , d.vlr_Ult_Pt + d.vlr_Ult_FP + d.vlr_Ult_Cv")
+		.append(")")
+		.append("  FROM EnergiaEletricaDados d")
+		.append("  JOIN d.energiaEletrica e")
+		.append("  JOIN d.unidadeConsumidora u")
+		.append(" WHERE e.referencia BETWEEN " + referenciaInicial + " AND " + referenciaFinal);
 
 		if (unidadesConsumidorasSelecionadas.size() > 0) {
-			query.append(" AND C.ucon_id in ");
+			query.append(" AND u.codigo in ");
 			query.append(unidadesConsumidorasSelecionadas.toString().replace('[', '(').replace(']', ')'));
 		}
-		query.append(codigoRegional != -1 ? " AND C.greg_id = " + codigoRegional : "");
-		query.append(codigoUnidadeNegocio != -1 ? " AND C.uneg_id = " + codigoUnidadeNegocio : "");
-		query.append(codigoMunicipio != -1 ? " AND C.muni_id = " + codigoMunicipio : "");
-		query.append(codigoLocalidade != -1 ? " AND C.loca_id = " + codigoLocalidade : "");
-		query.append(" ORDER BY A.enld_uc, B.enel_referencia");
+		query.append(codigoRegional != -1 ? " AND u.regionalProxy.codigo = " + codigoRegional : "");
+		query.append(codigoUnidadeNegocio != -1 ? " AND u.unidadeNegocioProxy.codigo = " + codigoUnidadeNegocio : "");
+		query.append(codigoMunicipio != -1 ? " AND u.municipioProxy.codigo = " + codigoMunicipio : "");
+		query.append(codigoLocalidade != -1 ? " AND u.localidadeProxy.codigo = " + codigoLocalidade : "");
+		query.append(" ORDER BY d.codigoUC, e.referencia");
+
+		return entity.createQuery(query.toString(), RelatorioEnergiaEletrica.class).getResultList();
+	}
+
+	public List<RelatorioEnergiaEletrica> getEnergiaEletricaUC(Integer referencia, TipoRelatorioEnergia tipoRelatorio, Integer codigoRegional,
+			Integer codigoUnidadeNegocio, Integer codigoMunicipio, Integer codigoLocalidade) throws Exception {
+
+		StringBuilder query = new StringBuilder();
+		
+		switch(tipoRelatorio){
+		case UCS_NAO_CADASTRADAS:
+            query.append("SELECT A.enld_uc, A.enld_nome, A.enld_fatura, A.enld_vlr_TotalP, A.enld_c_kwh_cv") 
+            .append("  FROM operacao.energiaeletrica_dados A")
+            .append(" INNER JOIN operacao.energiaeletrica B ON A.enel_id = B.enel_id" + " WHERE B.enel_referencia = " + referencia)
+            .append(" AND A.enld_uc NOT IN (SELECT ucon_uc from operacao.unidade_consumidora)")
+            .append(" ORDER BY A.enld_uc");		    
+		    break;
+		case UCS_NAO_FATURADAS:
+            query.append("SELECT ucon_uc, ucon_nmconsumidora ")
+            .append(" FROM operacao.unidade_consumidora")
+            .append(" WHERE ucon_ativo = true AND ucon_uc not in (SELECT A.enld_uc ")
+            .append(" FROM operacao.energiaeletrica_dados A ")
+            .append(" INNER JOIN operacao.energiaeletrica B ON A.enel_id = B.enel_id ")
+            .append(" WHERE B.enel_referencia = " + referencia + ")")
+            .append(" ORDER BY ucon_uc");
+		    
+		    break;
+		case FATURAMENTO_MENSAL:
+            query.append("SELECT A.enld_dataleitura, A.enld_uc, A.enld_fatura, A.enld_nome,")
+            .append(" A.enld_endereco, A.enld_bairro, A.enld_cep, A.enld_codgrupo,")
+            .append(" A.enld_codtipo, A.enld_c_kwh_cv, A.enld_c_kwh_fs, A.enld_c_kwh_fu,")
+            .append(" A.enld_c_kwh_ps, A.enld_c_kwh_pu, A.enld_dcv, A.enld_dfs, A.enld_dfu,")
+            .append(" A.enld_dps, A.enld_dpu, A.enld_dem_fat_cv, A.enld_dem_fat_fp,")
+            .append(" A.enld_dem_fat_pt, A.enld_dem_med_cv, A.enld_dem_med_fp, A.enld_dem_med_pt,")
+            .append(" A.enld_dem_ut_cv, A.enld_dem_ut_fp, A.enld_dem_ut_pt, A.enld_fcarga,")
+            .append(" A.enld_fpot_fpa, A.enld_fpot_cv, A.enld_fpot_pt, A.enld_vlr_ult_fp,")
+            .append(" A.enld_vlr_ult_pt, A.enld_vlr_dem_cv, A.enld_vlr_dem_fp, A.enld_vlr_dem_pt,")
+            .append(" A.enld_vlr_ult_cv, A.enld_vlr_multas, A.enld_vlr_kwh_fs, A.enld_vlr_kwh_fu,")
+            .append(" A.enld_vlr_kwh_cv, A.enld_vlr_kwh_ps, A.enld_vlr_kwh_pu, A.enld_vlr_icms,")
+            .append(" A.enld_vlr_dre_cv, A.enld_vlr_dre_pt, A.enld_vlr_dre_fp, A.enld_vlr_ere_fp,")
+            .append(" A.enld_vlr_ere_cv, A.enld_vlr_ere_pt, A.enld_vlr_TotalP")
+            .append(" FROM operacao.energiaeletrica_dados A")
+            .append(" INNER JOIN operacao.energiaeletrica B ON A.enel_id = B.enel_id")
+            .append(" WHERE B.enel_referencia = " + referencia)
+            .append(" ORDER BY A.enld_uc");
+		    
+		    break;
+		case ANALISE_ENERGIA_ELETRICA:
+            query.append("SELECT A.enld_uc, C.ucon_nmconsumidora, A.enld_fatura, A.enld_vlr_TotalP as valorTotal,")
+            .append("       (A.enld_c_kwh_cv + A.enld_c_kwh_fs + A.enld_c_kwh_fu + A.enld_c_kwh_ps + A.enld_c_kwh_pu) as consumo,")
+            .append("       (A.enld_vlr_DRe_Cv + A.enld_vlr_DRe_Pt + A.enld_vlr_DRe_FP + A.enld_vlr_ERe_FP + A.enld_vlr_ERe_Cv + A.enld_vlr_ERe_Pt) as totalfatorpotencia")
+            .append("  FROM operacao.energiaeletrica_dados A")
+            .append(" INNER JOIN operacao.energiaeletrica B ON A.enel_id = B.enel_id")
+            .append("  LEFT JOIN operacao.unidade_consumidora C ON A.ucon_id = C.ucon_id")
+            .append(" WHERE B.enel_referencia = " + referencia)
+            .append(codigoRegional != -1 ? " AND C.greg_id = " + codigoRegional : "")
+            .append(codigoUnidadeNegocio != -1 ? " AND C.uneg_id = " + codigoUnidadeNegocio : "")
+            .append(codigoMunicipio != -1 ? " AND C.muni_id = " + codigoMunicipio : "")
+            .append(codigoLocalidade != -1 ? " AND C.loca_id = " + codigoLocalidade : "")
+            .append(" ORDER BY A.enld_uc");
+		    
+		    break;
+		}
 
 		List<List> valores = fachadaProxy.selectRegistros(query.toString());
 		List<RelatorioEnergiaEletrica> lista = new ArrayList<RelatorioEnergiaEletrica>();
@@ -74,82 +135,10 @@ public class RelatorioEnergiaEletricaRepositorio {
 			return lista;
 		}
 
-		for (List colunas : valores) {
-			RelatorioEnergiaEletrica relatorioAnalise = new RelatorioEnergiaEletrica();
-			relatorioAnalise.setReferencia(colunas.get(0).toString());
-			relatorioAnalise.setCodigoUC(Integer.parseInt(colunas.get(1).toString()));
-			if (colunas.get(2) != null) { // NOME UC
-				relatorioAnalise.setNomeUC(colunas.get(2).toString());
-			}
-			relatorioAnalise.setConsumoKwh(Double.parseDouble(colunas.get(3).toString()));
-			relatorioAnalise.setAjusteFatorPotencia(Double.parseDouble(colunas.get(4).toString()));
-			relatorioAnalise.setTotal(Double.parseDouble(colunas.get(5).toString()));
-			relatorioAnalise.setUltrapassagemKwh(Double.parseDouble(colunas.get(6).toString()));
-			relatorioAnalise.setUltrapassagemR$(Double.parseDouble(colunas.get(7).toString()));
-			lista.add(relatorioAnalise);
-		}
-		return lista;
-	}
-
-	public List<RelatorioEnergiaEletrica> getEnergiaEletricaUC(Date dataReferencia, Integer tipoRelatorio, Integer codigoRegional,
-			Integer codigoUnidadeNegocio, Integer codigoMunicipio, Integer codigoLocalidade) throws Exception {
-
-		SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-		String dataAux = formataData.format(dataReferencia);
-
-		String query = "";
-
-		if (tipoRelatorio == 0) {
-			query = "SELECT A.enld_uc, C.ucon_nmconsumidora, A.enld_fatura, A.enld_vlr_TotalP as valorTotal,"
-					+ "       (A.enld_c_kwh_cv + A.enld_c_kwh_fs + A.enld_c_kwh_fu + A.enld_c_kwh_ps + A.enld_c_kwh_pu) as consumo,"
-					+ " 	    (A.enld_vlr_DRe_Cv + A.enld_vlr_DRe_Pt + A.enld_vlr_DRe_FP + A.enld_vlr_ERe_FP + A.enld_vlr_ERe_Cv + A.enld_vlr_ERe_Pt) as totalfatorpotencia"
-					+ "  FROM operacao.energiaeletrica_dados A" + " INNER JOIN operacao.energiaeletrica B ON A.enel_id = B.enel_id"
-					+ "  LEFT JOIN operacao.unidade_consumidora C ON A.ucon_id = C.ucon_id" + " WHERE B.enel_referencia = '" + dataAux + "'";
-
-			query += (codigoRegional != -1 ? " AND C.greg_id = " + codigoRegional : "");
-			query += (codigoUnidadeNegocio != -1 ? " AND C.uneg_id = " + codigoUnidadeNegocio : "");
-			query += (codigoMunicipio != -1 ? " AND C.muni_id = " + codigoMunicipio : "");
-			query += (codigoLocalidade != -1 ? " AND C.loca_id = " + codigoLocalidade : "");
-			query += " ORDER BY A.enld_uc";
-		} else if (tipoRelatorio == 1) { // UC´s NÃO CADASTRADAS
-			query = "SELECT A.enld_uc, A.enld_nome, A.enld_fatura, A.enld_vlr_TotalP, A.enld_c_kwh_cv" + "  FROM operacao.energiaeletrica_dados A"
-					+ " INNER JOIN operacao.energiaeletrica B ON A.enel_id = B.enel_id" + " WHERE B.enel_referencia = '" + dataAux + "'"
-					+ " AND A.enld_uc NOT IN (SELECT ucon_uc from operacao.unidade_consumidora)";
-			query += " ORDER BY A.enld_uc";
-		} else if (tipoRelatorio == 2) { // UC´s NÃO FATURADAS
-			query = "SELECT ucon_uc, ucon_nmconsumidora FROM operacao.unidade_consumidora" + " WHERE ucon_ativo = true AND ucon_uc not in (SELECT A.enld_uc "
-					+ " FROM operacao.energiaeletrica_dados A " + " INNER JOIN operacao.energiaeletrica B ON A.enel_id = B.enel_id "
-					+ " WHERE B.enel_referencia = '" + dataAux + "')";
-
-			query += " ORDER BY ucon_uc";
-		} else if (tipoRelatorio == 3) {
-			query = "SELECT A.enld_dataleitura, A.enld_uc, A.enld_fatura, A.enld_nome," + " A.enld_endereco, A.enld_bairro, A.enld_cep, A.enld_codgrupo,"
-					+ " A.enld_codtipo, A.enld_c_kwh_cv, A.enld_c_kwh_fs, A.enld_c_kwh_fu,"
-					+ " A.enld_c_kwh_ps, A.enld_c_kwh_pu, A.enld_dcv, A.enld_dfs, A.enld_dfu,"
-					+ " A.enld_dps, A.enld_dpu, A.enld_dem_fat_cv, A.enld_dem_fat_fp,"
-					+ " A.enld_dem_fat_pt, A.enld_dem_med_cv, A.enld_dem_med_fp, A.enld_dem_med_pt,"
-					+ " A.enld_dem_ut_cv, A.enld_dem_ut_fp, A.enld_dem_ut_pt, A.enld_fcarga,"
-					+ " A.enld_fpot_fpa, A.enld_fpot_cv, A.enld_fpot_pt, A.enld_vlr_ult_fp,"
-					+ " A.enld_vlr_ult_pt, A.enld_vlr_dem_cv, A.enld_vlr_dem_fp, A.enld_vlr_dem_pt,"
-					+ " A.enld_vlr_ult_cv, A.enld_vlr_multas, A.enld_vlr_kwh_fs, A.enld_vlr_kwh_fu,"
-					+ " A.enld_vlr_kwh_cv, A.enld_vlr_kwh_ps, A.enld_vlr_kwh_pu, A.enld_vlr_icms,"
-					+ " A.enld_vlr_dre_cv, A.enld_vlr_dre_pt, A.enld_vlr_dre_fp, A.enld_vlr_ere_fp,"
-					+ " A.enld_vlr_ere_cv, A.enld_vlr_ere_pt, A.enld_vlr_TotalP" + " FROM operacao.energiaeletrica_dados A"
-					+ " INNER JOIN operacao.energiaeletrica B ON A.enel_id = B.enel_id" + " WHERE B.enel_referencia = '" + dataAux + "'"
-					+ " ORDER BY A.enld_uc";
-		}
-
-		List<List> valores = fachadaProxy.selectRegistros(query);
-		List<RelatorioEnergiaEletrica> lista = new ArrayList<RelatorioEnergiaEletrica>();
-
-		if (valores == null) {
-			return lista;
-		}
-
-		if (tipoRelatorio == 0) {
+		if (tipoRelatorio == TipoRelatorioEnergia.ANALISE_ENERGIA_ELETRICA) {
 			for (List colunas : valores) {
 				RelatorioEnergiaEletrica relatorioGerencial = new RelatorioEnergiaEletrica();
-				relatorioGerencial.setDataReferencia(dataReferencia);
+				relatorioGerencial.setReferencia(referencia);
 				relatorioGerencial.setCodigoUC(Integer.parseInt(colunas.get(0).toString()));
 				if (colunas.get(1) != null)
 					relatorioGerencial.setNomeUC(colunas.get(1).toString());
@@ -162,10 +151,10 @@ public class RelatorioEnergiaEletricaRepositorio {
 				relatorioGerencial.setAjusteFatorPotencia(ajusteFatorPotencia);
 				lista.add(relatorioGerencial);
 			}
-		} else if (tipoRelatorio == 1) {
+		} else if (tipoRelatorio == TipoRelatorioEnergia.UCS_NAO_CADASTRADAS) {
 			for (List colunas : valores) {
 				RelatorioEnergiaEletrica relatorioGerencial = new RelatorioEnergiaEletrica();
-				relatorioGerencial.setDataReferencia(dataReferencia);
+				relatorioGerencial.setReferencia(referencia);
 				relatorioGerencial.setCodigoUC(Integer.parseInt(colunas.get(0).toString()));
 				relatorioGerencial.setNomeUC(colunas.get(1).toString());
 				relatorioGerencial.setFatura(colunas.get(2).toString());
@@ -176,10 +165,10 @@ public class RelatorioEnergiaEletricaRepositorio {
 			}
 		}
 
-		else if (tipoRelatorio == 2) {
+		else if (tipoRelatorio == TipoRelatorioEnergia.UCS_NAO_FATURADAS) {
 			for (List colunas : valores) {
 				RelatorioEnergiaEletrica relatorioGerencial = new RelatorioEnergiaEletrica();
-				relatorioGerencial.setDataReferencia(dataReferencia);
+				relatorioGerencial.setReferencia(referencia);
 				relatorioGerencial.setCodigoUC(Integer.parseInt(colunas.get(0).toString()));
 				relatorioGerencial.setNomeUC(colunas.get(1).toString());
 				lista.add(relatorioGerencial);
@@ -189,9 +178,9 @@ public class RelatorioEnergiaEletricaRepositorio {
 		return lista;
 	}
 
-	public List<EnergiaEletricaDados> getEnergiaEletricaDados(Date dataReferencia) throws Exception {
+	public List<EnergiaEletricaDados> getEnergiaEletricaDados(Integer referencia) throws Exception {
 		List<EnergiaEletricaDados> energiaEletricaDados = new ArrayList<EnergiaEletricaDados>();
-		EnergiaEletrica energiaEletrica = fachadaEnergiaEletrica.obterEnergiaPorData(dataReferencia);
+		EnergiaEletrica energiaEletrica = fachadaEnergiaEletrica.obterEnergiaPorReferencia(referencia);
 		if (energiaEletrica != null) {
 			energiaEletricaDados = energiaEletrica.getDados();
 			energiaEletricaDados = fachadaEnergiaEletricaDados.calculaDados(energiaEletricaDados);
@@ -199,16 +188,12 @@ public class RelatorioEnergiaEletricaRepositorio {
 		return energiaEletricaDados;
 	}
 
-	public List<RelatorioEnergiaEletrica> getEnergiaEletricaAnalise(Date dataReferenciaInicial, Date dataReferenciaFinal, Integer codigoMunicipio,
+	public List<RelatorioEnergiaEletrica> getEnergiaEletricaAnalise(Integer referenciaInicial, Integer referenciaFinal, Integer codigoMunicipio,
 			Integer codigoLocalidade) throws Exception {
-		SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-		String dataAux1 = formataData.format(dataReferenciaInicial);
-		String dataAux2 = formataData.format(dataReferenciaFinal);
 		String query;
 
 		query = "SELECT "
-				+ " to_char(A.enel_referencia, 'MM/yyyy')"
-				+ " ,A.enel_referencia "
+				+ " A.enel_referencia "
 				+ " ,B.enld_uc"
 				+ " ,C.ucon_nmconsumidora"
 				+ " ,(B.enld_c_kwh_cv + B.enld_c_kwh_fs + B.enld_c_kwh_fu + B.enld_c_kwh_ps + B.enld_c_kwh_pu) as consumo"
@@ -216,9 +201,13 @@ public class RelatorioEnergiaEletricaRepositorio {
 				+ " ,(B.enld_vlr_DRe_Cv + B.enld_vlr_DRe_Pt + B.enld_vlr_DRe_FP + B.enld_vlr_ERe_FP + B.enld_vlr_ERe_Cv + B.enld_vlr_ERe_Pt) as TotalAjusteFatorPotencia"
 				+ " ,(enld_Dem_Ut_Cv + enld_Dem_Ut_FP + enld_Dem_Ut_Pt) as ultrapassagem_kwh"
 				+ " ,(enld_vlr_Ult_Pt + enld_vlr_Ult_FP + enld_vlr_Ult_Cv) as ultrapassagem_valor" + " ,B.enld_vlr_TotalP" + " ,D.muni_nmmunicipio"
-				+ " ,E.loca_nmlocalidade" + " FROM operacao.energiaeletrica A" + " INNER JOIN operacao.energiaeletrica_dados B ON B.enel_id = A.enel_id"
-				+ " INNER JOIN operacao.unidade_consumidora C ON C.ucon_uc = B.enld_uc" + " INNER JOIN cadastro.municipio D ON C.muni_id = D.muni_id"
-				+ " INNER JOIN cadastro.localidade E ON E.loca_id = C.loca_id" + " WHERE A.enel_referencia BETWEEN '" + dataAux1 + "' AND '" + dataAux2 + "'"
+				+ " ,E.loca_nmlocalidade" 
+				+ " FROM operacao.energiaeletrica A" 
+				+ " INNER JOIN operacao.energiaeletrica_dados B ON B.enel_id = A.enel_id"
+				+ " INNER JOIN operacao.unidade_consumidora C ON C.ucon_uc = B.enld_uc" 
+				+ " INNER JOIN cadastro.municipio D ON C.muni_id = D.muni_id"
+				+ " INNER JOIN cadastro.localidade E ON E.loca_id = C.loca_id" 
+				+ " WHERE A.enel_referencia BETWEEN " + referenciaInicial + " AND " + referenciaFinal
 				+ " AND D.muni_id = " + codigoMunicipio;
 
 		if (codigoLocalidade != -1) {
@@ -234,7 +223,7 @@ public class RelatorioEnergiaEletricaRepositorio {
 
 		for (List colunas : valores) {
 			RelatorioEnergiaEletrica relatorioAnalise = new RelatorioEnergiaEletrica();
-			relatorioAnalise.setReferencia(colunas.get(0).toString());
+			relatorioAnalise.setReferencia(Integer.parseInt(colunas.get(0).toString()));
 			relatorioAnalise.setCodigoUC(Integer.parseInt(colunas.get(1).toString()));
 			relatorioAnalise.setNomeUC(colunas.get(2).toString());
 			relatorioAnalise.setConsumo(Double.parseDouble(colunas.get(3).toString()));
@@ -249,11 +238,8 @@ public class RelatorioEnergiaEletricaRepositorio {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<DadosRelatorioEnergiaEletrica> analiseEnergiaEletrica(Date dataReferenciaInicial, Date dataReferenciaFinal, Integer codigoRegional,
+	public List<DadosRelatorioEnergiaEletrica> analiseEnergiaEletrica(Integer referenciaInicial, Integer referenciaFinal, Integer codigoRegional,
 			Integer codigoUnidadeNegocio, Integer codigoMunicipio, Integer codigoLocalidade) throws Exception {
-		SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-		String dataAux1 = formataData.format(dataReferenciaInicial);
-		String dataAux2 = formataData.format(dataReferenciaFinal);
 
 		StringBuilder filtro = new StringBuilder();
 		if (codigoRegional != -1)
@@ -270,43 +256,47 @@ public class RelatorioEnergiaEletricaRepositorio {
 				.append(" D.muni_id as idMunicipio, D.muni_nmmunicipio as nomeMunicipio")
 				.append(" , E.loca_id as idLocalidade, E.loca_nmlocalidade as nomeLocalidade")
 				.append(" , B.enld_uc as uc ")
-				.append(" , to_char(A.enel_referencia, 'MM/yyyy') as mes")
+				.append(" , A.enel_referencia as mes")
 				.append(" , (B.enld_c_kwh_cv + B.enld_c_kwh_fs + B.enld_c_kwh_fu + B.enld_c_kwh_ps + B.enld_c_kwh_pu) as consumo")
 				.append(" , (enld_Dem_Ut_Cv + enld_Dem_Ut_FP + enld_Dem_Ut_Pt) as ultrapassagemKwh ")
 				.append(" , (enld_vlr_Ult_Pt + enld_vlr_Ult_FP + enld_vlr_Ult_Cv) as ultrapassagemValor")
 				.append(" , (B.enld_vlr_DRe_Cv + B.enld_vlr_DRe_Pt + B.enld_vlr_DRe_FP + B.enld_vlr_ERe_FP + B.enld_vlr_ERe_Cv + B.enld_vlr_ERe_Pt) as totalFatorPotencia")
-				.append(" , B.enld_vlr_TotalP as valorTotal ").append(" FROM operacao.energiaeletrica A ")
+				.append(" , B.enld_vlr_TotalP as valorTotal ")
+				.append(" FROM operacao.energiaeletrica A ")
 				.append(" INNER JOIN operacao.energiaeletrica_dados B ON B.enel_id = A.enel_id")
 				.append(" INNER JOIN operacao.unidade_consumidora C ON C.ucon_uc = B.enld_uc ")
-				.append(" INNER JOIN cadastro.municipio D ON C.muni_id = D.muni_id ").append(" INNER JOIN cadastro.localidade E ON E.loca_id = C.loca_id ")
+				.append(" INNER JOIN cadastro.municipio D ON C.muni_id = D.muni_id ")
+				.append(" INNER JOIN cadastro.localidade E ON E.loca_id = C.loca_id ")
 				.append(" INNER JOIN cadastro.unidade_negocio F ON F.uneg_id = C.uneg_id")
 				.append(" INNER JOIN cadastro.gerencia_regional G ON G.greg_id = C.greg_id ")
-				.append(" WHERE A.enel_referencia BETWEEN '" + dataAux1 + "' AND '" + dataAux2 + "'").append(filtro)
-				.append(" order by D.muni_nmmunicipio, E.loca_nmlocalidade, B.enld_uc , to_char(A.enel_referencia, 'MM/yyyy')");
+				.append(" WHERE A.enel_referencia BETWEEN " + referenciaInicial + " AND " + referenciaFinal).append(filtro)
+				.append(" order by D.muni_nmmunicipio, E.loca_nmlocalidade, B.enld_uc , A.enel_referencia");
 
 		Query query = entity.createNativeQuery(sql.toString(), DadosRelatorioEnergiaEletrica.class);
 		return query.getResultList();
 	}
 
-	@SuppressWarnings("static-access")
-	public List<EnergiaAnalise> getRelatorioAnalise(Date dataInicial, Date dataFinal, Integer codigoRegional, Integer codigoUnidadeNegocio,
+	public List<EnergiaAnalise> getRelatorioAnalise(Integer dataInicial, Integer dataFinal, Integer codigoRegional, Integer codigoUnidadeNegocio,
 			Integer codigoMunicipio, Integer codigoLocalidade, List<String> dados) throws Exception {
-		SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-		String dataIni = formataData.format(dataInicial);
-		String dataFim = formataData.format(dataFinal);
-		String codigoDado, nomeDado = "";
-		Date dataRef;
-		Calendar ref1 = Calendar.getInstance();
-		Calendar ref2 = Calendar.getInstance();
+		
+	    String codigoDado, nomeDado = "";
 		Double valorMes;
 
-		String query = "SELECT DISTINCT " + "  G.greg_id, G.greg_nmregional" + " ,F.uneg_id, F.uneg_nmunidadenegocio" + " ,D.muni_id, D.muni_nmmunicipio"
-				+ " ,E.loca_id, E.loca_nmlocalidade" + " ,B.enld_uc" + " ,C.ucon_nmconsumidora" + " FROM operacao.energiaeletrica A"
+		String query = "SELECT DISTINCT " 
+		        + "  G.greg_id, G.greg_nmregional" 
+		        + " ,F.uneg_id, F.uneg_nmunidadenegocio" 
+		        + " ,D.muni_id, D.muni_nmmunicipio"
+				+ " ,E.loca_id, E.loca_nmlocalidade" 
+		        + " ,B.enld_uc" 
+				+ " ,C.ucon_nmconsumidora" 
+		        + " FROM operacao.energiaeletrica A"
 				+ " INNER JOIN operacao.energiaeletrica_dados B ON B.enel_id = A.enel_id"
-				+ " INNER JOIN operacao.unidade_consumidora C ON C.ucon_uc = B.enld_uc" + " INNER JOIN cadastro.municipio D ON C.muni_id = D.muni_id"
-				+ " INNER JOIN cadastro.localidade E ON E.loca_id = C.loca_id" + " INNER JOIN cadastro.unidade_negocio F ON F.uneg_id = C.uneg_id"
-				+ " INNER JOIN cadastro.gerencia_regional G ON G.greg_id = C.greg_id" + " WHERE A.enel_referencia BETWEEN '" + dataIni + "' AND '" + dataFim
-				+ "'";
+				+ " INNER JOIN operacao.unidade_consumidora C ON C.ucon_uc = B.enld_uc" 
+				+ " INNER JOIN cadastro.municipio D ON C.muni_id = D.muni_id"
+				+ " INNER JOIN cadastro.localidade E ON E.loca_id = C.loca_id" 
+				+ " INNER JOIN cadastro.unidade_negocio F ON F.uneg_id = C.uneg_id"
+				+ " INNER JOIN cadastro.gerencia_regional G ON G.greg_id = C.greg_id" 
+				+ " WHERE A.enel_referencia BETWEEN " + dataInicial + " AND " + dataFinal;
 
 		if (codigoRegional != -1)
 			query += " AND  C.greg_id = " + codigoRegional;
@@ -350,16 +340,11 @@ public class RelatorioEnergiaEletricaRepositorio {
 				energiaAnalise.setCodigoDado(Integer.parseInt(codigoDado));
 				energiaAnalise.setNomeDado(nomeDado);
 
-				ref1.setTime(dataInicial);
-				ref2.setTime(dataFinal);
-				Integer intervalo = (ref2.get(ref2.MONTH) - ref1.get(ref1.MONTH)) + 1;
-				for (Integer intI = 0; intI < intervalo; intI++) {
+				for (Integer intI = dataInicial; intI <= dataFinal; intI++) {
 					EnergiaAnaliseDados energiaAnaliseDados = new EnergiaAnaliseDados();
-					dataRef = ref1.getTime();
-					String strDataRef = formataData.format(ref1.getTime());
 
 					TypedQuery<EnergiaEletricaDados> queryAux = entity.createQuery(
-							"select c2 from EnergiaEletrica c1 inner join c1.dados c2 where c1.dataReferencia = '" + strDataRef + "' AND c2.uc = '"
+							"select c2 from EnergiaEletrica c1 inner join c1.dados c2 where c1.dataReferencia = " + intI + " AND c2.uc = '"
 									+ energiaAnalise.getCodigoUC() + "'", EnergiaEletricaDados.class);
 					EnergiaEletricaDados energiaEletricaDados = queryAux.getSingleResult();
 
@@ -370,11 +355,9 @@ public class RelatorioEnergiaEletricaRepositorio {
 					else if (codigoDado.equals("3"))
 						valorMes = energiaEletricaDados.getC_Kwh_Cv();
 					// ADICIONANDO DADOS DO MÊS
-					energiaAnaliseDados.setMesReferencia(dataRef);
+					energiaAnaliseDados.setReferencia(intI);
 					energiaAnaliseDados.setValor(valorMes);
 					meses.add(energiaAnaliseDados);
-					// INCREMENTANDO DATA
-					ref1.add(ref1.MONTH, 1);
 				}
 			}
 			energiaAnalise.setMeses(meses);

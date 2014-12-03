@@ -31,8 +31,7 @@ public class EnergiaEletrica  implements Serializable {
     private Integer codigo;
 
     @Column(name="enel_referencia", nullable=false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dataReferencia;
+    private Integer referencia;
 
     @Column(name="enel_qtduc", nullable=false) 
     private Integer qtdUC;
@@ -65,15 +64,15 @@ public class EnergiaEletrica  implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public Date getDataReferencia() {
-		return dataReferencia;
-	}
+	public Integer getReferencia() {
+        return referencia;
+    }
 
-	public void setDataReferencia(Date dataReferencia) {
-		this.dataReferencia = dataReferencia;
-	}
+    public void setReferencia(Integer referencia) {
+        this.referencia = referencia;
+    }
 
-	public Integer getQtdUC() {
+    public Integer getQtdUC() {
 		return qtdUC;
 	}
 
@@ -120,78 +119,4 @@ public class EnergiaEletrica  implements Serializable {
 	public void setUltimaAlteracao(Date ultimaAlteracao) {
 		this.ultimaAlteracao = ultimaAlteracao;
 	}
-
-	
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result + ((dados == null) ? 0 : dados.hashCode());
-		result = prime * result
-				+ ((dataReferencia == null) ? 0 : dataReferencia.hashCode());
-		result = prime * result
-				+ ((nomeArquivo == null) ? 0 : nomeArquivo.hashCode());
-		result = prime * result + ((qtdUC == null) ? 0 : qtdUC.hashCode());
-		result = prime * result
-				+ ((ultimaAlteracao == null) ? 0 : ultimaAlteracao.hashCode());
-		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
-		result = prime * result
-				+ ((valorTotal == null) ? 0 : valorTotal.hashCode());
-		return result;
-	}
-
-	
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EnergiaEletrica other = (EnergiaEletrica) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		if (dados == null) {
-			if (other.dados != null)
-				return false;
-		} else if (!dados.equals(other.dados))
-			return false;
-		if (dataReferencia == null) {
-			if (other.dataReferencia != null)
-				return false;
-		} else if (!dataReferencia.equals(other.dataReferencia))
-			return false;
-		if (nomeArquivo == null) {
-			if (other.nomeArquivo != null)
-				return false;
-		} else if (!nomeArquivo.equals(other.nomeArquivo))
-			return false;
-		if (qtdUC == null) {
-			if (other.qtdUC != null)
-				return false;
-		} else if (!qtdUC.equals(other.qtdUC))
-			return false;
-		if (ultimaAlteracao == null) {
-			if (other.ultimaAlteracao != null)
-				return false;
-		} else if (!ultimaAlteracao.equals(other.ultimaAlteracao))
-			return false;
-		if (usuario == null) {
-			if (other.usuario != null)
-				return false;
-		} else if (!usuario.equals(other.usuario))
-			return false;
-		if (valorTotal == null) {
-			if (other.valorTotal != null)
-				return false;
-		} else if (!valorTotal.equals(other.valorTotal))
-			return false;
-		return true;
-	}
-
 }
-
-
