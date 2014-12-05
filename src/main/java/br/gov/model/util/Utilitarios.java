@@ -13,6 +13,9 @@ import java.util.GregorianCalendar;
 import org.apache.commons.lang3.StringUtils;
 
 public class Utilitarios {
+    
+    public static String DIA_MES_ANO = "dd/MM/yyyy";
+    public static String MES_ANO     = "MM/yyyy";
 
 	public static String ordenarCamposConsulta(int tipoAgrupamento) {
 		
@@ -173,6 +176,11 @@ public class Utilitarios {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		return format.format(data);
 	}
+
+    public static String formataData(Date data, FormatoData formato){
+        SimpleDateFormat format = new SimpleDateFormat(formato.getFormato());
+        return format.format(data);
+    }
 
 	public static Integer extrairAno(Integer anoMes) {
 		return Integer.valueOf(String.valueOf(anoMes).substring(0,4));

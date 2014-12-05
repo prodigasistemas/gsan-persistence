@@ -3,8 +3,10 @@ package br.gov.servicos.operacao;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
+import br.gov.model.exception.EnergiaEletricaInexistente;
 import br.gov.model.operacao.EnergiaEletrica;
 import br.gov.model.util.GenericRepository;
 
@@ -44,7 +46,11 @@ public class EnergiaEletricaRepositorio extends GenericRepository<Integer, Energ
 	}
 
 	public EnergiaEletrica obterEnergiaPorReferencia(Integer referencia) throws Exception {
-		return entity.createQuery("select c1 from EnergiaEletrica c1 where referencia = " + referencia,
-                EnergiaEletrica.class).getSingleResult();
+	    try {
+	        return entity.createQuery("select c1 from EnergiaEletrica c1 where referencia = " + referencia,
+	                EnergiaEletrica.class).getSingleResult();
+        } catch (NoResultException e) {
+            throw new EnergiaEletricaInexistente();
+        }
 	}
 }

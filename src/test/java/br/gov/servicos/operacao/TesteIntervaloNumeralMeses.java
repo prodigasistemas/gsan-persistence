@@ -141,4 +141,27 @@ public class TesteIntervaloNumeralMeses {
 		
 		assertEquals(builder.toString(), meses.toString());
 	}
+	
+	@Test
+	public void testJaneiro2013Abril2013Referencia() {
+	    Calendar cal = Calendar.getInstance();
+	    cal.set(2013, 00, 01);
+	    Date dataInicial = cal.getTime();
+	    cal.set(2013, 03, 01);
+	    Date dataFinal = cal.getTime();
+	    
+	    DateUtil util = new DateUtil();
+	    StringBuilder builder = new StringBuilder();
+	    builder.append("201301");
+	    builder.append("201302");
+	    builder.append("201303");
+	    builder.append("201304");
+	    
+	    StringBuilder meses = new StringBuilder();
+	    for (Mes mes: util.mesesPeriodo(dataInicial, dataFinal)){
+	        meses.append(mes.getReferencia());
+	    }
+	    
+	    assertEquals(builder.toString(), meses.toString());
+	}
 }

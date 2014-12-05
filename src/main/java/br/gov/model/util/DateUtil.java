@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang3.time.DateUtils;
+import static br.gov.model.util.Utilitarios.formataData;
 
 import br.gov.model.operacao.Mes;
 
@@ -31,6 +32,7 @@ public class DateUtil {
 			mes.setNome(format.format(inicio));
 			mes.setNomeCurto(formatCurto.format(inicio).toUpperCase());
 			mes.setMesAno(mesAno.format(inicio));
+			mes.setReferencia(Integer.valueOf(formataData(inicio, FormatoData.ANO_MES)));
 			meses.add(mes);
 			inicio = DateUtils.addMonths(inicio, 1);
 		}

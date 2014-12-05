@@ -11,6 +11,8 @@ public class Mes {
 	private String nomeCurto;
 	
 	private String mesAno;
+	
+	private int referencia;
 
 	public int getNumeral() {
 		return numeral;
@@ -51,8 +53,16 @@ public class Mes {
 	public void setMesAno(String mesAno) {
 		this.mesAno = mesAno;
 	}
+	
+	public int getReferencia() {
+        return referencia;
+    }
 
-	public String toString() {
+    public void setReferencia(int referencia) {
+        this.referencia = referencia;
+    }
+
+    public String toString() {
 		return "Mes [numeral=" + numeral + ", nome=" + nome + ", nomeCurto=" + nomeCurto + "]";
 	}
 }
