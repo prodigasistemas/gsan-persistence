@@ -29,10 +29,6 @@ public class ProcessoIniciado implements Serializable{
 	@Column(name="proi_idprecedente")
 	private Integer processoPrecedente;
 	
-	@ManyToOne
-	@JoinColumn(name="proc_id")
-	private Processo processo;
-	
 	@Column(name="proi_tmagendamento")
 	private Date agendamento;
 	
@@ -58,6 +54,10 @@ public class ProcessoIniciado implements Serializable{
 	@Column(name="proi_execution_id")
 	private Long executionId;
 	
+    @ManyToOne
+    @JoinColumn(name="proc_id")
+    private Processo processo;
+    
 	public ProcessoIniciado(){}
 	
 	public boolean emProcessamento() {

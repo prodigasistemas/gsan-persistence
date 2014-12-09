@@ -28,14 +28,6 @@ public class ContaImpostosDeduzidos implements Serializable{
 	@Column(name="cnid_id")
 	private Integer id;
 	
-	@ManyToOne
-	@JoinColumn(name="cnta_id")
-	private Conta conta;
-	
-	@ManyToOne
-	@JoinColumn(name="imtp_id")
-	private ImpostoTipo impostoTipo;
-	
 	@Column(name="cnid_vlbasecalculo")
 	private BigDecimal valorBaseCalculo;
 	
@@ -49,6 +41,14 @@ public class ContaImpostosDeduzidos implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)	
     private Date ultimaAlteracao;
 	
+    @ManyToOne
+    @JoinColumn(name="cnta_id")
+    private Conta conta;
+    
+    @ManyToOne
+    @JoinColumn(name="imtp_id")
+    private ImpostoTipo impostoTipo;
+    
 	public ContaImpostosDeduzidos() {
 	}
 

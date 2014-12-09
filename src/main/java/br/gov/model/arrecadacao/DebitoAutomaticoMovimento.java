@@ -30,10 +30,6 @@ public class DebitoAutomaticoMovimento implements Serializable{
 	@Column(name="damv_id")
 	private Integer id;
 	
-	@ManyToOne
-	@JoinColumn(name="cnta_id")
-	private ContaGeral contaGeral;
-	
 	@Column(name="damv_dtvencimento")
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
@@ -60,6 +56,10 @@ public class DebitoAutomaticoMovimento implements Serializable{
 	@Column(name="damv_nnnsaretorno")
 	private Integer numeroSequenciaArquivoRecebido;
 	
+    @ManyToOne
+    @JoinColumn(name="cnta_id")
+    private ContaGeral contaGeral;
+    
 	@ManyToOne
 	@JoinColumn(name="ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;

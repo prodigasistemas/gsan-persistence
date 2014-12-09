@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import br.gov.model.faturamento.ContaGeral;
 
 @Entity
-@Table(schema="cobranca", name="cobranca_documento_item")
+@Table(name="cobranca_documento_item", schema="cobranca")
 public class CobrancaDocumentoItem implements Serializable{
 	private static final long serialVersionUID = 4541950654721514963L;
 	

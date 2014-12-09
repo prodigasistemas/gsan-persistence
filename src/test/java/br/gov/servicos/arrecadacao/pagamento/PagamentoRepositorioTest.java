@@ -8,35 +8,24 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.persistence.Cleanup;
-import org.jboss.arquillian.persistence.CleanupStrategy;
 import org.jboss.arquillian.persistence.ShouldMatchDataSet;
-import org.jboss.arquillian.persistence.TestExecutionPhase;
 import org.jboss.arquillian.persistence.UsingDataSet;
-import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import br.gov.model.faturamento.DebitoCobrar;
-import br.gov.servicos.test.ShrinkWrapBuilder;
+import br.gov.persistence.util.SingleDeployment;
 
 @RunWith(Arquillian.class)
-public class PagamentoRepositorioTest {
+public class PagamentoRepositorioTest extends SingleDeployment{
 
-	@Deployment
-    public static Archive<?> deploy() {
-		return ShrinkWrapBuilder.createDeployment();
-    }
-	
 	@Inject
 	private PagamentoRepositorio repositorio;
 	
 	@Test
 	@UsingDataSet({"pagamento.yml"})
 	@ShouldMatchDataSet("pagamento_expected.yml")
-	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void apagarPagamentos(){
 		List<Integer> ids = new ArrayList<Integer>();
 		ids.add(1);
@@ -47,7 +36,6 @@ public class PagamentoRepositorioTest {
 	
 	@Test
 	@UsingDataSet("pagamento_debito_cobrar.yml")
-	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void naoExisteDebitoSemPagamento(){
 		Collection<DebitoCobrar> debitos = new ArrayList<DebitoCobrar>();
 		DebitoCobrar debito = new DebitoCobrar();
@@ -62,7 +50,6 @@ public class PagamentoRepositorioTest {
 	
 	@Test
 	@UsingDataSet("pagamento_debito_cobrar.yml")
-	@Cleanup(phase = TestExecutionPhase.AFTER, strategy = CleanupStrategy.USED_ROWS_ONLY)
 	public void existeDebitoSemPagamento(){
 		Collection<DebitoCobrar> debitos = new ArrayList<DebitoCobrar>();
 		DebitoCobrar debito = new DebitoCobrar();

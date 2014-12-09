@@ -26,14 +26,6 @@ public class CreditoRealizarCategoria {
 	})	
 	private CreditoRealizarCategoriaPK pk;
 	
-	@ManyToOne
-	@JoinColumn(name="crar_id", insertable = false, updatable = false)
-	private CreditoRealizar creditoRealizar;
-	
-	@ManyToOne
-	@JoinColumn(name="catg_id", insertable = false, updatable = false)
-	private Categoria categoria;
-	
 	@Column(name="cacg_qteconomia")
 	private Integer quantidadeEconomia;
 	
@@ -43,6 +35,14 @@ public class CreditoRealizarCategoria {
 	@Column(name="cacg_tmultimaalteracao")
 	private Date ultimaAlteracao;
 
+    @ManyToOne
+    @JoinColumn(name="crar_id", insertable = false, updatable = false)
+    private CreditoRealizar creditoRealizar;
+    
+    @ManyToOne
+    @JoinColumn(name="catg_id", insertable = false, updatable = false)
+    private Categoria categoria;
+    
 	public CreditoRealizarCategoria(){}
 	
 	public CreditoRealizarCategoria(Integer creditorealizarId, Integer categoriaId){

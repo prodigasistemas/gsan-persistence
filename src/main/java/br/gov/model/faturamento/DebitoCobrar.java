@@ -27,10 +27,6 @@ public class DebitoCobrar implements IDebito{
 	@Column(name="dbac_id")
 	private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name="dbtp_id")
-	private DebitoTipo debitoTipo;
-	
 	@Column(name="dbac_vldebito")
 	private BigDecimal valorDebito;
 	
@@ -101,6 +97,10 @@ public class DebitoCobrar implements IDebito{
 	@JoinColumn(name="qdra_id")
 	private Quadra quadra;
 
+    @ManyToOne
+    @JoinColumn(name="dbtp_id")
+    private DebitoTipo debitoTipo;
+    
 	public DebitoCobrar(){}
 
 	public Integer getId() {
