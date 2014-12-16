@@ -37,41 +37,25 @@ public class UnidadeConsumidora implements BaseEntidade, Serializable{
     @Column(name="ucon_uc", nullable=false, precision=12, scale=0)
 	private Integer uc;
 
-	@ManyToOne
-	@JoinColumn(name="greg_id")
-	private RegionalProxy regionalProxy = new RegionalProxy();
-    
-	@ManyToOne
-	@JoinColumn(name="uneg_id", nullable=false)
-	private UnidadeNegocioProxy unidadeNegocioProxy = new UnidadeNegocioProxy();
-	
-	@ManyToOne
-	@JoinColumn(name="muni_id", nullable=false)
-	private MunicipioProxy municipioProxy = new MunicipioProxy();
-	  
-	@ManyToOne
-	@JoinColumn(name="loca_id", nullable=false)
-	private LocalidadeProxy localidadeProxy = new LocalidadeProxy();
-
-	@Column(name="ucon_undoperacional", nullable=false, length=100)
+	@Column(name="ucon_undoperacional", length=100)
 	private String unidadeOperacional;
 
-	@Column(name="ucon_natureza", nullable=false, length=100)
+	@Column(name="ucon_natureza", length=100)
 	private String naturezaAtividade;
 	
-	@Column(name="ucon_endereco", nullable=false, length=100)
+	@Column(name="ucon_endereco", length=100)
 	private String endereco;
 
-	@Column(name="ucon_endereconumero", nullable=false, length=10)
+	@Column(name="ucon_endereconumero", length=10)
 	private String numero;
 
-	@Column(name="ucon_enderecocomplemento", nullable=false, length=100)
+	@Column(name="ucon_enderecocomplemento", length=100)
 	private String complemento;
 	
-	@Column(name="ucon_bairro", nullable=false, length=50)
+	@Column(name="ucon_bairro", length=50)
 	private String bairro;
 
-	@Column(name="ucon_cep", nullable=false, length=9)
+	@Column(name="ucon_cep", length=9)
 	private String cep;	
 	
 	@Column(name="ucon_ativo")
@@ -90,16 +74,35 @@ public class UnidadeConsumidora implements BaseEntidade, Serializable{
 	@Column(name="ucon_alimentador")
 	private String alimentador;	
 	                                         
-    @OneToMany(mappedBy="UC", fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<UnidadeConsumidoraOperacional> operacional = new ArrayList<UnidadeConsumidoraOperacional>(); 
-	
-    @Column(name="usur_id", nullable=false)
+    @Column(name="usur_id")
     private Integer usuario;
     
-    @Column(name="ucon_tmultimaalteracao", nullable=false, insertable=false)
+    @Column(name="ucon_tmultimaalteracao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ultimaAlteracao;
-
+    
+    @OneToMany(mappedBy="UC", fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
+    private List<UnidadeConsumidoraOperacional> operacional = new ArrayList<UnidadeConsumidoraOperacional>(); 
+    
+    @ManyToOne
+    @JoinColumn(name="greg_id")
+    private RegionalProxy regionalProxy = new RegionalProxy();
+    
+    @ManyToOne
+    @JoinColumn(name="uneg_id")
+    private UnidadeNegocioProxy unidadeNegocioProxy = new UnidadeNegocioProxy();
+    
+    @ManyToOne
+    @JoinColumn(name="muni_id")
+    private MunicipioProxy municipioProxy = new MunicipioProxy();
+      
+    @ManyToOne
+    @JoinColumn(name="loca_id")
+    private LocalidadeProxy localidadeProxy = new LocalidadeProxy();
+    
+    @OneToMany(mappedBy="unidadeConsumidora")
+    private List<ContratoEnergia> contratos;
+    
 	public Integer getCodigo() {
 		return codigo;
 	}
@@ -275,9 +278,16 @@ public class UnidadeConsumidora implements BaseEntidade, Serializable{
 	public void setUltimaAlteracao(Date ultimaAlteracao) {
 		this.ultimaAlteracao = ultimaAlteracao;
 	}
-
 	
-	public int hashCode() {
+	public List<ContratoEnergia> getContratos() {
+        return contratos;
+    }
+
+    public void setContratos(List<ContratoEnergia> contratos) {
+        this.contratos = contratos;
+    }
+
+    public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result

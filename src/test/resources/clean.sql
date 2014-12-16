@@ -1,3 +1,6 @@
+delete from operacao.contrato_energia;
+delete from operacao.unidade_consumidora;
+
 delete from faturamento.cred_realizado_catg;
 delete from faturamento.cred_a_realiz_catg;
 delete from arrecadacao.devolucao;

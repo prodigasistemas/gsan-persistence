@@ -68,8 +68,7 @@ public class RelatorioEnergiaEletricaRepositorio {
 		return entity.createQuery(query.toString(), RelatorioEnergiaEletrica.class).getResultList();
 	}
 
-	public List<RelatorioEnergiaEletrica> getEnergiaEletricaUC(Integer referencia, TipoRelatorioEnergia tipoRelatorio, Integer codigoRegional,
-			Integer codigoUnidadeNegocio, Integer codigoMunicipio, Integer codigoLocalidade) throws Exception {
+	public List<RelatorioEnergiaEletrica> getEnergiaEletricaUC(Integer referencia, TipoRelatorioEnergia tipoRelatorio) throws Exception {
 
 		StringBuilder query = new StringBuilder();
 		

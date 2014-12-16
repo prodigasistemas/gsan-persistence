@@ -1,11 +1,14 @@
 package br.gov.servicos.operacao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -14,6 +17,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import br.gov.model.exception.MaisDeUmaUCCadastradaComCodigo;
 import br.gov.model.operacao.EEAB;
 import br.gov.model.operacao.EEAT;
 import br.gov.model.operacao.ETA;
@@ -27,6 +31,7 @@ import br.gov.model.operacao.UnidadeConsumidoraOperacional;
 import br.gov.model.operacao.UnidadeNegocioProxy;
 import br.gov.model.operacao.UsuarioProxy;
 import br.gov.model.util.GenericRepository;
+import br.gov.servicos.operacao.to.ContratoUnidadeConsumidoraTO;
 
 @Stateless
 public class UnidadeConsumidoraRepositorio extends GenericRepository<Integer, UnidadeConsumidora>{
@@ -127,14 +132,35 @@ public class UnidadeConsumidoraRepositorio extends GenericRepository<Integer, Un
 	}
 
 	public UnidadeConsumidora obterUnidadeConsumidoraUC(Integer codigoUC) throws Exception {
-		try {
-			TypedQuery<UnidadeConsumidora> query = entity.createQuery("select c1 from UnidadeConsumidora c1 where c1.uc = " + codigoUC,
-					UnidadeConsumidora.class);
-			UnidadeConsumidora uc = query.getSingleResult();
-			return uc;
-		} catch (Exception e) {
-			return (null);
-		}
+	    try {
+	        return entity.createQuery("select c from UnidadeConsumidora c where c.uc = :codigo", UnidadeConsumidora.class)
+	                .setParameter("codigo", codigoUC)
+	                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+	    catch (NonUniqueResultException e) {
+	        throw new MaisDeUmaUCCadastradaComCodigo(codigoUC);
+        }
+	}
+	
+	public List<ContratoUnidadeConsumidoraTO> unidadesConsumidorasSemVigenciaContratual(Date vigencia) throws Exception {
+	    StringBuilder sql = new StringBuilder();
+	    sql.append("select new br.gov.servicos.operacao.to.ContratoUnidadeConsumidoraTO(u.uc, max(c.dataFinal)) from UnidadeConsumidora u")
+	    .append(" left join u.contratos c")
+	    .append(" group by u.uc");
+	    
+	    List<ContratoUnidadeConsumidoraTO> ucs = entity.createQuery(sql.toString(), ContratoUnidadeConsumidoraTO.class)
+                .getResultList();
+	    
+	    List<ContratoUnidadeConsumidoraTO> retorno = new ArrayList<ContratoUnidadeConsumidoraTO>();
+	   
+	    for (ContratoUnidadeConsumidoraTO item : ucs) {
+            if (item.getDataFimContrato() == null || item.getDataFimContrato().before(vigencia)){
+                retorno.add(item);
+            }
+        }
+	    return retorno;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -554,12 +580,16 @@ public class UnidadeConsumidoraRepositorio extends GenericRepository<Integer, Un
 	public List<UnidadeConsumidora> unidadesConsumidoras(Integer codigoRegional, Integer codigoUnidadeNegocio, Integer codigoMunicipio, Integer codigoLocalidade)
 			throws Exception {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select uc from UnidadeConsumidora uc").append(" where uc.regionalProxy.codigo = :codigoRegional")
-				.append(" and uc.unidadeNegocioProxy.codigo = :codigoUnidadeNegocio").append(" and uc.municipioProxy.codigo = :codigoMunicipio")
-				.append(" and uc.localidadeProxy.codigo = :codigoLocalidade");
+		sql.append("select uc from UnidadeConsumidora uc")
+		    .append(" where uc.regionalProxy.codigo = :codigoRegional")
+			.append(" and uc.unidadeNegocioProxy.codigo = :codigoUnidadeNegocio")
+			.append(" and uc.municipioProxy.codigo = :codigoMunicipio")
+			.append(" and uc.localidadeProxy.codigo = :codigoLocalidade");
 
-		TypedQuery<UnidadeConsumidora> query = entity.createQuery(sql.toString(), UnidadeConsumidora.class).setParameter("codigoRegional", codigoRegional)
-				.setParameter("codigoUnidadeNegocio", codigoUnidadeNegocio).setParameter("codigoMunicipio", codigoMunicipio)
+		TypedQuery<UnidadeConsumidora> query = entity.createQuery(sql.toString(), UnidadeConsumidora.class)
+		        .setParameter("codigoRegional", codigoRegional)
+				.setParameter("codigoUnidadeNegocio", codigoUnidadeNegocio)
+				.setParameter("codigoMunicipio", codigoMunicipio)
 				.setParameter("codigoLocalidade", codigoLocalidade);
 
 		return query.getResultList();

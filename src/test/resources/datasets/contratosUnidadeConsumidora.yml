@@ -1,0 +1,48 @@
+operacao.unidade_consumidora:
+  - ucon_id: 1
+    ucon_uc: 1111
+    ucon_nmconsumidora: UNIDADE A
+  - ucon_id: 2
+    ucon_uc: 2222
+    ucon_nmconsumidora: UNIDADE B
+  - ucon_id: 3
+    ucon_uc: 3333
+    ucon_nmconsumidora: UNIDADE C
+  - ucon_id: 4
+    ucon_uc: 4444
+    ucon_nmconsumidora: UNIDADE D
+  - ucon_id: 5
+    ucon_uc: 5555
+    ucon_nmconsumidora: UNIDADE E
+
+operacao.contrato_energia:
+  - cene_id: 1
+    cene_nmcontrato: 200010
+    ucon_id: 1
+    cene_tmultimaalteracao: 2014-12-12
+    usur_id: 7
+    cene_datafim: 2015-01-02
+  - cene_id: 2
+    cene_nmcontrato: 200020
+    ucon_id: 2
+    cene_tmultimaalteracao: 2014-12-12
+    usur_id: 7
+    cene_datafim: 2014-12-10
+  - cene_id: 3
+    cene_nmcontrato: 200030
+    ucon_id: 3
+    cene_tmultimaalteracao: 2014-12-12
+    usur_id: 7
+    cene_datafim: 2015-08-08
+  - cene_id: 4
+    cene_nmcontrato: 200040
+    ucon_id: 4
+    cene_tmultimaalteracao: 2014-12-12
+    usur_id: 7
+    cene_datafim: 2012-08-08
+  - cene_id: 5
+    cene_nmcontrato: 200010B
+    ucon_id: 1
+    cene_tmultimaalteracao: 2014-12-12
+    usur_id: 7
+    cene_datafim: 2014-11-10

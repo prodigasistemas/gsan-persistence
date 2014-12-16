@@ -4,7 +4,8 @@ public enum TipoRelatorioEnergia {
     UCS_NAO_CADASTRADAS      (0, "ucs_nao_cadastradas"), 
     UCS_NAO_FATURADAS        (1, "ucs_nao_faturadas"),
     FATURAMENTO_MENSAL       (2, "faturamento_mensal"),
-    ANALISE_ENERGIA_ELETRICA (3, "analise_energia_eletrica");
+    ANALISE_ENERGIA_ELETRICA (3, "analise_energia_eletrica"),
+    UCS_SEM_CONTRATO         (4, "ucs_sem_contrato");
     
     private int id;
     

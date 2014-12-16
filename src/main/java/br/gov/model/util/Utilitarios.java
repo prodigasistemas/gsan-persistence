@@ -179,7 +179,7 @@ public class Utilitarios {
 
     public static String formataData(Date data, FormatoData formato){
         SimpleDateFormat format = new SimpleDateFormat(formato.getFormato());
-        return format.format(data);
+        return data != null ? format.format(data) : "";
     }
 
 	public static Integer extrairAno(Integer anoMes) {

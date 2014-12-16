@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -39,15 +40,19 @@ public class ContratoEnergiaRepositorio extends GenericRepository<Integer, Contr
 	}
 
 	public ContratoEnergia obterContratoVigente(Integer codigoUC) throws Exception {
-		try {
-			TypedQuery<ContratoEnergia> query = entity.createQuery(
-					"select c1 from ContratoEnergia c1 where ucon_id = " + codigoUC + " order by c1.dataInicial", ContratoEnergia.class);
-			query.setMaxResults(1);
-			ContratoEnergia contratoEnergia = query.getSingleResult();
-			return contratoEnergia;
-		} catch (Exception e) {
-			return null;
-		}
+	    StringBuilder sql = new StringBuilder();
+	    sql.append("select c from ContratoEnergia c ")
+	    .append(" where ucon_id = :codigo")
+	    .append(" order by c.dataInicial");
+	    
+	    try {
+	        return entity.createQuery(sql.toString(), ContratoEnergia.class)
+	                .setMaxResults(1)
+	                .setParameter("codigo", codigoUC)
+	                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
 	}
 
 	public List<ContratoEnergia> obterListaLazy(int startingAt, int maxPerPage, Map<String, Object> filters) throws Exception {

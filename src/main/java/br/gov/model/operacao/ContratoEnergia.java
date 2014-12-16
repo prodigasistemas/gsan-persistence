@@ -102,7 +102,7 @@ public class ContratoEnergia implements Serializable{
     @Column(name="usur_id", nullable=false)
     private Integer usuario;
     
-    @Column(name="cene_tmultimaalteracao", nullable=false, insertable=false)
+    @Column(name="cene_tmultimaalteracao", nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date ultimaAlteracao;
 
