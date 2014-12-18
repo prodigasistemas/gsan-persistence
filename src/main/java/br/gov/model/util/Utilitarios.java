@@ -80,7 +80,7 @@ public class Utilitarios {
 		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
 		symbols.setDecimalSeparator('.');
 		
-		NumberFormat formato = new DecimalFormat("###.00", symbols);
+		NumberFormat formato = new DecimalFormat("##0.00", symbols);
 		formato.setMaximumFractionDigits(2);
 		formato.setMinimumFractionDigits(2);
 		formato.setGroupingUsed(false);
@@ -170,6 +170,17 @@ public class Utilitarios {
 	    cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
 	    
 	    return cal.getTime();
+	}
+	
+	public static int qtdDiasMes(Integer anoMesNumerico) {
+	    String anoMes = String.valueOf(anoMesNumerico);
+	    int ano = Integer.parseInt(anoMes.substring(0, 4));
+	    int mes = Integer.parseInt(anoMes.substring(4, 6));
+	    Calendar cal = GregorianCalendar.getInstance();
+	    cal.set(Calendar.YEAR, ano);
+	    cal.set(Calendar.MONTH, (mes - 1));
+	    
+	    return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
 	
 	public static String formataData(Date data){

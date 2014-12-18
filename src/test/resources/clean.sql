@@ -1,3 +1,4 @@
+delete from operacao.unidade_consumidora_operacional;
 delete from operacao.contrato_energia;
 delete from operacao.unidade_consumidora;
 
@@ -12,6 +13,11 @@ delete from faturamento.debito_cobrado;
 delete from faturamento.debito_a_cobrar;
 delete from faturamento.debito_a_cobrar_geral;
 
+delete from operacao.hora_cmb;
+delete from operacao.hora;
+delete from operacao.eeab;
+delete from operacao.eeat;
+delete from operacao.eta;
 
 delete from faturamento.guia_pagamento;
 delete from faturamento.mov_conta_prefaturada;
@@ -85,6 +91,7 @@ delete from cadastro.esfera_poder;
 delete from cadastro.empresa;
 delete from cadastro.imovel_perfil;
 delete from cadastro.setor_comercial;
+delete from cadastro.unidade_negocio;
 delete from cadastro.gerencia_regional;
 delete from cadastro.categoria;
 delete from cadastro.sistema_parametros;

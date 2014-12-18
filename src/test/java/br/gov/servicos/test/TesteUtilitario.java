@@ -111,4 +111,24 @@ public class TesteUtilitario {
 	public void testRetirarCaracteresEspeciais(){
 	    assertEquals("cCAaEEeOo-ABCDEF_", retiraCaracteresEspeciais("çCÁáÉÊéÓo-ABCDEF_"));
 	}
+	
+	@Test
+	public void quantidadeDiasFevereiro(){
+	    assertEquals(28, qtdDiasMes(201402));
+	}
+	
+	@Test
+	public void quantidadeDiasFevereiroBisexto(){
+	    assertEquals(29, qtdDiasMes(201602));
+	}
+	
+	@Test
+	public void quantidadeDiasMarco(){
+	    assertEquals(31, qtdDiasMes(201403));
+	}
+	
+	@Test
+	public void quantidadeDiasAbril(){
+	    assertEquals(30, qtdDiasMes(201404));
+	}
 }

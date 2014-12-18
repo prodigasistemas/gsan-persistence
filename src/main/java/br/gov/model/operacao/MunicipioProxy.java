@@ -35,7 +35,7 @@ public class MunicipioProxy implements Serializable {
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
-	public String getNome() throws Exception {
+	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {

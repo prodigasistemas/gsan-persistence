@@ -12,4 +12,13 @@ public enum TipoUnidadeOperacional {
 	public int getId(){
 		return id;
 	}
+	
+	public static TipoUnidadeOperacional findById(int id){
+	    for (TipoUnidadeOperacional tipo : TipoUnidadeOperacional.values()){
+	        if (tipo.id == id)
+	            return tipo;
+	    }
+	    
+	    return null;
+	}
 }

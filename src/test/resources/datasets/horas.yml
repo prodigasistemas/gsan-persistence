@@ -1,0 +1,92 @@
+cadastro.gerencia_regional:
+  - greg_id: 1
+
+cadastro.unidade_negocio:
+  - uneg_id: 1
+
+cadastro.municipio:
+  - muni_id: 1
+
+cadastro.localidade:
+  - loca_id: 1
+  - loca_id: 2
+
+operacao.unidade_consumidora:
+  - ucon_id: 1
+    ucon_nmconsumidora: Uma estacao
+    ucon_uc: 987654
+    greg_id: 1
+    uneg_id: 1
+    muni_id: 1
+    loca_id: 1
+  - ucon_id: 2
+    ucon_nmconsumidora: Estacao B
+    ucon_uc: 987658
+    greg_id: 1
+    uneg_id: 1
+    muni_id: 1
+    loca_id: 2
+
+operacao.eeab:
+  - eeab_id: 1
+    eeab_nome: Bolonha
+    eeab_tmultimaalteracao: 2014-10-10
+    usur_id: 1234
+  - eeab_id: 2
+    eeab_nome: Sao Braz
+    eeab_tmultimaalteracao: 2014-10-10
+    usur_id: 1234
+
+operacao.eeat:
+  - eeat_id: 1
+    eeat_nome: EAT Bolonha
+    eeat_tmultimaalteracao: 2014-10-10
+    usur_id: 1234
+    eeat_tipo: 1
+
+operacao.eta:
+  - eta_id: 1
+    eta_nome: ETA Bolonha
+    eta_tmultimaalteracao: 2014-10-10
+    usur_id: 1234
+
+operacao.unidade_consumidora_operacional:
+  - ucop_id: 1
+    ucop_tipooperacional: 1
+    ucop_idoperacional: 1
+    ucon_id: 1
+  - ucop_id: 2
+    ucop_tipooperacional: 1
+    ucop_idoperacional: 2
+    ucon_id: 2
+
+operacao.hora:
+  - hora_id: 1
+    hora_ano_mes_referencia: 201402
+    hora_tipo_unidade: 1
+    hora_id_unidade: 1
+    hora_parada_energia: 40
+    hora_tmultimaalteracao: 2014-10-10
+    usur_id: 1234
+  - hora_id: 2
+    hora_ano_mes_referencia: 201403
+    hora_tipo_unidade: 1
+    hora_id_unidade: 1
+    hora_tmultimaalteracao: 2014-10-10
+    usur_id: 1234
+    hora_parada_energia: 50
+    hora_parada_manutencao: 20
+    hora_parada_controle: 20
+  - hora_id: 3
+    hora_ano_mes_referencia: 201403
+    hora_tipo_unidade: 1
+    hora_id_unidade: 2
+    hora_tmultimaalteracao: 2014-10-10
+    usur_id: 1234
+    hora_parada_energia: 150
+
+operacao.hora_cmb:
+  - hcmb_id: 1
+    hora_id: 2
+    hcmb_qtd: 1
+    hcmb_medicao: 500
