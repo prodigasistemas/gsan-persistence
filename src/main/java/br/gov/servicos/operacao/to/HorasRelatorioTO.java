@@ -7,7 +7,7 @@ import br.gov.model.operacao.TipoUnidadeOperacional;
 
 import static br.gov.model.util.Utilitarios.formatarBigDecimalComPonto;
 
-public class HorasRelatorioTO implements Serializable{
+public class HorasRelatorioTO implements Serializable, ConverteParaRelatorio{
 	private static final long serialVersionUID = -2619735608273425353L;
 	
 	private Integer referencia;

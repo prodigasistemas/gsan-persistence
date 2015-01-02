@@ -1,19 +1,98 @@
+cadastro.municipio:
+  - muni_id: 1
+    muni_nmmunicipio: BELEM
+
+operacao.eeab:
+  - eeab_id: 1
+    eeab_nome: EAB - BELEM
+    usur_id: 200
+    eeab_tmultimaalteracao: 2015-01-02
+  - eeab_id: 2
+    eeab_nome: EAB - NORTE
+    usur_id: 200
+    eeab_tmultimaalteracao: 2015-01-02
+  - eeab_id: 3
+    eeab_nome: EAB - SUL
+    usur_id: 200
+    eeab_tmultimaalteracao: 2015-01-02
+  - eeab_id: 4
+    eeab_nome: EAB - LESTE
+    usur_id: 200
+    eeab_tmultimaalteracao: 2015-01-02
+
+operacao.eeat:
+  - eeat_id: 1
+    eeat_nome: EAT - BELEM
+    usur_id: 200
+    eeat_tipo: 1
+    eeat_tmultimaalteracao: 2015-01-02
+  - eeat_id: 2
+    eeat_nome: EAT - NORTE
+    usur_id: 200
+    eeat_tipo: 1
+    eeat_tmultimaalteracao: 2015-01-02
+
 operacao.unidade_consumidora:
   - ucon_id: 1
-    ucon_uc: 1111
+    ucon_uc: 100
     ucon_nmconsumidora: UNIDADE A
+    muni_id: 1
+    ucon_ativo: true
   - ucon_id: 2
-    ucon_uc: 2222
+    ucon_uc: 200
     ucon_nmconsumidora: UNIDADE B
+    muni_id: 1
+    ucon_ativo: true
   - ucon_id: 3
-    ucon_uc: 3333
+    ucon_uc: 300
     ucon_nmconsumidora: UNIDADE C
+    muni_id: 1
+    ucon_ativo: true
   - ucon_id: 4
-    ucon_uc: 4444
+    ucon_uc: 400
     ucon_nmconsumidora: UNIDADE D
+    muni_id: 1
+    ucon_ativo: true
   - ucon_id: 5
-    ucon_uc: 5555
+    ucon_uc: 500
     ucon_nmconsumidora: UNIDADE E
+    muni_id: 1
+    ucon_ativo: true
+  - ucon_id: 6
+    ucon_uc: 600
+    ucon_nmconsumidora: UNIDADE F
+    muni_id: 1
+    ucon_ativo: true
+  - ucon_id: 7
+    ucon_uc: 700
+    ucon_nmconsumidora: UNIDADE G
+    ucon_ativo: false
+
+operacao.unidade_consumidora_operacional:
+  - ucop_id: 1
+    ucon_id: 1
+    ucop_tipooperacional: 1
+    ucop_idoperacional: 1
+  - ucop_id: 2
+    ucon_id: 1
+    ucop_tipooperacional: 1
+    ucop_idoperacional: 2
+  - ucop_id: 3
+    ucon_id: 2
+    ucop_tipooperacional: 1
+    ucop_idoperacional: 3
+  - ucop_id: 4
+    ucon_id: 3
+    ucop_tipooperacional: 3
+    ucop_idoperacional: 1
+  - ucop_id: 5
+    ucon_id: 4
+    ucop_tipooperacional: 3
+    ucop_idoperacional: 2
+  - ucop_id: 6
+    ucon_id: 5
+    ucop_tipooperacional: 1
+    ucop_idoperacional: 4
 
 operacao.contrato_energia:
   - cene_id: 1
@@ -23,24 +102,18 @@ operacao.contrato_energia:
     usur_id: 7
     cene_datafim: 2015-01-02
   - cene_id: 2
-    cene_nmcontrato: 200020
-    ucon_id: 2
-    cene_tmultimaalteracao: 2014-12-12
-    usur_id: 7
-    cene_datafim: 2014-12-10
-  - cene_id: 3
     cene_nmcontrato: 200030
     ucon_id: 3
     cene_tmultimaalteracao: 2014-12-12
     usur_id: 7
     cene_datafim: 2015-08-08
-  - cene_id: 4
+  - cene_id: 3
     cene_nmcontrato: 200040
     ucon_id: 4
     cene_tmultimaalteracao: 2014-12-12
     usur_id: 7
     cene_datafim: 2012-08-08
-  - cene_id: 5
+  - cene_id: 4
     cene_nmcontrato: 200010B
     ucon_id: 1
     cene_tmultimaalteracao: 2014-12-12

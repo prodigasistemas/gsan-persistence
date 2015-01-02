@@ -1,7 +1,7 @@
 package br.gov.model.operacao;
 
 public enum TipoUnidadeOperacional {
-	EAB(1), ETA(2), EAT(3);
+	EAB(1), ETA(2), EAT(3), RESIDENCIA(5), ESCRITORIO(6);
 	
 	private int id;
 	

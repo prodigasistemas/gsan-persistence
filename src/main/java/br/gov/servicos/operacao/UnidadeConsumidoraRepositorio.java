@@ -1,7 +1,6 @@
 package br.gov.servicos.operacao;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +30,7 @@ import br.gov.model.operacao.UnidadeConsumidoraOperacional;
 import br.gov.model.operacao.UnidadeNegocioProxy;
 import br.gov.model.operacao.UsuarioProxy;
 import br.gov.model.util.GenericRepository;
-import br.gov.servicos.operacao.to.ContratoUnidadeConsumidoraTO;
+import br.gov.servicos.operacao.to.UnidadeConsumidoraSemContratoTO;
 
 @Stateless
 public class UnidadeConsumidoraRepositorio extends GenericRepository<Integer, UnidadeConsumidora>{
@@ -144,23 +143,23 @@ public class UnidadeConsumidoraRepositorio extends GenericRepository<Integer, Un
         }
 	}
 	
-	public List<ContratoUnidadeConsumidoraTO> unidadesConsumidorasSemVigenciaContratual(Date vigencia) throws Exception {
+	public List<UnidadeConsumidoraSemContratoTO> unidadesConsumidorasAtivasSemContrato() throws Exception {
 	    StringBuilder sql = new StringBuilder();
-	    sql.append("select new br.gov.servicos.operacao.to.ContratoUnidadeConsumidoraTO(u.uc, max(c.dataFinal)) from UnidadeConsumidora u")
-	    .append(" left join u.contratos c")
-	    .append(" group by u.uc");
+	    sql.append("select new br.gov.servicos.operacao.to.UnidadeConsumidoraSemContratoTO")
+	    .append("(uc.uc, uc.descricao, uneg.nome, loca.nome)")
+	    .append(" from UnidadeConsumidora uc ")
+	    .append(" left join uc.unidadeNegocioProxy uneg ")
+	    .append(" left join uc.localidadeProxy loca ")
+	    .append(" left join uc.contratos con")
+	    .append(" where con.codigo is null")
+	    .append(" and uc.ativo = :ativo")
+	    .append(" order by uc.uc");
 	    
-	    List<ContratoUnidadeConsumidoraTO> ucs = entity.createQuery(sql.toString(), ContratoUnidadeConsumidoraTO.class)
+	    List<UnidadeConsumidoraSemContratoTO> ucs = entity.createQuery(sql.toString(), UnidadeConsumidoraSemContratoTO.class)
+	            .setParameter("ativo", Boolean.valueOf(true))
                 .getResultList();
 	    
-	    List<ContratoUnidadeConsumidoraTO> retorno = new ArrayList<ContratoUnidadeConsumidoraTO>();
-	   
-	    for (ContratoUnidadeConsumidoraTO item : ucs) {
-            if (item.getDataFimContrato() == null || item.getDataFimContrato().before(vigencia)){
-                retorno.add(item);
-            }
-        }
-	    return retorno;
+	    return ucs;
 	}
 
 	@SuppressWarnings("rawtypes")
