@@ -46,7 +46,7 @@ public class RelatorioHorasRepositorioTest extends SingleDeployment{
 	    
 	    HorasRelatorioTO item = lista.get(1);
 	    
-	    assertEquals(500.60, item.getHorasCmb().doubleValue(), 1);
+	    assertEquals(500.60, item.getHorasTrabalhadas().doubleValue(), 1);
 	    assertEquals(744, item.getHorasMes().intValue());
 	    assertEquals(20, item.getHorasParadasParaControle().intValue());
 	    assertEquals(20, item.getHorasParadasParaManutencao().intValue());
@@ -66,5 +66,17 @@ public class RelatorioHorasRepositorioTest extends SingleDeployment{
 	    HorasRelatorioTO item = lista.get(0);
 	    
 	    assertEquals(150, item.getHorasParadasPorEnergia().intValue());
-	}	
+	}
+	
+	@Test
+    @UsingDataSet("horas.yml")
+    public void quantidadeTotalCMB() throws Exception{
+        ConsultaHorasTO consulta = new ConsultaHorasTO();
+        consulta.setReferenciaInicial(201402);
+        consulta.setReferenciaFinal(201406);
+        consulta.setCodigoLocalidade(2);
+        Integer qtd = repositorio.quantidadeMaximaCmb(consulta);
+        assertEquals(8, qtd.intValue());
+       
+   }
 }

@@ -14,7 +14,7 @@ public class ConsultaHorasTO implements ConsultaCadastroTO{
     private Integer codigoUnidadeOperacional;
     
     public boolean intervaloValido(){
-        return referenciaFinal.compareTo(referenciaInicial) > 0 ;
+        return referenciaFinal.compareTo(referenciaInicial) >= 0 ;
     }
 
     public Integer getReferenciaInicial() {

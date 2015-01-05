@@ -20,6 +20,19 @@ public class RelatorioHorasRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
+	public Integer quantidadeMaximaCmb(ConsultaHorasTO consulta) {
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("SELECT max(e.quantidadeCmb)")
+            .append("  FROM Hora h")
+            .append("  inner join h.estacao e")
+            .append(" WHERE h.referencia BETWEEN :refINI AND :refFim");
+
+        return entity.createQuery(sql.toString(), Integer.class)
+                .setParameter("refINI", consulta.getReferenciaInicial())
+                .setParameter("refFim", consulta.getReferenciaFinal())
+                .getSingleResult();        
+	}
 	public List<HorasRelatorioTO> consultaHoras(ConsultaHorasTO consulta) {
 
 		StringBuilder sql = new StringBuilder();
@@ -54,13 +67,14 @@ public class RelatorioHorasRepositorio {
 		    item.setCdUnidadeOperacional(hora.getUnidadeConsumidoraOperacional().getUC().getUc());
 		    item.setDescricaoUnidadeOperacional(hora.getEstacao().getNome());
 		    item.setReferencia(hora.getReferencia());
-		    item.setQtdCmb(hora.getEstacao().getQuantidadeCmb());
+		    item.setHorasMes(new BigDecimal(qtdDiasMes(hora.getReferencia()) * 24));
+		    item.setTotalCmb(hora.getEstacao().getQuantidadeCmb());
 		    item.setHorasParadasParaControle(hora.getParadaPorControle());
 		    item.setHorasParadasParaManutencao(hora.getParadaPorManutencao());
 		    item.setHorasParadasPorEnergia(hora.getParadaPorEnergia());
-		    item.setHorasMes(new BigDecimal(qtdDiasMes(hora.getReferencia()) * 24));
 		    for (HoraCMB cmb : hora.getCmbs()) {
-		        item.setHorasCmb(item.getHorasCmb().add(cmb.getMedicao()));
+		        item.addHoraCmb(cmb.getCmb(), cmb.getMedicao());
+		        item.addHorasTrabalhadas(cmb.getMedicao());
             }
 		    
 		    relatorio.add(item);

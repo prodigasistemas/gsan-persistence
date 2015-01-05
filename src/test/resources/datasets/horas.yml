@@ -32,10 +32,12 @@ operacao.eeab:
     eeab_nome: Bolonha
     eeab_tmultimaalteracao: 2014-10-10
     usur_id: 1234
+    eeab_cmb: 1
   - eeab_id: 2
     eeab_nome: Sao Braz
     eeab_tmultimaalteracao: 2014-10-10
     usur_id: 1234
+    eeab_cmb: 8
 
 operacao.eeat:
   - eeat_id: 1
@@ -43,12 +45,14 @@ operacao.eeat:
     eeat_tmultimaalteracao: 2014-10-10
     usur_id: 1234
     eeat_tipo: 1
+    eeat_cmb: 4
 
 operacao.eta:
   - eta_id: 1
     eta_nome: ETA Bolonha
     eta_tmultimaalteracao: 2014-10-10
     usur_id: 1234
+    eta_cmb: 6
 
 operacao.unidade_consumidora_operacional:
   - ucop_id: 1

@@ -1,8 +1,8 @@
 package br.gov.servicos.operacao.to;
 
 import java.io.Serializable;
-
-import br.gov.model.operacao.TipoUnidadeOperacional;
+import java.util.LinkedList;
+import java.util.List;
 
 public class UnidadeConsumidoraSemContratoTO implements Serializable, ConverteParaRelatorio{
     private static final long serialVersionUID = 5803870237314626125L;
@@ -52,13 +52,12 @@ public class UnidadeConsumidoraSemContratoTO implements Serializable, ConvertePa
         this.localidade = localidade;
     }
 
-    public String[] toArray() {
-        return new String[]{
-                String.valueOf(codigoUC)
-                , descricaoUC != null ? descricaoUC : ""
-                , unidadeNegocios != null ? unidadeNegocios : ""
-                , localidade != null ?  localidade : "" 
-        };
+    public List<String> toArray() {
+        List<String> linha = new LinkedList<String>();
+        linha.add(String.valueOf(codigoUC));
+        linha.add(descricaoUC != null ? descricaoUC : "");
+        linha.add(unidadeNegocios != null ? unidadeNegocios : "");
+        linha.add(localidade != null ?  localidade : "");
+        return linha;
     }
-    
 }
