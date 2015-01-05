@@ -1,6 +1,8 @@
 package br.gov.servicos.operacao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.util.List;
 
@@ -33,5 +35,19 @@ public class UnidadeConsumidoraRepositorioTest extends SingleDeployment{
 		
 		assertEquals(3, lista.size());
 		assertEquals(1300, ucs);
-	}	
+	}
+	
+    @Test
+    @UsingDataSet("contratosUnidadeConsumidora.yml")
+    public void existeUnidadeConsumidoraComCodigo100() throws Exception{
+        assertTrue(repositorio.existeUnidadeConsumidora(100));
+    }
+	
+    @Test
+    @UsingDataSet("contratosUnidadeConsumidora.yml")
+    public void naoExisteUnidadeConsumidoraComCodigo234() throws Exception{
+        assertFalse(repositorio.existeUnidadeConsumidora(234));
+    }
+    
+	
 }

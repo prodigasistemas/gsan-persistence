@@ -130,7 +130,7 @@ public class UnidadeConsumidoraRepositorio extends GenericRepository<Integer, Un
 		}
 	}
 
-	public UnidadeConsumidora obterUnidadeConsumidoraUC(Integer codigoUC) throws Exception {
+	public UnidadeConsumidora obterUnidadeConsumidoraPorCodigo(Integer codigoUC) throws Exception {
 	    try {
 	        return entity.createQuery("select c from UnidadeConsumidora c where c.uc = :codigo", UnidadeConsumidora.class)
 	                .setParameter("codigo", codigoUC)
@@ -141,6 +141,10 @@ public class UnidadeConsumidoraRepositorio extends GenericRepository<Integer, Un
 	    catch (NonUniqueResultException e) {
 	        throw new MaisDeUmaUCCadastradaComCodigo(codigoUC);
         }
+	}
+	
+	public boolean existeUnidadeConsumidora(Integer codigo) throws Exception {
+	    return obterUnidadeConsumidoraPorCodigo(codigo) != null ? true : false; 
 	}
 	
 	public List<UnidadeConsumidoraSemContratoTO> unidadesConsumidorasAtivasSemContrato() throws Exception {
