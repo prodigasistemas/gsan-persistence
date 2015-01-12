@@ -143,6 +143,14 @@ public class DebitoCobrado implements IDebito{
 		this.numeroPrestacaoDebito = numeroPrestacaoDebito;
 	}
 	
+	public Short getNumeroParcelaBonus() {
+		return numeroParcelaBonus;
+	}
+
+	public void setNumeroParcelaBonus(Short numeroParcelaBonus) {
+		this.numeroParcelaBonus = numeroParcelaBonus;
+	}
+
 	public Date getCobradoEm() {
 		return cobradoEm;
 	}
@@ -245,13 +253,5 @@ public class DebitoCobrado implements IDebito{
 
 	public void setConta(Conta conta) {
 		this.conta = conta;
-	}
-
-	public Short getNumeroParcelaBonus() {
-		return numeroParcelaBonus;
-	}
-
-	public void setNumeroParcelaBonus(Short numeroParcelaBonus) {
-		this.numeroParcelaBonus = numeroParcelaBonus;
 	}
 }
