@@ -16,8 +16,14 @@ public class FaturamentoSituacaoTipo {
     @Column(name="ftst_icfaturamentoparalisacao")
 	private Short paralisacaoFaturamento;
 
+    @Column(name="ftst_icleituraparalisacao")
+	private Short paralisacaoLeitura;
+    
     @Column(name="ftst_icvalidoagua")
     private Short validoAgua;
+    
+    @Column(name="ftst_icvalidoesgoto")
+    private Short validoEsgoto;
     
     public FaturamentoSituacaoTipo() {
 	}
@@ -38,6 +44,14 @@ public class FaturamentoSituacaoTipo {
 		this.paralisacaoFaturamento = paralisacaoFaturamento;
 	}
 	
+	public Short getParalisacaoLeitura() {
+		return paralisacaoLeitura;
+	}
+
+	public void setParalisacaoLeitura(Short paralisacaoLeitura) {
+		this.paralisacaoLeitura = paralisacaoLeitura;
+	}
+
 	public Short getValidoAgua() {
 		return validoAgua;
 	}
@@ -46,6 +60,14 @@ public class FaturamentoSituacaoTipo {
 		this.validoAgua = validoAgua;
 	}
 
+	public Short getValidoEsgoto() {
+		return validoEsgoto;
+	}
+
+	public void setValidoEsgoto(Short validoEsgoto) {
+		this.validoEsgoto= validoEsgoto;
+	}
+	
 	public String toString() {
 		return "FaturamentoSituacaoTipo [id=" + id + ", paralisacaoFaturamento=" + paralisacaoFaturamento + ", validoAgua="	+ validoAgua + "]";
 	}

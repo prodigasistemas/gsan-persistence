@@ -30,6 +30,9 @@ public class MedicaoHistorico implements Serializable{
 	@Column(name = "mdhi_nnleitantfatmt")
 	private Integer leituraAnteriorFaturamento;
 
+	@Column(name = "mdhi_nnleitantinformada")
+	private Integer leituraAnteriorInformada;
+	
 	@Column(name = "mdhi_nnleituraatualfaturamento")
 	private Integer leituraAtualFaturamento;
 	
@@ -93,6 +96,14 @@ public class MedicaoHistorico implements Serializable{
 		this.leituraAnteriorFaturamento = leituraAnteriorFaturamento;
 	}
 
+	public Integer getLeituraAnteriorInformada() {
+		return leituraAnteriorInformada;
+	}
+
+	public void setLeituraAnteriorInformada(Integer leituraAnteriorInformada) {
+		this.leituraAnteriorInformada = leituraAnteriorInformada;
+	}
+	
 	public Integer getLeituraAtualFaturamento() {
 		return leituraAtualFaturamento;
 	}
@@ -176,4 +187,5 @@ public class MedicaoHistorico implements Serializable{
 	public String toString() {
 		return "MedicaoHistorico [id=" + id + "]";
 	}
+
 }
