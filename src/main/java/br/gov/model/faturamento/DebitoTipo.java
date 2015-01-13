@@ -26,6 +26,10 @@ public class DebitoTipo {
 	public DebitoTipo() {
 	}
 
+	public DebitoTipo(Integer id) {
+		this.id = id;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

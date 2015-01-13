@@ -17,6 +17,13 @@ public class FinanciamentoTipo {
 	public final static Integer PARCELAMENTO_ESGOTO = 3;
 	public final static Integer PARCELAMENTO_SERVICO = 4;
 
+	public FinanciamentoTipo() {
+	}
+	
+	public FinanciamentoTipo(Integer id) {
+		this.id = id;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
