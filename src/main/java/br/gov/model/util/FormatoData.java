@@ -6,7 +6,6 @@ public enum FormatoData {
     ANO_MES    ("yyyyMM"),
     ANO_MES_DIA("yyyyMMdd");
     
-    
     String formato;
     
     FormatoData(String f) {

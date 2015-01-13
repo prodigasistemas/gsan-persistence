@@ -1,0 +1,4 @@
+faturamento.parametro:
+  - id: 1
+    nome: EMITIR_CONTA_CODIGO_FEBRABAN
+    valor: true

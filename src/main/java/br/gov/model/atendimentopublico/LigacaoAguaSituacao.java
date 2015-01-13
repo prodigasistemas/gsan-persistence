@@ -53,7 +53,7 @@ public class LigacaoAguaSituacao implements Serializable {
 		this.situacaoFaturamento = situacaoFaturamento;
 	}
 
-	public String toString() {
+    public String toString() {
 		return "LigacaoAguaSituacao [id=" + id + ", descricao=" + descricao + "]";
 	}
 }
