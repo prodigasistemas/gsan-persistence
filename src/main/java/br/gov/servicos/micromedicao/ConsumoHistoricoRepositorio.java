@@ -105,4 +105,30 @@ public class ConsumoHistoricoRepositorio {
 		
 		return sql;
 	}
+	
+	public List<ConsumoHistorico> obterVolumeMedioAguaOuEsgoto(
+			Integer idImovel, 
+			Integer amReferenciaInicial, 
+			Integer amReferenciaFinal, 
+			LigacaoTipo ligacaoTipo){
+		
+		StringBuilder sql = new StringBuilder();
+			sql.append("select ch.referenciaFaturamento, ch.numeroConsumoCalculoMedia " +
+			"from ConsumoHistorico ch " +
+			"inner join ch.consumoTipo ct " +
+			"left join ch.consumoAnormalidade ca " +
+			"	with ca.indicadorCalcularMedia = 1 " +
+			"where ch.imovel.id = :idImovel " +
+			"and ch.ligacaoTipo = :ligacaoTipo " +
+			"and ch.referenciaFaturamento between :amReferenciaInicial and :amReferenciaFinal " +
+			"and ct.indicadorCalculoMedia = 1 " +
+			"order by ch.referenciaFaturamento desc");
+		
+		return entity.createQuery(sql.toString(), ConsumoHistorico.class)
+			.setParameter("idImovel", idImovel)
+			.setParameter("ligacaoTipo", ligacaoTipo.getId())
+			.setParameter("amReferenciaInicial", amReferenciaInicial)
+			.setParameter("amReferenciaFinal", amReferenciaFinal)
+			.getResultList();
+	}
 }

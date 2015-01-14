@@ -61,6 +61,9 @@ public class ConsumoAnormalidade implements Serializable{
 	@Column(name="csan_iccalcularmedia")
 	private Short indicadorCalcularMedia;
 	
+	/*********************************************
+	 ************ GETTERS AND SETTERS ************ 
+	 *********************************************/
 	public Integer getId() {
 		return id;
 	}

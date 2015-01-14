@@ -20,6 +20,10 @@ public class HidrometroTO implements Serializable{
 	private String descricaoLocalInstalacao;
 
 	private Integer rateioTipo;
+	
+	public HidrometroTO() {
+		
+	}
 
 	public HidrometroTO(String numero, Short numeroDigitosLeitura, Date dataInstalacao, Integer numeroLeituraInstalacao, Integer idImovel,
 			String descricaoLocalInstalacao, Integer rateioTipo) {

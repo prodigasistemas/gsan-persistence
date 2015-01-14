@@ -211,6 +211,10 @@ public class Utilitarios {
 		return Integer.valueOf(String.valueOf(anoMes).substring(0,4));
 	}
 	
+	public static Integer extrairMes(Integer anoMes) {
+		return Integer.valueOf(String.valueOf(anoMes).substring(4,6));
+	}
+	
 	public static Integer converteMesAnoParaAnoMes(String anoMes) {
 		if (anoMes!= null && anoMes.length() == 7)
 			return Integer.valueOf(String.valueOf(anoMes).substring(3) + String.valueOf(anoMes).substring(0,2));
@@ -242,5 +246,22 @@ public class Utilitarios {
 	public static int arredondarParaCima(BigDecimal numero) {
 		numero = numero.setScale(0, BigDecimal.ROUND_HALF_UP);
 		return numero.intValue();
+	}
+	
+	public static Integer obterQuantidadeMeses(Integer dataFim, Integer dataInicio) {
+		if (dataFim != null && dataInicio != null) {
+			Integer anoFim = extrairAno(dataFim);
+			Integer anoInicio = extrairAno(dataInicio);
+			
+			Integer mesFim = extrairMes(dataFim);
+			Integer mesInicio = extrairMes(dataInicio);
+			
+			if(anoFim == anoInicio){
+				return mesFim - mesInicio;
+			}else if(anoFim > anoInicio){
+				return ((anoFim-anoInicio)*12)-(mesFim+mesInicio);
+			}
+		}
+		return 0;
 	}
 }

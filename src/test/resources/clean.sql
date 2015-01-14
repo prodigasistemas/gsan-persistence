@@ -26,6 +26,7 @@ delete from faturamento.mov_conta_prefaturada;
 delete from cobranca.parcelamento_item;
 delete from cobranca.parcelamento;
 delete from cadastro.cliente_conta;
+delete from cadastro.imovel_subcategoria;
 
 delete from faturamento.conta_impostos_deduzidos;
 delete from cobranca.cobranca_documento_item;

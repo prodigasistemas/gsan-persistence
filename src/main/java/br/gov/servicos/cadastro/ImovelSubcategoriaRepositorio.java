@@ -27,6 +27,19 @@ public class ImovelSubcategoriaRepositorio {
 		parametros = sistemaParametrosRepositorio.getSistemaParametros();
 	}
 	
+	public Long somarQuantidadeEconomias(Integer id){
+	    StringBuilder sql = new StringBuilder();
+	    sql.append("select sum(sub.quantidadeEconomias) ")
+	    .append(" from ImovelSubcategoria sub ")
+	    .append(" where sub.pk.imovelId = :imovel ");
+
+         Long qtd = entity.createQuery(sql.toString(), Long.class)
+                    .setParameter("imovel", id)
+                    .getSingleResult();
+         
+         return qtd != null ? qtd : 0L; 
+	}
+	
 	public Collection<ICategoria> buscarQuantidadeEconomiasPorImovel(Integer id) {
 		Short indicadorTarifaCategoria = parametros.getIndicadorTarifaCategoria();
 
@@ -115,11 +128,5 @@ public class ImovelSubcategoriaRepositorio {
 		retorno = entity.createQuery(consulta.toString(), ICategoria.class).setParameter("idImovel", imovelId).getResultList();
 
 		return retorno;
-	}
-	
-	public Integer somaDaQuantidadeEconomiasPorImovel(Integer imovelId) {
-		return entity.createQuery("select sum(quantidadeEconomias) from ImovelSubcategoria where pk.imovelId = :imovelId ", Integer.class)
-					.setParameter("imovelId", imovelId)
-					.getSingleResult();
-	}
+	}	
 }
