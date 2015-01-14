@@ -1,0 +1,13 @@
+cadastro.sistema_parametros:
+  - parm_id: 1
+
+cadastro.imovel:
+  - imov_id: 1
+
+cadastro.subcategoria:
+  - scat_id: 1
+
+cadastro.imovel_subcategoria:
+  - imov_id: 1
+    scat_id: 1
+    imsb_qteconomia: 2

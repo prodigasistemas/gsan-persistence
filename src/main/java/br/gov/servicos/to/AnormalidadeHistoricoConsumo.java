@@ -2,6 +2,8 @@ package br.gov.servicos.to;
 
 import java.io.Serializable;
 
+import br.gov.model.micromedicao.ConsumoAnormalidade;
+
 public class AnormalidadeHistoricoConsumo implements Serializable {
 	private static final long serialVersionUID = -6865141713743168236L;
 	
@@ -19,6 +21,13 @@ public class AnormalidadeHistoricoConsumo implements Serializable {
 		this.ligacaoTipo = ligacaoTipo;
 		this.referenciaFaturamento = referenciaFaturamento;
 	}
+	
+    public boolean anormalidadeporBaixoAltoOuEstouroConsumo(){
+        return idAnormalidade == ConsumoAnormalidade.BAIXO_CONSUMO 
+                || idAnormalidade == ConsumoAnormalidade.ALTO_CONSUMO 
+                || idAnormalidade == ConsumoAnormalidade.ESTOURO_CONSUMO;
+    }
+	
 
 	public Integer getIdConsumoHistorico() {
 		return idConsumoHistorico;

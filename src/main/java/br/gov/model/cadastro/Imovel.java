@@ -37,7 +37,6 @@ public class Imovel implements Serializable{
 	@Column(name="imov_id")
 	private Integer id;
 
-		
 	@Column(name="imov_nnimovel", columnDefinition="bpchar(5)")
 	private String numeroImovel;
 	
@@ -193,7 +192,17 @@ public class Imovel implements Serializable{
 	public boolean ehCondominio() {
 		return indicadorImovelCondominio != null && indicadorImovelCondominio == Status.ATIVO.getId();
 	}
+	
+	public boolean faturamentoEsgotoAtivo(){
+	    return ligacaoEsgotoSituacao != null && ligacaoEsgotoSituacao.getSituacaoFaturamento() != null
+	            && ligacaoEsgotoSituacao.getSituacaoFaturamento().shortValue() == Status.ATIVO.getId();
+	}
 
+	public boolean faturamentoAguaAtivo(){
+	    return ligacaoAguaSituacao != null && ligacaoAguaSituacao.getSituacaoFaturamento() != null
+	            && ligacaoAguaSituacao.getSituacaoFaturamento().shortValue() == Status.ATIVO.getId();
+	}
+	
 	public boolean paralisacaoFaturamento() {
 		return faturamentoSituacaoTipo != null && faturamentoSituacaoTipo.getParalisacaoFaturamento() == Status.ATIVO.getId();
 	}

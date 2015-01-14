@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import br.gov.model.exception.BaseRuntimeException;
 import br.gov.model.exception.ParametroEmissaoContaFebrabanIndefinido;
+import br.gov.model.exception.ParametroMensagemContaIndefinido;
 
 
 @Entity
@@ -32,7 +33,8 @@ public class FaturamentoParametro implements Serializable{
 	private String valor;
 	
 	public enum NOME_PARAMETRO_FATURAMENTO{
-	    EMITIR_CONTA_CODIGO_FEBRABAN(new ParametroEmissaoContaFebrabanIndefinido());
+	    EMITIR_CONTA_CODIGO_FEBRABAN(new ParametroEmissaoContaFebrabanIndefinido()), 
+	    ESCREVER_MENSAGEM_CONTA_TRES_PARTES(new ParametroMensagemContaIndefinido());
 	    
 	    BaseRuntimeException exception = null;
 	    

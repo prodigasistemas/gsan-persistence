@@ -1,5 +1,7 @@
 package br.gov.servicos.atendimentopublico;
 
+import java.math.BigDecimal;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -23,5 +25,17 @@ public class LigacaoEsgotoRepositorio {
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+	
+	public BigDecimal obterPercentual(Integer idImovel){
+	    LigacaoEsgoto ligacao = this.buscarLigacaoEsgotoPorIdImovel(idImovel);
+	    
+	    BigDecimal percentual = BigDecimal.ZERO; 
+	    
+	    if (ligacao != null){
+	        percentual = ligacao.getPercentual();
+	    }
+	    
+	    return percentual;
 	}
 }
