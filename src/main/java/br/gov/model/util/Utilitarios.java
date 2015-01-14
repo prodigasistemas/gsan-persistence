@@ -238,4 +238,9 @@ public class Utilitarios {
 	private static String completaStringADireita(int tamanhoCampo, Object campo, char caractere) {
 		return StringUtils.rightPad(campo != null ? String.valueOf(campo) : "", tamanhoCampo, caractere);
 	}
+	
+	public static int arredondarParaCima(BigDecimal numero) {
+		numero = numero.setScale(0, BigDecimal.ROUND_HALF_UP);
+		return numero.intValue();
+	}
 }

@@ -56,6 +56,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 		}
 	}
 	
+	
 	public Integer consumoMinimoTarifaSubCategoria(Integer idSubCategoria, Integer idVigencia){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ctca.numeroConsumoMinimo ")

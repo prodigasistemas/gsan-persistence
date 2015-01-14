@@ -1,6 +1,7 @@
 package br.gov.model.micromedicao;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +33,9 @@ public class Rota implements Serializable {
 	@Column(name="rota_icalternativa")
 	private Short indicadorRotaAlternativa;
 	
+	@Column(name="rota_icfaixafalsageracao")
+	private Short indicadorGerarFalsaFaixa;
+
 	@ManyToOne
 	@JoinColumn(name="ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;
@@ -44,6 +48,9 @@ public class Rota implements Serializable {
 	@JoinColumn(name="empr_id")
 	private Empresa empresa;
 	
+	@Column(name="rota_pcfaixafalsageracao")
+	private BigDecimal percentualGeracaoFaixaFalsa;
+
 	public Rota() {
 	}
 
@@ -82,6 +89,14 @@ public class Rota implements Serializable {
 		return indicadorRotaAlternativa != null && indicadorRotaAlternativa == (short) 1;
 	}
 
+	public Short getIndicadorGerarFalsaFaixa() {
+		return indicadorGerarFalsaFaixa;
+	}
+
+	public void setIndicadorGerarFalsaFaixa(Short indicadorGerarFalsaFaixa) {
+		this.indicadorGerarFalsaFaixa = indicadorGerarFalsaFaixa;
+	}
+
 	public FaturamentoGrupo getFaturamentoGrupo() {
 		return faturamentoGrupo;
 	}
@@ -112,6 +127,14 @@ public class Rota implements Serializable {
 
 	public void setCodigo(Short codigo) {
 		this.codigo = codigo;
+	}
+	
+	public BigDecimal getPercentualGeracaoFaixaFalsa() {
+		return percentualGeracaoFaixaFalsa;
+	}
+
+	public void setPercentualGeracaoFaixaFalsa(BigDecimal percentualGeracaoFaixaFalsa) {
+		this.percentualGeracaoFaixaFalsa = percentualGeracaoFaixaFalsa;
 	}
 
 	public String toString() {

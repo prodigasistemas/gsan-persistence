@@ -53,6 +53,15 @@ public class SistemaParametros implements Serializable {
 	@Column(name="parm_nmabreviadoempresa")
 	private String nomeAbreviadoEmpresa;
 	
+	@Column(name="parm_icgeracaofaixafalsa")
+	private Short indicadorFaixaFalsa;
+	
+	@Column(name="parm_icusopercentualfaixafalsa")
+	private Short indicadorUsoFaixaFalsa;
+	
+	@Column(name="parm_pcfaixafalsa")
+	private BigDecimal percentualFaixaFalsa;
+			
 	public static Short INDICADOR_TARIFA_CATEGORIA = new Short("1");
 	
 	public SistemaParametros() {
@@ -165,4 +174,29 @@ public class SistemaParametros implements Serializable {
 	public void setNomeAbreviadoEmpresa(String nomeAbreviadoEmpresa) {
 		this.nomeAbreviadoEmpresa = nomeAbreviadoEmpresa;
 	}
+
+	public Short getIndicadorFaixaFalsa() {
+		return indicadorFaixaFalsa;
+	}
+
+	public void setIndicadorFaixaFalsa(Short indicadorFaixaFalsa) {
+		this.indicadorFaixaFalsa = indicadorFaixaFalsa;
+	}
+
+	public Short getIndicadorUsoFaixaFalsa() {
+		return indicadorUsoFaixaFalsa;
+	}
+
+	public void setIndicadorUsoFaixaFalsa(Short indicadorUsoFaixaFalsa) {
+		this.indicadorUsoFaixaFalsa = indicadorUsoFaixaFalsa;
+	}
+
+	public BigDecimal getPercentualFaixaFalsa() {
+		return percentualFaixaFalsa;
+	}
+
+	public void setPercentualFaixaFalsa(BigDecimal percentualFaixaFalsa) {
+		this.percentualFaixaFalsa = percentualFaixaFalsa;
+	}
+	
 }

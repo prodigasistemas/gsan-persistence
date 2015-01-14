@@ -54,4 +54,12 @@ public class Hidrometro implements Serializable{
 	public String toString() {
 		return "Hidrometro [id=" + id + "]";
 	}
+	
+	public boolean possuiNumeroDigitosLeitura() {
+		return this.getNumeroDigitosLeitura() != null;
+	}
+	
+	public Double getLeituraMaxima() {
+		return new Double((Math.pow(10.0, this.numeroDigitosLeitura)));
+	}
 }

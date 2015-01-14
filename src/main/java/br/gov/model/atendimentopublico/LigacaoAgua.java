@@ -1,6 +1,7 @@
 package br.gov.model.atendimentopublico;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.micromedicao.HidrometroInstalacaoHistorico;
@@ -22,6 +25,10 @@ public class LigacaoAgua implements Serializable{
 	@Id
 	@Column(name="lagu_id")
 	private Integer id;
+	
+	@Column(name="lagu_dtligacaoagua")
+	@Temporal(TemporalType.DATE)
+	private Date dataLigacao;
 	
 	@Column(name="lagu_nnconsumominimoagua")
 	private Integer consumoMinimoAgua;
@@ -42,6 +49,14 @@ public class LigacaoAgua implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Date getDataLigacao() {
+		return dataLigacao;
+	}
+
+	public void setDataLigacao(Date dataLigacao) {
+		this.dataLigacao = dataLigacao;
 	}
 
 	public Imovel getImovel() {
