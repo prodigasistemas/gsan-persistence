@@ -1,4 +1,4 @@
-package br.gov.model.micromedicao;
+package br.gov.model.faturamento;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
