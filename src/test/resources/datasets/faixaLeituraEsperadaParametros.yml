@@ -1,4 +1,4 @@
-faturamento.faixaleituraesperadaparametros:
+micromedicao.faixa_leitura_esperada_param:
   - flep_id: 1
     flep_mediainicial: 10
     flep_mediafinal: 15

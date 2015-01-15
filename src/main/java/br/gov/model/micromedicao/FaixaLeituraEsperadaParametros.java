@@ -1,4 +1,4 @@
-package br.gov.model.faturamento;
+package br.gov.model.micromedicao;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="faixaleituraesperadaparametros", schema="faturamento")
+@Table(name="faixa_leitura_esperada_param", schema="micromedicao")
 public class FaixaLeituraEsperadaParametros implements Serializable {
 
 	private static final long serialVersionUID = -4265098982821916508L;

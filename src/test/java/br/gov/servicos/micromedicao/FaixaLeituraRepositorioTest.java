@@ -1,6 +1,6 @@
-package br.gov.servicos.faturamento;
+package br.gov.servicos.micromedicao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,14 +12,14 @@ import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import br.gov.model.faturamento.FaixaLeituraEsperadaParametros;
+import br.gov.model.micromedicao.FaixaLeituraEsperadaParametros;
 import br.gov.persistence.util.SingleDeployment;
 
 @RunWith(Arquillian.class)
-public class FaturamentoRepositorioTest extends SingleDeployment {
+public class FaixaLeituraRepositorioTest extends SingleDeployment {
 	
 	@Inject
-	private FaturamentoRepositorio repositorio;
+	private FaixaLeituraRepositorio repositorio;
 
 	@Test
 	@UsingDataSet("faixaLeituraEsperadaParametros.yml")
