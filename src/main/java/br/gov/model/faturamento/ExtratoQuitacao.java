@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.gov.model.Status;
 import br.gov.model.cadastro.Imovel;
 
 @Entity
@@ -32,7 +33,13 @@ public class ExtratoQuitacao implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
-
+	
+	public boolean imprimirNaConta(){
+	    return indicadorImpressaoNaConta != null && indicadorImpressaoNaConta.shortValue() == Status.ATIVO.getId();
+	}
+	/*******************************************
+	 *********** GETTERS AND SETTERS ***********
+     *******************************************/
 	public Integer getId() {
 		return id;
 	}

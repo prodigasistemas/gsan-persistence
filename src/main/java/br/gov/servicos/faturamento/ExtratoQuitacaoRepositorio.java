@@ -12,7 +12,7 @@ public class ExtratoQuitacaoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public ExtratoQuitacao apagar(Integer idImovel, Integer referencia) {
+	public ExtratoQuitacao buscarPorImovelEAno(Integer idImovel, Integer ano) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT extrato ")
 		.append(" FROM ExtratoQuitacao extrato  ")
@@ -22,7 +22,7 @@ public class ExtratoQuitacaoRepositorio {
 		
 		try {
 			return entity.createQuery(sql.toString(), ExtratoQuitacao.class)
-					.setParameter("referencia", referencia)
+					.setParameter("referencia", ano)
 					.setParameter("idImovel", idImovel)
 					.setMaxResults(1)
 					.getSingleResult();
