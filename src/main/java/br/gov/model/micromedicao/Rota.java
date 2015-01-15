@@ -140,4 +140,8 @@ public class Rota implements Serializable {
 	public String toString() {
 		return "Rota [id=" + id + "]";
 	}
+	
+	public boolean possuiPercentualFaixaFalsa() {
+		return percentualGeracaoFaixaFalsa != null && !percentualGeracaoFaixaFalsa.equals(new BigDecimal(0.0));
+	}
 }

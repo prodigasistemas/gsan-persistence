@@ -187,5 +187,9 @@ public class MedicaoHistorico implements Serializable{
 	public String toString() {
 		return "MedicaoHistorico [id=" + id + "]";
 	}
+	
+	public boolean possuiLeituraInformada() {
+		return this.leituraAnteriorInformada != null && this.leituraAtualInformada != null;
+	}
 
 }
