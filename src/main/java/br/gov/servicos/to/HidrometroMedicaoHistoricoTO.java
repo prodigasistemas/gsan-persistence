@@ -23,6 +23,8 @@ public class HidrometroMedicaoHistoricoTO implements Serializable {
 
 	private Integer rateioTipo;
 	
+	private Integer medicaoTipo;
+	
 	private Integer leituraAtualFaturamento;
 	
 	private Date dataLeituraAtualFaturamento;
@@ -44,6 +46,7 @@ public class HidrometroMedicaoHistoricoTO implements Serializable {
 		this.idImovel = hidrometroTO.getIdImovel();
 		this.descricaoLocalInstalacao = hidrometroTO.getDescricaoLocalInstalacao();
 		this.rateioTipo = hidrometroTO.getRateioTipo();
+		this.medicaoTipo = hidrometroTO.getMedicaoTipo();
 		this.leituraAtualFaturamento = hidrometroTO.getNumeroLeituraInstalacao();
 		this.dataLeituraAtualFaturamento = null;
 		this.leituraSituacaoAtual = new Integer(2);
@@ -115,6 +118,14 @@ public class HidrometroMedicaoHistoricoTO implements Serializable {
 
 	public void setRateioTipo(Integer rateioTipo) {
 		this.rateioTipo = rateioTipo;
+	}
+
+	public Integer getMedicaoTipo() {
+		return medicaoTipo;
+	}
+
+	public void setMedicaoTipo(Integer medicaoTipo) {
+		this.medicaoTipo = medicaoTipo;
 	}
 
 	public Integer getLeituraAtualFaturamento() {

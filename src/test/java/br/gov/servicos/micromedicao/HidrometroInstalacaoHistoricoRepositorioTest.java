@@ -31,6 +31,7 @@ public class HidrometroInstalacaoHistoricoRepositorioTest extends SingleDeployme
 		assertEquals(33, to.getNumeroDigitosLeitura().intValue());
 		assertEquals(3, to.getRateioTipo().intValue());
 		assertEquals(1, to.getIdImovel().intValue());
+		assertEquals(2, to.getMedicaoTipo().intValue());
 	}
 	
 	@Test
@@ -44,5 +45,6 @@ public class HidrometroInstalacaoHistoricoRepositorioTest extends SingleDeployme
 		assertEquals(9, to.getNumeroDigitosLeitura().intValue());
 		assertEquals(3, to.getRateioTipo().intValue());
 		assertEquals(2, to.getIdImovel().intValue());
+		assertEquals(1, to.getMedicaoTipo().intValue());
 	}
 }
