@@ -23,5 +23,5 @@ micromedicao.hidrometro_inst_hist:
   - hidi_id: 2
     lagu_id: 2
     hidr_id: 2
-    medt_id: 2
+    medt_id: 1
     rttp_id: 3

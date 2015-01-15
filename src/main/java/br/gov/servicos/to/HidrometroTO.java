@@ -3,7 +3,6 @@ package br.gov.servicos.to;
 import java.io.Serializable;
 import java.util.Date;
 
-
 public class HidrometroTO implements Serializable{
 	private static final long serialVersionUID = -6553283657678450425L;
 
@@ -21,12 +20,14 @@ public class HidrometroTO implements Serializable{
 
 	private Integer rateioTipo;
 	
+	private Integer medicaoTipo;
+	
 	public HidrometroTO() {
 		
 	}
 
 	public HidrometroTO(String numero, Short numeroDigitosLeitura, Date dataInstalacao, Integer numeroLeituraInstalacao, Integer idImovel,
-			String descricaoLocalInstalacao, Integer rateioTipo) {
+			String descricaoLocalInstalacao, Integer rateioTipo, Integer medicaoTipo) {
 		this.numero = numero;
 		this.numeroDigitosLeitura = numeroDigitosLeitura;
 		this.dataInstalacao = dataInstalacao;
@@ -34,6 +35,7 @@ public class HidrometroTO implements Serializable{
 		this.idImovel = idImovel;
 		this.descricaoLocalInstalacao = descricaoLocalInstalacao;
 		this.rateioTipo = rateioTipo;
+		this.medicaoTipo = medicaoTipo;
 	}
 
 	public String getNumero() {
@@ -90,5 +92,13 @@ public class HidrometroTO implements Serializable{
 
 	public void setRateioTipo(Integer rateioTipo) {
 		this.rateioTipo = rateioTipo;
+	}
+
+	public Integer getMedicaoTipo() {
+		return medicaoTipo;
+	}
+
+	public void setMedicaoTipo(Integer medicaoTipo) {
+		this.medicaoTipo = medicaoTipo;
 	}
 }

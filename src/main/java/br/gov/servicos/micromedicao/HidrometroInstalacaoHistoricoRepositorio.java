@@ -23,6 +23,7 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		   .append(", coalesce(lagu.imovel.id, imovel.id) ")
 		   .append(", hli.descricao")
 		   .append(", hidi.rateioTipo")
+		   .append(", hidi.medicaoTipo")
 		   .append(" ) ")
 		   .append(" FROM HidrometroInstalacaoHistorico hidi")
 		   .append(" LEFT JOIN hidi.hidrometro hidr ")
