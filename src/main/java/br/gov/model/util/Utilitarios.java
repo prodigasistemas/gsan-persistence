@@ -198,8 +198,7 @@ public class Utilitarios {
 	}
 	
 	public static String formataData(Date data){
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		return format.format(data);
+		return formataData(data, FormatoData.DIA_MES_ANO);
 	}
 
     public static String formataData(Date data, FormatoData formato){
