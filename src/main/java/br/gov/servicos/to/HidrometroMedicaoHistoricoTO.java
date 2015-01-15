@@ -3,6 +3,8 @@ package br.gov.servicos.to;
 import java.io.Serializable;
 import java.util.Date;
 
+import br.gov.model.micromedicao.MedicaoHistorico;
+
 public class HidrometroMedicaoHistoricoTO implements Serializable {
 	
 	private static final long serialVersionUID = -6553283657678450425L;
@@ -50,6 +52,15 @@ public class HidrometroMedicaoHistoricoTO implements Serializable {
 		this.leituraAtualInformada = null;
 	}
 
+	public void setMedicaoHistorico(MedicaoHistorico medicaoHistorico) {
+		this.numeroLeituraInstalacao = medicaoHistorico.getLeituraAtualFaturamento();
+		this.leituraAtualFaturamento = medicaoHistorico.getLeituraAtualFaturamento();
+		this.dataLeituraAtualFaturamento = medicaoHistorico.getDataLeituraAtualFaturamento();
+		this.leituraSituacaoAtual = medicaoHistorico.getLeituraSituacaoAtual();
+		this.consumoMedioHidrometro = medicaoHistorico.getConsumoMedioHidrometro();
+		this.dataLeituraAtualInformada = medicaoHistorico.getDataLeituraAtualInformada();
+		this.leituraAtualInformada = medicaoHistorico.getLeituraAtualInformada();
+	}
 	public String getNumero() {
 		return numero;
 	}
