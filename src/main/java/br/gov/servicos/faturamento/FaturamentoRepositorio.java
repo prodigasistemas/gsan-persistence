@@ -22,7 +22,7 @@ public class FaturamentoRepositorio {
 	public List<FaixaLeituraEsperadaParametros> obterFaixasLeitura() {
 		String consulta = " select f from FaixaLeituraEsperadaParametros f where f.indicadorUso = 1 "; 
 
-		return entity.createNamedQuery(consulta, FaixaLeituraEsperadaParametros.class).getResultList();
+		return entity.createQuery(consulta, FaixaLeituraEsperadaParametros.class).getResultList();
 	}
 	
 }

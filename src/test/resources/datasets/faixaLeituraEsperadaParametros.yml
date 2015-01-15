@@ -1,0 +1,13 @@
+faturamento.faixaleituraesperadaparametros:
+  - flep_id: 1
+    flep_mediainicial: 10
+    flep_mediafinal: 15
+    flep_fatorfaixainicial: 2.00
+    flep_fatorfaixafinal: 3.00
+    flep_icuso: 2
+  - flep_id: 2
+    flep_mediainicial: 20
+    flep_mediafinal: 30
+    flep_fatorfaixainicial: 5.00
+    flep_fatorfaixafinal: 8.00
+    flep_icuso: 1

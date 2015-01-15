@@ -1,4 +1,5 @@
 delete from faturamento.parametro;
+delete from faturamento.faixaleituraesperadaparametros;
 delete from operacao.unidade_consumidora_operacional;
 delete from operacao.contrato_energia;
 delete from operacao.unidade_consumidora;
