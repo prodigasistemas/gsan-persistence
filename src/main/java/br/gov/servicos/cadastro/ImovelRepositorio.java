@@ -11,6 +11,7 @@ import br.gov.model.cadastro.ClienteRelacaoTipo;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.exception.ErroPesquisaContaImovel;
 import br.gov.model.faturamento.FaturamentoGrupo;
+import br.gov.servicos.cadastro.to.AreaConstruidaTO;
 
 @Stateless
 public class ImovelRepositorio{
@@ -393,5 +394,22 @@ public class ImovelRepositorio{
 		.append(" and imovelPerfil.indicadorGerarDadosLeitura = 1 ");
 		
 		return sql;
+	}
+	
+	public AreaConstruidaTO dadosAreaConstruida(Integer idImovel){
+	    StringBuilder sql = new StringBuilder();
+	    sql.append("SELECT new br.gov.servicos.cadastro.to.AreaConstruidaTO(imov.areaConstruida, acon.menorFaixa) ")
+	    .append("FROM Imovel imov ")
+	    .append("LEFT JOIN imov.areaConstruidaFaixa acon ")
+	    .append("WHERE imov.id = :idImovel ");
+	    
+	    try {
+	        return entity.createQuery(sql.toString(), AreaConstruidaTO.class)
+	                .setParameter("idImovel", idImovel)
+	                .setMaxResults(1)
+	                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
 	}
 }

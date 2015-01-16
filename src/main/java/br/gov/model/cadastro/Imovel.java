@@ -76,6 +76,9 @@ public class Imovel implements Serializable{
 	@Column(name="imov_dscomplementoendereco")
 	private String complementoEndereco;
 	
+	@Column(name="imov_nnareaconstruida")
+	private BigDecimal areaConstruida;
+	
 	@ManyToOne
 	@JoinColumn(name="loca_id")
 	private Localidade localidade;
@@ -152,6 +155,10 @@ public class Imovel implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="cstf_id")
 	private ConsumoTarifa consumoTarifa;
+	
+	@ManyToOne
+	@JoinColumn(name="acon_id")
+	private AreaConstruidaFaixa areaConstruidaFaixa;
 	
 	public Imovel() {}
 	
@@ -610,7 +617,23 @@ public class Imovel implements Serializable{
 		this.consumoTarifa = consumoTarifa;
 	}
 
-	public String toString() {
+	public BigDecimal getAreaConstruida() {
+        return areaConstruida;
+    }
+
+    public void setAreaConstruida(BigDecimal areaConstruida) {
+        this.areaConstruida = areaConstruida;
+    }
+
+    public AreaConstruidaFaixa getAreaConstruidaFaixa() {
+        return areaConstruidaFaixa;
+    }
+
+    public void setAreaConstruidaFaixa(AreaConstruidaFaixa areaConstruidaFaixa) {
+        this.areaConstruidaFaixa = areaConstruidaFaixa;
+    }
+
+    public String toString() {
 		return "Imovel [id=" + id + ", numeroImovel=" + numeroImovel + "]";
 	}
 }

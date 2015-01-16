@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 
 import br.gov.model.cadastro.Imovel;
 import br.gov.persistence.util.SingleDeployment;
+import br.gov.servicos.cadastro.to.AreaConstruidaTO;
 
 
 @RunWith(Arquillian.class)
@@ -53,6 +54,7 @@ public class ImovelRepositorioTest extends SingleDeployment{
 		assertEquals(1, lista.size());
 	}
 	
+	@Test
 	@UsingDataSet("imoveis.yml")
 	public void buscarImovelPorId() throws Exception {
 		System.out.println("**********************************************");
@@ -61,5 +63,15 @@ public class ImovelRepositorioTest extends SingleDeployment{
 		for (Imovel imovel : lista) {
 			System.out.println(imovel.getSetorComercial().getCodigo());
 		}
+	}
+	
+	@Test
+	@UsingDataSet("faixa_area_construida.yml")
+	public void faixaAreaConstruida() throws Exception {
+	    AreaConstruidaTO to = repositorio.dadosAreaConstruida(1);
+	    
+	    assertEquals(4, to.getMenorFaixa().intValue());
+	    assertEquals(54.80, to.getAreaConstruida().doubleValue(), 1);
+	    
 	}
 }
