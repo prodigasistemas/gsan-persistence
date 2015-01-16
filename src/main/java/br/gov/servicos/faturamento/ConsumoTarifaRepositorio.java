@@ -1,7 +1,5 @@
 package br.gov.servicos.faturamento;
 
-import java.util.ArrayList;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -59,6 +59,9 @@ public class SistemaParametros implements Serializable {
 	@Column(name="parm_icusopercentualfaixafalsa")
 	private Short indicadorUsoFaixaFalsa;
 	
+	@Column(name="parm_icnaomedidotarifa")
+	private Short indicadorNaoMedidoTarifa;
+	
 	@Column(name="parm_pcfaixafalsa")
 	private BigDecimal percentualFaixaFalsa;
 			
@@ -198,5 +201,12 @@ public class SistemaParametros implements Serializable {
 	public void setPercentualFaixaFalsa(BigDecimal percentualFaixaFalsa) {
 		this.percentualFaixaFalsa = percentualFaixaFalsa;
 	}
-	
+
+    public Short getIndicadorNaoMedidoTarifa() {
+        return indicadorNaoMedidoTarifa;
+    }
+
+    public void setIndicadorNaoMedidoTarifa(Short indicadorNaoMedidoTarifa) {
+        this.indicadorNaoMedidoTarifa = indicadorNaoMedidoTarifa;
+    }
 }

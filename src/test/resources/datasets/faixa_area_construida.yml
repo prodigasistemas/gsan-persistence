@@ -1,0 +1,9 @@
+cadastro.imovel:
+  - imov_id: 1
+    acon_id: 1
+    imov_nnareaconstruida: 54.80
+
+cadastro.area_construida_faixa:
+  - acon_id: 1
+    acon_nnmenorfaixa: 4
+    acon_nnmaiorfaixa: 8

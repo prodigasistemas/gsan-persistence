@@ -1,0 +1,20 @@
+cadastro.categoria:
+  - catg_id: 1
+  - catg_id: 2
+
+cadastro.subcategoria:
+  - scat_id: 2
+  - scat_id: 3
+
+micromedicao.consumo_minimo_area:
+  - cmar_id: 1
+    cmar_amreferencia: 201411
+    catg_id: 1
+    cmar_nnconsumo: 30
+    cmar_nnareafinal: 240
+  - cmar_id: 2
+    cmar_amreferencia: 201411
+    catg_id: 2
+    scat_id: 2
+    cmar_nnconsumo: 30
+    cmar_nnareafinal: 500
