@@ -55,6 +55,9 @@ public class HidrometroMedicaoHistoricoTO implements Serializable {
 		this.leituraAtualInformada = null;
 	}
 
+	public HidrometroMedicaoHistoricoTO() {
+		
+	}
 	public void setMedicaoHistorico(MedicaoHistorico medicaoHistorico) {
 		this.numeroLeituraInstalacao = medicaoHistorico.getLeituraAtualFaturamento();
 		this.leituraAtualFaturamento = medicaoHistorico.getLeituraAtualFaturamento();
