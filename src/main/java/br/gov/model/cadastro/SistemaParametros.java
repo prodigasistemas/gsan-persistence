@@ -1,12 +1,14 @@
 package br.gov.model.cadastro;
-
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import br.gov.model.util.ConstantesSistema;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name="sistema_parametros", schema="cadastro")
@@ -64,12 +66,26 @@ public class SistemaParametros implements Serializable {
 	
 	@Column(name="parm_pcfaixafalsa")
 	private BigDecimal percentualFaixaFalsa;
-			
+	
+	@Column(name="parm_nnmodulodigitoverif")
+	private Short numeroModuloDigitoVerificador;
+	
+	@Column(name="parm_cdempresafebraban")
+	private Short codigoEmpresaFebraban;
+	
 	public static Short INDICADOR_TARIFA_CATEGORIA = new Short("1");
 	
 	public SistemaParametros() {
 	}
 
+	public boolean moduloVerificador11(){
+	    return numeroModuloDigitoVerificador != null
+                && numeroModuloDigitoVerificador.compareTo(ConstantesSistema.MODULO_VERIFICADOR_11) == 0;
+	}
+	
+	/***********************************************
+	 ************* GETTERS AND SETTERS ************* 
+	 ************************************************/
 	public Integer getId() {
 		return id;
 	}
@@ -208,5 +224,21 @@ public class SistemaParametros implements Serializable {
 
     public void setIndicadorNaoMedidoTarifa(Short indicadorNaoMedidoTarifa) {
         this.indicadorNaoMedidoTarifa = indicadorNaoMedidoTarifa;
+    }
+
+    public Short getNumeroModuloDigitoVerificador() {
+        return numeroModuloDigitoVerificador;
+    }
+
+    public void setNumeroModuloDigitoVerificador(Short numeroModuloDigitoVerificador) {
+        this.numeroModuloDigitoVerificador = numeroModuloDigitoVerificador;
+    }
+
+    public Short getCodigoEmpresaFebraban() {
+        return codigoEmpresaFebraban;
+    }
+
+    public void setCodigoEmpresaFebraban(Short codigoEmpresaFebraban) {
+        this.codigoEmpresaFebraban = codigoEmpresaFebraban;
     }
 }

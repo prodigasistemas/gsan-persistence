@@ -17,6 +17,89 @@ public class Utilitarios {
     public static String DIA_MES_ANO = "dd/MM/yyyy";
     public static String MES_ANO     = "MM/yyyy";
 
+    public static Integer obterDigitoVerificador(String codigoBarraCom43Posicoes, Short moduloVerificador) {
+        Integer digitoVerificadorGeral = null;
+
+        if (moduloVerificador.compareTo(ConstantesSistema.MODULO_VERIFICADOR_11) == 0) {
+
+            digitoVerificadorGeral = obterDigitoVerificadorModulo11(codigoBarraCom43Posicoes);
+
+        } else {
+
+            digitoVerificadorGeral = obterDigitoVerificadorModulo10(codigoBarraCom43Posicoes);
+
+        }
+
+        return digitoVerificadorGeral;
+    }
+
+    public static Integer obterDigitoVerificadorModulo10(String numero) {
+
+        String entradaString = numero;
+
+        int sequencia = 2;
+        int contEntrada, digito, contAuxiliar, produto, contProduto;
+        String produtoString;
+        int somaDigitosProduto = 0;
+
+        contAuxiliar = 1;
+        for (contEntrada = 0; contEntrada < entradaString.length(); contEntrada++) {
+
+            digito = new Integer(entradaString.substring(entradaString.length() - contAuxiliar, entradaString.length() - contEntrada)).intValue();
+
+            produto = digito * sequencia;
+            produtoString = String.valueOf(produto);
+
+            for (contProduto = 0; contProduto < produtoString.length(); contProduto++) {
+                somaDigitosProduto = somaDigitosProduto + new Integer(produtoString.substring(contProduto, contProduto + 1)).intValue();
+            }
+
+            if (sequencia == 2) {
+                sequencia = 1;
+            } else {
+                sequencia = 2;
+            }
+
+            contAuxiliar++;
+        }
+
+        int resto = (somaDigitosProduto % 10);
+
+        int dac;
+        if (resto == 0) {
+            dac = 0;
+        } else {
+            dac = 10 - resto;
+        }
+
+        return new Integer(dac);
+    }
+
+    public static Integer obterDigitoVerificadorModulo11(String numero) {
+
+        String wnumero = numero;
+        int param = 2;
+        int soma = 0;
+
+        for (int ind = (wnumero.length() - 1); ind >= 0; ind--) {
+            if (param > 9) {
+                param = 2;
+            }
+            soma = soma + (Integer.parseInt(wnumero.substring(ind, ind + 1)) * param);
+            param = param + 1;
+        }
+
+        int resto = soma % 11;
+        int dv;
+
+        if ((resto == 0) || (resto == 1)) {
+            dv = 0;
+        } else {
+            dv = 11 - resto;
+        }
+        return dv;
+    }
+
 	public static String ordenarCamposConsulta(int tipoAgrupamento) {
 		
 		String [] campos = {"A.greg_id", "A.uneg_id", "A.muni_id", "A.loca_id", "B.unop_tipo, B.unop_id"};
@@ -151,11 +234,11 @@ public class Utilitarios {
 	public static String completaTexto(int tamanhoCampo, Object campo) {
 		return completaStringAEsquerda(tamanhoCampo, campo, ' ');
 	}
-		
-	private static String completaString(int tamanhoCampo, Object campo, char caractere) {
-		return StringUtils.leftPad(campo != null ? String.valueOf(campo) : "", tamanhoCampo, caractere);
+	
+	public static String converteParaTexto(Object campo) {
+	    return campo == null ? "" : String.valueOf(campo);
 	}
-
+		
 	public static Date ano1900() {
 		Calendar cal = Calendar.getInstance();
 		cal.set(1900, 0, 1);

@@ -1,5 +1,6 @@
 package br.gov.model.cobranca;
 
+
 public enum DocumentoTipo {
 
 	CONTA                                (1),
@@ -45,5 +46,16 @@ public enum DocumentoTipo {
 	
 	public int getId(){
 		return id;
-	}	
+	}
+	
+    public static DocumentoTipo parse(int id) {
+        DocumentoTipo key = null;
+        for (DocumentoTipo item : DocumentoTipo.values()) {
+            if (item.getId() == id) {
+                key = item;
+                break;
+            }
+        }
+        return key;
+    }   	
 }

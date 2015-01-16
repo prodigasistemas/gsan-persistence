@@ -1,6 +1,7 @@
 package br.gov.model.cobranca;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -35,6 +36,12 @@ public class CobrancaDocumento implements Serializable {
 	
 	@Column(name="cbdo_tmemissao")
 	private Date emissao;
+	
+	@Column(name="cbdo_vldocumento")
+	private BigDecimal valorDocumento;
+	
+	@Column(name="cbdo_nnsequenciadocumento")
+	private Integer numeroSequenciaDocumento;
 	
 	@ManyToOne
 	@JoinColumn(name="loca_id")
@@ -95,7 +102,23 @@ public class CobrancaDocumento implements Serializable {
 		this.imovel = imovel;
 	}
 
-	public String toString() {
+	public BigDecimal getValorDocumento() {
+        return valorDocumento;
+    }
+
+    public void setValorDocumento(BigDecimal valorDocumento) {
+        this.valorDocumento = valorDocumento;
+    }
+
+    public Integer getNumeroSequenciaDocumento() {
+        return numeroSequenciaDocumento;
+    }
+
+    public void setNumeroSequenciaDocumento(Integer numeroSequenciaDocumento) {
+        this.numeroSequenciaDocumento = numeroSequenciaDocumento;
+    }
+
+    public String toString() {
 		return "CobrancaDocumento [id=" + id + "]";
 	}
 }
