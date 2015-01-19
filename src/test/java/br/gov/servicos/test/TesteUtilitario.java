@@ -63,6 +63,11 @@ public class TesteUtilitario {
 	}
 	
 	@Test
+	public void testReduz24Meses(){
+	    assertEquals(201006, reduzirMeses(201206, 24)); 
+	}
+	
+	@Test
 	public void testFormataDecimal01(){
 		assertEquals("123.00", formatarBigDecimalComPonto(new BigDecimal(123))); 
 	}

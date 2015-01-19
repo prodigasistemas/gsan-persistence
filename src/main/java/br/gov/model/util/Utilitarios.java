@@ -12,10 +12,95 @@ import java.util.GregorianCalendar;
 
 import org.apache.commons.lang3.StringUtils;
 
+import br.gov.model.exception.ValorReferenciaInvalido;
+
 public class Utilitarios {
     
     public static String DIA_MES_ANO = "dd/MM/yyyy";
     public static String MES_ANO     = "MM/yyyy";
+
+    public static Integer obterDigitoVerificador(String codigoBarraCom43Posicoes, Short moduloVerificador) {
+        Integer digitoVerificadorGeral = null;
+
+        if (moduloVerificador.compareTo(ConstantesSistema.MODULO_VERIFICADOR_11) == 0) {
+
+            digitoVerificadorGeral = obterDigitoVerificadorModulo11(codigoBarraCom43Posicoes);
+
+        } else {
+
+            digitoVerificadorGeral = obterDigitoVerificadorModulo10(codigoBarraCom43Posicoes);
+
+        }
+
+        return digitoVerificadorGeral;
+    }
+
+    public static Integer obterDigitoVerificadorModulo10(String numero) {
+
+        String entradaString = numero;
+
+        int sequencia = 2;
+        int contEntrada, digito, contAuxiliar, produto, contProduto;
+        String produtoString;
+        int somaDigitosProduto = 0;
+
+        contAuxiliar = 1;
+        for (contEntrada = 0; contEntrada < entradaString.length(); contEntrada++) {
+
+            digito = new Integer(entradaString.substring(entradaString.length() - contAuxiliar, entradaString.length() - contEntrada)).intValue();
+
+            produto = digito * sequencia;
+            produtoString = String.valueOf(produto);
+
+            for (contProduto = 0; contProduto < produtoString.length(); contProduto++) {
+                somaDigitosProduto = somaDigitosProduto + new Integer(produtoString.substring(contProduto, contProduto + 1)).intValue();
+            }
+
+            if (sequencia == 2) {
+                sequencia = 1;
+            } else {
+                sequencia = 2;
+            }
+
+            contAuxiliar++;
+        }
+
+        int resto = (somaDigitosProduto % 10);
+
+        int dac;
+        if (resto == 0) {
+            dac = 0;
+        } else {
+            dac = 10 - resto;
+        }
+
+        return new Integer(dac);
+    }
+
+    public static Integer obterDigitoVerificadorModulo11(String numero) {
+
+        String wnumero = numero;
+        int param = 2;
+        int soma = 0;
+
+        for (int ind = (wnumero.length() - 1); ind >= 0; ind--) {
+            if (param > 9) {
+                param = 2;
+            }
+            soma = soma + (Integer.parseInt(wnumero.substring(ind, ind + 1)) * param);
+            param = param + 1;
+        }
+
+        int resto = soma % 11;
+        int dv;
+
+        if ((resto == 0) || (resto == 1)) {
+            dv = 0;
+        } else {
+            dv = 11 - resto;
+        }
+        return dv;
+    }
 
 	public static String ordenarCamposConsulta(int tipoAgrupamento) {
 		
@@ -120,17 +205,26 @@ public class Utilitarios {
 		return adicionaCampoData(data, Calendar.MONTH, meses);
 	}
 	
+	public static Date adicionarMeses(Integer data, int meses) {
+        if (String.valueOf(data).length() != 6){
+            throw new ValorReferenciaInvalido();
+        }
+        
+        Calendar cal = Calendar.getInstance();
+        
+        cal.set(Calendar.YEAR , extrairAno(data));
+        cal.set(Calendar.MONTH, extrairMes(data) - 1);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+	    
+	    return adicionarMeses(cal.getTime(), meses);
+	}
+	
 	public static int reduzirMeses(Integer data, int meses) {
-		data -= meses;
-		
-		if (data % 100 == 0){
-			String strData = String.valueOf(data);
-			int ano = Integer.valueOf(strData.substring(0, 4));
-			ano--;
-			data = Integer.valueOf(ano + "12"); 
-		}
-		
-		return data;
+	    Calendar cal = Calendar.getInstance();
+
+	    cal.setTime(adicionarMeses(data, - meses));
+	    
+	    return Integer.valueOf(cal.get(Calendar.YEAR) + "" + completaComZerosEsquerda(2, cal.get(Calendar.MONTH) + 1));
 	}
 	
 	public static Date adicionarDias(Date data, int dias) {
@@ -151,11 +245,11 @@ public class Utilitarios {
 	public static String completaTexto(int tamanhoCampo, Object campo) {
 		return completaStringAEsquerda(tamanhoCampo, campo, ' ');
 	}
-		
-	private static String completaString(int tamanhoCampo, Object campo, char caractere) {
-		return StringUtils.leftPad(campo != null ? String.valueOf(campo) : "", tamanhoCampo, caractere);
+	
+	public static String converteParaTexto(Object campo) {
+	    return campo == null ? "" : String.valueOf(campo);
 	}
-
+		
 	public static Date ano1900() {
 		Calendar cal = Calendar.getInstance();
 		cal.set(1900, 0, 1);
