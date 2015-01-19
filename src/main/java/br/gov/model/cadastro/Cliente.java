@@ -268,4 +268,21 @@ public class Cliente implements Serializable {
 	public boolean existeDiaVencimento() {
 		return diaVencimento != null && diaVencimento.intValue() != 0;
 	}
+	
+	public boolean possuiCpf() {
+		return cpf != null && !cpf.equals("");
+	}
+	
+	public boolean possuiCnpj() {
+		return cnpj != null && !cnpj.equals("");
+	}
+	
+	public String getCpfOuCnpj() {
+		if (possuiCpf())
+			return cpf;
+		else if (possuiCpf())
+			return cnpj;
+		else
+			return "";
+	}
 }
