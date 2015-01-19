@@ -1,0 +1,7 @@
+cadastro.imovel:
+  - imov_id: 1
+
+faturamento.extrato_quitacao:
+  - extq_id: 1
+    imov_id: 1
+    extq_aareferenciaarrecadacao: 2014

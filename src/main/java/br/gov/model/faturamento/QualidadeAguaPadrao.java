@@ -31,7 +31,7 @@ public class QualidadeAguaPadrao implements Serializable{
 	@Column(name="qlap_dspadraocloro")
 	private String descricaoPadraoCloro;
 	
-	@Column(name="qlap_dspadraocloro")
+	@Column(name="qlap_dspadraofluor")
 	private String descricaoPadraoFluor;
 	
 	@Column(name="qlap_dspadraoferro")
