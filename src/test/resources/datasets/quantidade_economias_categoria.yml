@@ -1,0 +1,22 @@
+cadastro.imovel_subcategoria:
+  - imov_id: 1
+    scat_id: 1
+    imsb_qteconomia: 2
+
+cadastro.categoria:
+  - catg_id: 1
+    catg_dscategoria: 'RESIDENCIAL'
+    catg_dsabreviado: 'RES'
+    catg_nnconsumoestouro: 50
+    catg_nnvezesmediaestouro: 3.0
+    catg_nnconsumoalto: 50
+    catg_nnmediabaixoconsumo: 30
+    catg_nnvezesmediaaltoconsumo: 2.0
+    catg_pcmediabaixoconsumo: 50.0
+    catg_nnconsumomaximoec: 500
+    catg_iccobrancaacrescimos: 1
+    cgtp_id: 1
+
+cadastro.subcategoria:
+  - scat_id: 1
+    catg_id: 1
