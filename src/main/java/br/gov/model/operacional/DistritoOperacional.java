@@ -22,7 +22,7 @@ public class DistritoOperacional implements Serializable{
 	@Column(name="diop_dsdistritooperacional")
 	private String descricao;
 	
-	@Column(name="diop_dsabreviado")
+	@Column(name="diop_dsabreviado", length=3)
 	private String descricaoAbreviada;
 	
 	@ManyToOne
