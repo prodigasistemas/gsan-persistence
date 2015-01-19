@@ -5,7 +5,11 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.gov.model.operacional.DistritoOperacional;
 
 
 @Entity
@@ -19,6 +23,10 @@ public class QuadraFace implements Serializable{
 	
 	@Column(name="qdfa_nnfacequadra")
 	private Integer numeroQuadraFace;
+	
+	@ManyToOne
+	@JoinColumn(name="diop_id")
+	private DistritoOperacional distritoOperacional;
 	
 	public QuadraFace() {
 	}
