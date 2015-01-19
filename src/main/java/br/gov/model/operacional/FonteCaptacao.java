@@ -1,7 +1,7 @@
 package br.gov.model.operacional;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +33,7 @@ public class FonteCaptacao implements Serializable{
 	
 	@Column(name="ftcp_tmultimaalteracao")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Timestamp ultimaAlteracao;
+	private Date ultimaAlteracao;
 	
 	@ManyToOne
 	@JoinColumn(name="tpcp_id")
@@ -71,15 +71,15 @@ public class FonteCaptacao implements Serializable{
 		this.indicadorUso = indicadorUso;
 	}
 
-	public Timestamp getUltimaAlteracao() {
-		return ultimaAlteracao;
-	}
+	public Date getUltimaAlteracao() {
+        return ultimaAlteracao;
+    }
 
-	public void setUltimaAlteracao(Timestamp ultimaAlteracao) {
-		this.ultimaAlteracao = ultimaAlteracao;
-	}
+    public void setUltimaAlteracao(Date ultimaAlteracao) {
+        this.ultimaAlteracao = ultimaAlteracao;
+    }
 
-	public TipoCaptacao getTipoCaptacao() {
+    public TipoCaptacao getTipoCaptacao() {
 		return tipoCaptacao;
 	}
 
