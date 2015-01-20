@@ -94,8 +94,8 @@ public class ImovelSubcategoriaRepositorio {
 
 		StringBuffer consulta = new StringBuffer();
 
-
-		consulta.append("select subcategoria.id, ")
+		consulta.append("select new br.gov.servicos.to.ImovelSubcategoriaTO(")
+				.append("   subcategoria.id, ")
 				.append("	subcategoria.codigo,")
 				.append("	subcategoria.descricao, ")
 				.append("	sum(imovelSubcategoria.quantidadeEconomias), ")
@@ -107,8 +107,8 @@ public class ImovelSubcategoriaRepositorio {
 				.append("	categoria.fatorEconomias, ")
 				.append("	subcategoria.indicadorSazonalidade, ")
 				.append("	categoria.descricaoAbreviada, ")
-				.append("	subcategoria.descricaoAbreviada, ")
-				.append("   subcategoria.indicadorSazonalidade ")
+				.append("	subcategoria.descricaoAbreviada ")
+				.append(")")
 				.append("from ImovelSubcategoria imovelSubCategoria ")
 				.append("	inner join imovelSubCategoria.subcategoria subcategoria ")
 				.append("	inner join subcategoria.categoria categoria ")

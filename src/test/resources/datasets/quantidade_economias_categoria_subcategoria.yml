@@ -1,0 +1,58 @@
+cadastro.sistema_parametros:
+  - parm_id: 1
+
+cadastro.imovel_subcategoria:
+  - imov_id: 1
+    scat_id: 1
+    imsb_qteconomia: 2
+  - imov_id: 2
+    scat_id: 5
+    imsb_qteconomia: 1
+
+cadastro.categoria:
+  - catg_id: 1
+    catg_dscategoria: 'RESIDENCIAL'
+    catg_dsabreviado: 'RES'
+    catg_nnconsumoestouro: 50
+    catg_nnvezesmediaestouro: 3.0
+    catg_nnconsumoalto: 50
+    catg_nnmediabaixoconsumo: 30
+    catg_nnvezesmediaaltoconsumo: 2.0
+    catg_pcmediabaixoconsumo: 50.15
+    catg_nnconsumomaximoec: 500
+    catg_iccobrancaacrescimos: 1
+    cgtp_id: 5
+    catg_nnfatoreconomias: 2
+  - catg_id: 2
+    catg_dscategoria: 'COMERCIAL'
+    catg_dsabreviado: 'COM'
+    catg_nnconsumoestouro: 40
+    catg_nnvezesmediaestouro: 2.0
+    catg_nnconsumoalto: 40
+    catg_nnmediabaixoconsumo: 20
+    catg_nnvezesmediaaltoconsumo: 1.0
+    catg_pcmediabaixoconsumo: 30.28
+    catg_nnconsumomaximoec: 700
+    catg_iccobrancaacrescimos: 2
+    cgtp_id: 1
+    catg_nnfatoreconomias: 1
+
+cadastro.subcategoria:
+  - scat_id: 1
+    catg_id: 1
+    scat_cdsubcategoria: 5
+    scat_dssubcategoria: 'RESIDENCIAL 1'
+    scat_dsabreviada: 'R1'
+    scat_cdtarifasocial: '5'
+    scat_nnfatorfiscalizacao: 1
+    scat_ictarifaconsumo: 1
+    scat_icsazonalidade: 2
+  - scat_id: 5
+    catg_id: 2
+    scat_cdsubcategoria: 1
+    scat_dssubcategoria: 'COMERCIAL 1'
+    scat_dsabreviada: 'C1'
+    scat_cdtarifasocial: '3'
+    scat_nnfatorfiscalizacao: 2
+    scat_ictarifaconsumo: 2
+    scat_icsazonalidade: 1

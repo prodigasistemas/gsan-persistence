@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.gov.model.Status;
+
 @Entity
 @Table(name="fatur_situacao_tipo", schema="faturamento")
 public class FaturamentoSituacaoTipo {
@@ -70,5 +72,17 @@ public class FaturamentoSituacaoTipo {
 	
 	public String toString() {
 		return "FaturamentoSituacaoTipo [id=" + id + ", paralisacaoFaturamento=" + paralisacaoFaturamento + ", validoAgua="	+ validoAgua + "]";
+	}
+	
+	public boolean paralisacaoFaturamentoAtivo() {
+		return paralisacaoFaturamento != null  && paralisacaoFaturamento == Status.ATIVO.getId();
+	}
+	
+	public boolean paralisacaoFaturamentoAgua() {
+		return paralisacaoFaturamentoAtivo() && validoAgua == Status.ATIVO.getId();
+	}
+	
+	public boolean paralisacaoFaturamentoEsgoto() {
+		return paralisacaoFaturamentoAtivo() && validoEsgoto == Status.ATIVO.getId();
 	}
 }

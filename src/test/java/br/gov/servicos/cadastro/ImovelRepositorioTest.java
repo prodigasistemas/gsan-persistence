@@ -1,6 +1,8 @@
 package br.gov.servicos.cadastro;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -56,7 +58,7 @@ public class ImovelRepositorioTest extends SingleDeployment{
 	
 	@Test
 	@UsingDataSet("imoveis.yml")
-	public void buscarImovelPorId() throws Exception {
+	public void buscarImovelParaPreFaturamento() throws Exception {
 		System.out.println("**********************************************");
 		List<Imovel> lista = repositorio.imoveisParaPreFaturamento(1, 0, 6000);
 		
@@ -73,5 +75,17 @@ public class ImovelRepositorioTest extends SingleDeployment{
 	    assertEquals(4, to.getMenorFaixa().intValue());
 	    assertEquals(54.80, to.getAreaConstruida().doubleValue(), 1);
 	    
+	}
+	
+	@Test
+	@UsingDataSet("imoveis.yml")
+	public void buscarImovelPorId() throws Exception {
+		assertNotNull(repositorio.buscarPeloId(1));
+	}
+	
+	@Test
+	@UsingDataSet("imoveis.yml")
+	public void buscarImovelPorIdInexistente() throws Exception {
+		assertNull(repositorio.buscarPeloId(10));
 	}
 }
