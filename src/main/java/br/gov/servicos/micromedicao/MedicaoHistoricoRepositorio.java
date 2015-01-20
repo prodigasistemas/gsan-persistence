@@ -17,7 +17,7 @@ public class MedicaoHistoricoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public MedicaoHistorico buscarPorImovelEReferencia(Integer idImovel, Integer anoMesReferencia) {
+	public MedicaoHistorico buscarPorLigacaoAgua(Integer idLigacao, Integer anoMesReferencia) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select mdhi from MedicaoHistorico mdhi")
 		   .append(" INNER JOIN mdhi.ligacaoAgua lagu ")
@@ -25,7 +25,7 @@ public class MedicaoHistoricoRepositorio {
 		   .append(" AND mdhi.anoMesReferencia = :anoMesReferencia ");
 
 		List<MedicaoHistorico> lista = entity.createQuery(sql.toString(), MedicaoHistorico.class)
-				.setParameter("idImovel", idImovel)
+				.setParameter("idImovel", idLigacao)
 				.setParameter("anoMesReferencia", anoMesReferencia)
 				.setMaxResults(1).getResultList();
 
@@ -38,7 +38,6 @@ public class MedicaoHistoricoRepositorio {
 		   .append(" FROM MedicaoHistorico mdhi ")
 		   .append(" LEFT JOIN mdhi.ligacaoAgua lagu ")
 		   .append(" LEFT JOIN mdhi.imovel imovel ")
-		   .append(" LEFT JOIN mdhi.leituraSituacaoAtual leituraSituacaoAtual ")
 		   .append(" WHERE mdhi.anoMesReferencia = :anoMesReferencia ")
 		   .append(" AND (imovel.id = :idImovel OR lagu.imovel.id = :idImovel) ");
 
