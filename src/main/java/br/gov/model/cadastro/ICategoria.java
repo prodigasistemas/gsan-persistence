@@ -9,13 +9,12 @@ public interface ICategoria {
 	public Integer getQuantidadeEconomias();
 	public ICategoria getCategoria();
 	public ICategoria getSubcategoria();
-	public String getDescricao();
 	public String getCategoriaDescricao();
-	public String getSubcategoriaDescricao();
-	public String getDescricaoAbreviada();
 	public String getCategoriaDescricaoAbreviada();
+	public String getSubcategoriaDescricao();
+	public String getSubcategoriaDescricaoAbreviada();
+	public Integer getCodigoSubcategoria();
 	public Short getFatorEconomias();
-	
 	public Integer getConsumoEstouro();
 	public Integer getConsumoAlto();
 	public Integer getNumeroConsumoMaximoEc();
@@ -23,6 +22,10 @@ public interface ICategoria {
 	public BigDecimal getVezesMediaAltoConsumo();
 	public BigDecimal getVezesMediaEstouro();
 	public BigDecimal getPorcentagemMediaBaixoConsumo();
-
-
+	public Short getIndicadorCobrancaAcrescimos();
+	public Integer getCategoriaTipo();
+	public String getCodigoTarifaSocial();
+	public Short getNumeroFatorFiscalizacao();
+	public Short getIndicadorTarifaConsumo();
+	public Short getIndicadorSazonalidade();
 }
