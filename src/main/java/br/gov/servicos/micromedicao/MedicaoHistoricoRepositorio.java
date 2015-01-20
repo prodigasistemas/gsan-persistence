@@ -17,7 +17,7 @@ public class MedicaoHistoricoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public MedicaoHistorico buscarPorImovelEReferencia(Integer idImovel, Integer anoMesReferencia) {
+	public MedicaoHistorico buscarPorLigacaoAgua(Integer idImovel, Integer anoMesReferencia) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select mdhi from MedicaoHistorico mdhi")
 		   .append(" INNER JOIN mdhi.ligacaoAgua lagu ")
