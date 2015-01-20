@@ -1,0 +1,17 @@
+cobranca.contrato_parcel:
+  - cpar_id: 1
+    pcst_id: 1
+
+faturamento.conta_geral:
+  - cnta_id: 1
+
+faturamento.guia_pagamento_geral:
+  - gpag_id: 1
+
+cobranca.contrato_parcel_item:
+  - cpit_id: 1
+    cpar_id: 1
+    cnta_id: 1
+  - cpit_id: 2
+    cpar_id: 1
+    gpag_id: 1

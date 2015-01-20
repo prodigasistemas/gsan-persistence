@@ -27,13 +27,14 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	private Integer categoriaTipoId;
 	
 	private Integer subcategoriaId;
-	private Integer codigo;
+	private Integer subcategoriaCodigo;
 	private String subcategoriaDescricao;
 	private String subcategoriaDescricaoAbreviada;
 	private String codigoTarifaSocial;
 	private Short numeroFatorFiscalizacao;
 	private Short numeroIndicadorTarifaConsumo;
 	private Short indicadorSazonalidade;
+	private Short indicadorTarifaConsumo;
 	
 	private Integer categoriaQuantidadeEconomias;
 	
@@ -41,11 +42,22 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	
 	public ImovelSubcategoriaTO(){}
 	
-	
-	public ImovelSubcategoriaTO(Integer categoriaId, String categoriaDescricao, Integer consumoEstouro, BigDecimal vezesMediaEstouro,
-			Long subcategoriaQuantidadeEconomias, Integer imovelId, Integer consumoAlto, Integer mediaBaixoConsumo, BigDecimal vezesMediaAltoConsumo,
-			BigDecimal porcentagemMediaBaixoConsumo, String categoriaDescricaoAbreviada, Integer numeroConsumoMaximoEc, Short indicadorCobrancaAcrescimos,
-			Short fatorEconomias, Integer categoriaTipoId) {
+	public ImovelSubcategoriaTO(
+			Integer categoriaId, 
+			String categoriaDescricao, 
+			Integer consumoEstouro, 
+			BigDecimal vezesMediaEstouro,
+			Long subcategoriaQuantidadeEconomias, 
+			Integer imovelId, 
+			Integer consumoAlto, 
+			Integer mediaBaixoConsumo, 
+			BigDecimal vezesMediaAltoConsumo,
+			BigDecimal porcentagemMediaBaixoConsumo, 
+			String categoriaDescricaoAbreviada, 
+			Integer numeroConsumoMaximoEc, 
+			Short indicadorCobrancaAcrescimos,
+			Short fatorEconomias, 
+			Integer categoriaTipoId) {
 		this.categoriaId = categoriaId;
 		this.categoriaDescricao = categoriaDescricao;
 		this.consumoEstouro = consumoEstouro;
@@ -63,7 +75,35 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 		this.categoriaTipoId = categoriaTipoId;
 	}
 
-
+	public ImovelSubcategoriaTO(
+			Integer subcategoriaId, 
+			Integer subcategoriaCodigo, 
+			String subcategoriaDescricao, 
+			Long subcategoriaQuantidadeEconomias,
+			String codigoTarifaSocial,
+			Short numeroFatorFiscalizacao,
+			Short indicadorTarifaConsumo,
+			Integer categoriaId,
+			String categoriaDescricao,
+			Short fatorEconomias,
+			Short indicadorSazonalidade,
+			String categoriaDescricaoAbreviada,
+			String subcategoriaDescricaoAbreviada) {
+		this.subcategoriaId = subcategoriaId;
+		this.subcategoriaCodigo = subcategoriaCodigo;
+		this.subcategoriaDescricao = subcategoriaDescricao;
+		this.subcategoriaQuantidadeEconomias = subcategoriaQuantidadeEconomias;
+		this.codigoTarifaSocial = codigoTarifaSocial;
+		this.numeroFatorFiscalizacao = numeroFatorFiscalizacao;
+		this.indicadorTarifaConsumo = indicadorTarifaConsumo;
+		this.categoriaId = categoriaId;
+		this.categoriaDescricao = categoriaDescricao;
+		this.fatorEconomias = fatorEconomias;
+		this.indicadorSazonalidade = indicadorSazonalidade;
+		this.categoriaDescricaoAbreviada = categoriaDescricaoAbreviada;
+		this.subcategoriaDescricaoAbreviada = subcategoriaDescricaoAbreviada;
+	}
+	
 	public void setId(Integer id){
 		setCategoriaId(id);
 		setSubcategoriaId(id);
@@ -86,11 +126,11 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	}
 
 	public Integer getCodigo() {
-		return codigo;
+		return subcategoriaCodigo;
 	}
 
 	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+		this.subcategoriaCodigo = codigo;
 	}
 	
 	public String getDescricao(){
@@ -281,7 +321,7 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 		this.indicadorCobrancaAcrescimos = indicadorCobrancaAcrescimos;
 	}
 
-	public Integer getCategoriaTipoId() {
+	public Integer getCategoriaTipo() {
 		return categoriaTipoId;
 	}
 
@@ -323,5 +363,29 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 			categoria.setId(categoriaId);
 			return categoria;
 		}
+	}
+
+	public Integer getCodigoSubcategoria() {
+		return subcategoriaCodigo;
+	}
+
+	public Integer getSubcategoriaCodigo() {
+		return subcategoriaCodigo;
+	}
+
+	public void setSubcategoriaCodigo(Integer subcategoriaCodigo) {
+		this.subcategoriaCodigo = subcategoriaCodigo;
+	}
+
+	public Short getIndicadorTarifaConsumo() {
+		return indicadorTarifaConsumo;
+	}
+
+	public void setIndicadorTarifaConsumo(Short indicadorTarifaConsumo) {
+		this.indicadorTarifaConsumo = indicadorTarifaConsumo;
+	}
+
+	public Integer getCategoriaTipoId() {
+		return categoriaTipoId;
 	}
 }

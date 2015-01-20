@@ -224,4 +224,20 @@ public class Subcategoria implements Serializable, ICategoria {
 	public BigDecimal getPorcentagemMediaBaixoConsumo() {
 		return null;
 	}
+
+	public Short getIndicadorCobrancaAcrescimos() {
+		return null;
+	}
+
+	public Integer getCategoriaTipo() {
+		return null;
+	}
+
+	public Integer getCodigoSubcategoria() {
+		return getCodigo();
+	}
+	
+	public String getSubcategoriaDescricaoAbreviada() {
+		return getDescricaoAbreviada();
+	}
 }
