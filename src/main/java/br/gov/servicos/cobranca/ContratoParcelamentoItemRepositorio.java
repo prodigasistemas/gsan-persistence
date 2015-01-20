@@ -20,7 +20,7 @@ public class ContratoParcelamentoItemRepositorio {
 		
 		long count = entity.createQuery(sql.toString(), Long.class)
 				.setParameter("idConta", idConta)
-				.setParameter("situacao", ParcelamentoSituacao.NORMAL)
+				.setParameter("situacao", ParcelamentoSituacao.NORMAL.getId())
 				.getSingleResult();
 		
 		return count == 0 ? false: true;
@@ -31,11 +31,11 @@ public class ContratoParcelamentoItemRepositorio {
 		sql.append("select count(item) from ContratoParcelamentoItem item ")
 		.append(" inner join item.contrato contrato ")
 		.append(" inner join item.guiaPagamentoGeral guia ")
-		.append(" where guia.id = :idConta and contrato.situacao = :situacao");
+		.append(" where guia.id = :idGuia and contrato.situacao = :situacao");
 		
 		long count = entity.createQuery(sql.toString(), Long.class)
 				.setParameter("idGuia", idGuia)
-				.setParameter("situacao", ParcelamentoSituacao.NORMAL)
+				.setParameter("situacao", ParcelamentoSituacao.NORMAL.getId())
 				.getSingleResult();
 		
 		return count == 0 ? false: true;
