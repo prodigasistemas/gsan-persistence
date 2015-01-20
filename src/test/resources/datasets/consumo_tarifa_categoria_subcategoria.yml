@@ -1,0 +1,27 @@
+cadastro.sistema_parametros:
+  - parm_id: 1
+
+faturamento.consumo_tarifa_categoria:
+  - cstc_id: 1
+    cstc_nnconsumominimo: 10
+    cstv_id: 1
+    catg_id: 1
+  - cstc_id: 2
+    cstc_nnconsumominimo: 20
+    cstv_id: 2
+    catg_id: 2
+    scat_id: 2
+
+faturamento.consumo_tarifa_vigencia:
+  - cstv_id: 1
+  - cstv_id: 2
+
+cadastro.categoria:
+  - catg_id: 1
+  - catg_id: 2
+
+cadastro.subcategoria:
+  - scat_id: 1
+    catg_id: 1
+  - scat_id: 2
+    catg_id: 2
