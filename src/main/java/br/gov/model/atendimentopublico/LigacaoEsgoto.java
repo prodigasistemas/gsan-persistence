@@ -151,4 +151,12 @@ public class LigacaoEsgoto implements Serializable {
 	public void setImovel(Imovel imovel) {
 		this.imovel = imovel;
 	}
+	
+	public boolean possuiPercentualAlternativo() {
+		return percentualAlternativo != null;
+	}
+	
+	public boolean possuiNumeroConsumoPercentualAlternativo() {
+		return numeroConsumoPercentualAlternativo != null;
+	}
 }
