@@ -9,7 +9,7 @@ public class ConsultaDebitoImovelTO implements Serializable{
 	private static final long serialVersionUID = 8462644031332851271L;
 	
 	private Integer idImovel;
-	private List<Short> situacoes;
+	private List<Integer> situacoes;
 	private Integer referenciaInicial;
 	private Integer referenciaFinal;
 	private Date vencimentoInicial;
@@ -22,13 +22,13 @@ public class ConsultaDebitoImovelTO implements Serializable{
 	public void setIdImovel(Integer idImovel) {
 		this.idImovel = idImovel;
 	}
-	public List<Short> getSituacoes() {
-		return situacoes;
-	}
-	public void setSituacoes(List<Short> situacoes) {
-		this.situacoes = situacoes;
-	}
-	public Integer getReferenciaInicial() {
+	public List<Integer> getSituacoes() {
+        return situacoes;
+    }
+    public void setSituacoes(List<Integer> situacoes) {
+        this.situacoes = situacoes;
+    }
+    public Integer getReferenciaInicial() {
 		return referenciaInicial;
 	}
 	public void setReferenciaInicial(Integer referenciaInicial) {
@@ -40,7 +40,6 @@ public class ConsultaDebitoImovelTO implements Serializable{
 	public void setReferenciaFinal(Integer referenciaFinal) {
 		this.referenciaFinal = referenciaFinal;
 	}
-
 	public Date getVencimentoInicial() {
 		return vencimentoInicial;
 	}
@@ -59,9 +58,9 @@ public class ConsultaDebitoImovelTO implements Serializable{
 	public void setIndicadorDebito(Integer indicadorDebito) {
 		this.indicadorDebito = indicadorDebito;
 	}
-	public void addSituacao(Short situacao){
+	public void addSituacao(Integer situacao){
 		if (situacoes == null){
-			situacoes = new ArrayList<Short>();
+			situacoes = new ArrayList<Integer>();
 		}
 		situacoes.add(situacao);
 	}

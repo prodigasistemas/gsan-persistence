@@ -1,0 +1,24 @@
+faturamento.conta_geral:
+  - cnta_id: 1
+
+faturamento.conta:
+  - cnta_id: 1
+    imov_id: 1
+    dcst_idatual: 0
+    cnta_amreferenciaconta: 201406
+    cnta_dtvencimentoconta: 2014-07-01
+    cnta_vlagua: 15
+    cnta_vlesgoto: 20.40
+    cnta_vldebitos: 5
+    cnta_vlcreditos: 7
+    cnta_vlimpostos: 5.43
+    cnta_iccobrancamulta: 1
+    cnta_dgverificadorconta: 2
+    cmrv_id: 3
+    cnta_nnconsumoagua: 54
+    cnta_nnconsumoesgoto: 34
+    parc_id: 4
+
+arrecadacao.pagamento:
+  - pgmt_id: 1
+    cnta_id: 1
