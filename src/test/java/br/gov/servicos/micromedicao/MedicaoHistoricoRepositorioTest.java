@@ -22,7 +22,19 @@ public class MedicaoHistoricoRepositorioTest extends SingleDeployment{
 	private MedicaoHistoricoRepositorio repositorio;
 	
 	@Test
-	@UsingDataSet({"medicaoHistorico.yml"})
+	@UsingDataSet("medicaoHistorico.yml")
+	public void instalacaoHidrometroLigacaoAgua(){
+	    MedicaoHistorico to = repositorio.buscarPorLigacaoAgua(2, 201408);
+	    
+	    assertEquals(201408, to.getAnoMesReferencia().intValue());
+	    assertEquals(100, to.getLeituraAnteriorFaturamento().intValue());
+	    assertEquals(200, to.getLeituraAtualFaturamento().intValue());
+	    assertEquals(300, to.getLeituraAtualInformada().intValue());
+	    assertEquals(3, to.getLeituraSituacaoAtual().intValue());
+	}
+	
+	@Test
+	@UsingDataSet("medicaoHistorico.yml")
 	public void instalacaoHidrometroPoco(){
 		MedicaoHistorico to = repositorio.buscarPorLigacaoAguaOuPoco(1, 201408);
 		
