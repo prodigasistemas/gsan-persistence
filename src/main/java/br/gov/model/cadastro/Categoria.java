@@ -256,4 +256,8 @@ public class Categoria implements Serializable, ICategoria{
 	public Subcategoria getSubcategoria(){
 		return Subcategoria.SUBCATEGORIA_ZERO;
 	}
+	
+	public Short getIndicadorSazonalidade() {
+		return null;
+	}
 }

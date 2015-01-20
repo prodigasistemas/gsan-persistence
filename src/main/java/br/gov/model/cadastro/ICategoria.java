@@ -15,6 +15,7 @@ public interface ICategoria {
 	public String getDescricaoAbreviada();
 	public String getCategoriaDescricaoAbreviada();
 	public Short getFatorEconomias();
+	public Short getIndicadorSazonalidade();
 	
 	public Integer getConsumoEstouro();
 	public Integer getConsumoAlto();
