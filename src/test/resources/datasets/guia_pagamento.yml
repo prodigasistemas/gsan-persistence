@@ -1,0 +1,21 @@
+faturamento.debito_tipo:
+  - dbtp_id: 1
+
+faturamento.guia_pagamento:
+  - gpag_id: 1
+    dbtp_id: 1
+    imov_id: 1
+    dcst_idatual: 0
+    gpag_dtvencimento: 2014-06-01
+    gpag_vldebito: 20.50
+    gpag_amreferenciacontabil: 201405
+    gpag_iccobrancamulta: 2
+    gpag_dtemissao: 2014-07-01
+    gpag_nnprestacaodebito: 4
+    gpag_nnprestacaototal: 10
+    dotp_id: 3
+
+arrecadacao.pagamento:
+  - pgmt_id: 1
+    gpag_id: 1
+    pgmt_dtpagamento: 2014-07-01
