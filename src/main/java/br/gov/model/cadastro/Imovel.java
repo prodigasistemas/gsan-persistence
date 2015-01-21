@@ -352,6 +352,10 @@ public class Imovel implements Serializable{
 
 		return endereco;
 	}
+	
+	public boolean possuiFaturamentoSituacaoTipo() {
+		return faturamentoSituacaoTipo != null && faturamentoSituacaoTipo.getId() != null;
+	}
 
 	/**********************************************
 	 ************ GETTERS AND SETTERS ************* 

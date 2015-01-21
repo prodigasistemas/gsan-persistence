@@ -50,4 +50,19 @@ public class QuadraFace implements Serializable{
 	public String toString() {
 		return "QuadraFace [id=" + id + ", numeroQuadraFace=" + numeroQuadraFace + "]";
 	}
+	
+	public DistritoOperacional getDistritoOperacional() {
+		return distritoOperacional;
+	}
+
+	public void setDistritoOperacional(DistritoOperacional distritoOperacional) {
+		this.distritoOperacional = distritoOperacional;
+	}
+
+	public boolean possuiSistemaAbastecimento(){
+		return this.getDistritoOperacional() != null
+				&& this.getDistritoOperacional().getSetorAbastecimento() != null
+				&& this.getDistritoOperacional().getSetorAbastecimento()
+						.getSistemaAbastecimento() != null;
+	}
 }

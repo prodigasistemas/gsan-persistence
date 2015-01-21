@@ -16,7 +16,7 @@ public class ConsumoTarifaRepositorio {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append("select consumoTarifa.id ")
-		.append(" from gcom.cadastro.imovel.Imovel imovel ")
+		.append(" from Imovel imovel ")
 		.append(" left join imovel.consumoTarifa consumoTarifa ")
 		.append(" where imovel.id = :idImovel");
 		

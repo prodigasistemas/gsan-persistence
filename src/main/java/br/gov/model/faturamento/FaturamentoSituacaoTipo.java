@@ -3,9 +3,13 @@ package br.gov.model.faturamento;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.gov.model.Status;
+import br.gov.model.micromedicao.LeituraAnormalidadeConsumo;
+import br.gov.model.micromedicao.LeituraAnormalidadeLeitura;
 
 @Entity
 @Table(name="fatur_situacao_tipo", schema="faturamento")
@@ -26,6 +30,22 @@ public class FaturamentoSituacaoTipo {
     
     @Column(name="ftst_icvalidoesgoto")
     private Short validoEsgoto;
+    
+    @ManyToOne
+	@JoinColumn(name="lacs_idconsacobrarcomleit")
+	private LeituraAnormalidadeConsumo leituraAnormalidadeConsumoComLeitura;
+	
+    @ManyToOne
+	@JoinColumn(name="lacs_idconsacobrarsemleit")
+	private LeituraAnormalidadeConsumo leituraAnormalidadeConsumoSemLeitura;
+    
+    @ManyToOne
+	@JoinColumn(name="lalt_idleitafaturarcomleit")
+	private LeituraAnormalidadeLeitura leituraAnormalidadeLeituraComLeitura;
+    
+    @ManyToOne
+	@JoinColumn(name="lalt_idleitafaturarsemleit")
+	private LeituraAnormalidadeLeitura leituraAnormalidadeLeituraSemLeitura;
     
     public FaturamentoSituacaoTipo() {
 	}
@@ -70,6 +90,38 @@ public class FaturamentoSituacaoTipo {
 		this.validoEsgoto= validoEsgoto;
 	}
 	
+	public LeituraAnormalidadeConsumo getLeituraAnormalidadeConsumoComLeitura() {
+		return leituraAnormalidadeConsumoComLeitura;
+	}
+
+	public void setLeituraAnormalidadeConsumoComLeitura(LeituraAnormalidadeConsumo leituraAnormalidadeConsumoComLeitura) {
+		this.leituraAnormalidadeConsumoComLeitura = leituraAnormalidadeConsumoComLeitura;
+	}
+
+	public LeituraAnormalidadeConsumo getLeituraAnormalidadeConsumoSemLeitura() {
+		return leituraAnormalidadeConsumoSemLeitura;
+	}
+
+	public void setLeituraAnormalidadeConsumoSemLeitura(LeituraAnormalidadeConsumo leituraAnormalidadeConsumoSemLeitura) {
+		this.leituraAnormalidadeConsumoSemLeitura = leituraAnormalidadeConsumoSemLeitura;
+	}
+
+	public LeituraAnormalidadeLeitura getLeituraAnormalidadeLeituraComLeitura() {
+		return leituraAnormalidadeLeituraComLeitura;
+	}
+
+	public void setLeituraAnormalidadeLeituraComLeitura(LeituraAnormalidadeLeitura leituraAnormalidadeLeituraComLeitura) {
+		this.leituraAnormalidadeLeituraComLeitura = leituraAnormalidadeLeituraComLeitura;
+	}
+
+	public LeituraAnormalidadeLeitura getLeituraAnormalidadeLeituraSemLeitura() {
+		return leituraAnormalidadeLeituraSemLeitura;
+	}
+
+	public void setLeituraAnormalidadeLeituraSemLeitura(LeituraAnormalidadeLeitura leituraAnormalidadeLeituraSemLeitura) {
+		this.leituraAnormalidadeLeituraSemLeitura = leituraAnormalidadeLeituraSemLeitura;
+	}
+
 	public String toString() {
 		return "FaturamentoSituacaoTipo [id=" + id + ", paralisacaoFaturamento=" + paralisacaoFaturamento + ", validoAgua="	+ validoAgua + "]";
 	}

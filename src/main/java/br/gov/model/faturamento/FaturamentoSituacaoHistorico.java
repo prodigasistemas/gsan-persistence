@@ -26,6 +26,20 @@ public class FaturamentoSituacaoHistorico {
 	@Column(name="ftsh_amfaturamentoretirada")
     private Integer anoMesFaturamentoRetirada;
 	
+	@Column(name="ftsh_nnconsumoaguamedido")
+	private Integer consumoAguaMedido;
+	
+	@Column(name="ftsh_nnconsumoaguanaomedido")
+	private Integer consumoAguaNaoMedido;
+	
+	
+	@Column(name="ftsh_nnvolumeesgotomedido")
+	private Integer volumeEsgotoMedido;
+	
+	
+	@Column(name="ftsh_nnvolumeesgotonaomedido")
+	private Integer volumeEsgotoNaoMedido;
+	
 	@ManyToOne
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
@@ -63,6 +77,38 @@ public class FaturamentoSituacaoHistorico {
 
 	public void setAnoMesFaturamentoRetirada(Integer anoMesFaturamentoRetirada) {
 		this.anoMesFaturamentoRetirada = anoMesFaturamentoRetirada;
+	}
+
+	public Integer getConsumoAguaMedido() {
+		return consumoAguaMedido;
+	}
+
+	public void setConsumoAguaMedido(Integer consumoAguaMedido) {
+		this.consumoAguaMedido = consumoAguaMedido;
+	}
+
+	public Integer getConsumoAguaNaoMedido() {
+		return consumoAguaNaoMedido;
+	}
+
+	public void setConsumoAguaNaoMedido(Integer consumoAguaNaoMedido) {
+		this.consumoAguaNaoMedido = consumoAguaNaoMedido;
+	}
+
+	public Integer getVolumeEsgotoMedido() {
+		return volumeEsgotoMedido;
+	}
+
+	public void setVolumeEsgotoMedido(Integer volumeEsgotoMedido) {
+		this.volumeEsgotoMedido = volumeEsgotoMedido;
+	}
+
+	public Integer getVolumeEsgotoNaoMedido() {
+		return volumeEsgotoNaoMedido;
+	}
+
+	public void setVolumeEsgotoNaoMedido(Integer volumeEsgotoNaoMedido) {
+		this.volumeEsgotoNaoMedido = volumeEsgotoNaoMedido;
 	}
 
 	public Imovel getImovel() {
