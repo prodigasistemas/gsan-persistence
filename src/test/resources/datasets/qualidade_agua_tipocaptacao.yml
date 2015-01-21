@@ -1,0 +1,15 @@
+cadastro.localidade:
+ - loca_id: 1
+
+cadastro.setor_comercial:
+ - stcm_id: 1 
+
+operacional.sistema_abastecimento:
+ - sabs_id: 1
+
+faturamento.qualidade_agua:
+ - qlag_id: 1
+   sabs_id: 1
+   stcm_id: 1
+   loca_id: 1
+   qlag_amreferencia: 201501

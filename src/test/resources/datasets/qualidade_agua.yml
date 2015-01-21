@@ -1,0 +1,15 @@
+operacional.tipo_captacao:
+ - tpcp_id: 1
+
+operacional.fonte_captacao:
+ - ftcp_id: 1
+   tpcp_id: 1 
+
+operacional.sistema_abastecimento:
+ - sabs_id: 1
+
+faturamento.qualidade_agua:
+ - qlag_id: 1
+   sabs_id: 1
+   ftcp_id: 1
+   qlag_amreferencia: 201501

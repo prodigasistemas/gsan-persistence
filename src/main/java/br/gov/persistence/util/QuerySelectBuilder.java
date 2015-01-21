@@ -78,6 +78,11 @@ public class QuerySelectBuilder {
 		return this;
 	}
 	
+	public QuerySelectBuilder appendInnerJoin(String joinField){
+		joins.append(" INNER JOIN obj.").append(joinField).append(" ").append(joinField);
+		return this;
+	}
+	
 	public QuerySelectBuilder appendJoinCondition(String join, String field, Object value){
 		sqlConditions.append(" AND ").append(join).append(".");
 		
