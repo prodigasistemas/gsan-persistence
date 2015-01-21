@@ -1,0 +1,13 @@
+cobranca.parcelamento:
+  - parc_id: 1
+
+faturamento.conta:
+  - cnta_id: 1
+    cnta_vlagua: 200
+    parc_id: 1
+  - cnta_id: 2
+    cnta_vlagua: 200
+    parc_id: 1
+  - cnta_id: 3
+    cnta_vlagua: 200
+    parc_id: 1
