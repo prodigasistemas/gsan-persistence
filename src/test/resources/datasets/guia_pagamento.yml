@@ -1,5 +1,10 @@
+cadastro.imovel:
+  - imov_id: 1
+  - imov_id: 2
+
 faturamento.debito_tipo:
   - dbtp_id: 1
+    dbtp_icgeracaoconta: 1
 
 faturamento.guia_pagamento:
   - gpag_id: 1
@@ -14,8 +19,22 @@ faturamento.guia_pagamento:
     gpag_nnprestacaodebito: 4
     gpag_nnprestacaototal: 10
     dotp_id: 3
+  - gpag_id: 2
+    dbtp_id: 1
+    imov_id: 2
+    dcst_idatual: 0
+    gpag_vldebito: 20.50
+    gpag_iccobrancamulta: 2
+    gpag_nnprestacaodebito: 4
+    gpag_nnprestacaototal: 10
+    dotp_id: 3
+    parc_id: 1
 
 arrecadacao.pagamento:
   - pgmt_id: 1
     gpag_id: 1
     pgmt_dtpagamento: 2014-07-01
+
+cobranca.parcelamento:
+  - parc_id: 1
+    imov_id: 2

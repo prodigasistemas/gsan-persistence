@@ -16,6 +16,7 @@ import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import br.gov.model.faturamento.GuiaPagamento;
 import br.gov.persistence.util.SingleDeployment;
 import br.gov.servicos.to.GuiaPagamentoTO;
 
@@ -48,5 +49,12 @@ public class GuiaPagamentoRepositorioTest extends SingleDeployment{
 	    assertEquals(0.0, guia.getValorPagamento().doubleValue(), 1);
 	    assertEquals("2014-07-01", format.format(guia.getDataPagamento()));
 	    assertEquals(3, guia.getDocumentoTipo().intValue());
+	}
+	
+	@Test
+	@UsingDataSet("guia_pagamento.yml")
+	public void guiaDePagamentoComParcelamento(){
+	    GuiaPagamento guia = repositorio.guiaDoParcelamento(1);
+	    assertEquals(20.50, guia.getValorDebito().doubleValue(), 1);
 	}
 }
