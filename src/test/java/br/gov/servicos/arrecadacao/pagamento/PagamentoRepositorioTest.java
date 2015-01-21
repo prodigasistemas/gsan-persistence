@@ -2,6 +2,7 @@ package br.gov.servicos.arrecadacao.pagamento;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -73,6 +74,18 @@ public class PagamentoRepositorioTest extends SingleDeployment{
 	@UsingDataSet("contas_pagas.yml")
 	public void contasForamPagas(){
 	    assertTrue(repositorio.contaPaga(1));
+	}
+	
+	@Test
+	@UsingDataSet("guias_pagas.yml")
+	public void guiaFoiPaga(){
+	    assertTrue(repositorio.guiaPaga(1));
+	}
+	
+	@Test
+	@UsingDataSet("guias_pagas.yml")
+	public void guiaNaoFoiPaga(){
+	    assertFalse(repositorio.guiaPaga(2));
 	}
 	
 }

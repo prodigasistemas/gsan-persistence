@@ -1,0 +1,7 @@
+faturamento.guia_pagamento:
+  - gpag_id: 1
+
+arrecadacao.pagamento:
+  - pgmt_id: 1
+    gpag_id: 1
+  - pgmt_id: 2
