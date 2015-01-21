@@ -1,6 +1,7 @@
 package br.gov.servicos.arrecadacao.pagamento;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -66,6 +67,12 @@ public class PagamentoRepositorioTest extends SingleDeployment{
 		debitos.add(debito);
 		
 		assertEquals(true, repositorio.existeDebitoSemPagamento(debitos));
+	}
+	
+	@Test
+	@UsingDataSet("contas_pagas.yml")
+	public void contasForamPagas(){
+	    assertTrue(repositorio.contaPaga(1));
 	}
 	
 }

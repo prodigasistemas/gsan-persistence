@@ -1,0 +1,6 @@
+faturamento.conta_geral:
+  - cnta_id: 1
+
+arrecadacao.pagamento:
+  - pgmt_id: 1
+    cnta_id: 1
