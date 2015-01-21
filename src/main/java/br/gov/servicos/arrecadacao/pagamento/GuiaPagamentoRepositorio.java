@@ -35,8 +35,11 @@ public class GuiaPagamentoRepositorio {
 	
 	public List<GuiaPagamentoTO> pesquisarGuiasPagamentoImovel(Integer idImovel, Date vencimentoInicial, Date vencimentoFinal) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT guia.gpag_id as idGuia, guia.gpag_vldebito as valorDebito")
-		.append(" , guia.gpag_amreferenciacontabil as anoMesReferencia, guia.gpag_dtvencimento as dataVencimento")
+		
+		sql.append("SELECT guia.gpag_id as idGuia ")
+		.append(" , guia.gpag_vldebito as valorDebito")
+		.append(" , guia.gpag_amreferenciacontabil as anoMesReferencia")
+		.append(" , guia.gpag_dtvencimento as dataVencimento")
 		.append(" , guia.gpag_iccobrancamulta as indicadorCobrancaMulta")
 		.append(" , guia.gpag_dtemissao as dataEmissao")
 		.append(" , debTipo.dbtp_id as idDebitoTipo")
@@ -45,7 +48,7 @@ public class GuiaPagamentoRepositorio {
 		.append(" , sum(coalesce(pagto.pgmt_vlpagamento, 0.00)) as valorPagamento")
 		.append(" , min(pagto.pgmt_dtpagamento) as dataPagamento")
 		.append(" , guia.dotp_id as documentoTipo ")
-		.append("FROM faturamento.guia_pagamento guia ")
+		.append(" FROM faturamento.guia_pagamento guia ")
 		.append(" INNER JOIN faturamento.debito_tipo debTipo on debTipo.dbtp_id = guia.dbtp_id ")
 		.append(" LEFT JOIN arrecadacao.pagamento pagto on pagto.gpag_id = guia.gpag_id ")
 		.append(" WHERE guia.imov_id = :idImovel ")
@@ -56,7 +59,7 @@ public class GuiaPagamentoRepositorio {
 		.append("   , debtipo.dbtp_id, guia.gpag_nnprestacaodebito, guia.gpag_nnprestacaototal, guia.dotp_id  ")
 		.append(" HAVING sum(coalesce(pagto.pgmt_vlpagamento, 0.00)) = 0 ");
 		
-		return entity.createNamedQuery(sql.toString(), GuiaPagamentoTO.class)
+		return entity.createNativeQuery(sql.toString(), "GuiaPagamentoTOResultMapping")
 				.setParameter("idImovel", idImovel)
 				.setParameter("situacao", DebitoCreditoSituacao.NORMAL.getId())
 				.setParameter("vencimentoInicial", vencimentoInicial)

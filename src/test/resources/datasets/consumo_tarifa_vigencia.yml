@@ -1,0 +1,7 @@
+faturamento.consumo_tarifa_vigencia:
+  - cstv_id: 1
+    cstv_dtvigencia: '2015-01-17'
+    cstf_id: 1
+
+faturamento.consumo_tarifa:
+  - cstf_id: 1

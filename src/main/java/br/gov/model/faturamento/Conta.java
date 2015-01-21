@@ -142,7 +142,11 @@ public class Conta implements Serializable{
 	
 	@Column(name="cnta_vlrateioesgoto")
 	private BigDecimal valorRateioEsgoto;
-		
+	
+	@Column(name="cnta_dtrevisao")
+	@Temporal(TemporalType.DATE)
+	private Date dataRevisao;
+	
 	@ManyToOne
 	@JoinColumn(name="ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;
@@ -731,7 +735,15 @@ public class Conta implements Serializable{
 		this.parcelamento = parcelamento;
 	}
 
-	public String toString() {
+	public Date getDataRevisao() {
+        return dataRevisao;
+    }
+
+    public void setDataRevisao(Date dataRevisao) {
+        this.dataRevisao = dataRevisao;
+    }
+
+    public String toString() {
 		return "Conta [id=" + id + "]";
 	}
 }
