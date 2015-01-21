@@ -3,6 +3,7 @@ package br.gov.servicos.faturamento;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import br.gov.model.faturamento.Conta;
 import br.gov.persistence.util.SingleDeployment;
 import br.gov.servicos.to.ConsultaDebitoImovelTO;
 import br.gov.servicos.to.ContaTO;
@@ -96,6 +98,20 @@ public class ContaRepositorioTest extends SingleDeployment{
 	    assertEquals(0, conta.getValorPagamento().intValue());
 	    assertNull(conta.getDataPagamento());
 	    assertEquals(4, conta.getIdParcelamento().intValue());
-	}	
+	}
+	
+	@Test
+	@UsingDataSet("contas_com_parcelamento.yml")
+	public void contasComParcelamento(){
+	    List<Conta> contas = repositorio.recuperarPeloParcelamento(1);
+	    
+	    BigDecimal valor = BigDecimal.ZERO;
+	    
+	    for (Conta conta : contas) {
+            valor = valor.add(conta.getValorAgua());
+        }
+	    
+	    assertEquals(600, valor.intValue());
+	}
 }
 

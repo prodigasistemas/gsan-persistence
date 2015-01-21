@@ -236,8 +236,8 @@ public class ContaRepositorio {
 	
 	public List<Conta> recuperarPeloParcelamento(Integer idParcelamento){
 		StringBuilder sql = new StringBuilder();
-		sql.append("select c from Conta")
-			.append(" where c.parcelamento.id = : idParcelamento");
+		sql.append("select c from Conta c")
+			.append(" where c.parcelamento.id = :idParcelamento");
 		
 		
 		return entity.createQuery(sql.toString(), Conta.class)
