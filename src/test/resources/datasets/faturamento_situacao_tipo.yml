@@ -1,0 +1,6 @@
+faturamento.fatur_situacao_tipo:
+ - ftst_id: 1
+
+cadastro.imovel:
+ - imov_id: 1
+   ftst_id: 1
