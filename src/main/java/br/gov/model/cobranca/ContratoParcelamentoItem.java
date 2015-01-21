@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.gov.model.arrecadacao.pagamento.GuiaPagamentoGeral;
-import br.gov.model.faturamento.Conta;
+import br.gov.model.faturamento.ContaGeral;
 
 @Entity
 @Table(name="contrato_parcel_item", schema="cobranca")
@@ -27,11 +27,11 @@ public class ContratoParcelamentoItem implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="cnta_id")
-	private Conta contaGeral;
+	private ContaGeral contaGeral;
 	
 	@ManyToOne
 	@JoinColumn(name="gpag_id")
-	private GuiaPagamentoGeral guiaPagamento;
+	private GuiaPagamentoGeral guiaPagamentoGeral;
 	
 	public ContratoParcelamentoItem() {
 	}
@@ -52,19 +52,19 @@ public class ContratoParcelamentoItem implements Serializable{
 		this.contrato = contrato;
 	}
 
-	public Conta getContaGeral() {
-		return contaGeral;
-	}
+	public ContaGeral getContaGeral() {
+        return contaGeral;
+    }
 
-	public void setContaGeral(Conta contaGeral) {
-		this.contaGeral = contaGeral;
-	}
+    public void setContaGeral(ContaGeral contaGeral) {
+        this.contaGeral = contaGeral;
+    }
 
-	public GuiaPagamentoGeral getGuiaPagamento() {
-		return guiaPagamento;
-	}
+    public GuiaPagamentoGeral getGuiaPagamentoGeral() {
+        return guiaPagamentoGeral;
+    }
 
-	public void setGuiaPagamento(GuiaPagamentoGeral guiaPagamento) {
-		this.guiaPagamento = guiaPagamento;
-	}
+    public void setGuiaPagamentoGeral(GuiaPagamentoGeral guiaPagamentoGeral) {
+        this.guiaPagamentoGeral = guiaPagamentoGeral;
+    }
 }

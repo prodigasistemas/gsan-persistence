@@ -256,4 +256,28 @@ public class Categoria implements Serializable, ICategoria{
 	public Subcategoria getSubcategoria(){
 		return Subcategoria.SUBCATEGORIA_ZERO;
 	}
+
+	public String getSubcategoriaDescricaoAbreviada() {
+		return null;
+	}
+
+	public Integer getCodigoSubcategoria() {
+		return null;
+	}
+
+	public String getCodigoTarifaSocial() {
+		return null;
+	}
+
+	public Short getNumeroFatorFiscalizacao() {
+		return null;
+	}
+
+	public Short getIndicadorTarifaConsumo() {
+		return null;
+	}
+
+	public Short getIndicadorSazonalidade() {
+		return null;
+	}
 }

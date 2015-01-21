@@ -79,6 +79,9 @@ public class Imovel implements Serializable{
 	@Column(name="imov_nnareaconstruida")
 	private BigDecimal areaConstruida;
 	
+	@Column(name="imov_cddebitoautomatico")
+	private Integer codigoDebitoAutomatico; 
+	
 	@ManyToOne
 	@JoinColumn(name="loca_id")
 	private Localidade localidade;
@@ -184,10 +187,18 @@ public class Imovel implements Serializable{
 				&& ligacaoEsgotoSituacao.getId().equals(LigacaoEsgotoSituacao.LIGADO);
 	}		
 
+	public boolean possuiAgua() {
+		return ligacaoAgua!= null;
+	}
+	
 	public boolean aguaLigada() {
 		return ligacaoAguaSituacao.getId().equals(LigacaoAguaSituacao.LIGADO);
 	}
 
+	public boolean possuiEsgoto() {
+		return ligacaoEsgoto != null;
+	}
+	
 	public boolean esgotoLigado() {
 		return ligacaoEsgotoSituacao.getId().equals(LigacaoEsgotoSituacao.LIGADO);
 	}
@@ -340,6 +351,10 @@ public class Imovel implements Serializable{
 		}
 
 		return endereco;
+	}
+	
+	public boolean possuiFaturamentoSituacaoTipo() {
+		return faturamentoSituacaoTipo != null && faturamentoSituacaoTipo.getId() != null;
 	}
 
 	/**********************************************
@@ -633,7 +648,15 @@ public class Imovel implements Serializable{
         this.areaConstruidaFaixa = areaConstruidaFaixa;
     }
 
-    public String toString() {
+    public Integer getCodigoDebitoAutomatico() {
+		return codigoDebitoAutomatico;
+	}
+
+	public void setCodigoDebitoAutomatico(Integer codigoDebitoAutomatico) {
+		this.codigoDebitoAutomatico = codigoDebitoAutomatico;
+	}
+
+	public String toString() {
 		return "Imovel [id=" + id + ", numeroImovel=" + numeroImovel + "]";
 	}
 }

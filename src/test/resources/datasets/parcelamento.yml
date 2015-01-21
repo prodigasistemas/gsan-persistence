@@ -1,0 +1,9 @@
+cadastro.imovel:
+  - imov_id: 1
+
+cobranca.parcelamento:
+  - parc_id: 1
+    imov_id: 1
+    pcst_id: 1
+    parc_amreferenciafaturamento: 201412
+    parc_vlentrada: 45.70

@@ -26,6 +26,9 @@ public class LigacaoAguaSituacao implements Serializable {
 	@Column(name="last_icfaturamento")
 	private Short situacaoFaturamento;
 	
+	@Column(name="last_icabastecimento")
+	private Short indicadorAbastecimento;
+	
 	public LigacaoAguaSituacao() {
 	}
 
@@ -52,8 +55,16 @@ public class LigacaoAguaSituacao implements Serializable {
 	public void setSituacaoFaturamento(Short situacaoFaturamento) {
 		this.situacaoFaturamento = situacaoFaturamento;
 	}
+	
+	public Short getIndicadorAbastecimento() {
+		return indicadorAbastecimento;
+	}
 
-    public String toString() {
+	public void setIndicadorAbastecimento(Short indicadorAbastecimento) {
+		this.indicadorAbastecimento = indicadorAbastecimento;
+	}
+
+	public String toString() {
 		return "LigacaoAguaSituacao [id=" + id + ", descricao=" + descricao + "]";
 	}
 }

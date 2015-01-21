@@ -7,7 +7,6 @@
 -- Started on 2015-01-14 15:29:25 BRT
 
 SET statement_timeout = 0;
-SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -92721,3 +92720,11 @@ ALTER TABLE seguranca.usuario_situacao ALTER COLUMN usst_tmultimaalteracao DROP 
 ALTER TABLE seguranca.usuario_tipo ALTER COLUMN utip_id DROP NOT NULL ;
 ALTER TABLE seguranca.usuario_tipo ALTER COLUMN utip_icfuncionario DROP NOT NULL ;
 ALTER TABLE seguranca.usuario_tipo ALTER COLUMN utip_tmultimaalteracao DROP NOT NULL ;
+
+
+
+CREATE ROLE pg_users
+  NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;
+
+CREATE ROLE gsan_admin LOGIN
+  SUPERUSER INHERIT CREATEDB CREATEROLE NOREPLICATION;

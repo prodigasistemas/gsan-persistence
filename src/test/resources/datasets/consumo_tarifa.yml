@@ -1,0 +1,6 @@
+faturamento.consumo_tarifa:
+  - cstf_id: 1
+
+cadastro.imovel:
+  - imov_id: 1
+    cstf_id: 1

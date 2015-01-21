@@ -20,7 +20,24 @@ public class GuiaPagamentoTO implements Serializable {
 	private Date dataPagamento;
 	private Integer documentoTipo;
 	
-	public GuiaPagamentoTO() {
+	public GuiaPagamentoTO(Integer idGuia, BigDecimal valorDebito, Integer anoMesReferencia, Date dataVencimento, Short indicadorCobrancaMulta,
+            Date dataEmissao, Integer idDebitoTipo, Short numeroPrestacaoDebito, Short numeroPrestacaoTotal, BigDecimal valorPagamento, Date dataPagamento,
+            Integer documentoTipo) {
+        this.idGuia = idGuia;
+        this.valorDebito = valorDebito;
+        this.anoMesReferencia = anoMesReferencia;
+        this.dataVencimento = dataVencimento;
+        this.indicadorCobrancaMulta = indicadorCobrancaMulta;
+        this.dataEmissao = dataEmissao;
+        this.idDebitoTipo = idDebitoTipo;
+        this.numeroPrestacaoDebito = numeroPrestacaoDebito;
+        this.numeroPrestacaoTotal = numeroPrestacaoTotal;
+        this.valorPagamento = valorPagamento;
+        this.dataPagamento = dataPagamento;
+        this.documentoTipo = documentoTipo;
+    }
+
+    public GuiaPagamentoTO() {
 	}
 
 	public Integer getIdGuia() {
