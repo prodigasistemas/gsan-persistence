@@ -5,18 +5,44 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import br.gov.model.cobranca.Parcelamento;
+import br.gov.servicos.to.GuiaPagamentoTO;
 
 @Entity
 @Table(name="guia_pagamento", schema="faturamento")
+@SqlResultSetMapping(
+        name="GuiaPagamentoTOResultMapping",
+        classes={
+            @ConstructorResult(
+                targetClass=GuiaPagamentoTO.class,
+                columns={
+                    @ColumnResult(name="idGuia")
+                    ,@ColumnResult(name="valorDebito")
+                    ,@ColumnResult(name="anoMesReferencia")
+                    ,@ColumnResult(name="dataVencimento")
+                    ,@ColumnResult(name="indicadorCobrancaMulta")
+                    ,@ColumnResult(name="dataEmissao")
+                    ,@ColumnResult(name="idDebitoTipo")
+                    ,@ColumnResult(name="numeroPrestacaoDebito")
+                    ,@ColumnResult(name="numeroPrestacaoTotal")
+                    ,@ColumnResult(name="valorPagamento")
+                    ,@ColumnResult(name="dataPagamento")
+                    ,@ColumnResult(name="documentoTipo")
+                }
+            )
+        }
+    )
 public class GuiaPagamento implements Serializable{
 	private static final long serialVersionUID = 8471342148100836332L;
 
