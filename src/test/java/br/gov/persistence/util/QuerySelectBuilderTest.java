@@ -25,7 +25,7 @@ public class QuerySelectBuilderTest {
 	public void appendStatement() {
 		builder.appendCondition("id", 0);
 		
-		assertEquals("SELECT obj FROM Class obj WHERE id = :id", builder.sql());
+		assertEquals("SELECT obj FROM Class obj WHERE obj.id = :id", builder.sql());
 		assertTrue(builder.getParameters().size() == 1);
 	}
 	
@@ -34,7 +34,7 @@ public class QuerySelectBuilderTest {
 		builder.appendCondition("id", 0);
 		builder.appendAndCondition("name", "");
 		
-		assertEquals("SELECT obj FROM Class obj WHERE id = :id AND name = :name", builder.sql());
+		assertEquals("SELECT obj FROM Class obj WHERE obj.id = :id AND obj.name = :name", builder.sql());
 		assertTrue(builder.getParameters().size() == 2);
 	}
 	
@@ -44,8 +44,8 @@ public class QuerySelectBuilderTest {
 		builder.appendAndCondition("name", "");
 		builder.appendAndCondition("value", null);
 		
-		assertEquals("SELECT obj FROM Class obj WHERE id = :id AND name = :name AND value is null", builder.sql());
-		assertTrue(builder.getParameters().size() == 3);
+		assertEquals("SELECT obj FROM Class obj WHERE obj.id = :id AND obj.name = :name AND obj.value is null", builder.sql());
+		assertTrue(builder.getParameters().size() == 2);
 	}
 	
 	@Test
@@ -53,7 +53,7 @@ public class QuerySelectBuilderTest {
 		builder.appendCondition("id", 0);
 		builder.appendOrCondition("name", "");
 		
-		assertEquals("SELECT obj FROM Class obj WHERE id = :id OR name = :name", builder.sql());
+		assertEquals("SELECT obj FROM Class obj WHERE obj.id = :id OR obj.name = :name", builder.sql());
 		assertTrue(builder.getParameters().size() == 2);
 	}
 	
@@ -64,8 +64,17 @@ public class QuerySelectBuilderTest {
 		builder.appendCondition("id", 0);
 		builder.appendOrCondition("name", "");
 		
-		assertEquals("SELECT obj FROM Class obj LEFT JOIN obj.reference reference WHERE id = :id OR name = :name", builder.sql());
+		assertEquals("SELECT obj FROM Class obj LEFT JOIN obj.reference reference WHERE obj.id = :id OR obj.name = :name", builder.sql());
 		assertTrue(builder.getParameters().size() == 2);
+	}
+	
+	@Test
+	public void withOnlyJoin() {
+	    builder.appendLeftJoin("reference");
+	    builder.appendJoinCondition("reference", "name", "");
+	    
+	    assertEquals("SELECT obj FROM Class obj LEFT JOIN obj.reference reference WHERE reference.name = :reference_name", builder.sql());
+	    assertTrue(builder.getParameters().size() == 1);
 	}
 	
 	@Test
@@ -76,7 +85,7 @@ public class QuerySelectBuilderTest {
 		builder.appendOrCondition("name", "");
 		builder.appendJoinCondition("reference", "id", "");
 		
-		assertEquals("SELECT obj FROM Class obj LEFT JOIN obj.reference reference WHERE id = :id OR name = :name AND reference.id = :reference_id", builder.sql());
+		assertEquals("SELECT obj FROM Class obj LEFT JOIN obj.reference reference WHERE obj.id = :id OR obj.name = :name AND reference.id = :reference_id", builder.sql());
 		assertTrue(builder.getParameters().size() == 3);
 	}
 }
