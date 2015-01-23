@@ -1,0 +1,5 @@
+cadastro.localidade:
+  - loca_id: 1
+    loca_nmlocalidade: Belem
+  - loca_id: 2
+    loca_nmlocalidade: Cidade Nova

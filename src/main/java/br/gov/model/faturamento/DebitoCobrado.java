@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +16,6 @@ import javax.persistence.Table;
 
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
-import br.gov.model.financeiro.FinanciamentoTipo;
 import br.gov.model.financeiro.LancamentoItemContabil;
 
 @Entity
@@ -68,27 +68,26 @@ public class DebitoCobrado implements IDebito{
 	@Column(name="dbcb_amcobrancadebito")
 	private Integer anoMesCobrancaDebito;
 	
-	@ManyToOne
+	@Column(name="fntp_id")
+	private Integer tipoFinanciamento;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="dbtp_id")
 	private DebitoTipo debitoTipo;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lict_id")
 	private LancamentoItemContabil lancamentoItemContabil;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="loca_id")
 	private Localidade localidade;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="qdra_id")
 	private Quadra quadra;
 	
-	@ManyToOne
-	@JoinColumn(name="fntp_id")
-	private FinanciamentoTipo financiamentoTipo;
-	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cnta_id")
 	private Conta conta;
 
@@ -239,15 +238,15 @@ public class DebitoCobrado implements IDebito{
 		this.anoMesCobrancaDebito = anoMesCobrancaDebito;
 	}
 
-	public FinanciamentoTipo getFinanciamentoTipo() {
-		return financiamentoTipo;
-	}
+	public Integer getTipoFinanciamento() {
+        return tipoFinanciamento;
+    }
 
-	public void setFinanciamentoTipo(FinanciamentoTipo financiamentoTipo) {
-		this.financiamentoTipo = financiamentoTipo;
-	}
+    public void setTipoFinanciamento(Integer tipoFinanciamento) {
+        this.tipoFinanciamento = tipoFinanciamento;
+    }
 
-	public Conta getConta() {
+    public Conta getConta() {
 		return conta;
 	}
 

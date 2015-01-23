@@ -2,13 +2,13 @@ package br.gov.servicos.cadastro;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.cadastro.Localidade;
+import br.gov.model.util.GenericRepository;
 
 @Stateless
-public class LocalidadeRepositorio{
+public class LocalidadeRepositorio extends GenericRepository<Integer, Localidade>{
 
 	@PersistenceContext
 	private EntityManager entity;
@@ -23,13 +23,5 @@ public class LocalidadeRepositorio{
 							.getSingleResult();
 		
 		return (qtd > 0) ? true : false; 
-	}
-	
-	public Localidade find(Integer id){
-		try{
-			return entity.find(Localidade.class, id);
-		} catch (NoResultException e) {
-			return null;
-		}
 	}	
 }

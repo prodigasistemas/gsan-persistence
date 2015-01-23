@@ -17,13 +17,9 @@
     </container> 
     
     <extension qualifier="persistence">
-	    <property name="defaultCleanupPhase">NONE</property>
+	    <property name="defaultCleanupPhase">BEFORE</property>
+	    <property name="defaultCleanupStrategy">USED_TABLES_ONLY</property>
     </extension>
-
-	<extension qualifier="persistence-script">
-	    <property name="scriptsToExecuteBeforeTest">clean.sql</property>
-	    <property name="sqlStatementDelimiter">;</property>
-	</extension>
 
 	<extension qualifier="persistence-dbunit">
         <property name="qualifiedTableNames">true</property>

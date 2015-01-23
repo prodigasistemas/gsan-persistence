@@ -4,11 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class DebitoCobradoTO implements Serializable{
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4319896313939499212L;
+
 	private int anoMesReferencia;
 	private Short numeroPrestacaoDebito;
 	private Short numeroPrestacao;

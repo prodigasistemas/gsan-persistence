@@ -46,7 +46,7 @@ cadastro.logradouro_bairro:
 
 cadastro.endereco_referencia:
   - edrf_id: 1
-    edrf_dsabreviado: RAMAL DA BOA ESPERANCA
+    edrf_dsabreviado: RAMAL DA ESPERANCA
 
 cadastro.cliente:
   - clie_id: 1

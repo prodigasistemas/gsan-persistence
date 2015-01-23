@@ -3,17 +3,17 @@ package br.gov.servicos.to;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class DebitoCobradoParcelamentoTO implements Serializable {
-
+public class ParcelaDebitoCobradoTO implements Serializable {
 	private static final long serialVersionUID = -2459804026799762397L;
+	
 	private Short numeroPrestacaoDebito;
 	private Short totalParcela;
 	private BigDecimal totalPrestacao;
 	private Integer codigoConstante;
 	
-	public DebitoCobradoParcelamentoTO(){}
+	public ParcelaDebitoCobradoTO(){}
 	
-	public DebitoCobradoParcelamentoTO(Short numeroPrestacaoDebito, Short totalParcela, BigDecimal totalPrestacao, Integer codigoConstante) {
+	public ParcelaDebitoCobradoTO(Short numeroPrestacaoDebito, Short totalParcela, BigDecimal totalPrestacao, Integer codigoConstante) {
 		this.numeroPrestacaoDebito = numeroPrestacaoDebito;
 		this.totalParcela = totalParcela;
 		this.totalPrestacao = totalPrestacao;
