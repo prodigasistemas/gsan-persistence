@@ -2,7 +2,6 @@ package br.gov.model.faturamento;
 
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
-import br.gov.model.financeiro.FinanciamentoTipo;
 import br.gov.model.financeiro.LancamentoItemContabil;
 
 public interface IDebito {
@@ -27,5 +26,5 @@ public interface IDebito {
 	
 	Integer getAnoMesCobrancaDebito();
 	
-	FinanciamentoTipo getFinanciamentoTipo();
+	Integer getTipoFinanciamento();
 }

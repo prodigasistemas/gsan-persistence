@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -84,15 +85,15 @@ public class CreditoRealizar implements Serializable {
 	@Column(name="crar_vlresidualconcedidomes")
 	private BigDecimal valorResidualConcedidoMes;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="crti_id")
 	private CreditoTipo creditoTipo;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lict_id")
 	private LancamentoItemContabil lancamentoItemContabil;
 	
@@ -106,23 +107,23 @@ public class CreditoRealizar implements Serializable {
 	@Column(name="dcst_idanterior")
 	private DebitoCreditoSituacao debitoCreditoSituacaoAnterior;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="loca_id")
 	private Localidade localidade;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="qdra_id")
 	private Quadra quadra;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="crog_id")
 	private CreditoOrigem creditoOrigem;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="parc_id")
 	private Parcelamento parcelamento;
 	
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="crar_id", referencedColumnName="crar_id")
 	private CreditoRealizarGeral creditoRealizarGeral;
 

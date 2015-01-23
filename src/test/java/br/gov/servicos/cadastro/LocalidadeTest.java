@@ -1,6 +1,7 @@
 package br.gov.servicos.cadastro;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
 
@@ -9,7 +10,6 @@ import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import br.gov.model.cadastro.Localidade;
 import br.gov.persistence.util.SingleDeployment;
 
 
@@ -17,13 +17,12 @@ import br.gov.persistence.util.SingleDeployment;
 public class LocalidadeTest extends SingleDeployment{
 		
 	@Inject
-	LocalidadeRepositorio localidadeRepositorio;
+	LocalidadeRepositorio repositorio;
 	
 	@Test
-	@UsingDataSet("cadastros.yml")
-	public void buscarImovelPorId2() throws Exception {
-		Localidade lo = localidadeRepositorio.find(1);
-		
-		assertEquals("Belem", lo.getDescricao());
+	@UsingDataSet("localidade.yml")
+	public void buscarPorId(){
+		assertTrue(repositorio.existeLocalidade(2));
+		assertEquals("Belem", repositorio.obterPorID(1).getDescricao());
 	}
 }

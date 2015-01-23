@@ -15,7 +15,7 @@ public class DebitoTipo {
 	private Integer id;
 	
 	@Column(name="dbtp_icgeracaoconta")
-	private short indicadorGeracaoConta;
+	private Short indicadorGeracaoConta;
 	
 	@Column(name="dbtp_dsdebitotipo")
 	private String descricao;

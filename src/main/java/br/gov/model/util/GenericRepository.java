@@ -6,8 +6,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.gov.model.operacao.AnaliseClinica;
-
 public class GenericRepository<PK, T> {
 	
     @PersistenceContext

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,19 +34,19 @@ public class Localidade implements Serializable{
 	@Column(name="loca_nnfone")
 	private String fone;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="greg_id", nullable=false)
 	private GerenciaRegional gerenciaRegional;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lgcp_id")
 	private LogradouroCep logradouroCep;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lgbr_id")
 	private LogradouroBairro logradouroBairro;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="edrf_id")
 	private EnderecoReferencia enderecoReferencia;
 	

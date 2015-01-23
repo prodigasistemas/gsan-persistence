@@ -1,15 +1,16 @@
+faturamento.debito_tipo:
+  - dbtp_id: 1
+    dbtp_nncodigoconstante: 8
+
 faturamento.conta:
   - cnta_id: 1
-  - cnta_id: 2
-  - cnta_id: 3
-  - cnta_id: 4
 
 faturamento.debito_cobrado:
   - dbcb_id: 1
     cnta_id: 1
-  - dbcb_id: 2
-    cnta_id: 2
-  - dbcb_id: 3
-    cnta_id: 3
-  - dbcb_id: 4
-    cnta_id: 4
+    fntp_id: 1
+    dbtp_id: 1
+    dbcb_nnprestacaodebito: 6
+    dbcb_nnparcelabonus: 2
+    dbcb_nnprestacao: 10
+    dbcb_vlprestacao: 54.00

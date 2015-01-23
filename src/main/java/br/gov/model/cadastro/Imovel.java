@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -82,84 +83,84 @@ public class Imovel implements Serializable{
 	@Column(name="imov_cddebitoautomatico")
 	private Integer codigoDebitoAutomatico; 
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="loca_id", nullable=false)
 	private Localidade localidade;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="stcm_id", nullable=false)
 	private SetorComercial setorComercial;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="qdra_id")
 	private Quadra quadra;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="qdfa_id")
 	private QuadraFace quadraFace;
 	
-	@OneToOne(mappedBy="imovel")
+	@OneToOne(mappedBy="imovel", fetch=FetchType.LAZY)
 	private LigacaoAgua ligacaoAgua;
 	
-	@OneToOne(mappedBy="imovel")
+	@OneToOne(mappedBy="imovel", fetch=FetchType.LAZY)
 	private LigacaoEsgoto ligacaoEsgoto;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="last_id")
 	private LigacaoAguaSituacao ligacaoAguaSituacao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lest_id")
 	private LigacaoEsgotoSituacao ligacaoEsgotoSituacao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ftst_id")
 	private FaturamentoSituacaoTipo faturamentoSituacaoTipo;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="imov_idimovelcondominio")
 	private Imovel imovelCondominio;
 		
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="hidi_id")
 	private HidrometroInstalacaoHistorico hidrometroInstalacaoHistorico;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="rota_idalternativa", referencedColumnName="rota_id")
 	private Rota rotaAlternativa;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="iper_id")
 	private ImovelPerfil imovelPerfil;
 	
-	@OneToMany(mappedBy="imovel")
+	@OneToMany(mappedBy="imovel", fetch=FetchType.LAZY)
 	private List<ClienteImovel> clienteImoveis;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lgbr_id")
 	private LogradouroBairro logradouroBairro;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lgcp_id")
 	private LogradouroCep logradouroCep;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="edrf_id")
 	private EnderecoReferencia enderecoReferencia;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="logr_idinicioperimetro", referencedColumnName="logr_id")
 	private Logradouro perimetroInicial;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="logr_idfimperimetro", referencedColumnName="logr_id")
 	private Logradouro perimetroFinal;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cstf_id")
 	private ConsumoTarifa consumoTarifa;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="acon_id")
 	private AreaConstruidaFaixa areaConstruidaFaixa;
 	

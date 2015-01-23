@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -33,11 +34,11 @@ public class LigacaoAgua implements Serializable{
 	@Column(name="lagu_nnconsumominimoagua")
 	private Integer consumoMinimoAgua;
 	
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lagu_id", referencedColumnName="imov_id")
 	private Imovel imovel;
 	
-	@OneToMany(mappedBy="ligacaoAgua")
+	@OneToMany(mappedBy="ligacaoAgua", fetch=FetchType.LAZY)
 	private Set<HidrometroInstalacaoHistorico> hidrometroInstalacoesHistorico;
 	
 	public LigacaoAgua() {

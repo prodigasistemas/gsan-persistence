@@ -16,7 +16,6 @@ import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Quadra;
 import br.gov.model.cobranca.Parcelamento;
-import br.gov.model.financeiro.FinanciamentoTipo;
 import br.gov.model.financeiro.LancamentoItemContabil;
 
 @Entity
@@ -73,9 +72,8 @@ public class DebitoCobrar implements IDebito{
 	@Column(name="dbac_tmultimaalteracao")
 	private Date ultimaAlteracao;
 	
-	@ManyToOne
-	@JoinColumn(name="fntp_id")
-	private FinanciamentoTipo financiamentoTipo;
+	@Column(name="fntp_id")
+	private Integer tipoFinanciamento;
 	
 	@ManyToOne
 	@JoinColumn(name="imov_id")
@@ -223,15 +221,15 @@ public class DebitoCobrar implements IDebito{
 		this.anoMesCobrancaDebito = anoMesCobrancaDebito;
 	}
 
-	public FinanciamentoTipo getFinanciamentoTipo() {
-		return financiamentoTipo;
-	}
+	public Integer getTipoFinanciamento() {
+        return tipoFinanciamento;
+    }
 
-	public void setFinanciamentoTipo(FinanciamentoTipo financiamentoTipo) {
-		this.financiamentoTipo = financiamentoTipo;
-	}
-	
-	public Imovel getImovel() {
+    public void setTipoFinanciamento(Integer tipoFinanciamento) {
+        this.tipoFinanciamento = tipoFinanciamento;
+    }
+
+    public Imovel getImovel() {
 		return imovel;
 	}
 
