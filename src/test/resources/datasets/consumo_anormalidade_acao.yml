@@ -1,0 +1,7 @@
+micromedicao.consumo_anormalidade:
+  - csan_id: 1
+
+micromedicao.consumo_anorm_acao:
+  - csaa_id: 1
+    csan_id: 1
+    csaa_dsmensagemcontames1: MENSAGEM A01

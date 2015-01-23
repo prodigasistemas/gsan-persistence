@@ -29,9 +29,12 @@ public class LigacaoAguaSituacao implements Serializable {
 	@Column(name="last_icabastecimento")
 	private Short indicadorAbastecimento;
 	
-	public LigacaoAguaSituacao() {
-	}
+	public LigacaoAguaSituacao() {}
 
+	public LigacaoAguaSituacao(Integer id) {
+		this.id = id;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

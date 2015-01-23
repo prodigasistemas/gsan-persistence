@@ -12,7 +12,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import br.gov.model.micromedicao.ConsumoHistorico;
+import br.gov.model.micromedicao.LigacaoTipo;
 import br.gov.persistence.util.SingleDeployment;
+import br.gov.servicos.to.AnormalidadeHistoricoConsumo;
 
 @RunWith(Arquillian.class)
 public class ConsumoHistoricoRepositorioTest extends SingleDeployment{
@@ -28,5 +30,13 @@ public class ConsumoHistoricoRepositorioTest extends SingleDeployment{
 		ConsumoHistorico consumo = lista.get(0);
 		
 		assertEquals(30, consumo.getNumeroConsumoCalculoMedia().intValue());
+	}
+	
+	@Test
+	@UsingDataSet("consumoHistorico.yml")
+	public void anormalidadeHistoricoConsumo(){
+	    AnormalidadeHistoricoConsumo anorm = repositorio.anormalidadeHistoricoConsumo(1, LigacaoTipo.AGUA, 201407);
+	    
+	    assertEquals(1, anorm.getIdAnormalidade().intValue());
 	}
 }

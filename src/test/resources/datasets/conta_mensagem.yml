@@ -1,0 +1,40 @@
+faturamento.faturamento_grupo:
+  - ftgr_id: 1
+
+cadastro.setor_comercial:
+  - stcm_id: 1
+
+cadastro.localidade:
+  - loca_id: 1
+
+cadastro.gerencia_regional:
+  - greg_id: 1
+
+faturamento.conta_mensagem:
+  - ctms_id: 1
+    ctms_amreferenciafaturamento: 201501
+    ctms_dscontamensagem01: MENSAGEM 01A
+    ctms_dscontamensagem02: MENSAGEM 01B
+    ctms_dscontamensagem03: MENSAGEM 01C
+    greg_id: 1
+    loca_id: 1
+    stcm_id: 1
+  - ctms_id: 2
+    ctms_amreferenciafaturamento: 201502
+    ctms_dscontamensagem01: MENSAGEM 02A
+    ctms_dscontamensagem02: MENSAGEM 02B
+    ctms_dscontamensagem03: MENSAGEM 02C
+    greg_id: 1
+    loca_id: 1
+  - ctms_id: 3
+    ctms_amreferenciafaturamento: 201503
+    ctms_dscontamensagem01: MENSAGEM 03A
+    ctms_dscontamensagem02: MENSAGEM 03B
+    ctms_dscontamensagem03: MENSAGEM 03C
+    greg_id: 1
+  - ctms_id: 4
+    ctms_amreferenciafaturamento: 201503
+    ctms_dscontamensagem01: MENSAGEM 04A
+    ctms_dscontamensagem02: MENSAGEM 04B
+    ctms_dscontamensagem03: MENSAGEM 04C
+    ftgr_id: 1

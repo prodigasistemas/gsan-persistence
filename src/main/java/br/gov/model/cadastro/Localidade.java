@@ -34,7 +34,7 @@ public class Localidade implements Serializable{
 	private String fone;
 	
 	@ManyToOne
-	@JoinColumn(name="greg_id")
+	@JoinColumn(name="greg_id", nullable=false)
 	private GerenciaRegional gerenciaRegional;
 
 	@ManyToOne
@@ -49,7 +49,10 @@ public class Localidade implements Serializable{
 	@JoinColumn(name="edrf_id")
 	private EnderecoReferencia enderecoReferencia;
 	
-	public Localidade() {
+	public Localidade() {}
+	
+	public Localidade(Integer id) {
+		this.id = id;
 	}
 
 	public StringBuilder getEnderecoFormatadoTituloAbreviado() {

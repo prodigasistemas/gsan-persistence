@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.gov.model.Status;
 import br.gov.model.util.ConstantesSistema;
 
 import java.io.Serializable;
@@ -240,5 +241,9 @@ public class SistemaParametros implements Serializable {
 
     public void setCodigoEmpresaFebraban(Short codigoEmpresaFebraban) {
         this.codigoEmpresaFebraban = codigoEmpresaFebraban;
+    }
+
+    public boolean parametroAtivo(Short parametro) {
+        return parametro != null && parametro == Status.ATIVO.getId();
     }
 }

@@ -26,6 +26,10 @@ public class ContaTO implements Serializable{
 	private BigDecimal valorPagamento; 
 	private Date dataPagamento;
 	private Integer idParcelamento;
+	
+	public ContaTO() {
+    }
+	
     public ContaTO(Integer idConta, BigDecimal valorAgua, BigDecimal valorEsgoto, BigDecimal valorDebitos, BigDecimal valorCreditos, Date dataRevisao,
             Integer referencia, Date dataVencimento, Short indicadorCobrancaMulta, Integer situacaoAtual, Short digitoVerificador, Integer motivoRevisao,
             Integer idImovel, Integer consumoAgua, BigDecimal valorImpostos, Integer consumoEsgoto, BigDecimal valorPagamento, Date dataPagamento,

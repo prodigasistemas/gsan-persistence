@@ -227,8 +227,26 @@ public class Utilitarios {
 	    return Integer.valueOf(cal.get(Calendar.YEAR) + "" + completaComZerosEsquerda(2, cal.get(Calendar.MONTH) + 1));
 	}
 	
+	public static Date reduzirDias(Date data, int dias) {
+		return adicionarDias(data, - dias);
+	}
+	
 	public static Date adicionarDias(Date data, int dias) {
 		return adicionaCampoData(data, Calendar.DAY_OF_MONTH, dias);
+	}
+	
+	public static Date adicionarDias(Integer data, int dias) {
+        if (String.valueOf(data).length() != 6){
+            throw new ValorReferenciaInvalido();
+        }
+        
+        Calendar cal = Calendar.getInstance();
+        
+        cal.set(Calendar.YEAR , extrairAno(data));
+        cal.set(Calendar.MONTH, extrairMes(data));
+        cal.set(Calendar.DAY_OF_MONTH, extrairDia(data));
+	    
+	    return adicionarDias(cal.getTime(), dias);
 	}
 	
 	public static Date atribuiDia(Date data, int dia) {
@@ -306,6 +324,10 @@ public class Utilitarios {
 	
 	public static Integer extrairMes(Integer anoMes) {
 		return Integer.valueOf(String.valueOf(anoMes).substring(4,6));
+	}
+	
+	public static Integer extrairDia(Integer anoMesDia) {
+		return Integer.valueOf(String.valueOf(anoMesDia).substring(6,8));
 	}
 	
 	public static Integer converteMesAnoParaAnoMes(String anoMes) {

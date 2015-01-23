@@ -97,7 +97,7 @@ public class ConsumoHistoricoRepositorio {
 	
 	public StringBuilder consultaAnormalidade(){
 		StringBuilder sql = new StringBuilder();
-		sql.append("select new br.gov.servicos.to.AnormalidadeHistoricoConsumo(ch.id, ca.id, lt.id,  ch.referenciaFaturamento) ")
+		sql.append("select new br.gov.servicos.to.AnormalidadeHistoricoConsumo(ch.id, ca.id, ch.ligacaoTipo,  ch.referenciaFaturamento) ")
 		.append(" from ConsumoHistorico ch ")
 		.append(" inner join ch.consumoAnormalidade ca ")
 		.append(" inner join ch.imovel im ")

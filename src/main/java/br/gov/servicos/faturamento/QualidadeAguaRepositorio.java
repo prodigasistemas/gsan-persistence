@@ -37,16 +37,5 @@ public class QualidadeAguaRepositorio extends GenericRepository<Integer, Qualida
 		.setParameter("anoMesReferencia", anoMesReferencia)
 		.setParameter("idLocalidade", idLocalidade)
 		.setParameter("idSetor", idSetor).getSingleResult();
-
-		
-//		QuerySelectBuilder sql = new QuerySelectBuilder(entity, QualidadeAgua.class);
-//		sql.appendLeftJoin("localidade")
-//		.appendInnerJoin("sistemaAbastecimento")
-//		.appendLeftJoin("setorComercial")
-//		.appendCondition("anoMesReferencia", anoMesReferencia)
-//		.appendJoinCondition("localidade", "id", idLocalidade)
-//		.appendJoinCondition("setorComercial", "id", idSetor);
-//		
-//		return (QualidadeAgua)sql.createSelectQuery().getSingleResult();
 	}
 }

@@ -14,6 +14,9 @@ public class AnormalidadeHistoricoConsumo implements Serializable {
 	private Integer ligacaoTipo;
 
 	private Integer referenciaFaturamento;
+	
+	public AnormalidadeHistoricoConsumo() {
+    }
 
 	public AnormalidadeHistoricoConsumo(Integer idConsumoHistorico, Integer idAnormalidade, Integer ligacaoTipo, Integer referenciaFaturamento) {
 		this.idConsumoHistorico = idConsumoHistorico;
