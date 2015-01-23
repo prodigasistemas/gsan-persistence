@@ -34,18 +34,15 @@ public class Utilitarios {
 
     public static Integer obterDigitoVerificadorModulo10(String codigo) {
 
-        int sequencia = 2;
-        int contEntrada, digito, contAuxiliar, produto, contProduto;
-        String produtoString;
-        int somaDigitosProduto = 0;
-
+        int sequencia = 2, contEntrada, digito, contAuxiliar, produto, contProduto, somaDigitosProduto = 0;
+        
         contAuxiliar = 1;
         for (contEntrada = 0; contEntrada < codigo.length(); contEntrada++) {
 
             digito = new Integer(codigo.substring(codigo.length() - contAuxiliar, codigo.length() - contEntrada)).intValue();
 
             produto = digito * sequencia;
-            produtoString = String.valueOf(produto);
+            String produtoString = String.valueOf(produto);
 
             for (contProduto = 0; contProduto < produtoString.length(); contProduto++) {
                 somaDigitosProduto = somaDigitosProduto + new Integer(produtoString.substring(contProduto, contProduto + 1)).intValue();
@@ -59,6 +56,38 @@ public class Utilitarios {
 
             contAuxiliar++;
         }
+
+        int resto = somaDigitosProduto % 10;
+
+        int dac;
+        if (resto == 0) {
+            dac = 0;
+        } else {
+            dac = 10 - resto;
+        }
+
+        return new Integer(dac);
+    }
+    
+    public static Integer obterDigitoVerificadorModulo10NOVO(String[] digitos) {
+
+		int sequencia = 2, somaDigitosProduto = 0;
+		
+		for (int i = digitos.length - 1; i >= 0; i--) {
+			int digito = Integer.valueOf(digitos[i]);
+			int produto = digito * sequencia;
+			
+			String produtoString = String.valueOf(produto);
+            for (int contProduto = 0; contProduto < produtoString.length(); contProduto++) {
+                somaDigitosProduto = somaDigitosProduto + new Integer(produtoString.substring(contProduto, contProduto + 1)).intValue();
+            }
+
+            if (sequencia == 2) {
+                sequencia = 1;
+            } else {
+                sequencia = 2;
+            }
+		}
 
         int resto = somaDigitosProduto % 10;
 
