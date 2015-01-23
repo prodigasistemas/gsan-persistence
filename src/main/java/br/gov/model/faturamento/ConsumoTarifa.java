@@ -19,9 +19,12 @@ public class ConsumoTarifa implements Serializable{
 	@Column(name = "ttpc_id")
 	private Integer tarifaTipoCalculo;
 	
-	public ConsumoTarifa() {
-	}
+	public ConsumoTarifa() {}
 
+	public ConsumoTarifa(Integer id) {
+		this.id = id;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

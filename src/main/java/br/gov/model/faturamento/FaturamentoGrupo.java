@@ -39,6 +39,10 @@ public class FaturamentoGrupo implements Serializable{
 	private Short indicadorVencimentoMesFatura;
 
 	public FaturamentoGrupo(){}
+	
+	public FaturamentoGrupo(Integer id){
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;

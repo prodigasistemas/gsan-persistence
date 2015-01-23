@@ -49,7 +49,10 @@ public class Localidade implements Serializable{
 	@JoinColumn(name="edrf_id")
 	private EnderecoReferencia enderecoReferencia;
 	
-	public Localidade() {
+	public Localidade() {}
+	
+	public Localidade(Integer id) {
+		this.id = id;
 	}
 
 	public StringBuilder getEnderecoFormatadoTituloAbreviado() {

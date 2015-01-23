@@ -25,7 +25,10 @@ public class Quadra {
 	@JoinColumn(name="rota_id")
 	private Rota rota;
 	
-	public Quadra() {
+	public Quadra() {}
+	
+	public Quadra(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getId() {

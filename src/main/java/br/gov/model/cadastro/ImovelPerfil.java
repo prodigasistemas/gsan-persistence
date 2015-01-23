@@ -24,9 +24,12 @@ public class ImovelPerfil implements Serializable{
 	@Column(name="iper_icgerardadosleitura")
 	private Short indicadorGerarDadosLeitura;
 	
-	public ImovelPerfil() {
+	public ImovelPerfil(Integer id) {
+		this.id = id;
 	}
 
+	public ImovelPerfil() {}
+	
 	public Integer getId() {
 		return id;
 	}

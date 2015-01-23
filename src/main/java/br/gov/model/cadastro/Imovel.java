@@ -253,7 +253,7 @@ public class Imovel implements Serializable{
 		StringBuilder inscricao = new StringBuilder();
 		inscricao.append(Utilitarios.completaComZerosEsquerda(3, localidade.getId()))
 			.append(Utilitarios.completaComZerosEsquerda(3, setorComercial.getId()))
-			.append(Utilitarios.completaComZerosEsquerda(3, quadra.getNumeroQuadra()))
+			.append(quadra.getNumeroQuadra().toString().length() < 3 ? Utilitarios.completaComZerosEsquerda(3, quadra.getNumeroQuadra()) : quadra.getNumeroQuadra())
 			.append(Utilitarios.completaComZerosEsquerda(4, lote))
 			.append(Utilitarios.completaComZerosEsquerda(3, subLote));
 		

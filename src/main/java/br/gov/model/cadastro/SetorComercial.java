@@ -17,7 +17,10 @@ public class SetorComercial {
 	@Column(name="stcm_cdsetorcomercial")
 	private Integer codigo;
 	
-	public SetorComercial() {
+	public SetorComercial() {}
+	
+	public SetorComercial(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getId() {

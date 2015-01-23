@@ -25,9 +25,12 @@ public class LigacaoEsgotoSituacao implements Serializable {
 	@Column(name="lest_icfaturamento")
 	private Short situacaoFaturamento;
 
-	public LigacaoEsgotoSituacao() {
-	}
+	public LigacaoEsgotoSituacao() {}
 
+	public LigacaoEsgotoSituacao(Integer id) {
+		this.id = id;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

@@ -28,7 +28,10 @@ public class QuadraFace implements Serializable{
 	@JoinColumn(name="diop_id")
 	private DistritoOperacional distritoOperacional;
 	
-	public QuadraFace() {
+	public QuadraFace() {}
+	
+	public QuadraFace(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getId() {
