@@ -36,7 +36,7 @@ public class QuerySelectBuilder {
 	}
 	
 	public QuerySelectBuilder appendCondition(String fieldName, Object value) {
-		return appendCondition(fieldName, fieldName, value);
+		return appendCondition("obj." + fieldName, fieldName, value);
 	}
 	
 	private QuerySelectBuilder appendCondition(String fieldName, String fieldReference, Object value) {
@@ -54,9 +54,9 @@ public class QuerySelectBuilder {
 			sqlConditions.append("is null");
 		}else{
 			sqlConditions.append("= :").append(fieldReference);
+			parameters.put(fieldReference, value);
 		}
 		
-		parameters.put(fieldReference, value);
 		
 		return this;
 	}
@@ -84,7 +84,13 @@ public class QuerySelectBuilder {
 	}
 	
 	public QuerySelectBuilder appendJoinCondition(String join, String field, Object value){
-		sqlConditions.append(" AND ").append(join).append(".");
+       if (sqlConditions.toString().isEmpty()) {
+            sqlConditions.append(" WHERE ");
+        }else{
+            sqlConditions.append(" AND ");
+        }
+
+		sqlConditions.append(join).append(".");
 		
 		return appendCondition(field, join + "_" + field, value);
 	}

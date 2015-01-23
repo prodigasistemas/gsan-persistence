@@ -29,7 +29,7 @@ public class ContaMensagemRepositorio {
 		.appendJoinCondition("gerenciaRegional","id", idGerenciaRegional)
 		.appendJoinCondition("localidade", "id", idLocalidade)
 		.appendJoinCondition("setorComercial", "id", idSetorComercial);
-
+				
 		Query query = sql.createSelectQuery();
 		
 		try{
@@ -37,5 +37,5 @@ public class ContaMensagemRepositorio {
 		}catch(NoResultException e){
 			return null;
 		}
-	}
+	}	
 }

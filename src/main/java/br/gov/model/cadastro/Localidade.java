@@ -34,7 +34,7 @@ public class Localidade implements Serializable{
 	private String fone;
 	
 	@ManyToOne
-	@JoinColumn(name="greg_id")
+	@JoinColumn(name="greg_id", nullable=false)
 	private GerenciaRegional gerenciaRegional;
 
 	@ManyToOne

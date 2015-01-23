@@ -23,7 +23,7 @@ public class ContaMensagem implements Serializable{
 	private Integer id;
 	
 	@Column(name = "ctms_amreferenciafaturamento")
-	private Integer anoMesRreferenciaFaturamento;
+	private Integer anoMesReferenciaFaturamento;
 	
 	@Column(name = "ctms_dscontamensagem01")
 	private String descricaoContaMensagem01;
@@ -61,12 +61,12 @@ public class ContaMensagem implements Serializable{
 		this.id = id;
 	}
 
-	public Integer getAnoMesRreferenciaFaturamento() {
-		return anoMesRreferenciaFaturamento;
+	public Integer getAnoMesReferenciaFaturamento() {
+		return anoMesReferenciaFaturamento;
 	}
 
-	public void setAnoMesRreferenciaFaturamento(Integer anoMesRreferenciaFaturamento) {
-		this.anoMesRreferenciaFaturamento = anoMesRreferenciaFaturamento;
+	public void setAnoMesReferenciaFaturamento(Integer anoMesRreferenciaFaturamento) {
+		this.anoMesReferenciaFaturamento = anoMesRreferenciaFaturamento;
 	}
 
 	public String getDescricaoContaMensagem01() {

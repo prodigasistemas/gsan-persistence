@@ -58,10 +58,33 @@ public class ConsultaDebitoImovelTO implements Serializable{
 	public void setIndicadorDebito(Integer indicadorDebito) {
 		this.indicadorDebito = indicadorDebito;
 	}
-	public void addSituacao(Integer situacao){
+    public void addSituacao(Integer situacao){
 		if (situacoes == null){
 			situacoes = new ArrayList<Integer>();
 		}
 		situacoes.add(situacao);
 	}
+
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((idImovel == null) ? 0 : idImovel.hashCode());
+        return result;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ConsultaDebitoImovelTO other = (ConsultaDebitoImovelTO) obj;
+        if (idImovel == null) {
+            if (other.idImovel != null)
+                return false;
+        } else if (!idImovel.equals(other.idImovel))
+            return false;
+        return true;
+    }
 }

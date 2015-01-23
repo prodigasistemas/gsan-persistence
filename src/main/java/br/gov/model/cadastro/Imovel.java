@@ -83,11 +83,11 @@ public class Imovel implements Serializable{
 	private Integer codigoDebitoAutomatico; 
 	
 	@ManyToOne
-	@JoinColumn(name="loca_id")
+	@JoinColumn(name="loca_id", nullable=false)
 	private Localidade localidade;
 	
 	@ManyToOne
-	@JoinColumn(name="stcm_id")
+	@JoinColumn(name="stcm_id", nullable=false)
 	private SetorComercial setorComercial;
 
 	@ManyToOne
