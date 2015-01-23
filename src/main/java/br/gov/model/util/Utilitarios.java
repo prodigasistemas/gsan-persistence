@@ -23,21 +23,16 @@ public class Utilitarios {
         Integer digitoVerificadorGeral = null;
 
         if (moduloVerificador.compareTo(ConstantesSistema.MODULO_VERIFICADOR_11) == 0) {
-
             digitoVerificadorGeral = obterDigitoVerificadorModulo11(codigoBarraCom43Posicoes);
 
         } else {
-
             digitoVerificadorGeral = obterDigitoVerificadorModulo10(codigoBarraCom43Posicoes);
-
         }
 
         return digitoVerificadorGeral;
     }
 
-    public static Integer obterDigitoVerificadorModulo10(String numero) {
-
-        String entradaString = numero;
+    public static Integer obterDigitoVerificadorModulo10(String codigo) {
 
         int sequencia = 2;
         int contEntrada, digito, contAuxiliar, produto, contProduto;
@@ -45,9 +40,9 @@ public class Utilitarios {
         int somaDigitosProduto = 0;
 
         contAuxiliar = 1;
-        for (contEntrada = 0; contEntrada < entradaString.length(); contEntrada++) {
+        for (contEntrada = 0; contEntrada < codigo.length(); contEntrada++) {
 
-            digito = new Integer(entradaString.substring(entradaString.length() - contAuxiliar, entradaString.length() - contEntrada)).intValue();
+            digito = new Integer(codigo.substring(codigo.length() - contAuxiliar, codigo.length() - contEntrada)).intValue();
 
             produto = digito * sequencia;
             produtoString = String.valueOf(produto);
@@ -65,7 +60,7 @@ public class Utilitarios {
             contAuxiliar++;
         }
 
-        int resto = (somaDigitosProduto % 10);
+        int resto = somaDigitosProduto % 10;
 
         int dac;
         if (resto == 0) {
@@ -77,29 +72,29 @@ public class Utilitarios {
         return new Integer(dac);
     }
 
-    public static Integer obterDigitoVerificadorModulo11(String numero) {
+    public static Integer obterDigitoVerificadorModulo11(String codigo) {
 
-        String wnumero = numero;
-        int param = 2;
+        int multiplicador = 2;
         int soma = 0;
 
-        for (int ind = (wnumero.length() - 1); ind >= 0; ind--) {
-            if (param > 9) {
-                param = 2;
+        for (int contador = (codigo.length() - 1); contador >= 0; contador--) {
+            if (multiplicador > 9) {
+                multiplicador = 2;
             }
-            soma = soma + (Integer.parseInt(wnumero.substring(ind, ind + 1)) * param);
-            param = param + 1;
+            
+            soma += Integer.parseInt(codigo.substring(contador, contador + 1)) * multiplicador;
+            multiplicador += 1;
         }
 
         int resto = soma % 11;
-        int dv;
-
+        
+        int dac;
         if ((resto == 0) || (resto == 1)) {
-            dv = 0;
+            dac = 0;
         } else {
-            dv = 11 - resto;
+            dac = 11 - resto;
         }
-        return dv;
+        return dac;
     }
 
 	public static String ordenarCamposConsulta(int tipoAgrupamento) {

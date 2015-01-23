@@ -1,0 +1,10 @@
+faturamento.credito_tipo:
+  - crti_id: 1
+
+faturamento.conta:
+  - cnta_id: 1
+
+faturamento.credito_realizado:
+  - crrz_id: 1
+    crti_id: 1
+    cnta_id: 1
