@@ -22,6 +22,9 @@ public class CreditoRealizadoCategoriaRepositorioTest extends SingleDeployment{
 	@Inject
 	private CreditoRealizadoCategoriaRepositorio categoriaRepositorio;
 	
+	@Inject
+	private FaturamentoRepositorio faturamentoRepositorio;
+	
 	@Test
 	@UsingDataSet({"credito_realizado_categoria.yml"})
 	@ShouldMatchDataSet("credito_realizado_categoria_expected.yml")

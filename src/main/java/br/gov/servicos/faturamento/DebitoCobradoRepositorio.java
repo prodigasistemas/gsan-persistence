@@ -48,7 +48,7 @@ public class DebitoCobradoRepositorio {
 
 		StringBuilder sql = new StringBuilder();
 
-		sql.append("SELECT new br.gov.servicos.to.DebitoCobradoParcelamento(");
+		sql.append("SELECT new br.gov.servicos.to.DebitoCobradoParcelamentoTO(");
         sql.append("  dbcb.numeroPrestacaoDebito, ");
         sql.append("  (dbcb.numeroPrestacao - COALESCE(dbcb.numeroParcelaBonus,0)) as totalParcela, ");
         sql.append("  SUM(dbcb.valorPrestacao) as totalPrestacao, ");

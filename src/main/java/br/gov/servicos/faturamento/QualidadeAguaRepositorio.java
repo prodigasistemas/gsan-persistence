@@ -26,16 +26,16 @@ public class QualidadeAguaRepositorio extends GenericRepository<Integer, Qualida
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT qualidadeagua FROM QualidadeAgua qualidadeagua ")
-//		.append("LEFT JOIN qualidadeagua.localidade localidade ")
+		.append("LEFT JOIN qualidadeagua.localidade localidade ")
 		.append("LEFT JOIN qualidadeagua.setorComercial setorcomercial ")
 		.append("INNER JOIN qualidadeagua.sistemaAbastecimento sistemaabastecimento ")
 		.append("where qualidadeagua.anoMesReferencia = :anoMesReferencia ")
-//		.append("AND localidade.id = :idlocalidade ")
+		.append("AND localidade.id = :idLocalidade ")
 		.append("AND setorcomercial.id = :idSetor");
 
 		return entity.createQuery(sql.toString(), QualidadeAgua.class)
 		.setParameter("anoMesReferencia", anoMesReferencia)
-//		.setParameter("idLocalidade", idLocalidade)
+		.setParameter("idLocalidade", idLocalidade)
 		.setParameter("idSetor", idSetor).getSingleResult();
 
 		
