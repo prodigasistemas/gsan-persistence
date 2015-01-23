@@ -32,69 +32,47 @@ public class Utilitarios {
         return digitoVerificadorGeral;
     }
 
-    public static Integer obterDigitoVerificadorModulo10(String codigo) {
+    
+    public static Integer obterDigitoVerificadorModulo10(String bloco) {
+        String[] numeros = new StringBuilder(bloco).reverse().toString().split("");
+        
+		int sequencia = 2;
+		
+		StringBuilder produtos = new StringBuilder();
+		
+		for (int i = 0; i < numeros.length; i++) {
+		    produtos.append(Integer.valueOf(numeros[i]) * sequencia);
+            sequencia = sequencia == 2 ? 1 : 2; 
+		}
 
-        int sequencia = 2;
-        int contEntrada, digito, contAuxiliar, produto, contProduto;
-        String produtoString;
-        int somaDigitosProduto = 0;
-
-        contAuxiliar = 1;
-        for (contEntrada = 0; contEntrada < codigo.length(); contEntrada++) {
-
-            digito = new Integer(codigo.substring(codigo.length() - contAuxiliar, codigo.length() - contEntrada)).intValue();
-
-            produto = digito * sequencia;
-            produtoString = String.valueOf(produto);
-
-            for (contProduto = 0; contProduto < produtoString.length(); contProduto++) {
-                somaDigitosProduto = somaDigitosProduto + new Integer(produtoString.substring(contProduto, contProduto + 1)).intValue();
-            }
-
-            if (sequencia == 2) {
-                sequencia = 1;
-            } else {
-                sequencia = 2;
-            }
-
-            contAuxiliar++;
+        numeros = produtos.toString().split("");
+        
+        int somaDigitos = 0;
+        
+        for (int i = 0; i < numeros.length; i++) {
+            somaDigitos+= Integer.valueOf(numeros[i]);
         }
+        
+		int resto = somaDigitos % 10;
 
-        int resto = somaDigitosProduto % 10;
-
-        int dac;
-        if (resto == 0) {
-            dac = 0;
-        } else {
-            dac = 10 - resto;
-        }
-
-        return new Integer(dac);
+        return resto != 0 ? 10 - resto : 0;
     }
 
     public static Integer obterDigitoVerificadorModulo11(String codigo) {
-
-        int multiplicador = 2;
-        int soma = 0;
-
-        for (int contador = (codigo.length() - 1); contador >= 0; contador--) {
-            if (multiplicador > 9) {
-                multiplicador = 2;
-            }
-            
-            soma += Integer.parseInt(codigo.substring(contador, contador + 1)) * multiplicador;
-            multiplicador += 1;
-        }
-
-        int resto = soma % 11;
+        String[] numeros = new StringBuilder(codigo).reverse().toString().split("");
         
-        int dac;
-        if ((resto == 0) || (resto == 1)) {
-            dac = 0;
-        } else {
-            dac = 11 - resto;
+        int sequencia = 2;
+        
+        int produtos = 0;
+        
+        for (int i = 0; i < numeros.length; i++) {
+            produtos+= Integer.valueOf(numeros[i]) * sequencia;
+            sequencia = sequencia >= 9 ? 2 : ++sequencia; 
         }
-        return dac;
+        
+        int resto  = produtos % 11; 
+
+        return resto == 0 || resto == 1 ? 0 : 11 - resto;
     }
 
 	public static String ordenarCamposConsulta(int tipoAgrupamento) {

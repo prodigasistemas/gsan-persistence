@@ -11,7 +11,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.gov.model.exception.BaseRuntimeException;
-import br.gov.model.exception.ParametroEmissaoContaCompesaIndefinido;
+import br.gov.model.exception.ParametroReferenciaAnteriorParaQualidadeAguaIndefinido;
 import br.gov.model.exception.ParametroEmissaoContaFebrabanIndefinido;
 import br.gov.model.exception.ParametroMensagemContaIndefinido;
 
@@ -35,7 +35,7 @@ public class FaturamentoParametro implements Serializable{
 	
 	public enum NOME_PARAMETRO_FATURAMENTO{
 	    EMITIR_CONTA_CODIGO_FEBRABAN(new ParametroEmissaoContaFebrabanIndefinido()), 
-	    EMITIR_CONTA_CODIGO_COMPESA(new ParametroEmissaoContaCompesaIndefinido()), 
+	    REFERENCIA_ANTERIOR_PARA_QUALIDADE_AGUA(new ParametroReferenciaAnteriorParaQualidadeAguaIndefinido()), 
 	    ESCREVER_MENSAGEM_CONTA_TRES_PARTES(new ParametroMensagemContaIndefinido());
 	    
 	    BaseRuntimeException exception = null;

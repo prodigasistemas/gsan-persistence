@@ -136,4 +136,20 @@ public class TesteUtilitario {
 	public void quantidadeDiasAbril(){
 	    assertEquals(30, qtdDiasMes(201404));
 	}
+	
+	@Test
+	public void digitoVerificadorModulo10(){
+	    assertEquals(3, obterDigitoVerificadorModulo10("01230067896").intValue());
+	    assertEquals(3, obterDigitoVerificadorModulo10("82650000000").intValue());
+	    assertEquals(7, obterDigitoVerificadorModulo10("47400022002").intValue());
+	    assertEquals(5, obterDigitoVerificadorModulo10("8260000000958000220180049297560069672760115").intValue());
+	    assertEquals(9, obterDigitoVerificadorModulo10("8260000000958000220180492975600696727601005").intValue());
+	}
+	
+	@Test
+	public void digitoVerificadorModulo11(){
+	    assertEquals(0, obterDigitoVerificadorModulo11("01230067896").intValue());
+	    assertEquals(9, obterDigitoVerificadorModulo11("261533").intValue());
+	    assertEquals(8, obterDigitoVerificadorModulo11("8280000000474000220020685868600001201560003").intValue());
+	}
 }
