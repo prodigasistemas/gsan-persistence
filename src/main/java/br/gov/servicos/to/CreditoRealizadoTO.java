@@ -30,6 +30,9 @@ public class CreditoRealizadoTO implements Serializable{
 		this.creditoTipo = creditoTipo;
 	}
 
+	public CreditoRealizadoTO() {
+	}
+
 	public Integer getAnoMesReferenciaCredito() {
 		return anoMesReferenciaCredito;
 	}
