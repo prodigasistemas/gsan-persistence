@@ -29,6 +29,10 @@ public class CobrancaDocumentoItem implements Serializable{
 	@JoinColumn(name="cnta_id")
 	private ContaGeral contaGeral;
 	
+	@ManyToOne
+	@JoinColumn(name="cbdo_id")
+	private CobrancaDocumento cobrancaDocumento;
+	
 	public CobrancaDocumentoItem() {
 	}
 
@@ -46,5 +50,13 @@ public class CobrancaDocumentoItem implements Serializable{
 
 	public void setContaGeral(ContaGeral contaGeral) {
 		this.contaGeral = contaGeral;
+	}
+	
+	public CobrancaDocumento getCobrancaDocumento() {
+		return cobrancaDocumento;
+	}
+
+	public void setCobrancaDocumento(CobrancaDocumento cobrancaDocumento) {
+		this.cobrancaDocumento = cobrancaDocumento;
 	}
 }

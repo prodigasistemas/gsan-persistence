@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -29,6 +31,10 @@ public class ContaGeral {
 	
 	@OneToMany(mappedBy="contaGeral")
 	private List<Pagamento> pagamentos;
+	
+	@OneToOne
+	@JoinColumn(name="cnta_id")
+	private Conta conta;
 	
 	public ContaGeral() {
 	}
@@ -59,5 +65,13 @@ public class ContaGeral {
 
     public String toString() {
 		return "ContaGeral [id=" + id + "]";
+	}
+
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 }
