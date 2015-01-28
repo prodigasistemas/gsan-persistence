@@ -1,6 +1,7 @@
 package br.gov.model.cobranca;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +30,16 @@ public class CobrancaDocumentoItem implements Serializable{
 	@JoinColumn(name="cnta_id")
 	private ContaGeral contaGeral;
 	
+	@ManyToOne
+	@JoinColumn(name="cbdo_id")
+	private CobrancaDocumento cobrancaDocumento;
+	
+	@Column(name="cdit_vlitemcobrado")
+	private BigDecimal valorItemCobrado;
+	
+	@Column(name="cdit_vlacrescimos")
+	private BigDecimal  valorAcrescimos;
+	
 	public CobrancaDocumentoItem() {
 	}
 
@@ -46,5 +57,29 @@ public class CobrancaDocumentoItem implements Serializable{
 
 	public void setContaGeral(ContaGeral contaGeral) {
 		this.contaGeral = contaGeral;
+	}
+	
+	public CobrancaDocumento getCobrancaDocumento() {
+		return cobrancaDocumento;
+	}
+
+	public void setCobrancaDocumento(CobrancaDocumento cobrancaDocumento) {
+		this.cobrancaDocumento = cobrancaDocumento;
+	}
+
+	public BigDecimal getValorItemCobrado() {
+		return valorItemCobrado;
+	}
+
+	public void setValorItemCobrado(BigDecimal valorItemCobrado) {
+		this.valorItemCobrado = valorItemCobrado;
+	}
+
+	public BigDecimal getValorAcrescimos() {
+		return valorAcrescimos;
+	}
+
+	public void setValorAcrescimos(BigDecimal valorAcrescimos) {
+		this.valorAcrescimos = valorAcrescimos;
 	}
 }

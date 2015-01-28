@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.Normalizer;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -369,6 +370,15 @@ public class Utilitarios {
 		}
 
     }
+	public static Date converterStringParaData(String data, FormatoData formato) {
+		SimpleDateFormat format = new SimpleDateFormat(formato.getFormato());  
+		try {
+			return format.parse(data);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		} 
+	}
 }
 
 
