@@ -5,3 +5,8 @@ micromedicao.consumo_anorm_acao:
   - csaa_id: 1
     csan_id: 1
     csaa_dsmensagemcontames1: MENSAGEM A01
+    csaa_icuso: 1
+  - csaa_id: 2
+    csan_id: 2
+    csaa_dsmensagemcontames1: MENSAGEM B02
+    csaa_icuso: 2
