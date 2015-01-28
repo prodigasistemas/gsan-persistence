@@ -1,6 +1,7 @@
 package br.gov.model.util;
 
 import java.math.BigDecimal;
+import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.Normalizer;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jboss.security.Base64Encoder;
 
 import br.gov.model.exception.ValorReferenciaInvalido;
 
@@ -352,4 +354,22 @@ public class Utilitarios {
 		}
 		return 0;
 	}
+	
+	public static long obterDiferencaEntreDatas(Date dataInicial, Date dataFinal){
+		return (dataFinal.getTime()-dataInicial.getTime()) / 86400000;
+	}
+	
+	public static String encriptarSenha(String plaintext) {
+        try {
+        	MessageDigest md = MessageDigest.getInstance("SHA");
+			md.update(plaintext.getBytes("UTF-8"));
+			return Base64Encoder.encode(md.digest());
+		} catch (Exception e) {
+			return null;
+		}
+
+    }
 }
+
+
+

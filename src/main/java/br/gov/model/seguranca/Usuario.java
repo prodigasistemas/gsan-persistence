@@ -23,6 +23,9 @@ public class Usuario implements Serializable{
 	
 	@Column(name="usur_nmlogin")
 	private String login;
+	
+	@Column(name="usur_nmsenha")
+	private String senha;
 
 	public Integer getId() {
 		return id;
@@ -42,5 +45,13 @@ public class Usuario implements Serializable{
 
 	public String toString() {
 		return "Usuario [id=" + id + ", login=" + login + "]";
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 }

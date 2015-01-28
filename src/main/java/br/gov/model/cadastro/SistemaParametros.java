@@ -74,6 +74,36 @@ public class SistemaParametros implements Serializable {
 	@Column(name="parm_cdempresafebraban")
 	private Short codigoEmpresaFebraban;
 	
+	@Column(name="parm_nn0800empresa")
+	private String numero0800Empresa;
+	
+	@Column(name="parm_nncnpjempresa")
+	private String cnpjEmpresa;
+	
+	@Column(name="parm_nninscricaoestadual")
+	private String inscricaoEstadual;
+	
+	@Column(name="parm_vlminimoemissaoconta")
+	private BigDecimal valorMinimoEmissaoConta;
+	
+	@Column(name="parm_pctoleranciarateio")
+	private BigDecimal percentualToleranciaRateio;
+	
+	@Column(name="parm_nnconsrateiodecrementomax")
+	private Integer decrementoMaximoConsumoRateio;
+	
+	@Column(name="parm_nnconsrateioincrementomax")
+	private Integer incrementoMaximoConsumoRateio;
+	
+	@Column(name="parm_nmversaocelular")
+	private String versaoCelular;
+
+	@Column(name="parm_icbloqueiocontamobile")
+	private Short indicadorBloqueioContaMobile;
+
+	@Column(name="parm_nndiascelular")
+	private Integer numeroDiasBloqueioCelular;
+	
 	public static Short INDICADOR_TARIFA_CATEGORIA = new Short("1");
 	
 	public SistemaParametros() {
@@ -246,4 +276,86 @@ public class SistemaParametros implements Serializable {
     public boolean parametroAtivo(Short parametro) {
         return parametro != null && parametro == Status.ATIVO.getId();
     }
+
+	public String getNumero0800Empresa() {
+		return numero0800Empresa;
+	}
+
+	public void setNumero0800Empresa(String numero0800Empresa) {
+		this.numero0800Empresa = numero0800Empresa;
+	}
+
+	public String getCnpjEmpresa() {
+		return cnpjEmpresa;
+	}
+
+	public void setCnpjEmpresa(String cnpjEmpresa) {
+		this.cnpjEmpresa = cnpjEmpresa;
+	}
+
+	public String getInscricaoEstadual() {
+		return inscricaoEstadual;
+	}
+
+	public void setInscricaoEstadual(String inscricaoEstadual) {
+		this.inscricaoEstadual = inscricaoEstadual;
+	}
+
+	public BigDecimal getValorMinimoEmissaoConta() {
+		return valorMinimoEmissaoConta;
+	}
+
+	public void setValorMinimoEmissaoConta(BigDecimal valorMinimoEmissaoConta) {
+		this.valorMinimoEmissaoConta = valorMinimoEmissaoConta;
+	}
+
+	public BigDecimal getPercentualToleranciaRateio() {
+		return percentualToleranciaRateio;
+	}
+
+	public void setPercentualToleranciaRateio(BigDecimal percentualToleranciaRateio) {
+		this.percentualToleranciaRateio = percentualToleranciaRateio;
+	}
+
+	public Integer getDecrementoMaximoConsumoRateio() {
+		return decrementoMaximoConsumoRateio;
+	}
+
+	public void setDecrementoMaximoConsumoRateio(
+			Integer decrementoMaximoConsumoRateio) {
+		this.decrementoMaximoConsumoRateio = decrementoMaximoConsumoRateio;
+	}
+
+	public Integer getIncrementoMaximoConsumoRateio() {
+		return incrementoMaximoConsumoRateio;
+	}
+
+	public void setIncrementoMaximoConsumoRateio(
+			Integer incrementoMaximoConsumoRateio) {
+		this.incrementoMaximoConsumoRateio = incrementoMaximoConsumoRateio;
+	}
+
+	public String getVersaoCelular() {
+		return versaoCelular;
+	}
+
+	public void setVersaoCelular(String versaoCelular) {
+		this.versaoCelular = versaoCelular;
+	}
+
+	public Short getIndicadorBloqueioContaMobile() {
+		return indicadorBloqueioContaMobile;
+	}
+
+	public void setIndicadorBloqueioContaMobile(Short indicadorBloqueioContaMobile) {
+		this.indicadorBloqueioContaMobile = indicadorBloqueioContaMobile;
+	}
+
+	public Integer getNumeroDiasBloqueioCelular() {
+		return numeroDiasBloqueioCelular;
+	}
+
+	public void setNumeroDiasBloqueioCelular(Integer numeroDiasBloqueioCelular) {
+		this.numeroDiasBloqueioCelular = numeroDiasBloqueioCelular;
+	}
 }

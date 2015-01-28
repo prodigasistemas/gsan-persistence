@@ -2,6 +2,9 @@ package br.gov.model.micromedicao;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
+
+import javassist.expr.Instanceof;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,6 +53,21 @@ public class Rota implements Serializable {
 	
 	@Column(name="rota_pcfaixafalsageracao")
 	private BigDecimal percentualGeracaoFaixaFalsa;
+	
+	@Column(name="rota_nndiasconsumoajuste")
+	private Integer numeroDiasConsumoAjuste;
+	
+	@Column(name="rota_dtleituraajuste")
+	private Date dataAjusteLeitura;
+	
+	@Column(name="rota_icconsumoajuste")
+	private Short indicadorAjusteConsumo;
+
+	@Column(name="rota_ictransmissaooffline")
+	private Short indicadorTransmissaoOffline;
+	
+	@Column(name="rota_icseqleitura")
+	private Integer indicadorSequencialLeitura;
 
 	public Rota() {
 	}
@@ -143,5 +161,45 @@ public class Rota implements Serializable {
 	
 	public boolean possuiPercentualFaixaFalsa() {
 		return percentualGeracaoFaixaFalsa != null && !percentualGeracaoFaixaFalsa.equals(new BigDecimal(0.0));
+	}
+
+	public Integer getNumeroDiasConsumoAjuste() {
+		return numeroDiasConsumoAjuste;
+	}
+
+	public void setNumeroDiasConsumoAjuste(Integer numeroDiasConsumoAjuste) {
+		this.numeroDiasConsumoAjuste = numeroDiasConsumoAjuste;
+	}
+
+	public Date getDataAjusteLeitura() {
+		return dataAjusteLeitura;
+	}
+
+	public void setDataAjusteLeitura(Date dataAjusteLeitura) {
+		this.dataAjusteLeitura = dataAjusteLeitura;
+	}
+
+	public Short getIndicadorAjusteConsumo() {
+		return indicadorAjusteConsumo;
+	}
+
+	public void setIndicadorAjusteConsumo(Short indicadorAjusteConsumo) {
+		this.indicadorAjusteConsumo = indicadorAjusteConsumo;
+	}
+
+	public Short getIndicadorTransmissaoOffline() {
+		return indicadorTransmissaoOffline;
+	}
+
+	public void setIndicadorTransmissaoOffline(Short indicadorTransmissaoOffline) {
+		this.indicadorTransmissaoOffline = indicadorTransmissaoOffline;
+	}
+
+	public Integer getIndicadorSequencialLeitura() {
+		return indicadorSequencialLeitura;
+	}
+
+	public void setIndicadorSequencialLeitura(Integer indicadorSequencialLeitura) {
+		this.indicadorSequencialLeitura = indicadorSequencialLeitura;
 	}
 }

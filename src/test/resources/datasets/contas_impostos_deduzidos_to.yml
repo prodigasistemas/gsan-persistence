@@ -1,0 +1,10 @@
+faturamento.imposto_tipo:
+ - imtp_id: 1
+
+faturamento.conta:
+ - cnta_id: 1
+
+faturamento.conta_impostos_deduzidos:
+ - cnid_id: 1
+   imtp_id: 1
+   cnta_id: 1

@@ -1,5 +1,8 @@
 package br.gov.servicos.faturamento;
 
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import br.gov.persistence.util.SingleDeployment;
+import br.gov.servicos.to.ContaImpostosDeduzidosTO;
 
 @RunWith(Arquillian.class)
 public class ContaImpostosDeduzidosRepositorioTest extends SingleDeployment{
@@ -26,5 +30,14 @@ public class ContaImpostosDeduzidosRepositorioTest extends SingleDeployment{
 		List<Integer> ids = new ArrayList<Integer>();
 		ids.add(1);
 		repositorio.apagarImpostosDeduzidosDeContas(ids);
+	}
+	
+	@Test
+	@UsingDataSet("contas_impostos_deduzidos_to.yml")
+	public void pesquisarParmsContaImpostosDeduzidos(){
+		
+		List<ContaImpostosDeduzidosTO> retorno = repositorio.pesquisarParmsContaImpostosDeduzidos(1);
+		assertNotNull(retorno);
+		assertNotEquals(0, retorno.size());
 	}
 }
