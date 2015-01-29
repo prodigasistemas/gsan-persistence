@@ -99,7 +99,7 @@ public class SistemaParametros implements Serializable {
 	private String versaoCelular;
 
 	@Column(name="parm_icbloqueiocontamobile")
-	private Short indicadorBloqueioContaMobile;
+	private Integer indicadorBloqueioContaMobile;
 
 	@Column(name="parm_nndiascelular")
 	private Integer numeroDiasBloqueioCelular;
@@ -343,11 +343,11 @@ public class SistemaParametros implements Serializable {
 		this.versaoCelular = versaoCelular;
 	}
 
-	public Short getIndicadorBloqueioContaMobile() {
+	public Integer getIndicadorBloqueioContaMobile() {
 		return indicadorBloqueioContaMobile;
 	}
 
-	public void setIndicadorBloqueioContaMobile(Short indicadorBloqueioContaMobile) {
+	public void setIndicadorBloqueioContaMobile(Integer indicadorBloqueioContaMobile) {
 		this.indicadorBloqueioContaMobile = indicadorBloqueioContaMobile;
 	}
 
