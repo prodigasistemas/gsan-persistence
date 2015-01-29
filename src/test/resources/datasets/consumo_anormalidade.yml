@@ -1,0 +1,6 @@
+micromedicao.consumo_anormalidade:
+ - csan_id: 1
+   csan_icuso: 1
+   csan_dsmensagemconta: MSG CONTA1
+ - csan_id: 2
+   csan_icuso: 2
