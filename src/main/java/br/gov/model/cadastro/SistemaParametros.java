@@ -1,4 +1,5 @@
 package br.gov.model.cadastro;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -8,8 +9,6 @@ import javax.persistence.Table;
 
 import br.gov.model.Status;
 import br.gov.model.util.ConstantesSistema;
-
-import java.io.Serializable;
 
 @Entity
 @Table(name="sistema_parametros", schema="cadastro")
