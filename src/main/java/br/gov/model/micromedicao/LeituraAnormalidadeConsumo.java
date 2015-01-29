@@ -30,6 +30,13 @@ public class LeituraAnormalidadeConsumo {
 	@Column(name="lacs_tmultimaalteracao")	
 	private Date ultimaAlteracao;
 	
+	public LeituraAnormalidadeConsumo() {}
+	
+	public LeituraAnormalidadeConsumo(Integer id) {
+		super();
+		this.id = id;
+	}
+
 	public Integer getId() {
 		return id;
 	}

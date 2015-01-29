@@ -34,9 +34,12 @@ public class ConsumoAnormalidadeAcaoRepositorioTest extends SingleDeployment {
 	public void consultaConsumoAnormalidadeAcaoAtivo() {
 		List<ConsumoAnormalidadeAcao> lista = repositorio.consumoAnormalidadeAcaoAtivo();
 
-		ConsumoAnormalidadeAcao acao = lista.get(0);
-
-		assertTrue(lista.size() == 1);
-		assertEquals("MENSAGEM A01", acao.getDescricaoContaMensagemMes1());
+		assertTrue(lista.size() == 2);
+		
+		ConsumoAnormalidadeAcao acao1 = lista.get(0);
+		assertEquals("MENSAGEM A01", acao1.getDescricaoContaMensagemMes1());
+		
+		ConsumoAnormalidadeAcao acao2 = lista.get(1);
+		assertEquals("MENSAGEM C03", acao2.getDescricaoContaMensagemMes1());
 	}
 }

@@ -81,6 +81,40 @@ public class ConsumoAnormalidadeAcao implements Serializable{
 	@Column(name="csaa_icuso")
 	private Short indicadorUso;
 
+	public ConsumoAnormalidadeAcao() {}
+	
+	public ConsumoAnormalidadeAcao(
+			Integer id,
+			ConsumoAnormalidade consumoAnormalidade,
+			Categoria categoria,
+			ImovelPerfil imovelPerfil,
+			BigDecimal numerofatorConsumoMes1,
+			BigDecimal numerofatorConsumoMes2,
+			BigDecimal numerofatorConsumoMes3,
+			LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes1,
+			LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes2,
+			LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes3,
+			String descricaoContaMensagemMes1,
+			String descricaoContaMensagemMes2,
+			String descricaoContaMensagemMes3,
+			Short indicadorUso) {
+		super();
+		this.id = id;
+		this.consumoAnormalidade = consumoAnormalidade;
+		this.categoria = categoria;
+		this.imovelPerfil = imovelPerfil;
+		this.numerofatorConsumoMes1 = numerofatorConsumoMes1;
+		this.numerofatorConsumoMes2 = numerofatorConsumoMes2;
+		this.numerofatorConsumoMes3 = numerofatorConsumoMes3;
+		this.leituraAnormalidadeConsumoMes1 = leituraAnormalidadeConsumoMes1;
+		this.leituraAnormalidadeConsumoMes2 = leituraAnormalidadeConsumoMes2;
+		this.leituraAnormalidadeConsumoMes3 = leituraAnormalidadeConsumoMes3;
+		this.descricaoContaMensagemMes1 = descricaoContaMensagemMes1;
+		this.descricaoContaMensagemMes2 = descricaoContaMensagemMes2;
+		this.descricaoContaMensagemMes3 = descricaoContaMensagemMes3;
+		this.indicadorUso = indicadorUso;
+	}
+
 	public Integer getId() {
 		return id;
 	}
