@@ -44,13 +44,13 @@ public class ImovelSubcategoriaRepositorio {
 		Short indicadorTarifaCategoria = parametros.getIndicadorTarifaCategoria();
 
 		if (indicadorTarifaCategoria.equals(SistemaParametros.INDICADOR_TARIFA_CATEGORIA)) {
-			return buscarQuantidadeEconomiasCategoria(id);
+			return buscarCategoria(id);
 		} else {
-			return buscarQuantidadeEconomiasSubcategoria(id);
+			return buscarSubcategoria(id);
 		}
 	}
 	
-	public Collection<ICategoria> buscarQuantidadeEconomiasCategoria(Integer imovelId) {
+	public Collection<ICategoria> buscarCategoria(Integer imovelId) {
 
 		Collection<ICategoria> retorno = null;
 
@@ -88,7 +88,7 @@ public class ImovelSubcategoriaRepositorio {
 		return retorno;
 	}
 
-	public Collection<ICategoria> buscarQuantidadeEconomiasSubcategoria(Integer imovelId) {
+	public Collection<ICategoria> buscarSubcategoria(Integer imovelId) {
 
 		Collection<ICategoria> retorno = null;
 

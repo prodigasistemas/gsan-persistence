@@ -352,4 +352,18 @@ public class Utilitarios {
 		}
 		return 0;
 	}
+
+	public static Date criarData(int dia, int mes, int ano) {
+		Calendar calendario;
+
+		calendario = Calendar.getInstance();
+		calendario.set(ano, mes - 1, dia, 0, 0, 0);
+
+		return calendario.getTime();
+	}
+	
+	public static boolean datasIguais(Date data1, Date data2) {
+		return data1.compareTo(data2) == 0;
+	}
+	
 }

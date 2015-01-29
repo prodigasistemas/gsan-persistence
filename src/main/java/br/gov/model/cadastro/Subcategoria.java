@@ -72,6 +72,10 @@ public class Subcategoria implements Serializable, ICategoria {
     }
 	
 	public Subcategoria(){}
+	
+	public Subcategoria(Integer id){
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;

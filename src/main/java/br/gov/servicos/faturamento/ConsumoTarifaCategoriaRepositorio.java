@@ -1,13 +1,22 @@
 package br.gov.servicos.faturamento;
 
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+
+import org.hibernate.HibernateException;
 
 import br.gov.model.cadastro.ICategoria;
 import br.gov.model.cadastro.SistemaParametros;
+import br.gov.model.faturamento.ConsumoTarifaCategoria;
 import br.gov.servicos.cadastro.SistemaParametrosRepositorio;
 
 @Stateless
@@ -51,7 +60,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 			.setParameter("idCategoria", idCategoria)
 			.setMaxResults(1)
 			.getSingleResult();
-		} catch (Exception e) {
+		} catch (NoResultException e) {
 			return null;
 		}
 	}
@@ -71,8 +80,62 @@ public class ConsumoTarifaCategoriaRepositorio {
 					.setParameter("idSubCategoria", idSubCategoria)
 					.setMaxResults(1)
 					.getSingleResult();
-		} catch (Exception e) {
+		} catch (NoResultException e) {
 			return null;
 		}
 	}
+	
+	public ConsumoTarifaCategoria buscarConsumoTarifaCategoriaVigente(Date dataFaturamento, Integer idConsumoTarifa, Integer idCategoria, Integer idSubcategoria) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT ctcg FROM ConsumoTarifaCategoria ctcg ")
+		.append("inner join ctcg.consumoTarifaVigencia ctv ")
+		.append("inner join ctv.consumoTarifa ct ")
+		.append("inner join ctcg.categoria catg ")
+		.append("inner join ctcg.subCategoria subCatg ")
+		.append("WHERE ctv.dataVigencia = :dataFaturamento AND ")
+		.append("      ct.id = :idConsumoTarifa AND ")
+		.append("      catg.id = :idCategoria AND ")
+		.append("      subCatg.id = :idSubcategoria ")
+		.append("order by ctv.dataVigencia DESC");
+		try {
+			return entity.createQuery(sql.toString(), ConsumoTarifaCategoria.class)
+					.setParameter("dataFaturamento",dataFaturamento)
+					.setParameter("idConsumoTarifa", idConsumoTarifa)
+					.setParameter("idCategoria", idCategoria)
+					.setParameter("idSubcategoria", idSubcategoria)
+					.setMaxResults(1)
+					.getSingleResult();
+
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public List<ConsumoTarifaCategoria> buscarConsumoTarifaCategoriaVigentePelaDataLeitura(Date dataLeitura, Integer idConsumoTarifa, Integer idCategoria, Integer idSubcategoria) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT ctcg FROM ConsumoTarifaCategoria ctcg ")
+		.append("inner join ctcg.consumoTarifaVigencia ctv ")
+		.append("inner join ctv.consumoTarifa ct ")
+		.append("inner join ctcg.categoria catg ")
+		.append("inner join ctcg.subCategoria subCatg ")
+		.append("WHERE ctv.dataVigencia between :dataLeituraAnterior and :dataAtual AND ")
+		.append("      ct.id = :idConsumoTarifa AND ")
+		.append("      catg.id = :idCategoria AND ")
+		.append("      subCatg.id = :idSubcategoria ")
+		.append("order by ctv.dataVigencia DESC");
+		try {
+			return entity.createQuery(sql.toString(), ConsumoTarifaCategoria.class)
+					.setParameter("dataLeituraAnterior",dataLeitura)
+					.setParameter("dataAtual", Calendar.getInstance().getTime())
+					.setParameter("idConsumoTarifa", idConsumoTarifa)
+					.setParameter("idCategoria", idCategoria)
+					.setParameter("idSubcategoria", idSubcategoria)
+					.getResultList();
+
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	
 }

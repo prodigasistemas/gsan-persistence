@@ -1,0 +1,19 @@
+cadastro.categoria:
+ - catg_id: 1
+
+cadastro.subcategoria:
+ - scat_id: 1
+
+faturamento.consumo_tarifa:
+ - cstf_id: 1
+
+faturamento.consumo_tarifa_vigencia:
+ - cstv_id: 1
+   cstv_dtvigencia: '2015-01-01'
+   cstf_id: 1
+   
+faturamento.consumo_tarifa_categoria:
+ - cstc_id: 1
+   catg_id: 1
+   scat_id: 1
+   cstv_id: 1

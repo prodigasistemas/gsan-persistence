@@ -36,7 +36,7 @@ public class ImovelSubcategoriaRepositorioTest extends SingleDeployment{
     @Test
     @UsingDataSet("quantidade_economias_categoria_subcategoria.yml")
     public void buscarQuantidadeEconomiasCategoria() throws Exception {
-    	Collection<ICategoria> categorias = repositorio.buscarQuantidadeEconomiasCategoria(1);
+    	Collection<ICategoria> categorias = repositorio.buscarCategoria(1);
     	ICategoria categoria = categorias.iterator().next();
     	
     	assertEquals(1, categoria.getId().intValue());
@@ -57,7 +57,7 @@ public class ImovelSubcategoriaRepositorioTest extends SingleDeployment{
     @Test
     @UsingDataSet("quantidade_economias_categoria_subcategoria.yml")
     public void buscarQuantidadeEconomiasSubcategoria() throws Exception {
-    	Collection<ICategoria> subcategorias = repositorio.buscarQuantidadeEconomiasSubcategoria(1);
+    	Collection<ICategoria> subcategorias = repositorio.buscarSubcategoria(1);
     	ICategoria subcategoria = subcategorias.iterator().next();
     	
     	assertEquals(1, subcategoria.getId().intValue());

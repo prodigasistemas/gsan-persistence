@@ -1,0 +1,3 @@
+faturamento.tarifa_tipo_calculo:
+ - ttpc_id: 1
+   ttpc_icuso: 1

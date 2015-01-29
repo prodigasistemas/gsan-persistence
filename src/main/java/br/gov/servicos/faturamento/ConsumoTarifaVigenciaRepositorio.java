@@ -1,6 +1,7 @@
 package br.gov.servicos.faturamento;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,6 +28,24 @@ public class ConsumoTarifaVigenciaRepositorio {
 			return entity.createQuery(sql.toString(), ConsumoTarifaVigenciaTO.class)
 					.setParameter("idTarifa", idTarifa)
 					.setParameter("dataAtual", Calendar.getInstance().getTime())
+					.setMaxResults(1).getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public ConsumoTarifaVigenciaTO maiorDataVigenciaConsumoTarifaPorData(Integer idTarifa, Date data) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select new br.gov.servicos.to.ConsumoTarifaVigenciaTO(vig.id, vig.dataVigencia) ")
+		   .append(" from ConsumoTarifaVigencia vig")
+		   .append(" inner join vig.consumoTarifa ct ")
+		   .append(" where ct.id = :idTarifa ")
+		   .append(" and vig.dataVigencia <= :data");
+
+		try {
+			return entity.createQuery(sql.toString(), ConsumoTarifaVigenciaTO.class)
+					.setParameter("idTarifa", idTarifa)
+					.setParameter("data", data)
 					.setMaxResults(1).getSingleResult();
 		} catch (NoResultException e) {
 			return null;

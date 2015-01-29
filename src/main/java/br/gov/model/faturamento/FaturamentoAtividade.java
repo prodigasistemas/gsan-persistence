@@ -39,6 +39,10 @@ public class FaturamentoAtividade implements Serializable{
 	public FaturamentoAtividade() {
 	}
 
+	public FaturamentoAtividade(Integer id) {
+		this.id = id;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
