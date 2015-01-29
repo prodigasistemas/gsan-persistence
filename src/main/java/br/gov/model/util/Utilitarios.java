@@ -1,19 +1,16 @@
 package br.gov.model.util;
 
 import java.math.BigDecimal;
-import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.Normalizer;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jboss.security.Base64Encoder;
 
 import br.gov.model.exception.ValorReferenciaInvalido;
 
@@ -294,6 +291,15 @@ public class Utilitarios {
         return data != null ? format.format(data) : "";
     }
 
+    public static Date converteData(String data, FormatoData formato){
+        SimpleDateFormat format = new SimpleDateFormat(formato.getFormato());
+        try {
+            return format.parse(data);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
 	public static Integer extrairAno(Integer anoMes) {
 		return Integer.valueOf(String.valueOf(anoMes).substring(0,4));
 	}
@@ -356,30 +362,7 @@ public class Utilitarios {
 		return 0;
 	}
 	
-	public static long obterDiferencaEntreDatas(Date dataInicial, Date dataFinal){
-		return (dataFinal.getTime()-dataInicial.getTime()) / 86400000;
-	}
-	
-	public static String encriptarSenha(String plaintext) {
-        try {
-        	MessageDigest md = MessageDigest.getInstance("SHA");
-			md.update(plaintext.getBytes("UTF-8"));
-			return Base64Encoder.encode(md.digest());
-		} catch (Exception e) {
-			return null;
-		}
-
-    }
-	public static Date converterStringParaData(String data, FormatoData formato) {
-		SimpleDateFormat format = new SimpleDateFormat(formato.getFormato());  
-		try {
-			return format.parse(data);
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		} 
+	public static String minusculas(String texto){
+	    return texto != null ? texto.toLowerCase() : "";
 	}
 }
-
-
-
