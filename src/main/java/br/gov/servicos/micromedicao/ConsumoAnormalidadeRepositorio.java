@@ -9,14 +9,13 @@ import br.gov.model.util.GenericRepository;
 
 @Stateless
 public class ConsumoAnormalidadeRepositorio extends GenericRepository<Integer, ConsumoAnormalidade>{
-	public List<ConsumoAnormalidade> buscarPorAnoMesESistemaAbastecimentoComFonteCaptacaoETipoCaptacao(Integer indicadorUso, String mensagemConta){
+	public List<ConsumoAnormalidade> listarConsumoAnormalidadePor(Short indicadorUso){
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT consumo FROM ConsumoAnormalidade consumo ")
-		.append("where consumo.indicadorUso = :indicadorUso ")
-		.append("AND consumo.mensagemConta.id = :mensagemConta");
+		.append("WHERE consumo.indicadorUso = :indicadorUso ")
+		.append("AND consumo.mensagemConta IS NOT NULL");
 
 		return entity.createQuery(sql.toString(), ConsumoAnormalidade.class)
-		.setParameter("indicadorUso", indicadorUso)
-		.setParameter("mensagemConta", mensagemConta).getResultList();
+		.setParameter("indicadorUso", indicadorUso).getResultList();
 	}
 }
