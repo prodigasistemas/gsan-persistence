@@ -1,6 +1,7 @@
 package br.gov.model.micromedicao;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +27,48 @@ public class ConsumoAnormalidadeAcao implements Serializable{
 	@Column(name="csaa_id")
 	private Integer id;
 	
+	@ManyToOne
+	@JoinColumn(name="csan_id")
+	private ConsumoAnormalidade consumoAnormalidade;
+	
+	@ManyToOne
+	@JoinColumn(name="catg_id")
+	private Categoria categoria; 
+	
+	@ManyToOne
+	@JoinColumn(name="iper_id")
+	private ImovelPerfil imovelPerfil; 
+	
+	@Column(name="csaa_nnfatorconsumomes1")
+	private BigDecimal numerofatorConsumoMes1;
+
+	@Column(name="csaa_nnfatorconsumomes2")
+    private BigDecimal numerofatorConsumoMes2;
+
+	@Column(name="csaa_nnfatorconsumomes3")
+    private BigDecimal numerofatorConsumoMes3;
+
+	@Column(name="csaa_icgeracaocartames1")
+    private Short indicadorGeracaoCartaMes1;
+
+	@Column(name="csaa_icgeracaocartames2")
+    private Short indicadorGeracaoCartaMes2;
+
+	@Column(name="csaa_icgeracaocartames3")
+    private Short indicadorGeracaoCartaMes3;
+
+	@ManyToOne
+	@JoinColumn(name="lacs_idmes1")
+    private LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes1;
+
+	@ManyToOne
+	@JoinColumn(name="lacs_idmes2")
+    private LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes2;
+
+	@ManyToOne
+	@JoinColumn(name="lacs_idmes3")
+    private LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes3;
+
 	@Column(name="csaa_dsmensagemcontames1")
 	private String descricaoContaMensagemMes1;
 	
@@ -35,19 +78,43 @@ public class ConsumoAnormalidadeAcao implements Serializable{
 	@Column(name="csaa_dsmensagemcontames3")
 	private String descricaoContaMensagemMes3;
 	
-	@ManyToOne
-	@JoinColumn(name="catg_id")
-	private Categoria categoria; 
+	@Column(name="csaa_icuso")
+	private Short indicadorUso;
+
+	public ConsumoAnormalidadeAcao() {}
 	
-	@ManyToOne
-	@JoinColumn(name="csan_id")
-	private ConsumoAnormalidade consumoAnormalidade; 
-	
-	@ManyToOne
-	@JoinColumn(name="iper_id")
-	private ImovelPerfil imovelPerfil; 
-	
-	
+	public ConsumoAnormalidadeAcao(
+			Integer id,
+			ConsumoAnormalidade consumoAnormalidade,
+			Categoria categoria,
+			ImovelPerfil imovelPerfil,
+			BigDecimal numerofatorConsumoMes1,
+			BigDecimal numerofatorConsumoMes2,
+			BigDecimal numerofatorConsumoMes3,
+			LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes1,
+			LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes2,
+			LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes3,
+			String descricaoContaMensagemMes1,
+			String descricaoContaMensagemMes2,
+			String descricaoContaMensagemMes3,
+			Short indicadorUso) {
+		super();
+		this.id = id;
+		this.consumoAnormalidade = consumoAnormalidade;
+		this.categoria = categoria;
+		this.imovelPerfil = imovelPerfil;
+		this.numerofatorConsumoMes1 = numerofatorConsumoMes1;
+		this.numerofatorConsumoMes2 = numerofatorConsumoMes2;
+		this.numerofatorConsumoMes3 = numerofatorConsumoMes3;
+		this.leituraAnormalidadeConsumoMes1 = leituraAnormalidadeConsumoMes1;
+		this.leituraAnormalidadeConsumoMes2 = leituraAnormalidadeConsumoMes2;
+		this.leituraAnormalidadeConsumoMes3 = leituraAnormalidadeConsumoMes3;
+		this.descricaoContaMensagemMes1 = descricaoContaMensagemMes1;
+		this.descricaoContaMensagemMes2 = descricaoContaMensagemMes2;
+		this.descricaoContaMensagemMes3 = descricaoContaMensagemMes3;
+		this.indicadorUso = indicadorUso;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -102,6 +169,86 @@ public class ConsumoAnormalidadeAcao implements Serializable{
 
 	public void setImovelPerfil(ImovelPerfil imovelPerfil) {
 		this.imovelPerfil = imovelPerfil;
+	}
+
+	public BigDecimal getNumerofatorConsumoMes1() {
+		return numerofatorConsumoMes1;
+	}
+
+	public void setNumerofatorConsumoMes1(BigDecimal numerofatorConsumoMes1) {
+		this.numerofatorConsumoMes1 = numerofatorConsumoMes1;
+	}
+
+	public BigDecimal getNumerofatorConsumoMes2() {
+		return numerofatorConsumoMes2;
+	}
+
+	public void setNumerofatorConsumoMes2(BigDecimal numerofatorConsumoMes2) {
+		this.numerofatorConsumoMes2 = numerofatorConsumoMes2;
+	}
+
+	public BigDecimal getNumerofatorConsumoMes3() {
+		return numerofatorConsumoMes3;
+	}
+
+	public void setNumerofatorConsumoMes3(BigDecimal numerofatorConsumoMes3) {
+		this.numerofatorConsumoMes3 = numerofatorConsumoMes3;
+	}
+
+	public Short getIndicadorGeracaoCartaMes1() {
+		return indicadorGeracaoCartaMes1;
+	}
+
+	public void setIndicadorGeracaoCartaMes1(Short indicadorGeracaoCartaMes1) {
+		this.indicadorGeracaoCartaMes1 = indicadorGeracaoCartaMes1;
+	}
+
+	public Short getIndicadorGeracaoCartaMes2() {
+		return indicadorGeracaoCartaMes2;
+	}
+
+	public void setIndicadorGeracaoCartaMes2(Short indicadorGeracaoCartaMes2) {
+		this.indicadorGeracaoCartaMes2 = indicadorGeracaoCartaMes2;
+	}
+
+	public Short getIndicadorGeracaoCartaMes3() {
+		return indicadorGeracaoCartaMes3;
+	}
+
+	public void setIndicadorGeracaoCartaMes3(Short indicadorGeracaoCartaMes3) {
+		this.indicadorGeracaoCartaMes3 = indicadorGeracaoCartaMes3;
+	}
+
+	public LeituraAnormalidadeConsumo getLeituraAnormalidadeConsumoMes1() {
+		return leituraAnormalidadeConsumoMes1;
+	}
+
+	public void setLeituraAnormalidadeConsumoMes1(LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes1) {
+		this.leituraAnormalidadeConsumoMes1 = leituraAnormalidadeConsumoMes1;
+	}
+
+	public LeituraAnormalidadeConsumo getLeituraAnormalidadeConsumoMes2() {
+		return leituraAnormalidadeConsumoMes2;
+	}
+
+	public void setLeituraAnormalidadeConsumoMes2(LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes2) {
+		this.leituraAnormalidadeConsumoMes2 = leituraAnormalidadeConsumoMes2;
+	}
+
+	public LeituraAnormalidadeConsumo getLeituraAnormalidadeConsumoMes3() {
+		return leituraAnormalidadeConsumoMes3;
+	}
+
+	public void setLeituraAnormalidadeConsumoMes3(LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes3) {
+		this.leituraAnormalidadeConsumoMes3 = leituraAnormalidadeConsumoMes3;
+	}
+
+	public Short getIndicadorUso() {
+		return indicadorUso;
+	}
+
+	public void setIndicadorUso(Short indicadorUso) {
+		this.indicadorUso = indicadorUso;
 	}
 
 	public String toString() {

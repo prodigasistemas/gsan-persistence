@@ -29,4 +29,16 @@ public class FaturamentoAtividadeCronogramaRepositorioTest extends SingleDeploym
 	public void buscarPorGrupoEAtividadeEReferenciaRetornaNulo() {
 		assertNull(repositorio.buscarPorGrupoEAtividadeEReferencia(2, 1, 201501));
 	}
+	
+	@Test
+	@UsingDataSet({"faturamento_atividade_cronograma.yml"})
+	public void pesquisarFaturamentoAtividadeCronogramaDataPrevistaValida(){
+		assertNotNull(repositorio.pesquisarFaturamentoAtividadeCronogramaDataPrevista(1, 1, 201501));
+	}
+	
+	@Test
+	@UsingDataSet({"faturamento_atividade_cronograma.yml"})
+	public void pesquisarFaturamentoAtividadeCronogramaDataPrevistaInalida(){
+		assertNull(repositorio.pesquisarFaturamentoAtividadeCronogramaDataPrevista(2, 1, 201501));
+	}
 }

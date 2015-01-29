@@ -1,0 +1,52 @@
+faturamento.consumo_tarifa:
+  - cstf_id: 1
+  - cstf_id: 2
+  - cstf_id: 3
+
+faturamento.consumo_tarifa_faixa:
+  - ctfx_id: 1
+    ctfx_nncosumofaixainicio: 0
+    ctfx_nnconsumofaixafim: 10
+    ctfx_vlconsumotarifa: 14.00
+    cstc_id: 1
+  - ctfx_id: 2
+    ctfx_nncosumofaixainicio: 11
+    ctfx_nnconsumofaixafim: 20
+    ctfx_vlconsumotarifa: 28.00
+    cstc_id: 2
+  - ctfx_id: 3
+    ctfx_nncosumofaixainicio: 21
+    ctfx_nnconsumofaixafim: 30
+    ctfx_vlconsumotarifa: 100.00
+    cstc_id: 3
+
+faturamento.consumo_tarifa_vigencia:
+  - cstv_id: 1
+    cstv_dtvigencia: '2014-09-01'
+    cstf_id: 1
+  - cstv_id: 2
+    cstv_dtvigencia: '2014-06-23'
+    cstf_id: 2
+  - cstv_id: 3
+    cstv_dtvigencia: '2014-02-20'
+    cstf_id: 3
+
+faturamento.consumo_tarifa_categoria:
+  - cstc_id: 1
+    cstv_id: 1
+    catg_id: 1
+    scat_id: 1
+  - cstc_id: 3
+    cstv_id: 3
+    catg_id: 3
+    scat_id: 3
+
+cadastro.categoria:
+  - catg_id: 1
+  - catg_id: 2
+  - catg_id: 3
+
+cadastro.subcategoria:
+  - scat_id: 1
+  - scat_id: 2
+  - scat_id: 3
