@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -52,6 +54,25 @@ public class LeituraAnormalidade implements Serializable{
 	
 	@Column(name="ltan_nnvezessuspendeleitura")
 	private Integer numeroVezesSuspendeLeitura;
+
+	@Column(name="ltan_icimpressaosimultanea")
+	private Short indicadorImpressaoSimultanea;
+
+	@ManyToOne
+	@JoinColumn(name="lalt_idleitafaturarcomleit")
+	private LeituraAnormalidadeLeitura leituraAnormalidadeLeituraComLeitura;
+
+	@ManyToOne
+	@JoinColumn(name="lalt_idleitafaturarsemleit")
+	private LeituraAnormalidadeLeitura leituraAnormalidadeLeituraSemLeitura;
+	
+	@ManyToOne
+	@JoinColumn(name="lacs_idconsacobrarcomleit")
+	private LeituraAnormalidadeConsumo leituraAnormalidadeConsumoComLeitura;
+
+	@ManyToOne
+	@JoinColumn(name="lacs_idconsacobrarsemleit")
+	private LeituraAnormalidadeConsumo leituraAnormalidadeConsumoSemLeitura;
 	
 	public LeituraAnormalidade(){}
 
@@ -157,5 +178,49 @@ public class LeituraAnormalidade implements Serializable{
 
 	public void setNumeroVezesSuspendeLeitura(Integer numeroVezesSuspendeLeitura) {
 		this.numeroVezesSuspendeLeitura = numeroVezesSuspendeLeitura;
+	}
+
+	public Short getIndicadorImpressaoSimultanea() {
+		return indicadorImpressaoSimultanea;
+	}
+
+	public void setIndicadorImpressaoSimultanea(Short indicadorImpressaoSimultanea) {
+		this.indicadorImpressaoSimultanea = indicadorImpressaoSimultanea;
+	}
+
+	public LeituraAnormalidadeLeitura getLeituraAnormalidadeLeituraComLeitura() {
+		return leituraAnormalidadeLeituraComLeitura;
+	}
+
+	public void setLeituraAnormalidadeLeituraComLeitura(
+			LeituraAnormalidadeLeitura leituraAnormalidadeLeituraComLeitura) {
+		this.leituraAnormalidadeLeituraComLeitura = leituraAnormalidadeLeituraComLeitura;
+	}
+
+	public LeituraAnormalidadeLeitura getLeituraAnormalidadeLeituraSemLeitura() {
+		return leituraAnormalidadeLeituraSemLeitura;
+	}
+
+	public void setLeituraAnormalidadeLeituraSemLeitura(
+			LeituraAnormalidadeLeitura leituraAnormalidadeLeituraSemLeitura) {
+		this.leituraAnormalidadeLeituraSemLeitura = leituraAnormalidadeLeituraSemLeitura;
+	}
+
+	public LeituraAnormalidadeConsumo getLeituraAnormalidadeConsumoComLeitura() {
+		return leituraAnormalidadeConsumoComLeitura;
+	}
+
+	public void setLeituraAnormalidadeConsumoComLeitura(
+			LeituraAnormalidadeConsumo leituraAnormalidadeConsumoComLeitura) {
+		this.leituraAnormalidadeConsumoComLeitura = leituraAnormalidadeConsumoComLeitura;
+	}
+
+	public LeituraAnormalidadeConsumo getLeituraAnormalidadeConsumoSemLeitura() {
+		return leituraAnormalidadeConsumoSemLeitura;
+	}
+
+	public void setLeituraAnormalidadeConsumoSemLeitura(
+			LeituraAnormalidadeConsumo leituraAnormalidadeConsumoSemLeitura) {
+		this.leituraAnormalidadeConsumoSemLeitura = leituraAnormalidadeConsumoSemLeitura;
 	}
 }
