@@ -40,7 +40,8 @@ public class ConsumoTarifaVigenciaRepositorio {
 		   .append(" from ConsumoTarifaVigencia vig")
 		   .append(" inner join vig.consumoTarifa ct ")
 		   .append(" where ct.id = :idTarifa ")
-		   .append(" and vig.dataVigencia <= :data");
+		   .append(" and vig.dataVigencia <= :data")
+		   .append(" order by vig.dataVigencia desc ");
 
 		try {
 			return entity.createQuery(sql.toString(), ConsumoTarifaVigenciaTO.class)
