@@ -9,12 +9,15 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -22,6 +25,7 @@ import javax.persistence.TemporalType;
 
 import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
 import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
+import br.gov.model.cadastro.ClienteConta;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.ImovelPerfil;
 import br.gov.model.cadastro.Localidade;
@@ -190,6 +194,9 @@ public class Conta implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="parc_id")
 	private Parcelamento parcelamento;
+	
+	@OneToMany(mappedBy="conta", fetch=FetchType.LAZY)
+	private List<ClienteConta> clienteContas;
 	
 	public Conta() {}
 	
@@ -743,7 +750,15 @@ public class Conta implements Serializable{
         this.dataRevisao = dataRevisao;
     }
 
-    public String toString() {
+    public List<ClienteConta> getClienteContas() {
+		return clienteContas;
+	}
+
+	public void setClienteContas(List<ClienteConta> clienteContas) {
+		this.clienteContas = clienteContas;
+	}
+
+	public String toString() {
 		return "Conta [id=" + id + "]";
 	}
 }

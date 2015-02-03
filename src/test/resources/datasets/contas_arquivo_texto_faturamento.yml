@@ -1,0 +1,96 @@
+faturamento.conta:
+  - cnta_id: 1
+    imov_id: 1
+    dcst_idatual: 9
+    cnta_amreferenciaconta: 201501
+    cnta_dtvencimentoconta: '2015-02-05'
+    cnta_dtvalidadeconta: '2015-05-05'
+    cnta_dgverificadorconta: 4
+    cnta_pcesgoto: 15.50    
+    cnta_cdsetorcomercial: 44
+    qdra_id: 1
+    cnta_nnlote: 1
+    cnta_nnsublote: 1
+    loca_id: 26
+    last_id: 1
+    lest_id: 1
+    iper_id: 1
+    cstf_id: 1
+    ftgr_id: 201
+  - cnta_id: 2
+    imov_id: 2
+    dcst_idatual: 9
+    cnta_amreferenciaconta: 201502
+    cnta_cdsetorcomercial: 45
+    qdra_id: 1
+    loca_id: 26
+    last_id: 1
+    lest_id: 1
+    iper_id: 1
+    cstf_id: 1
+    ftgr_id: 201
+
+cadastro.imovel:
+  - imov_id: 1
+    icte_id: 2
+  - imov_id: 2
+
+cadastro.quadra:
+  - qdra_id: 1
+    qdra_nnquadra: 1462
+
+cadastro.localidade:
+  - loca_id: 26
+    greg_id: 1
+    loca_nmlocalidade: 'CASTANHAL'
+
+cadastro.gerencia_regional:
+  - greg_id: 1
+    greg_nmregional: 'METROPOLITANA'
+
+atendimentopublico.ligacao_agua_situacao:
+  - last_id: 1
+    last_icfaturamento: 1
+
+atendimentopublico.ligacao_esgoto_situacao:
+  - lest_id: 1
+    lest_icfaturamento: 2
+
+cadastro.imovel_perfil:
+  - iper_id: 1
+
+faturamento.consumo_tarifa:
+  - cstf_id: 1
+
+faturamento.faturamento_grupo:
+  - ftgr_id: 201
+
+cadastro.cliente_relacao_tipo:
+  - crtp_id: 1
+  - crtp_id: 2
+  - crtp_id: 3
+
+cadastro.cliente_conta:
+  - clct_id: 1
+    cnta_id: 1
+    crtp_id: 2
+    clie_id: 1
+  - clct_id: 2
+    cnta_id: 1
+    crtp_id: 3
+    clie_id: 2
+  - clct_id: 3
+    cnta_id: 1
+    crtp_id: 1
+    clie_id: 3
+
+cadastro.cliente:
+  - clie_id: 1
+    clie_nmcliente: 'USUARIO'
+    clie_nncpf: '00000000000'
+  - clie_id: 2
+    clie_nmcliente: 'RESPONSAVEL'
+    clie_nncnpj: '11111111111111'
+  - clie_id: 3
+    clie_nmcliente: 'PROPRIETARIO'
+    clie_nncpf: '22222222222'
