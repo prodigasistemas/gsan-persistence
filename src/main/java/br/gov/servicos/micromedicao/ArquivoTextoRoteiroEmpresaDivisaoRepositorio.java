@@ -8,15 +8,12 @@ import javax.persistence.PersistenceContext;
 public class ArquivoTextoRoteiroEmpresaDivisaoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
-	
-	
-	public void deletaArquivoTextoRoteiroEmpresaDivisao(Integer idArquivo){
+
+	public void deletarPorArquivoTextoRoteiroEmpresa(Integer idRoteitoEmpresa) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("delete ArquivoTextoRoteiroEmpresaDivisao as arq ")
-			.append(" where arq.arquivoTextoRoteiroEmpresa.id = :idArq");
-		
-		entity.createQuery(sql.toString())
-		.setParameter("idArq", idArquivo)
-		.executeUpdate();
+		sql.append("DELETE ArquivoTextoRoteiroEmpresaDivisao arq ")
+		   .append("WHERE arq.arquivoTextoRoteiroEmpresa.id = :idRoteitoEmpresa");
+
+		entity.createQuery(sql.toString()).setParameter("idRoteitoEmpresa", idRoteitoEmpresa).executeUpdate();
 	}
 }

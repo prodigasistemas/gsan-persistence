@@ -11,34 +11,29 @@ import br.gov.model.micromedicao.ArquivoTextoRoteiroEmpresa;
 public class ArquivoTextoRoteiroEmpresaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
-	
-	
-	public ArquivoTextoRoteiroEmpresa recuperaArquivoTextoRoteiroEmpresa(Integer idRota, Integer anoMesReferencia){
-		StringBuilder sql = new StringBuilder();
-		sql.append("select arq ")
-		.append(" from ArquivoTextoRoteiroEmpresa arq")
-		.append("inner join arq.rota rota ")
-		.append("where rota.id = :idRota and arq.anoMesReferencia = :anoMesReferencia ");
-		
-		try{
-			return entity.createQuery(sql.toString(), ArquivoTextoRoteiroEmpresa.class)
-			.setParameter("idRota", idRota)
-			.setParameter("anoMesReferencia", anoMesReferencia)
-			.setMaxResults(1)
-			.getSingleResult();
 
+	public ArquivoTextoRoteiroEmpresa pesquisarPorRotaEReferencia(Integer idRota, Integer anoMesReferencia) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT arq ")
+		   .append("FROM ArquivoTextoRoteiroEmpresa arq ")
+		   .append("INNER JOIN arq.rota rota ")
+		   .append("WHERE rota.id = :idRota AND arq.anoMesReferencia = :anoMesReferencia");
+
+		try {
+			return entity.createQuery(sql.toString(), ArquivoTextoRoteiroEmpresa.class)
+					.setParameter("idRota", idRota)
+					.setParameter("anoMesReferencia", anoMesReferencia)
+					.setMaxResults(1).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
-	
-	public void deletaArquivoTextoRoteiroEmpresa(Integer idArquivo){
+
+	public void deletarPorId(Integer id) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("delete ArquivoTextoRoteiroEmpresa as arq ")
-			.append(" where arq.id = :idArq");
-		
-		entity.createQuery(sql.toString())
-		.setParameter("idArq", idArquivo)
-		.executeUpdate();
-	}	
+		sql.append("DELETE ArquivoTextoRoteiroEmpresa arq ")
+		   .append("WHERE arq.id = :id");
+
+		entity.createQuery(sql.toString()).setParameter("id", id).executeUpdate();
+	}
 }

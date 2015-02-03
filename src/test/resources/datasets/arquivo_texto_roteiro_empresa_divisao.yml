@@ -1,0 +1,9 @@
+micromedicao.arq_txt_roteiro_emp_div:
+  - tred_id: 1
+    txre_id: 1
+  - tred_id: 2
+    txre_id: 2
+  - tred_id: 3
+    txre_id: 1
+  - tred_id: 4
+    txre_id: 3
