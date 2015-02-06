@@ -48,7 +48,7 @@ public class DebitoCobradoRepositorio {
 
 		StringBuilder sql = new StringBuilder();
 
-		sql.append("SELECT new br.gov.servicos.to.DebitoCobradoParcelamentoTO(");
+		sql.append("SELECT new br.gov.servicos.to.ParcelaDebitoCobradoTO(");
         sql.append("  dbcb.numeroPrestacaoDebito, ");
         sql.append("  (dbcb.numeroPrestacao - COALESCE(dbcb.numeroParcelaBonus,0)) as totalParcela, ");
         sql.append("  SUM(dbcb.valorPrestacao) as totalPrestacao, ");
@@ -56,10 +56,9 @@ public class DebitoCobradoRepositorio {
         sql.append("FROM ");
         sql.append("  DebitoCobrado dbcb ");
         sql.append("  INNER JOIN dbcb.conta conta ");
-        sql.append("  INNER JOIN dbcb.financiamentoTipo fntp ");
         sql.append("WHERE ");
         sql.append("  conta.id = :idConta AND ");
-        sql.append("  fntp.id IN(:agua, :esgoto, :servico) ");
+        sql.append("  dbcb.tipoFinanciamento IN(:agua, :esgoto, :servico) ");
         sql.append("GROUP BY 1, 2, 4");
 
 		return entity.createQuery(sql.toString(), ParcelaDebitoCobradoTO.class)

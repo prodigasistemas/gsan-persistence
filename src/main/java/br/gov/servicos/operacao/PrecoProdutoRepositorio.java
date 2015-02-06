@@ -27,7 +27,7 @@ public class PrecoProdutoRepositorio extends GenericRepository<Integer, PrecoPro
         .append(")")
         .append(" from PrecoProduto preco")
         .append(" inner join preco.produto prod")
-        .append(" inner join prod.unidadeMedidaProduto unid")
+        .append(" inner join prod.unidadeMedida unid")
         .append(" where lower(prod.descricao) like :nome ")
         .append(" order by preco.vigencia desc, prod.descricao asc");
         
@@ -43,7 +43,7 @@ public class PrecoProdutoRepositorio extends GenericRepository<Integer, PrecoPro
         sql.append("select count(*)")
         .append(" from PrecoProduto preco")
         .append(" inner join preco.produto prod")
-        .append(" inner join prod.unidadeMedidaProduto unid")
+        .append(" inner join prod.unidadeMedida unid")
         .append(" where lower(prod.descricao) like :nome ");
 
         return entity.createQuery(sql.toString(), Long.class)

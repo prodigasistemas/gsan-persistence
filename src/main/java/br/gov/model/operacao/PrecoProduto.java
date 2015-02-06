@@ -97,4 +97,8 @@ public class PrecoProduto implements Serializable{
     public void setUltimaAlteracao(Date ultimaAlteracao) {
         this.ultimaAlteracao = ultimaAlteracao;
     }
+
+    public String toString() {
+        return "PrecoProduto [codigo=" + codigo + ", preco=" + preco + ", vigencia=" + vigencia + "]";
+    }
 }

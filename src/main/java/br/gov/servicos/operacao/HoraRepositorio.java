@@ -74,16 +74,9 @@ public class HoraRepositorio extends GenericRepository<Integer, Hora>{
 	public List<HorasListagemTO> obterLista(Integer firstResult, Integer max, TipoUnidadeOperacional tipo, String nome, Integer anoMesReferencia) throws Exception {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select new br.gov.servicos.operacao.to.HorasListagemTO(h.id, e.nome, h.referencia)")
-		.append(" from Hora h")
-		.append(" inner join h.estacao e")
-		.append(" where lower(e.nome) like :nome ")
-		.append(" and e.pk.tipo = :tipo");
-		if (anoMesReferencia != null && anoMesReferencia != 0) {
-			sql.append(" and h.referencia = " + anoMesReferencia);
-		}
+		.append(consultaListagemHora(anoMesReferencia));
 		sql.append(" order by h.referencia desc, e.nome asc");
 		
-
 		return entity.createQuery(sql.toString(), HorasListagemTO.class)
 				.setFirstResult(firstResult)
 				.setMaxResults(max)
@@ -95,19 +88,25 @@ public class HoraRepositorio extends GenericRepository<Integer, Hora>{
 	public int obterQtdRegistros(TipoUnidadeOperacional tipo, String nome, Integer anoMesReferencia) throws Exception {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(*)")
-			.append(" from Hora h")
-			.append(" inner join h.estacao e")
-			.append(" where lower(e.nome) like :nome ")
-			.append(" and e.pk.tipo = :tipo");
-
-		if (anoMesReferencia != null && anoMesReferencia != 0) {
-			sql.append(" and h.referencia = " + anoMesReferencia);
-		}
+		.append(consultaListagemHora(anoMesReferencia));
 
 		return entity.createQuery(sql.toString(), Long.class)
 				.setParameter("nome", "%" + nome.toLowerCase() + "%")
 				.setParameter("tipo", tipo.getId())
 				.getSingleResult()
 				.intValue();
+	}
+	
+	private StringBuilder consultaListagemHora(Integer anoMesReferencia){
+	    StringBuilder sql = new StringBuilder();
+        sql.append(" from Hora h")
+        .append(" inner join h.estacao e")
+        .append(" where lower(e.nome) like :nome ")
+        .append(" and e.pk.tipo = :tipo ");
+        if (anoMesReferencia != null && anoMesReferencia != 0) {
+            sql.append(" and h.referencia = " + anoMesReferencia);
+        }
+        return sql;
+	    
 	}
 }

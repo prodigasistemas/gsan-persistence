@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="gerencia_regional",schema="cadastro")
-public class RegionalProxy implements Serializable {
+public class RegionalProxy implements Serializable, BaseEntidade {
 	
 	private static final long serialVersionUID = 5029787878638802781L;
 	
@@ -45,34 +45,26 @@ public class RegionalProxy implements Serializable {
 		this.nome = nome;
 	}
 
-	
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		return result;
-	}
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+        return result;
+    }
 
-	
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RegionalProxy other = (RegionalProxy) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		return true;
-	}
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        RegionalProxy other = (RegionalProxy) obj;
+        if (codigo == null) {
+            if (other.codigo != null)
+                return false;
+        } else if (!codigo.equals(other.codigo))
+            return false;
+        return true;
+    }
 }

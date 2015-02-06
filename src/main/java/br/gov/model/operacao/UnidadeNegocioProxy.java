@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="unidade_negocio",schema="cadastro")
-public class UnidadeNegocioProxy implements Serializable {
+public class UnidadeNegocioProxy implements Serializable, BaseEntidade {
 	private static final long serialVersionUID = 7881692927750536727L;
 
 	@Id
@@ -40,35 +40,26 @@ public class UnidadeNegocioProxy implements Serializable {
 		this.nome = nome;
 	}
 
-	
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		return result;
-	}
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+        return result;
+    }
 
-	
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UnidadeNegocioProxy other = (UnidadeNegocioProxy) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		return true;
-	}
-		
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UnidadeNegocioProxy other = (UnidadeNegocioProxy) obj;
+        if (codigo == null) {
+            if (other.codigo != null)
+                return false;
+        } else if (!codigo.equals(other.codigo))
+            return false;
+        return true;
+    }
 }

@@ -92722,6 +92722,9 @@ ALTER TABLE seguranca.usuario_tipo ALTER COLUMN utip_icfuncionario DROP NOT NULL
 ALTER TABLE seguranca.usuario_tipo ALTER COLUMN utip_tmultimaalteracao DROP NOT NULL ;
 
 
+alter table operacao.consumo_produto drop CONSTRAINT consumo_produto_pkey;
+alter table operacao.consumo_produto drop CONSTRAINT consumo_produto_fk_cons;
+alter table operacao.consumo_produto drop CONSTRAINT consumo_produto_fk_prod;
 
 CREATE ROLE pg_users
   NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;

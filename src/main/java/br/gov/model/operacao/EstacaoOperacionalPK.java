@@ -39,7 +39,11 @@ public class EstacaoOperacionalPK implements Serializable{
 		this.id = id;
 	}
 
-	public int hashCode() {
+    public String toString() {
+        return "EstacaoOperacionalPK [tipo=" + tipo + ", id=" + id + "]";
+    }
+
+    public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());

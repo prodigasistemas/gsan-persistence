@@ -1,7 +1,7 @@
 package br.gov.model.faturamento;
 
 public enum TipoPagamento {
-    UM                    (1),
+    UM                         (1),
     DOCUMENTO_COBRANCA         (3),
     CONTA                      (3),
     GUIA_IMOVEL                (4),
@@ -9,7 +9,7 @@ public enum TipoPagamento {
     GUIA_CLIENTE               (6),
     FATURA_CLIENTE_RESPONSAVEL (7),
     DOCUMENTO_COBRANCA_CLIENTE (8),
-    NOVE                  (9);
+    NOVE                       (9);
     
     private int id;
     

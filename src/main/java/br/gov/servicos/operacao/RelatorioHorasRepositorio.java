@@ -33,7 +33,7 @@ public class RelatorioHorasRepositorio {
                 .setParameter("refFim", consulta.getReferenciaFinal())
                 .getSingleResult();        
 	}
-	public List<HorasRelatorioTO> consultaHoras(ConsultaHorasTO consulta) {
+	public List<HorasRelatorioTO> consultaHoras(ConsultaHorasTO to) {
 
 		StringBuilder sql = new StringBuilder();
 
@@ -41,14 +41,22 @@ public class RelatorioHorasRepositorio {
 			.append("  FROM Hora h")
 			.append(" WHERE h.referencia BETWEEN :refINI AND :refFim");
 
-		sql.append(consulta.getCodigoRegional() != null && consulta.getCodigoRegional() > 0 ? " AND h.unidadeConsumidoraOperacional.UC.regionalProxy.codigo = " + consulta.getCodigoRegional() : "");
-		sql.append(consulta.getCodigoUnidadeNegocio() != null && consulta.getCodigoUnidadeNegocio() > 0 ? " AND h.unidadeConsumidoraOperacional.UC.unidadeNegocioProxy.codigo = " + consulta.getCodigoUnidadeNegocio() : "");
-		sql.append(consulta.getCodigoMunicipio() != null && consulta.getCodigoMunicipio() > 0 ? " AND h.unidadeConsumidoraOperacional.UC.municipioProxy.codigo = " + consulta.getCodigoMunicipio() : "");
-		sql.append(consulta.getCodigoLocalidade() != null && consulta.getCodigoLocalidade() > 0 ? " AND h.unidadeConsumidoraOperacional.UC.localidadeProxy.codigo = " + consulta.getCodigoLocalidade() : "");
+        if (to.getRegional() != null && to.getRegional().getCodigo() != -1) {
+            sql.append(" AND h.unidadeConsumidoraOperacional.UC.regionalProxy.codigo = " + to.getRegional().getCodigo());
+        }
+        if (to.getUnidadeNegocio() != null  && to.getUnidadeNegocio().getCodigo() != -1) {
+            sql.append("  AND h.unidadeConsumidoraOperacional.UC.unidadeNegocioProxy.codigo =" + to.getUnidadeNegocio().getCodigo());
+        }
+        if (to.getMunicipio() != null  && to.getMunicipio().getCodigo() != -1) {
+            sql.append("  AND h.unidadeConsumidoraOperacional.UC.municipioProxy.codigo = " + to.getMunicipio().getCodigo());
+        }
+        if (to.getLocalidade() != null  && to.getLocalidade().getCodigo() != -1) {
+            sql.append("  AND h.unidadeConsumidoraOperacional.UC.localidadeProxy.codigo = " + to.getLocalidade().getCodigo());
+        }
 
 		List<Hora> horas = entity.createQuery(sql.toString(), Hora.class)
-		        .setParameter("refINI", consulta.getReferenciaInicial())
-				.setParameter("refFim", consulta.getReferenciaFinal())
+		        .setParameter("refINI", to.getReferenciaInicial())
+				.setParameter("refFim", to.getReferenciaFinal())
 				.getResultList();
 
 		List<HorasRelatorioTO> relatorio = new ArrayList<HorasRelatorioTO>();

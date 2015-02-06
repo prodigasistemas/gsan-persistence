@@ -1,0 +1,4 @@
+operacao.parametro:
+  - parm_id: 1
+    parm_nmparametro: BLOQUEIA_DATA_RETROATIVA
+    parm_valor: 0

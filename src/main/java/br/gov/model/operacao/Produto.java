@@ -1,7 +1,9 @@
 package br.gov.model.operacao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -32,7 +35,7 @@ public class Produto implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="umed_id",nullable=false)
-	private UnidadeMedida unidadeMedidaProduto;
+	private UnidadeMedida unidadeMedida;
 
     @Column(name="usur_id", nullable=false)
     private Integer usuario;
@@ -40,14 +43,17 @@ public class Produto implements Serializable{
     @Column(name="prod_tmultimaalteracao", nullable=false, insertable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date ultimaAlteracao;
+    
+    @OneToMany(mappedBy="produto")
+    private List<PrecoProduto> precos;
 
 	public Produto(){
-		unidadeMedidaProduto = new UnidadeMedida();
+		unidadeMedida = new UnidadeMedida();
 	}
 	public Produto(Integer codigo, String descricao, UnidadeMedida unidadeMedidaProduto){
 		this.codigo = codigo;
 		this.descricao = descricao;
-		this.unidadeMedidaProduto = unidadeMedidaProduto;
+		this.unidadeMedida = unidadeMedidaProduto;
 	}
 
 	public Integer getCodigo() {
@@ -62,11 +68,11 @@ public class Produto implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public UnidadeMedida getUnidadeMedidaProduto() {
-		return unidadeMedidaProduto;
+	public UnidadeMedida getUnidadeMedida() {
+		return unidadeMedida;
 	}
-	public void setUnidadeMedidaProduto(UnidadeMedida unidadeMedidaProduto) {
-		this.unidadeMedidaProduto = unidadeMedidaProduto;
+	public void setUnidadeMedida(UnidadeMedida unidadeMedidaProduto) {
+		this.unidadeMedida = unidadeMedidaProduto;
 	}
 	public Integer getUsuario() {
 		return usuario;
@@ -80,56 +86,21 @@ public class Produto implements Serializable{
 	public void setUltimaAlteracao(Date ultimaAlteracao) {
 		this.ultimaAlteracao = ultimaAlteracao;
 	}
-	
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result
-				+ ((ultimaAlteracao == null) ? 0 : ultimaAlteracao.hashCode());
-		result = prime
-				* result
-				+ ((unidadeMedidaProduto == null) ? 0 : unidadeMedidaProduto
-						.hashCode());
-		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
-		return result;
-	}
-	
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Produto other = (Produto) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (ultimaAlteracao == null) {
-			if (other.ultimaAlteracao != null)
-				return false;
-		} else if (!ultimaAlteracao.equals(other.ultimaAlteracao))
-			return false;
-		if (unidadeMedidaProduto == null) {
-			if (other.unidadeMedidaProduto != null)
-				return false;
-		} else if (!unidadeMedidaProduto.equals(other.unidadeMedidaProduto))
-			return false;
-		if (usuario == null) {
-			if (other.usuario != null)
-				return false;
-		} else if (!usuario.equals(other.usuario))
-			return false;
-		return true;
-	}
+    public List<PrecoProduto> getPrecos() {
+        return precos;
+    }
+    public void setPrecos(List<PrecoProduto> precos) {
+        this.precos = precos;
+    }
+    public String toString() {
+        return "Produto [codigo=" + codigo + ", descricao=" + descricao + "]";
+    }
+    
+    public void addPreco(PrecoProduto preco){
+        if (precos == null){
+            precos = new ArrayList<PrecoProduto>();
+        }
+        
+        precos.add(preco);
+    }
 }

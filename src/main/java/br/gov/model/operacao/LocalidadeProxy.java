@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="localidade",schema="cadastro")
-public class LocalidadeProxy implements Serializable {
+public class LocalidadeProxy implements Serializable, BaseEntidade {
 	
 	private static final long serialVersionUID = -4201234520951763707L;
 	
