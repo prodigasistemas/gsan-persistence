@@ -8,12 +8,12 @@ import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jboss.security.Base64Encoder;
 
 import br.gov.model.exception.ValorReferenciaInvalido;
 
@@ -294,6 +294,15 @@ public class Utilitarios {
         return data != null ? format.format(data) : "";
     }
 
+    public static Date converteData(String data, FormatoData formato){
+        SimpleDateFormat format = new SimpleDateFormat(formato.getFormato());
+        try {
+            return format.parse(data);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
 	public static Integer extrairAno(Integer anoMes) {
 		return Integer.valueOf(String.valueOf(anoMes).substring(0,4));
 	}
@@ -326,7 +335,7 @@ public class Utilitarios {
 		return completaStringADireita(tamanhoCampo, campo, ' ');
 	}
 	
-	private static String completaStringAEsquerda(int tamanhoCampo, Object campo, char caractere) {
+	public static String completaStringAEsquerda(int tamanhoCampo, Object campo, char caractere) {
 		return StringUtils.leftPad(campo != null ? String.valueOf(campo) : "", tamanhoCampo, caractere);
 	}
 	
@@ -377,7 +386,7 @@ public class Utilitarios {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA");
             md.update(plaintext.getBytes("UTF-8"));
-            return Base64Encoder.encode(md.digest());
+            return Base64.getEncoder().encodeToString(md.digest());
         } catch (Exception e) {
             return null;
         }

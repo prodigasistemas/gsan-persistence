@@ -1,0 +1,69 @@
+cadastro.gerencia_regional:
+  - greg_id: 1
+  - greg_id: 2
+
+cadastro.localidade:
+  - loca_id: 1
+  - loca_id: 2
+  - loca_id: 3
+
+operacao.unidade_consumidora:
+  - ucon_id: 1
+    greg_id: 1
+    loca_id: 1
+  - ucon_id: 2
+    greg_id: 1
+    loca_id: 2
+  - ucon_id: 3
+    greg_id: 2
+    loca_id: 3
+
+operacao.unidade_consumidora_operacional:
+  - ucop_id: 1
+    ucon_id: 1
+    ucop_tipooperacional: 1
+    ucop_idoperacional: 1
+  - ucop_id: 2
+    ucon_id: 3
+    ucop_tipooperacional: 1
+    ucop_idoperacional: 2
+  - ucop_id: 3
+    ucon_id: 2
+    ucop_tipooperacional: 1
+    ucop_idoperacional: 3
+  - ucop_id: 4
+    ucon_id: 1
+    ucop_tipooperacional: 3
+    ucop_idoperacional: 1
+  - ucop_id: 5
+    ucon_id: 1
+    ucop_tipooperacional: 3
+    ucop_idoperacional: 2
+  - ucop_id: 6
+    ucon_id: 1
+    ucop_tipooperacional: 2
+    ucop_idoperacional: 1
+
+operacao.eeab:
+  - eeab_id: 1
+    eeab_nome: EAB A
+  - eeab_id: 2
+    eeab_nome: EAB B
+  - eeab_id: 3
+    eeab_nome: EAB C
+operacao.eeat:
+  - eeat_id: 1
+    eeat_nome: EAT A
+  - eeat_id: 2
+    eeat_nome: EAT B
+operacao.eta:
+  - eta_id: 1
+    eta_nome: ETA A
+
+operacao.consumo:
+  - id: 1
+    tipo_unidade: 1
+    id_unidade: 1
+    data: 2015-01-21
+    usur_id: 1
+    tmultimaalteracao: 2015-01-01

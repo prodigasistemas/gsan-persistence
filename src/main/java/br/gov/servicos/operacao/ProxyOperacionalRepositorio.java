@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -18,18 +17,13 @@ import javax.sql.DataSource;
 
 import org.jboss.logging.Logger;
 
-import br.gov.model.operacao.ConsumoEAT;
-import br.gov.model.operacao.ConsumoETA;
 import br.gov.model.operacao.EEABFonteCaptacao;
-import br.gov.model.operacao.EEAT;
 import br.gov.model.operacao.EEATFonteCaptacao;
-import br.gov.model.operacao.ETA;
 import br.gov.model.operacao.FonteCaptacaoProxy;
 import br.gov.model.operacao.LancamentoPendente;
 import br.gov.model.operacao.LocalidadeProxy;
 import br.gov.model.operacao.MunicipioProxy;
 import br.gov.model.operacao.PerfilBeanEnum;
-import br.gov.model.operacao.Produto;
 import br.gov.model.operacao.RegionalProxy;
 import br.gov.model.operacao.SistemaAbastecimentoProxy;
 import br.gov.model.operacao.UnidadeConsumidoraOperacional;
@@ -399,47 +393,6 @@ public class ProxyOperacionalRepositorio {
 		return new RegionalProxy(Integer.parseInt(lista.get(0).get(0).toString()), lista.get(0).get(1).toString());
 	}
 
-	public List<LancamentoPendente> getUnidadeOperacionalUsuario(UsuarioProxy usuario) throws Exception {
-
-		String localidade = "";
-		String query = "SELECT A.* FROM (SELECT DISTINCT A.greg_id, A.greg_nmregional, B.uneg_id, B.uneg_nmunidadenegocio,"
-				+ " E.muni_id, E.muni_nmmunicipio, C.loca_id, C.loca_nmlocalidade" + " FROM cadastro.gerencia_regional A "
-				+ "INNER JOIN cadastro.unidade_negocio B ON A.greg_id = B.greg_id "
-				+ "INNER JOIN cadastro.localidade C ON A.greg_id = C.greg_id AND B.uneg_id = C.uneg_ID "
-				+ "INNER JOIN cadastro.setor_comercial D ON C.loca_id = D.loca_id " + "INNER JOIN cadastro.municipio E ON D.muni_id = E.muni_id) AS A ";
-
-		// Se Perfil de Gerente, acesso a gerência Regional
-		if (usuario.getPerfil() == PerfilBeanEnum.GERENTE) {
-			query = query + " WHERE A.greg_id = " + usuario.getRegionalProxy().getCodigo();
-		} else if (usuario.getPerfil() == PerfilBeanEnum.SUPERVISOR || usuario.getPerfil() == PerfilBeanEnum.COORDENADOR) {
-			for (LocalidadeProxy colunas : usuario.getLocalidadeProxy()) {
-				localidade = localidade + colunas.getCodigo() + ",";
-			}
-			localidade = localidade.substring(0, localidade.length() - 1);
-			query = query + " WHERE A.loca_id IN (" + localidade + ")";
-		}
-
-		List<List> valores = selectRegistros(query);
-		List<LancamentoPendente> lista = new ArrayList<LancamentoPendente>();
-
-		if (valores == null) {
-			return lista;
-		}
-
-		Integer intI = 1;
-		for (List colunas : valores) {
-			LancamentoPendente consumo = new LancamentoPendente();
-			consumo.setCodigo(intI++);
-			consumo.setRegionalProxy(new RegionalProxy(Integer.parseInt(colunas.get(0).toString()), colunas.get(1).toString()));
-			consumo.setUnidadeNegocioProxy(new UnidadeNegocioProxy(Integer.parseInt(colunas.get(2).toString()), colunas.get(3).toString()));
-			consumo.setMunicipioProxy(new MunicipioProxy(Integer.parseInt(colunas.get(4).toString()), colunas.get(5).toString()));
-			consumo.setLocalidadeProxy(new LocalidadeProxy(Integer.parseInt(colunas.get(6).toString()), colunas.get(7).toString()));
-			lista.add(consumo);
-		}
-
-		return lista;
-	}
-
 	private List<LancamentoPendente> getListaEABUsuario(UsuarioProxy usuario) throws Exception {
 
 		String localidade = "";
@@ -475,14 +428,11 @@ public class ProxyOperacionalRepositorio {
 		Integer intI = 1;
 		for (List colunas : valores) {
 			LancamentoPendente lancamento = new LancamentoPendente();
-			lancamento.setCodigo(intI++);
-			lancamento.setRegionalProxy(new RegionalProxy(Integer.parseInt(colunas.get(0).toString()), colunas.get(1).toString()));
-			lancamento.setUnidadeNegocioProxy(new UnidadeNegocioProxy(Integer.parseInt(colunas.get(2).toString()), colunas.get(3).toString()));
-			lancamento.setMunicipioProxy(new MunicipioProxy(Integer.parseInt(colunas.get(4).toString()), colunas.get(5).toString()));
-			lancamento.setLocalidadeProxy(new LocalidadeProxy(Integer.parseInt(colunas.get(6).toString()), colunas.get(7).toString()));
-			lancamento.setCodigoUnidadeOperacional(Integer.parseInt(colunas.get(8).toString()));
+			lancamento.setRegional(colunas.get(1).toString());
+			lancamento.setUnidadeNegocio(colunas.get(3).toString());
+			lancamento.setMunicipio(colunas.get(5).toString());
+			lancamento.setLocalidade(colunas.get(7).toString());
 			lancamento.setUnidadeOperacional(colunas.get(9).toString());
-			lancamento.setTipoUnidadeOperacional(Integer.parseInt(colunas.get(10).toString()));
 			lista.add(lancamento);
 		}
 		return lista;
@@ -523,14 +473,11 @@ public class ProxyOperacionalRepositorio {
 		Integer intI = 1;
 		for (List colunas : valores) {
 			LancamentoPendente lancamento = new LancamentoPendente();
-			lancamento.setCodigo(intI++);
-			lancamento.setRegionalProxy(new RegionalProxy(Integer.parseInt(colunas.get(0).toString()), colunas.get(1).toString()));
-			lancamento.setUnidadeNegocioProxy(new UnidadeNegocioProxy(Integer.parseInt(colunas.get(2).toString()), colunas.get(3).toString()));
-			lancamento.setMunicipioProxy(new MunicipioProxy(Integer.parseInt(colunas.get(4).toString()), colunas.get(5).toString()));
-			lancamento.setLocalidadeProxy(new LocalidadeProxy(Integer.parseInt(colunas.get(6).toString()), colunas.get(7).toString()));
-			lancamento.setCodigoUnidadeOperacional(Integer.parseInt(colunas.get(8).toString()));
+			lancamento.setRegional(colunas.get(1).toString());
+			lancamento.setUnidadeNegocio(colunas.get(3).toString());
+			lancamento.setMunicipio(colunas.get(5).toString());
+			lancamento.setLocalidade(colunas.get(7).toString());
 			lancamento.setUnidadeOperacional(colunas.get(9).toString());
-			lancamento.setTipoUnidadeOperacional(Integer.parseInt(colunas.get(10).toString()));
 			lista.add(lancamento);
 		}
 		return lista;
@@ -571,336 +518,12 @@ public class ProxyOperacionalRepositorio {
 		Integer intI = 1;
 		for (List colunas : valores) {
 			LancamentoPendente lancamento = new LancamentoPendente();
-			lancamento.setCodigo(intI++);
-			lancamento.setRegionalProxy(new RegionalProxy(Integer.parseInt(colunas.get(0).toString()), colunas.get(1).toString()));
-			lancamento.setUnidadeNegocioProxy(new UnidadeNegocioProxy(Integer.parseInt(colunas.get(2).toString()), colunas.get(3).toString()));
-			lancamento.setMunicipioProxy(new MunicipioProxy(Integer.parseInt(colunas.get(4).toString()), colunas.get(5).toString()));
-			lancamento.setLocalidadeProxy(new LocalidadeProxy(Integer.parseInt(colunas.get(6).toString()), colunas.get(7).toString()));
-			lancamento.setCodigoUnidadeOperacional(Integer.parseInt(colunas.get(8).toString()));
+			lancamento.setRegional(colunas.get(1).toString());
+			lancamento.setUnidadeNegocio(colunas.get(3).toString());
+			lancamento.setMunicipio(colunas.get(5).toString());
+			lancamento.setLocalidade(colunas.get(7).toString());
 			lancamento.setUnidadeOperacional(colunas.get(9).toString());
-			lancamento.setTipoUnidadeOperacional(Integer.parseInt(colunas.get(10).toString()));
 			lista.add(lancamento);
-		}
-		return lista;
-	}
-
-	private List<LancamentoPendente> getListaRSOUsuario(UsuarioProxy usuario) throws Exception {
-
-		String localidade = "";
-		String query = "SELECT A.*, D.rso_id, D.rso_nome, C.ucop_tipooperacional FROM (SELECT DISTINCT A.greg_id, A.greg_nmregional, B.uneg_id, B.uneg_nmunidadenegocio,"
-				+ " E.muni_id, E.muni_nmmunicipio, C.loca_id, C.loca_nmlocalidade"
-				+ " FROM cadastro.gerencia_regional A "
-				+ "INNER JOIN cadastro.unidade_negocio B ON A.greg_id = B.greg_id "
-				+ "INNER JOIN cadastro.localidade C ON A.greg_id = C.greg_id AND B.uneg_id = C.uneg_ID "
-				+ "INNER JOIN cadastro.setor_comercial D ON C.loca_id = D.loca_id "
-				+ "INNER JOIN cadastro.municipio E ON D.muni_id = E.muni_id) AS A "
-				+ "INNER JOIN operacao.unidade_consumidora B ON A.uneg_id = B.uneg_id AND A.muni_id = B.muni_id AND A.loca_id = B.loca_id "
-				+ "INNER JOIN operacao.unidade_consumidora_operacional C ON B.ucon_id = C.ucon_id "
-				+ "INNER JOIN operacao.rso D ON C.ucop_idoperacional = D.rso_id " + "WHERE C.ucop_tipooperacional = 4";
-
-		// Se Perfil de Gerente, acesso a gerência Regional
-		if (usuario.getPerfil() == PerfilBeanEnum.GERENTE) {
-			query = query + " AND A.greg_id = " + usuario.getRegionalProxy().getCodigo();
-		} else if (usuario.getPerfil() == PerfilBeanEnum.SUPERVISOR || usuario.getPerfil() == PerfilBeanEnum.COORDENADOR) {
-			for (LocalidadeProxy colunas : usuario.getLocalidadeProxy()) {
-				localidade = localidade + colunas.getCodigo() + ",";
-			}
-			localidade = localidade.substring(0, localidade.length() - 1);
-			query = query + " AND A.loca_id IN (" + localidade + ")";
-		}
-
-		List<List> valores = selectRegistros(query);
-		List<LancamentoPendente> lista = new ArrayList<LancamentoPendente>();
-
-		if (valores == null) {
-			return lista;
-		}
-
-		Integer intI = 1;
-		for (List colunas : valores) {
-			LancamentoPendente lancamento = new LancamentoPendente();
-			lancamento.setCodigo(intI++);
-			lancamento.setRegionalProxy(new RegionalProxy(Integer.parseInt(colunas.get(0).toString()), colunas.get(1).toString()));
-			lancamento.setUnidadeNegocioProxy(new UnidadeNegocioProxy(Integer.parseInt(colunas.get(2).toString()), colunas.get(3).toString()));
-			lancamento.setMunicipioProxy(new MunicipioProxy(Integer.parseInt(colunas.get(4).toString()), colunas.get(5).toString()));
-			lancamento.setLocalidadeProxy(new LocalidadeProxy(Integer.parseInt(colunas.get(6).toString()), colunas.get(7).toString()));
-			lancamento.setCodigoUnidadeOperacional(Integer.parseInt(colunas.get(8).toString()));
-			lancamento.setUnidadeOperacional(colunas.get(9).toString());
-			lancamento.setTipoUnidadeOperacional(Integer.parseInt(colunas.get(10).toString()));
-			lista.add(lancamento);
-		}
-		return lista;
-	}
-
-	public List<ConsumoETA> getListaConsumoETAUsuario(UsuarioProxy usuario) throws Exception {
-
-		String localidade = "";
-		String query = "SELECT A.* FROM (SELECT DISTINCT A.greg_id, A.greg_nmregional, B.uneg_id, B.uneg_nmunidadenegocio,"
-				+ " E.muni_id, E.muni_nmmunicipio, C.loca_id, C.loca_nmlocalidade, G.eta_id, G.eta_nome "
-				+ " FROM cadastro.gerencia_regional A "
-				+ "INNER JOIN cadastro.unidade_negocio B ON A.greg_id = B.greg_id "
-				+ "INNER JOIN cadastro.localidade C ON A.greg_id = C.greg_id AND B.uneg_id = C.uneg_ID "
-				+ "INNER JOIN cadastro.setor_comercial D ON C.loca_id = D.loca_id "
-				+ "INNER JOIN cadastro.municipio E ON D.muni_id = E.muni_id "
-				+ "INNER JOIN operacao.registroconsumoeta F ON A.greg_id = F.greg_id AND B.uneg_id = F.uneg_id AND C.loca_id = F.loca_id AND E.muni_id = F.muni_id "
-				+ "INNER JOIN operacao.eta G ON F.eta_id = G.eta_id) AS A ";
-
-		// Se Perfil de Gerente, acesso a gerência Regional
-		if (usuario.getPerfil() == PerfilBeanEnum.GERENTE) {
-			query = query + " WHERE A.greg_id = " + usuario.getRegionalProxy().getCodigo();
-		} else if (usuario.getPerfil() == PerfilBeanEnum.SUPERVISOR || usuario.getPerfil() == PerfilBeanEnum.COORDENADOR) {
-			for (LocalidadeProxy colunas : usuario.getLocalidadeProxy()) {
-				localidade = localidade + colunas.getCodigo() + ",";
-			}
-			localidade = localidade.substring(0, localidade.length() - 1);
-			query = query + " WHERE A.loca_id IN (" + localidade + ")";
-		}
-
-		List<List> valores = selectRegistros(query);
-		List<ConsumoETA> lista = new ArrayList<ConsumoETA>();
-
-		if (valores == null) {
-			return lista;
-		}
-
-		Integer intI = 1;
-		for (List colunas : valores) {
-			ConsumoETA consumo = new ConsumoETA();
-			consumo.setCodigo(intI++);
-			consumo.setRegionalProxy(new RegionalProxy(Integer.parseInt(colunas.get(0).toString()), colunas.get(1).toString()));
-			consumo.setUnidadeNegocioProxy(new UnidadeNegocioProxy(Integer.parseInt(colunas.get(2).toString()), colunas.get(3).toString()));
-			consumo.setMunicipioProxy(new MunicipioProxy(Integer.parseInt(colunas.get(4).toString()), colunas.get(5).toString()));
-			consumo.setLocalidadeProxy(new LocalidadeProxy(Integer.parseInt(colunas.get(6).toString()), colunas.get(7).toString()));
-			consumo.setEta(new ETA(Integer.parseInt(colunas.get(8).toString()), colunas.get(9).toString()));
-			lista.add(consumo);
-		}
-
-		return lista;
-	}
-
-	public List<ConsumoEAT> getListaConsumoEATUsuario(UsuarioProxy usuario) throws Exception {
-
-		String localidade = "";
-		String query = "SELECT A.* FROM (SELECT DISTINCT A.greg_id, A.greg_nmregional, B.uneg_id, B.uneg_nmunidadenegocio,"
-				+ " E.muni_id, E.muni_nmmunicipio, C.loca_id, C.loca_nmlocalidade, F.eat_id, G.eeat_nome "
-				+ " FROM cadastro.gerencia_regional A "
-				+ "INNER JOIN cadastro.unidade_negocio B ON A.greg_id = B.greg_id "
-				+ "INNER JOIN cadastro.localidade C ON A.greg_id = C.greg_id AND B.uneg_id = C.uneg_ID "
-				+ "INNER JOIN cadastro.setor_comercial D ON C.loca_id = D.loca_id "
-				+ "INNER JOIN cadastro.municipio E ON D.muni_id = E.muni_id "
-				+ "INNER JOIN operacao.registroconsumoeat F ON A.greg_id = F.greg_id AND B.uneg_id = F.uneg_id AND C.loca_id = F.loca_id AND E.muni_id = F.muni_id "
-				+ "INNER JOIN operacao.eeat G ON F.eat_id = G.eeat_id) AS A ";
-
-		// Se Perfil de Gerente, acesso a gerência Regional
-		if (usuario.getPerfil() == PerfilBeanEnum.GERENTE) {
-			query = query + " WHERE A.greg_id = " + usuario.getRegionalProxy().getCodigo();
-		} else if (usuario.getPerfil() == PerfilBeanEnum.SUPERVISOR || usuario.getPerfil() == PerfilBeanEnum.COORDENADOR) {
-			for (LocalidadeProxy colunas : usuario.getLocalidadeProxy()) {
-				localidade = localidade + colunas.getCodigo() + ",";
-			}
-			localidade = localidade.substring(0, localidade.length() - 1);
-			query = query + " WHERE A.loca_id IN (" + localidade + ")";
-		}
-
-		List<List> valores = selectRegistros(query);
-		List<ConsumoEAT> lista = new ArrayList<ConsumoEAT>();
-
-		if (valores == null) {
-			return lista;
-		}
-
-		Integer intI = 1;
-		for (List colunas : valores) {
-			ConsumoEAT consumo = new ConsumoEAT();
-			consumo.setCodigo(intI++);
-			consumo.setRegionalProxy(new RegionalProxy(Integer.parseInt(colunas.get(0).toString()), colunas.get(1).toString()));
-			consumo.setUnidadeNegocioProxy(new UnidadeNegocioProxy(Integer.parseInt(colunas.get(2).toString()), colunas.get(3).toString()));
-			consumo.setMunicipioProxy(new MunicipioProxy(Integer.parseInt(colunas.get(4).toString()), colunas.get(5).toString()));
-			consumo.setLocalidadeProxy(new LocalidadeProxy(Integer.parseInt(colunas.get(6).toString()), colunas.get(7).toString()));
-			consumo.setEat(new EEAT(Integer.parseInt(colunas.get(8).toString()), colunas.get(9).toString()));
-			lista.add(consumo);
-		}
-
-		return lista;
-	}
-
-	public String[] getConsumoSistemaAbastecimento(Integer codigoRegional, Integer codigoUnidadeNegocio, Integer codigoMunicipio, Integer codigoLocalidade,
-			Integer codigoSistemaAbastecimento, Date dataConsumo, Integer codigoProduto) throws Exception {
-
-		SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-		String dataAux = formataData.format(dataConsumo);
-
-		String query = "SELECT A.conp_quantidade, A.cons_id" + " FROM operacao.consumo_produto A" + " INNER JOIN operacao.consumo B ON A.cons_id = B.cons_id"
-				+ " WHERE A.prod_id = " + codigoProduto + " AND B.greg_id = " + codigoRegional + " AND B.uneg_id = " + codigoUnidadeNegocio
-				+ " AND B.muni_id = " + codigoMunicipio + " AND B.loca_id = " + codigoLocalidade + " AND B.sabs_id = " + codigoSistemaAbastecimento
-				+ " AND B.cons_data = '" + dataAux + "'";
-
-		List<List> valores = selectRegistros(query);
-		String consumo[] = new String[2];
-
-		if (valores == null) {
-			return consumo;
-		}
-
-		for (List colunas : valores) {
-			consumo[0] = colunas.get(0).toString();
-			consumo[1] = colunas.get(1).toString();
-		}
-		return consumo;
-	}
-
-	public String[] getConsumoETA(Integer codigoRegional, Integer codigoUnidadeNegocio, Integer codigoMunicipio, Integer codigoLocalidade, Integer codigoETA,
-			Date dataConsumo, Integer codigoProduto) throws Exception {
-
-		SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-		String dataAux = formataData.format(dataConsumo);
-
-		String query = "SELECT A.conp_quantidade, A.cons_id" + " FROM operacao.consumoeta_produto A"
-				+ " INNER JOIN operacao.consumoeta B ON A.cons_id = B.cons_id" + " WHERE A.prod_id = " + codigoProduto + " AND B.greg_id = " + codigoRegional
-				+ " AND B.uneg_id = " + codigoUnidadeNegocio + " AND B.muni_id = " + codigoMunicipio + " AND B.loca_id = " + codigoLocalidade
-				+ " AND B.eta_id = " + codigoETA + " AND B.cons_data = '" + dataAux + "'";
-
-		List<List> valores = selectRegistros(query);
-		String consumo[] = new String[2];
-
-		if (valores == null) {
-			return consumo;
-		}
-
-		for (List colunas : valores) {
-			consumo[0] = colunas.get(0).toString();
-			consumo[1] = colunas.get(1).toString();
-		}
-		return consumo;
-	}
-
-	public String[] getConsumoEAT(Integer codigoRegional, Integer codigoUnidadeNegocio, Integer codigoMunicipio, Integer codigoLocalidade, Integer codigoEAT,
-			Date dataConsumo, Integer codigoProduto) throws Exception {
-
-		SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-		String dataAux = formataData.format(dataConsumo);
-
-		String query = "SELECT A.conp_quantidade, A.cons_id" + " FROM operacao.consumoeat_produto A"
-				+ " INNER JOIN operacao.consumoeat B ON A.cons_id = B.cons_id" + " WHERE A.prod_id = " + codigoProduto + " AND B.greg_id = " + codigoRegional
-				+ " AND B.uneg_id = " + codigoUnidadeNegocio + " AND B.muni_id = " + codigoMunicipio + " AND B.loca_id = " + codigoLocalidade
-				+ " AND B.eat_id = " + codigoEAT + " AND B.cons_data = '" + dataAux + "'";
-
-		List<List> valores = selectRegistros(query);
-		String consumo[] = new String[2];
-
-		if (valores == null) {
-			return consumo;
-		}
-
-		for (List colunas : valores) {
-			consumo[0] = colunas.get(0).toString();
-			consumo[1] = colunas.get(1).toString();
-		}
-		return consumo;
-	}
-
-	public List<Produto> getProdutosSistemaAbastecimento(Integer codigoRegional, Integer codigoUnidadeNegocio, Integer codigoMunicipio,
-			Integer codigoLocalidade, Integer codigoSistemaAbastecimento, Date dataInicial, Date dataFinal) throws Exception {
-
-		SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-		GregorianCalendar gc = new GregorianCalendar();
-		// Formata Data Inicial
-		gc.setTime(dataInicial);
-		// gc.set(GregorianCalendar.YEAR, 1970);
-		String dataIni = formataData.format(gc.getTime());
-
-		// Formata Data Final
-		gc.setTime(dataFinal);
-		// gc.set(GregorianCalendar.YEAR, 1970);
-		// String dataFim = formataData.format(gc.getTime());
-
-		String query = "SELECT DISTINCT A.prod_id, A.prod_nmproduto" + " FROM operacao.produto A"
-				+ " INNER JOIN operacao.registroconsumo_produto B ON A.prod_id = B.prod_id" + " INNER JOIN operacao.registroconsumo C ON B.regc_id = C.regc_id"
-				+ " INNER JOIN operacao.registroconsumosistemaabastecimento_registroconsumo D ON C.regc_id = D.regc_id"
-				+ " INNER JOIN operacao.registroconsumosistemaabastecimento E ON D.rgcs_id = E.rgcs_id" + " WHERE E.greg_id = " + codigoRegional
-				+ " AND E.uneg_id = " + codigoUnidadeNegocio + " AND E.muni_id = " + codigoMunicipio + " AND E.loca_id = " + codigoLocalidade
-				+ " AND E.sabs_id = " + codigoSistemaAbastecimento + " AND C.regc_dataini <= '" + dataIni + "'" + " AND C.regc_datafim >= '" + dataIni + "'";
-
-		List<List> valores = selectRegistros(query);
-		List<Produto> lista = new ArrayList<Produto>();
-
-		if (valores == null) {
-			return lista;
-		}
-
-		for (List colunas : valores) {
-			Produto produto = new Produto();
-			produto.setCodigo(Integer.parseInt(colunas.get(0).toString()));
-			produto.setDescricao(colunas.get(1).toString());
-			lista.add(produto);
-		}
-		return lista;
-	}
-
-	public List<Produto> getListaProdutoETA(Integer codigoRegional, Integer codigoUnidadeNegocio, Integer codigoMunicipio, Integer codigoLocalidade,
-			Integer codigoETA, Date dataInicial, Date dataFinal) throws Exception {
-
-		SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-		GregorianCalendar gc = new GregorianCalendar();
-		// Formata Data Inicial
-		gc.setTime(dataInicial);
-		String dataIni = formataData.format(gc.getTime());
-		// Formata Data Final
-		gc.setTime(dataFinal);
-
-		String query = "SELECT DISTINCT A.prod_id, A.prod_nmproduto" + " FROM operacao.produto A"
-				+ " INNER JOIN operacao.registroconsumo_produto B ON A.prod_id = B.prod_id" + " INNER JOIN operacao.registroconsumo C ON B.regc_id = C.regc_id"
-				+ " INNER JOIN operacao.registroconsumoeta_registroconsumo D ON C.regc_id = D.regc_id"
-				+ " INNER JOIN operacao.registroconsumoeta E ON D.rgcs_id = E.rgcs_id" + " WHERE E.greg_id = " + codigoRegional + " AND E.uneg_id = "
-				+ codigoUnidadeNegocio + " AND E.muni_id = " + codigoMunicipio + " AND E.loca_id = " + codigoLocalidade + " AND E.eta_id = " + codigoETA
-				+ " AND C.regc_dataini <= '" + dataIni + "'" + " AND C.regc_datafim >= '" + dataIni + "'";
-
-		List<List> valores = selectRegistros(query);
-		List<Produto> lista = new ArrayList<Produto>();
-
-		if (valores == null) {
-			return lista;
-		}
-
-		for (List colunas : valores) {
-			Produto produto = new Produto();
-			produto.setCodigo(Integer.parseInt(colunas.get(0).toString()));
-			produto.setDescricao(colunas.get(1).toString());
-			lista.add(produto);
-		}
-		return lista;
-	}
-
-	public List<Produto> getListaProdutoEAT(Integer codigoRegional, Integer codigoUnidadeNegocio, Integer codigoMunicipio, Integer codigoLocalidade,
-			Integer codigoEAT, Date dataInicial, Date dataFinal) throws Exception {
-
-		SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-		GregorianCalendar gc = new GregorianCalendar();
-		// Formata Data Inicial
-		gc.setTime(dataInicial);
-		String dataIni = formataData.format(gc.getTime());
-		// Formata Data Final
-		gc.setTime(dataFinal);
-
-		String query = "SELECT DISTINCT A.prod_id, A.prod_nmproduto" + " FROM operacao.produto A"
-				+ " INNER JOIN operacao.registroconsumo_produto B ON A.prod_id = B.prod_id" + " INNER JOIN operacao.registroconsumo C ON B.regc_id = C.regc_id"
-				+ " INNER JOIN operacao.registroconsumoeat_registroconsumo D ON C.regc_id = D.regc_id"
-				+ " INNER JOIN operacao.registroconsumoeat E ON D.rgcs_id = E.rgcs_id" + " WHERE E.greg_id = " + codigoRegional + " AND E.uneg_id = "
-				+ codigoUnidadeNegocio + " AND E.muni_id = " + codigoMunicipio + " AND E.loca_id = " + codigoLocalidade + " AND E.eat_id = " + codigoEAT
-				+ " AND C.regc_dataini <= '" + dataIni + "'" + " AND C.regc_datafim >= '" + dataIni + "'";
-
-		List<List> valores = selectRegistros(query);
-		List<Produto> lista = new ArrayList<Produto>();
-
-		if (valores == null) {
-			return lista;
-		}
-
-		for (List colunas : valores) {
-			Produto produto = new Produto();
-			produto.setCodigo(Integer.parseInt(colunas.get(0).toString()));
-			produto.setDescricao(colunas.get(1).toString());
-			lista.add(produto);
 		}
 		return lista;
 	}
@@ -993,162 +616,6 @@ public class ProxyOperacionalRepositorio {
 			return colunas.get(0).toString();
 		}
 		return null;
-	}
-
-	public List<LancamentoPendente> getConsumoPendenteUsuario(UsuarioProxy usuarioProxy, Integer tipoConsulta) throws Exception {
-
-		List<LancamentoPendente> pendencias = new ArrayList<LancamentoPendente>();
-		String filtroLocalidade = "";
-
-		// Recuperando Dias Pendencias
-		Integer diasPendencia = usuarioProxy.getDiaPendencia();
-		if (diasPendencia != 0) {// Controle de Pendências Desabilitado
-			if (usuarioProxy.getPerfil() == PerfilBeanEnum.ADMIN || usuarioProxy.getPerfil() == PerfilBeanEnum.GERENTE
-					|| usuarioProxy.getPerfil() == PerfilBeanEnum.COORDENADOR || usuarioProxy.getPerfil() == PerfilBeanEnum.SUPERVISOR) {
-
-				SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-				GregorianCalendar gc = new GregorianCalendar();
-				// Recuperando Mês de Referência Atual
-				String referencia = usuarioProxy.getReferencia().toString();
-				// Recuperando Primeiro Dia do Mês
-				gc.set(Integer.parseInt(referencia.substring(0, 4)), Integer.parseInt(referencia.substring(4, 6)) - 1, 1, 0, 0, 0);
-
-				Date dtIni = gc.getTime();
-				String dataIni = formataData.format(dtIni);
-
-				// Recuperando Último Dia do Mês
-				gc.add(Calendar.MONTH, 1);
-				gc.add(Calendar.DATE, -1);
-				Date dtFim = gc.getTime();
-				String dataFim = formataData.format(dtFim);
-
-				String query = "SELECT cons_data, A.*, C.eta_id, C.eta_nome, 2 AS unop_tipooperacional FROM (SELECT DISTINCT A.greg_id, A.greg_nmregional, B.uneg_id, B.uneg_nmunidadenegocio,"
-						+ " E.muni_id, E.muni_nmmunicipio, C.loca_id, C.loca_nmlocalidade"
-						+ " FROM cadastro.gerencia_regional A "
-						+ "INNER JOIN cadastro.unidade_negocio B ON A.greg_id = B.greg_id "
-						+ "INNER JOIN cadastro.localidade C ON A.greg_id = C.greg_id AND B.uneg_id = C.uneg_ID "
-						+ "INNER JOIN cadastro.setor_comercial D ON C.loca_id = D.loca_id "
-						+ "INNER JOIN cadastro.municipio E ON D.muni_id = E.muni_id) A "
-						+ "INNER JOIN operacao.consumoeta B ON A.greg_id = B.greg_id AND A.uneg_id = B.uneg_id AND A.muni_id = B.muni_id AND A.loca_id = B.loca_id "
-						+ "INNER JOIN operacao.eta C ON B.eta_id = C.eta_id" + " WHERE B.cons_data BETWEEN '" + dataIni + "' AND '" + dataFim + "'";
-
-				// Se Perfil de Gerente, acesso a gerência Regional
-				if (usuarioProxy.getPerfil() == PerfilBeanEnum.GERENTE) {
-					query = query + " AND A.greg_id = " + usuarioProxy.getRegionalProxy().getCodigo();
-				} else if (usuarioProxy.getPerfil() == PerfilBeanEnum.SUPERVISOR || usuarioProxy.getPerfil() == PerfilBeanEnum.COORDENADOR) {
-					for (LocalidadeProxy colunas : usuarioProxy.getLocalidadeProxy()) {
-						filtroLocalidade = filtroLocalidade + colunas.getCodigo() + ",";
-					}
-					filtroLocalidade = filtroLocalidade.substring(0, filtroLocalidade.length() - 1);
-					query = query + " AND A.loca_id IN (" + filtroLocalidade + ")";
-				}
-
-				query = query
-						+ " UNION ALL"
-						+ " SELECT cons_data, A.*, C.eeat_id, C.eeat_nome, 3 AS unop_tipooperacional FROM (SELECT DISTINCT A.greg_id, A.greg_nmregional, B.uneg_id, B.uneg_nmunidadenegocio,"
-						+ " E.muni_id, E.muni_nmmunicipio, C.loca_id, C.loca_nmlocalidade"
-						+ " FROM cadastro.gerencia_regional A "
-						+ "INNER JOIN cadastro.unidade_negocio B ON A.greg_id = B.greg_id "
-						+ "INNER JOIN cadastro.localidade C ON A.greg_id = C.greg_id AND B.uneg_id = C.uneg_ID "
-						+ "INNER JOIN cadastro.setor_comercial D ON C.loca_id = D.loca_id "
-						+ "INNER JOIN cadastro.municipio E ON D.muni_id = E.muni_id) A "
-						+ "INNER JOIN operacao.consumoeat B ON A.greg_id = B.greg_id AND A.uneg_id = B.uneg_id AND A.muni_id = B.muni_id AND A.loca_id = B.loca_id "
-						+ "INNER JOIN operacao.eeat C ON B.eat_id = C.eeat_id" + " WHERE B.cons_data BETWEEN '" + dataIni + "' AND '" + dataFim + "'";
-
-				// Se Perfil de Gerente, acesso a gerência Regional
-				if (usuarioProxy.getPerfil() == PerfilBeanEnum.GERENTE) {
-					query = query + " AND A.greg_id = " + usuarioProxy.getRegionalProxy().getCodigo();
-				} else if (usuarioProxy.getPerfil() == PerfilBeanEnum.SUPERVISOR || usuarioProxy.getPerfil() == PerfilBeanEnum.COORDENADOR) {
-					for (LocalidadeProxy colunas : usuarioProxy.getLocalidadeProxy()) {
-						filtroLocalidade = filtroLocalidade + colunas.getCodigo() + ",";
-					}
-					filtroLocalidade = filtroLocalidade.substring(0, filtroLocalidade.length() - 1);
-					query = query + " AND A.loca_id IN (" + filtroLocalidade + ")";
-				}
-
-				query = query + " ORDER BY cons_data";
-				List<List> valores = selectRegistros(query);
-
-				if (dtFim.compareTo(new Date()) >= 0) {
-					dtFim = new Date();
-					gc.setTime(new Date());
-					gc.add(Calendar.DATE, diasPendencia * -1);
-					dtFim = gc.getTime();
-				}
-
-				List<LancamentoPendente> listaCompleta = new ArrayList<LancamentoPendente>();
-				// GERAR LISTA COMPLETA DE CONSUMO ETA
-				List<ConsumoETA> listaConsumoETA = getListaConsumoETAUsuario(usuarioProxy);
-				gc.setTime(dtIni); // Inicializa com primeiro dia do mês
-				while (dtFim.compareTo(gc.getTime()) >= 0) {// LAÇO DO PRIMEIRO
-															// AO ÚLTIMO DIA DO
-															// MÊS
-					for (ConsumoETA lancamento : listaConsumoETA) {
-						LancamentoPendente lancamentoAux = new LancamentoPendente();
-						lancamentoAux.setRegionalProxy(lancamento.getRegionalProxy());
-						lancamentoAux.setUnidadeNegocioProxy(lancamento.getUnidadeNegocioProxy());
-						lancamentoAux.setMunicipioProxy(lancamento.getMunicipioProxy());
-						lancamentoAux.setLocalidadeProxy(lancamento.getLocalidadeProxy());
-						lancamentoAux.setTipoUnidadeOperacional(2);
-						lancamentoAux.setCodigoUnidadeOperacional(lancamento.getEta().getCodigo());
-						lancamentoAux.setUnidadeOperacional(lancamento.getEta().getDescricao());
-						lancamentoAux.setDataConsumo(gc.getTime());
-						listaCompleta.add(lancamentoAux);
-					}
-					gc.add(Calendar.DATE, 1); // INCREMENTA EM 1 DIA O LAÇO
-				}
-
-				// GERAR LISTA COMPLETA DE CONSUMO EAT
-				List<ConsumoEAT> listaConsumoEAT = getListaConsumoEATUsuario(usuarioProxy);
-				gc.setTime(dtIni); // Inicializa com primeiro dia do mês
-				while (dtFim.compareTo(gc.getTime()) >= 0) {// LAÇO DO PRIMEIRO
-															// AO ÚLTIMO DIA DO
-															// MÊS
-					for (ConsumoEAT lancamento : listaConsumoEAT) {
-						LancamentoPendente lancamentoAux = new LancamentoPendente();
-						lancamentoAux.setRegionalProxy(lancamento.getRegionalProxy());
-						lancamentoAux.setUnidadeNegocioProxy(lancamento.getUnidadeNegocioProxy());
-						lancamentoAux.setMunicipioProxy(lancamento.getMunicipioProxy());
-						lancamentoAux.setLocalidadeProxy(lancamento.getLocalidadeProxy());
-						lancamentoAux.setTipoUnidadeOperacional(3);
-						lancamentoAux.setCodigoUnidadeOperacional(lancamento.getEat().getCodigo());
-						lancamentoAux.setUnidadeOperacional(lancamento.getEat().getDescricao());
-						lancamentoAux.setDataConsumo(gc.getTime());
-						listaCompleta.add(lancamentoAux);
-					}
-					gc.add(Calendar.DATE, 1); // INCREMENTA EM 1 DIA O LAÇO
-				}
-
-				// GERANDO LISTA DE PENDÊNCIA
-				Boolean blnPendente = true;
-				for (LancamentoPendente consumo : listaCompleta) {
-					for (List colunas : valores) {
-						formataData = new SimpleDateFormat("yyyy-MM-dd");
-						Date datConsumo = formataData.parse(colunas.get(0).toString());
-						formataData = new SimpleDateFormat("yyyyMMdd");
-						Integer dataLanc = Integer.parseInt(formataData.format(datConsumo));
-						Integer dataCons = Integer.parseInt(formataData.format(consumo.getDataConsumo()));
-
-						if (consumo.getRegionalProxy().getCodigo() == Integer.parseInt(colunas.get(1).toString())
-								&& consumo.getUnidadeNegocioProxy().getCodigo() == Integer.parseInt(colunas.get(3).toString())
-								&& consumo.getMunicipioProxy().getCodigo() == Integer.parseInt(colunas.get(5).toString())
-								&& consumo.getLocalidadeProxy().getCodigo() == Integer.parseInt(colunas.get(7).toString())
-								&& consumo.getCodigoUnidadeOperacional() == Integer.parseInt(colunas.get(9).toString())
-								&& consumo.getTipoUnidadeOperacional() == Integer.parseInt(colunas.get(11).toString()) && dataCons.equals(dataLanc)) {
-							blnPendente = false;
-							break;
-						}
-					}
-					if (blnPendente) {
-						pendencias.add(consumo);
-						if (tipoConsulta == 1)
-							break;
-					}
-					blnPendente = true;
-				}
-			}
-		}
-		return (pendencias);
 	}
 
 	public List<LancamentoPendente> getVolumePendenteUsuario(UsuarioProxy usuarioProxy, Integer tipoConsulta) throws Exception {
@@ -1245,19 +712,6 @@ public class ProxyOperacionalRepositorio {
 					query = query + " AND A.loca_id IN (" + filtroLocalidade + ")";
 				}
 
-				// RSO
-				query = query
-						+ " UNION ALL "
-						+ "SELECT rsov_referencia, A.*, D.rso_id, D.rso_nome, ucop_tipooperacional FROM (SELECT DISTINCT A.greg_id, A.greg_nmregional, B.uneg_id, B.uneg_nmunidadenegocio,"
-						+ " E.muni_id, E.muni_nmmunicipio, C.loca_id, C.loca_nmlocalidade" + " FROM cadastro.gerencia_regional A "
-						+ "INNER JOIN cadastro.unidade_negocio B ON A.greg_id = B.greg_id "
-						+ "INNER JOIN cadastro.localidade C ON A.greg_id = C.greg_id AND B.uneg_id = C.uneg_ID "
-						+ "INNER JOIN cadastro.setor_comercial D ON C.loca_id = D.loca_id " + "INNER JOIN cadastro.municipio E ON D.muni_id = E.muni_id) A "
-						+ "INNER JOIN operacao.unidade_consumidora B ON A.uneg_id = B.uneg_id AND A.muni_id = B.muni_id AND A.loca_id = B.loca_id "
-						+ "INNER JOIN operacao.unidade_consumidora_operacional C ON B.ucon_id = C.ucon_id "
-						+ "INNER JOIN operacao.rso D ON C.ucop_idoperacional = D.rso_id " + "INNER JOIN operacao.rso_volume E ON D.rso_id = E.rso_id "
-						+ "WHERE C.ucop_tipooperacional = 4" + "  AND E.rsov_referencia = '" + dataIni + "'";
-
 				// Se Perfil de Gerente, acesso a gerência Regional
 				if (usuarioProxy.getPerfil() == PerfilBeanEnum.GERENTE) {
 					query = query + " AND A.greg_id = " + usuarioProxy.getRegionalProxy().getCodigo();
@@ -1294,13 +748,6 @@ public class ProxyOperacionalRepositorio {
 					listaCompleta.add(lancamento);
 				}
 
-				// GERAR LISTA COMPLETA DE RSO
-				List<LancamentoPendente> listaConsumoRSO = getListaRSOUsuario(usuarioProxy);
-				for (LancamentoPendente lancamento : listaConsumoRSO) {
-					lancamento.setDataConsumo(gc.getTime());
-					listaCompleta.add(lancamento);
-				}
-
 				// GERANDO LISTA DE PENDÊNCIA
 				Boolean blnPendente = true;
 				for (LancamentoPendente consumo : listaCompleta) {
@@ -1311,193 +758,12 @@ public class ProxyOperacionalRepositorio {
 						Integer dataLanc = Integer.parseInt(formataData.format(datConsumo));
 						Integer dataCons = Integer.parseInt(formataData.format(consumo.getDataConsumo()));
 
-						if (consumo.getRegionalProxy().getCodigo() == Integer.parseInt(colunas.get(1).toString())
-								&& consumo.getUnidadeNegocioProxy().getCodigo() == Integer.parseInt(colunas.get(3).toString())
-								&& consumo.getMunicipioProxy().getCodigo() == Integer.parseInt(colunas.get(5).toString())
-								&& consumo.getLocalidadeProxy().getCodigo() == Integer.parseInt(colunas.get(7).toString())
-								&& consumo.getCodigoUnidadeOperacional() == Integer.parseInt(colunas.get(9).toString())
-								&& consumo.getTipoUnidadeOperacional() == Integer.parseInt(colunas.get(11).toString()) && dataCons.equals(dataLanc)) {
-							blnPendente = false;
-							break;
-						}
-					}
-					if (blnPendente) {
-						pendencias.add(consumo);
-						if (tipoConsulta == 1)
-							break;
-					}
-					blnPendente = true;
-				}
-			}
-		}
-		return (pendencias);
-	}
-
-	public List<LancamentoPendente> getHorasPendenteUsuario(UsuarioProxy usuarioProxy, Integer tipoConsulta) throws Exception {
-		List<LancamentoPendente> pendencias = new ArrayList<LancamentoPendente>();
-		String filtroLocalidade = "";
-
-		// Recuperando Dias Pendencias
-		Integer diasPendencia = usuarioProxy.getDiaPendencia();
-		if (diasPendencia != 0) {// Controle de Pendências Desabilitado
-			if (usuarioProxy.getPerfil() == PerfilBeanEnum.ADMIN || usuarioProxy.getPerfil() == PerfilBeanEnum.GERENTE
-					|| usuarioProxy.getPerfil() == PerfilBeanEnum.COORDENADOR || usuarioProxy.getPerfil() == PerfilBeanEnum.SUPERVISOR) {
-
-				SimpleDateFormat formataData = new SimpleDateFormat("yyyyMMdd");
-				GregorianCalendar gc = new GregorianCalendar();
-				// Recuperando Mês de Referência Atual
-				String referencia = usuarioProxy.getReferencia().toString();
-				// Recuperando Primeiro Dia do Mês
-				gc.set(Integer.parseInt(referencia.substring(0, 4)), Integer.parseInt(referencia.substring(4, 6)) - 1, 1, 0, 0, 0);
-
-				Date dtIni = gc.getTime();
-				String dataIni = formataData.format(dtIni);
-
-				// EAB
-				String query = "SELECT eabh_referencia, A.*, D.eeab_id, D.eeab_nome, ucop_tipooperacional FROM (SELECT DISTINCT A.greg_id, A.greg_nmregional, B.uneg_id, B.uneg_nmunidadenegocio,"
-						+ " E.muni_id, E.muni_nmmunicipio, C.loca_id, C.loca_nmlocalidade"
-						+ " FROM cadastro.gerencia_regional A "
-						+ "INNER JOIN cadastro.unidade_negocio B ON A.greg_id = B.greg_id "
-						+ "INNER JOIN cadastro.localidade C ON A.greg_id = C.greg_id AND B.uneg_id = C.uneg_ID "
-						+ "INNER JOIN cadastro.setor_comercial D ON C.loca_id = D.loca_id "
-						+ "INNER JOIN cadastro.municipio E ON D.muni_id = E.muni_id) A "
-						+ "INNER JOIN operacao.unidade_consumidora B ON A.uneg_id = B.uneg_id AND A.muni_id = B.muni_id AND A.loca_id = B.loca_id "
-						+ "INNER JOIN operacao.unidade_consumidora_operacional C ON B.ucon_id = C.ucon_id "
-						+ "INNER JOIN operacao.eeab D ON C.ucop_idoperacional = D.eeab_id "
-						+ "INNER JOIN operacao.eeab_horas E ON D.eeab_id = E.eeab_id "
-						+ "WHERE C.ucop_tipooperacional = 1" + "  AND E.eabh_referencia = '" + dataIni + "'";
-
-				// Se Perfil de Gerente, acesso a gerência Regional
-				if (usuarioProxy.getPerfil() == PerfilBeanEnum.GERENTE) {
-					query = query + " AND A.greg_id = " + usuarioProxy.getRegionalProxy().getCodigo();
-				} else if (usuarioProxy.getPerfil() == PerfilBeanEnum.SUPERVISOR || usuarioProxy.getPerfil() == PerfilBeanEnum.COORDENADOR) {
-					for (LocalidadeProxy colunas : usuarioProxy.getLocalidadeProxy()) {
-						filtroLocalidade = filtroLocalidade + colunas.getCodigo() + ",";
-					}
-					filtroLocalidade = filtroLocalidade.substring(0, filtroLocalidade.length() - 1);
-					query = query + " AND A.loca_id IN (" + filtroLocalidade + ")";
-				}
-
-				// ETA
-				query = query
-						+ " UNION ALL "
-						+ "SELECT etah_referencia, A.*, D.eta_id, D.eta_nome, ucop_tipooperacional FROM (SELECT DISTINCT A.greg_id, A.greg_nmregional, B.uneg_id, B.uneg_nmunidadenegocio,"
-						+ " E.muni_id, E.muni_nmmunicipio, C.loca_id, C.loca_nmlocalidade" + " FROM cadastro.gerencia_regional A "
-						+ "INNER JOIN cadastro.unidade_negocio B ON A.greg_id = B.greg_id "
-						+ "INNER JOIN cadastro.localidade C ON A.greg_id = C.greg_id AND B.uneg_id = C.uneg_ID "
-						+ "INNER JOIN cadastro.setor_comercial D ON C.loca_id = D.loca_id " + "INNER JOIN cadastro.municipio E ON D.muni_id = E.muni_id) A "
-						+ "INNER JOIN operacao.unidade_consumidora B ON A.uneg_id = B.uneg_id AND A.muni_id = B.muni_id AND A.loca_id = B.loca_id "
-						+ "INNER JOIN operacao.unidade_consumidora_operacional C ON B.ucon_id = C.ucon_id "
-						+ "INNER JOIN operacao.eta D ON C.ucop_idoperacional = D.eta_id " + "INNER JOIN operacao.eta_horas E ON D.eta_id = E.eta_id "
-						+ "WHERE C.ucop_tipooperacional = 2" + "  AND E.etah_referencia = '" + dataIni + "'";
-
-				// Se Perfil de Gerente, acesso a gerência Regional
-				if (usuarioProxy.getPerfil() == PerfilBeanEnum.GERENTE) {
-					query = query + " AND A.greg_id = " + usuarioProxy.getRegionalProxy().getCodigo();
-				} else if (usuarioProxy.getPerfil() == PerfilBeanEnum.SUPERVISOR || usuarioProxy.getPerfil() == PerfilBeanEnum.COORDENADOR) {
-					for (LocalidadeProxy colunas : usuarioProxy.getLocalidadeProxy()) {
-						filtroLocalidade = filtroLocalidade + colunas.getCodigo() + ",";
-					}
-					filtroLocalidade = filtroLocalidade.substring(0, filtroLocalidade.length() - 1);
-					query = query + " AND A.loca_id IN (" + filtroLocalidade + ")";
-				}
-
-				// EAT
-				query = query
-						+ " UNION ALL "
-						+ "SELECT eath_referencia, A.*, D.eeat_id, D.eeat_nome, ucop_tipooperacional FROM (SELECT DISTINCT A.greg_id, A.greg_nmregional, B.uneg_id, B.uneg_nmunidadenegocio,"
-						+ " E.muni_id, E.muni_nmmunicipio, C.loca_id, C.loca_nmlocalidade" + " FROM cadastro.gerencia_regional A "
-						+ "INNER JOIN cadastro.unidade_negocio B ON A.greg_id = B.greg_id "
-						+ "INNER JOIN cadastro.localidade C ON A.greg_id = C.greg_id AND B.uneg_id = C.uneg_ID "
-						+ "INNER JOIN cadastro.setor_comercial D ON C.loca_id = D.loca_id " + "INNER JOIN cadastro.municipio E ON D.muni_id = E.muni_id) A "
-						+ "INNER JOIN operacao.unidade_consumidora B ON A.uneg_id = B.uneg_id AND A.muni_id = B.muni_id AND A.loca_id = B.loca_id "
-						+ "INNER JOIN operacao.unidade_consumidora_operacional C ON B.ucon_id = C.ucon_id "
-						+ "INNER JOIN operacao.eeat D ON C.ucop_idoperacional = D.eeat_id " + "INNER JOIN operacao.eeat_horas E ON D.eeat_id = E.eeat_id "
-						+ "WHERE C.ucop_tipooperacional = 3" + "  AND E.eath_referencia = '" + dataIni + "'";
-
-				// Se Perfil de Gerente, acesso a gerência Regional
-				if (usuarioProxy.getPerfil() == PerfilBeanEnum.GERENTE) {
-					query = query + " AND A.greg_id = " + usuarioProxy.getRegionalProxy().getCodigo();
-				} else if (usuarioProxy.getPerfil() == PerfilBeanEnum.SUPERVISOR || usuarioProxy.getPerfil() == PerfilBeanEnum.COORDENADOR) {
-					for (LocalidadeProxy colunas : usuarioProxy.getLocalidadeProxy()) {
-						filtroLocalidade = filtroLocalidade + colunas.getCodigo() + ",";
-					}
-					filtroLocalidade = filtroLocalidade.substring(0, filtroLocalidade.length() - 1);
-					query = query + " AND A.loca_id IN (" + filtroLocalidade + ")";
-				}
-
-				// RSO
-				query = query
-						+ " UNION ALL "
-						+ "SELECT rsoh_referencia, A.*, D.rso_id, D.rso_nome, ucop_tipooperacional FROM (SELECT DISTINCT A.greg_id, A.greg_nmregional, B.uneg_id, B.uneg_nmunidadenegocio,"
-						+ " E.muni_id, E.muni_nmmunicipio, C.loca_id, C.loca_nmlocalidade" + " FROM cadastro.gerencia_regional A "
-						+ "INNER JOIN cadastro.unidade_negocio B ON A.greg_id = B.greg_id "
-						+ "INNER JOIN cadastro.localidade C ON A.greg_id = C.greg_id AND B.uneg_id = C.uneg_ID "
-						+ "INNER JOIN cadastro.setor_comercial D ON C.loca_id = D.loca_id " + "INNER JOIN cadastro.municipio E ON D.muni_id = E.muni_id) A "
-						+ "INNER JOIN operacao.unidade_consumidora B ON A.uneg_id = B.uneg_id AND A.muni_id = B.muni_id AND A.loca_id = B.loca_id "
-						+ "INNER JOIN operacao.unidade_consumidora_operacional C ON B.ucon_id = C.ucon_id "
-						+ "INNER JOIN operacao.rso D ON C.ucop_idoperacional = D.rso_id " + "INNER JOIN operacao.rso_horas E ON D.rso_id = E.rso_id "
-						+ "WHERE C.ucop_tipooperacional = 4" + "  AND E.rsoh_referencia = '" + dataIni + "'";
-
-				// Se Perfil de Gerente, acesso a gerência Regional
-				if (usuarioProxy.getPerfil() == PerfilBeanEnum.GERENTE) {
-					query = query + " AND A.greg_id = " + usuarioProxy.getRegionalProxy().getCodigo();
-				} else if (usuarioProxy.getPerfil() == PerfilBeanEnum.SUPERVISOR || usuarioProxy.getPerfil() == PerfilBeanEnum.COORDENADOR) {
-					for (LocalidadeProxy colunas : usuarioProxy.getLocalidadeProxy()) {
-						filtroLocalidade = filtroLocalidade + colunas.getCodigo() + ",";
-					}
-					filtroLocalidade = filtroLocalidade.substring(0, filtroLocalidade.length() - 1);
-					query = query + " AND A.loca_id IN (" + filtroLocalidade + ")";
-				}
-
-				query = query + " ORDER BY eabh_referencia";
-				List<List> valores = selectRegistros(query);
-
-				List<LancamentoPendente> listaCompleta = new ArrayList<LancamentoPendente>();
-				// GERAR LISTA COMPLETA DE EAB
-				List<LancamentoPendente> listaConsumoEAB = getListaEABUsuario(usuarioProxy);
-				for (LancamentoPendente lancamento : listaConsumoEAB) {
-					lancamento.setDataConsumo(gc.getTime());
-					listaCompleta.add(lancamento);
-				}
-
-				// GERAR LISTA COMPLETA DE ETA
-				List<LancamentoPendente> listaConsumoETA = getListaETAUsuario(usuarioProxy);
-				for (LancamentoPendente lancamento : listaConsumoETA) {
-					lancamento.setDataConsumo(gc.getTime());
-					listaCompleta.add(lancamento);
-				}
-
-				// GERAR LISTA COMPLETA DE EAT
-				List<LancamentoPendente> listaConsumoEAT = getListaEATUsuario(usuarioProxy);
-				for (LancamentoPendente lancamento : listaConsumoEAT) {
-					lancamento.setDataConsumo(gc.getTime());
-					listaCompleta.add(lancamento);
-				}
-
-				// GERAR LISTA COMPLETA DE RSO
-				List<LancamentoPendente> listaConsumoRSO = getListaRSOUsuario(usuarioProxy);
-				for (LancamentoPendente lancamento : listaConsumoRSO) {
-					lancamento.setDataConsumo(gc.getTime());
-					listaCompleta.add(lancamento);
-				}
-
-				// GERANDO LISTA DE PENDÊNCIA
-				Boolean blnPendente = true;
-				for (LancamentoPendente consumo : listaCompleta) {
-					for (List colunas : valores) {
-						formataData = new SimpleDateFormat("yyyy-MM-dd");
-						Date datConsumo = formataData.parse(colunas.get(0).toString());
-						formataData = new SimpleDateFormat("yyyyMMdd");
-						Integer dataLanc = Integer.parseInt(formataData.format(datConsumo));
-						Integer dataCons = Integer.parseInt(formataData.format(consumo.getDataConsumo()));
-
-						if (consumo.getRegionalProxy().getCodigo() == Integer.parseInt(colunas.get(1).toString())
-								&& consumo.getUnidadeNegocioProxy().getCodigo() == Integer.parseInt(colunas.get(3).toString())
-								&& consumo.getMunicipioProxy().getCodigo() == Integer.parseInt(colunas.get(5).toString())
-								&& consumo.getLocalidadeProxy().getCodigo() == Integer.parseInt(colunas.get(7).toString())
-								&& consumo.getCodigoUnidadeOperacional() == Integer.parseInt(colunas.get(9).toString())
-								&& consumo.getTipoUnidadeOperacional() == Integer.parseInt(colunas.get(11).toString()) && dataCons.equals(dataLanc)) {
+						if (consumo.getRegional().equals(colunas.get(2).toString())
+								&& consumo.getUnidadeNegocio().equals(colunas.get(4).toString())
+								&& consumo.getMunicipio().equals(colunas.get(6).toString())
+								&& consumo.getLocalidade().equals(colunas.get(8).toString())
+								&& consumo.getUnidadeOperacional().equals(colunas.get(10).toString())
+								&& dataCons.equals(dataLanc)) {
 							blnPendente = false;
 							break;
 						}

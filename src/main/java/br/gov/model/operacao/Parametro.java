@@ -38,6 +38,11 @@ public class Parametro implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     private Date ultimaAlteracao;
 	
+    public enum Nome {
+        BLOQUEIA_DATA_RETROATIVA,
+        DIAS_PENDENCIA_LANCAMENTO;
+    }
+    
     public Parametro(){
     	
     }
@@ -79,54 +84,27 @@ public class Parametro implements Serializable{
 	public void setUltimaAlteracao(Date ultimaAlteracao) {
 		this.ultimaAlteracao = ultimaAlteracao;
 	}
-	
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result
-				+ ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result
-				+ ((ultimaAlteracao == null) ? 0 : ultimaAlteracao.hashCode());
-		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
-		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
-		return result;
-	}
-	
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Parametro other = (Parametro) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		if (descricao == null) {
-			if (other.descricao != null)
-				return false;
-		} else if (!descricao.equals(other.descricao))
-			return false;
-		if (ultimaAlteracao == null) {
-			if (other.ultimaAlteracao != null)
-				return false;
-		} else if (!ultimaAlteracao.equals(other.ultimaAlteracao))
-			return false;
-		if (usuario == null) {
-			if (other.usuario != null)
-				return false;
-		} else if (!usuario.equals(other.usuario))
-			return false;
-		if (valor == null) {
-			if (other.valor != null)
-				return false;
-		} else if (!valor.equals(other.valor))
-			return false;
-		return true;
-	}
-	
+
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+        return result;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Parametro other = (Parametro) obj;
+        if (codigo == null) {
+            if (other.codigo != null)
+                return false;
+        } else if (!codigo.equals(other.codigo))
+            return false;
+        return true;
+    }
 }

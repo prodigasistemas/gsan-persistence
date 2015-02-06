@@ -1,39 +1,29 @@
 package br.gov.servicos.operacao.to;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import br.gov.model.operacao.EstacaoOperacional;
 import br.gov.model.operacao.LocalidadeProxy;
 import br.gov.model.operacao.MunicipioProxy;
 import br.gov.model.operacao.RegionalProxy;
 import br.gov.model.operacao.UnidadeNegocioProxy;
 
-
-public class ConsultaHorasTO implements ConsultaCadastroTO{
-    private static final long serialVersionUID = 5953127874354297216L;
-
+public class ConsultaConsumoProdutoTO implements ConsultaCadastroTO, Serializable {
+    private static final long serialVersionUID = -4766898053466765034L;
+    
     private RegionalProxy regional;
     private UnidadeNegocioProxy unidadeNegocio;
     private MunicipioProxy municipio;
     private LocalidadeProxy localidade;
     private Integer tipoEstacaoOperacional;
     private EstacaoOperacional estacaoOperacional;
-
-    private Integer referenciaInicial;
-    private Integer referenciaFinal;
+    
+    private Date dataInicial;
+    private Date dataFinal;
     
     public boolean intervaloValido(){
-        return referenciaFinal.compareTo(referenciaInicial) >= 0 ;
-    }
-    public Integer getReferenciaInicial() {
-        return referenciaInicial;
-    }
-    public void setReferenciaInicial(Integer referenciaInicial) {
-        this.referenciaInicial = referenciaInicial;
-    }
-    public Integer getReferenciaFinal() {
-        return referenciaFinal;
-    }
-    public void setReferenciaFinal(Integer referenciaFinal) {
-        this.referenciaFinal = referenciaFinal;
+        return dataFinal.compareTo(dataInicial) > 0 ;
     }
     public RegionalProxy getRegional() {
         return regional;
@@ -70,5 +60,20 @@ public class ConsultaHorasTO implements ConsultaCadastroTO{
     }
     public void setEstacaoOperacional(EstacaoOperacional estacaoOperacional) {
         this.estacaoOperacional = estacaoOperacional;
+    }
+    public Date getDataInicial() {
+        return dataInicial;
+    }
+    public void setDataInicial(Date dataInicial) {
+        this.dataInicial = dataInicial;
+    }
+    public Date getDataFinal() {
+        return dataFinal;
+    }
+    public void setDataFinal(Date dataFinal) {
+        this.dataFinal = dataFinal;
+    }
+    public String toString() {
+        return "ConsultaConsumoProdutoTO [dataInicial=" + dataInicial + ", dataFinal=" + dataFinal + "]";
     }
 }

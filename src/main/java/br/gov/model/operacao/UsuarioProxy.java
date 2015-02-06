@@ -135,7 +135,14 @@ public class UsuarioProxy implements BaseEntidade, Serializable {
 	public void setLogado(Boolean logado) {
 		this.logado = logado;
 	}
-
+	
+	public void addLocalidade(LocalidadeProxy localidade){
+	    if (localidadeProxy == null){
+	        localidadeProxy = new ArrayList<LocalidadeProxy>();
+	    }
+	    
+	    localidadeProxy.add(localidade);
+	}
 	
 	public int hashCode() {
 		final int prime = 31;
@@ -220,4 +227,8 @@ public class UsuarioProxy implements BaseEntidade, Serializable {
 		return true;
 	}
 
+    public boolean possuiPerfilSenior() {
+        return getPerfil() == PerfilBeanEnum.ADMIN || getPerfil() == PerfilBeanEnum.GERENTE
+                || getPerfil() == PerfilBeanEnum.COORDENADOR || getPerfil() == PerfilBeanEnum.SUPERVISOR;
+    }
 }

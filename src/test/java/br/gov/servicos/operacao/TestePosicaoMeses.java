@@ -25,7 +25,14 @@ public class TestePosicaoMeses {
 		
 		StringBuilder builder = new StringBuilder();
 		builder.append("123456");
-		
+		List<Mes> meses = util.mesesPeriodo(dataInicial, dataFinal);
+		assertEquals(6, meses.size());
+		assertEquals(1, meses.get(0).getPosicao());
+		assertEquals(11, meses.get(0).getNumeral());
+		assertEquals("NOV", meses.get(0).getNomeCurto());
+		assertEquals(6, meses.get(5).getPosicao());
+		assertEquals(4, meses.get(5).getNumeral());
+		assertEquals("ABR", meses.get(5).getNomeCurto());
 		assertEquals(builder.toString(), buildRetorno(util.mesesPeriodo(dataInicial, dataFinal)));
 	}
 

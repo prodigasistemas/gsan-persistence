@@ -11,6 +11,7 @@ import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import br.gov.model.operacao.LocalidadeProxy;
 import br.gov.persistence.util.SingleDeployment;
 import br.gov.servicos.operacao.to.ConsultaHorasTO;
 import br.gov.servicos.operacao.to.HorasRelatorioTO;
@@ -60,7 +61,7 @@ public class RelatorioHorasRepositorioTest extends SingleDeployment{
 	    ConsultaHorasTO consulta = new ConsultaHorasTO();
 	    consulta.setReferenciaInicial(201402);
 	    consulta.setReferenciaFinal(201406);
-	    consulta.setCodigoLocalidade(2);
+	    consulta.setLocalidade(new LocalidadeProxy(2, "Bairro Alto"));
 	    List<HorasRelatorioTO> lista = repositorio.consultaHoras(consulta);
 	    
 	    HorasRelatorioTO item = lista.get(0);
@@ -74,7 +75,7 @@ public class RelatorioHorasRepositorioTest extends SingleDeployment{
         ConsultaHorasTO consulta = new ConsultaHorasTO();
         consulta.setReferenciaInicial(201402);
         consulta.setReferenciaFinal(201406);
-        consulta.setCodigoLocalidade(2);
+        consulta.setLocalidade(new LocalidadeProxy(2, "Bairro Alto"));
         Integer qtd = repositorio.quantidadeMaximaCmb(consulta);
         assertEquals(8, qtd.intValue());
        
