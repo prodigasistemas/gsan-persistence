@@ -282,4 +282,19 @@ public class ContaRepositorio {
 			return null;
 		}
 	}
+	
+	public int obterQuantidadeContasPreFaturadaPorImoveis(Integer anoMesReferencia, List<Integer> idsImoveis) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT count(conta) ")
+		   .append("FROM Conta AS conta ")
+		   .append("WHERE conta.referencia = :anoMesReferencia ")
+		   .append("AND imovel.id IN (:idsImoveis) ")
+		   .append("AND debitoCreditoSituacaoAtual = :preFaturada ");
+		
+		return entity.createQuery(sql.toString(), Long.class)
+				.setParameter("anoMesReferencia", anoMesReferencia)
+				.setParameter("idsImoveis", idsImoveis)
+				.setParameter("preFaturada", DebitoCreditoSituacao.PRE_FATURADA.getId())
+				.getSingleResult().intValue();
+	}
 }

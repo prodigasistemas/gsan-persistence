@@ -168,4 +168,13 @@ public class ContaRepositorioTest extends SingleDeployment {
 		assertNotNull(conta);
 		assertEquals(45, conta.getCodigoSetorComercial().intValue());
 	}
+	
+	@Test
+	@UsingDataSet("contas_arquivo_texto_faturamento.yml")
+	public void quantidadeContasPreFaturadaPorImoveis() {
+		List<Integer> idsImoveis = new ArrayList<Integer>();
+		idsImoveis.add(new Integer("1"));
+		
+		assertEquals(1, repositorio.obterQuantidadeContasPreFaturadaPorImoveis(201501, idsImoveis));
+	}
 }
