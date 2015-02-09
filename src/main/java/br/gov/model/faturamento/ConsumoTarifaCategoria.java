@@ -34,7 +34,7 @@ public class ConsumoTarifaCategoria implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="scat_id")
-	private Subcategoria subCategoria;
+	private Subcategoria subcategoria;
 
 	@ManyToOne
 	@JoinColumn(name="cstv_id")
@@ -72,12 +72,12 @@ public class ConsumoTarifaCategoria implements Serializable {
 		this.categoria = categoria;
 	}
 
-	public Subcategoria getSubCategoria() {
-		return subCategoria;
+	public Subcategoria getSubcategoria() {
+		return subcategoria;
 	}
 
-	public void setSubCategoria(Subcategoria subcategoria) {
-		this.subCategoria = subcategoria;
+	public void setSubcategoria(Subcategoria subcategoria) {
+		this.subcategoria = subcategoria;
 	}
 
 	public ConsumoTarifaVigencia getConsumoTarifaVigencia() {

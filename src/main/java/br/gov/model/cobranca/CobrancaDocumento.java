@@ -51,7 +51,11 @@ public class CobrancaDocumento implements Serializable {
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 	
-	public CobrancaDocumento() {
+	public CobrancaDocumento() {}
+	
+	public CobrancaDocumento(Integer id) {
+		super();
+		this.id = id;
 	}
 
 	public Integer getId() {

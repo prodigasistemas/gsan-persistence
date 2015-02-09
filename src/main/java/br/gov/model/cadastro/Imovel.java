@@ -208,7 +208,7 @@ public class Imovel implements Serializable{
 		return imovelCondominio != null;
 	}
 	
-	public boolean ehCondominio() {
+	public boolean isCondominio() {
 		return indicadorImovelCondominio != null && indicadorImovelCondominio == Status.ATIVO.getId();
 	}
 	

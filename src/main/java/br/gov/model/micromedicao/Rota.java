@@ -69,17 +69,16 @@ public class Rota implements Serializable {
 	
 	@Column(name="rota_icseqleitura")
 	private Integer indicadorSequencialLeitura;
+	
+	@Column(name="rota_nnlimiteimoveis")
+	private Integer numeroLimiteImoveis;
 
-	public Rota() {
-	}
+	public Rota() {}
 
 	public boolean alternativa() {
 		return indicadorRotaAlternativa != null && indicadorRotaAlternativa == Status.ATIVO.getId();
 	}
 
-/**********************************************
- ************ GETTERS AND SETTERS ************* 
- **********************************************/
 	public Integer getId() {
 		return id;
 	}
@@ -202,5 +201,13 @@ public class Rota implements Serializable {
 
 	public void setIndicadorSequencialLeitura(Integer indicadorSequencialLeitura) {
 		this.indicadorSequencialLeitura = indicadorSequencialLeitura;
+	}
+
+	public Integer getNumeroLimiteImoveis() {
+		return numeroLimiteImoveis;
+	}
+
+	public void setNumeroLimiteImoveis(Integer numeroLimiteImoveis) {
+		this.numeroLimiteImoveis = numeroLimiteImoveis;
 	}
 }
