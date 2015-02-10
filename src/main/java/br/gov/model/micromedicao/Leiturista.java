@@ -15,18 +15,21 @@ import javax.persistence.Table;
 import br.gov.model.seguranca.Usuario;
 
 @Entity
-@Table(name="leiturista", schema="micromedicao")
+@Table(name = "leiturista", schema = "micromedicao")
 public class Leiturista implements Serializable {
 	private static final long serialVersionUID = -2566021566597302550L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_LEITURISTA")
-	@SequenceGenerator(name="SEQ_LEITURISTA", schema="micromedicao", sequenceName="seq_leiturista", allocationSize=1)	
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_LEITURISTA")
+	@SequenceGenerator(name = "SEQ_LEITURISTA", schema = "micromedicao", sequenceName = "seq_leiturista", allocationSize = 1)
 	@Column(name = "leit_id")
 	private Integer id;
-	
+
+	@Column(name = "leit_nnimei")
+	private Long numeroImei;
+
 	@ManyToOne
-	@JoinColumn(name="usur_id")
+	@JoinColumn(name = "usur_id")
 	private Usuario usuario;
 
 	public Integer getId() {
@@ -35,6 +38,14 @@ public class Leiturista implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Long getNumeroImei() {
+		return numeroImei;
+	}
+
+	public void setNumeroImei(Long numeroImei) {
+		this.numeroImei = numeroImei;
 	}
 
 	public Usuario getUsuario() {
