@@ -1,0 +1,73 @@
+cadastro.imovel:
+  - imov_id: 1
+  - imov_id: 2
+  - imov_id: 3
+  - imov_id: 4
+  - imov_id: 5
+  - imov_id: 6
+  - imov_id: 7
+  - imov_id: 8
+  - imov_id: 9
+  - imov_id: 10
+
+faturamento.conta:
+  - cnta_id: 1
+    cnta_amreferenciaconta: 201501
+    imov_id: 1
+    dcst_idatual: 0 # NORMAL
+  - cnta_id: 2
+    cnta_amreferenciaconta: 201502
+    imov_id: 1
+    dcst_idatual: 0 # NORMAL
+  - cnta_id: 3
+    cnta_amreferenciaconta: 201503
+    imov_id: 1
+    dcst_idatual: 9 # PREFATURADA
+  - cnta_id: 4
+    cnta_amreferenciaconta: 201503
+    imov_id: 2
+    dcst_idatual: 0 # NORMAL
+  - cnta_id: 5
+    cnta_amreferenciaconta: 201501
+    imov_id: 1
+    dcst_idatual: 0 # NORMAL
+  - cnta_id: 6
+    cnta_amreferenciaconta: 201501
+    imov_id: 1
+    dcst_idatual: 0 # NORMAL
+  - cnta_id: 7
+    cnta_amreferenciaconta: 201501
+    imov_id: 1
+    dcst_idatual: 0 # NORMAL
+  - cnta_id: 8
+    cnta_amreferenciaconta: 201501
+    imov_id: 1
+    dcst_idatual: 0 # NORMAL
+  - cnta_id: 9
+    cnta_amreferenciaconta: 201501
+    imov_id: 1
+    dcst_idatual: 0 # NORMAL
+  - cnta_id: 10
+    cnta_amreferenciaconta: 201501
+    imov_id: 1
+    dcst_idatual: 0 # NORMAL
+  - cnta_id: 11
+    cnta_amreferenciaconta: 201501
+    imov_id: 1
+    dcst_idatual: 0 # NORMAL
+  - cnta_id: 12
+    cnta_amreferenciaconta: 201501
+    imov_id: 1
+    dcst_idatual: 0 # NORMAL
+  - cnta_id: 13
+    cnta_amreferenciaconta: 201501
+    imov_id: 1
+    dcst_idatual: 0 # NORMAL
+  - cnta_id: 14
+    cnta_amreferenciaconta: 201501
+    imov_id: 1
+    dcst_idatual: 0 # NORMAL
+  - cnta_id: 15
+    cnta_amreferenciaconta: 201501
+    imov_id: 1
+    dcst_idatual: 0 # NORMAL

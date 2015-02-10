@@ -405,5 +405,9 @@ public class Utilitarios {
     
     public static String minusculas(String texto){
         return texto != null ? texto.toLowerCase() : "";
-    }    
+    }
+    
+    public int obterQuantidadeLinhasTexto(StringBuilder texto) {
+        return texto != null ? texto.toString().split(System.getProperty("line.separator")).length : 0;
+    }
 }

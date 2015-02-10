@@ -75,6 +75,9 @@ public class Rota implements Serializable {
 
 	public Rota() {}
 
+	public boolean existeLimiteImoveis(){
+	    return numeroLimiteImoveis != null && Integer.valueOf(numeroLimiteImoveis) > 0;
+	}
 	public boolean alternativa() {
 		return indicadorRotaAlternativa != null && indicadorRotaAlternativa == Status.ATIVO.getId();
 	}
