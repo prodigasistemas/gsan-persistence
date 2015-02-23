@@ -42,6 +42,12 @@ public class Logradouro implements Serializable {
 	@JoinColumn(name="muni_id")
 	private Municipio municipio; 
 	
+	public Logradouro() {}
+	
+	public Logradouro(Integer id) {
+		this.id = id;
+	}
+	
 	public StringBuilder getDescricaoFormatada() {
 		StringBuilder retorno = new StringBuilder();
 

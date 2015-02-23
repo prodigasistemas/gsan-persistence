@@ -297,4 +297,19 @@ public class ContaRepositorio {
 				.setParameter("preFaturada", DebitoCreditoSituacao.PRE_FATURADA.getId())
 				.getSingleResult().intValue();
 	}
+	
+	public List<Conta> obterContasPreFaturadas(Integer referencia, Integer idRota){
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT c ")
+           .append("FROM Conta c ")
+           .append("WHERE c.referencia = :referencia ")
+           .append("AND c.rota.id = :rota ")
+           .append("AND c.debitoCreditoSituacaoAtual = :situacao ");
+        
+        return entity.createQuery(sql.toString(), Conta.class)
+                .setParameter("referencia", referencia)
+                .setParameter("rota", idRota)
+                .setParameter("situacao", DebitoCreditoSituacao.PRE_FATURADA.getId())
+                .getResultList();	    
+	}
 }

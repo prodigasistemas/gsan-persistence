@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.gov.model.micromedicao.Rota;
+import br.gov.model.micromedicao.RoteiroEmpresa;
 
 
 @Entity
@@ -25,6 +26,10 @@ public class Quadra {
 	@JoinColumn(name="rota_id")
 	private Rota rota;
 	
+	@ManyToOne
+	@JoinColumn(name="roem_id")
+	private RoteiroEmpresa roteiroEmpresa;
+
 	public Quadra() {}
 	
 	public Quadra(Integer id) {
@@ -53,6 +58,14 @@ public class Quadra {
 
 	public void setNumeroQuadra(Integer numeroQuadra) {
 		this.numeroQuadra = numeroQuadra;
+	}
+
+	public RoteiroEmpresa getRoteiroEmpresa() {
+		return roteiroEmpresa;
+	}
+
+	public void setRoteiroEmpresa(RoteiroEmpresa roteiroEmpresa) {
+		this.roteiroEmpresa = roteiroEmpresa;
 	}
 
 	public String toString() {

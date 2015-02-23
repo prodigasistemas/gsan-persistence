@@ -69,6 +69,10 @@ public class MedicaoHistorico implements Serializable{
 	@JoinColumn(name="ltan_idleitanormfatmt")
 	private LeituraAnormalidade leituraAnormalidadeFaturamento;
 	
+	@ManyToOne
+	@JoinColumn(name="ltan_idleitanorminformada")
+	private LeituraAnormalidade leituraAnormalidadeInformada;
+
 	public MedicaoHistorico() {
 	}
 
@@ -192,4 +196,12 @@ public class MedicaoHistorico implements Serializable{
 		return this.leituraAnteriorInformada != null && this.leituraAtualInformada != null;
 	}
 
+	public LeituraAnormalidade getLeituraAnormalidadeInformada() {
+		return leituraAnormalidadeInformada;
+	}
+
+	public void setLeituraAnormalidadeInformada(LeituraAnormalidade leituraAnormalidadeInformada) {
+		this.leituraAnormalidadeInformada = leituraAnormalidadeInformada;
+	}
+	
 }

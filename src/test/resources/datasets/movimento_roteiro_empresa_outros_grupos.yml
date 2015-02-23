@@ -1,0 +1,16 @@
+faturamento.faturamento_grupo:
+ - ftgr_id: 2
+
+cadastro.imovel:
+ - imov_id: 1
+
+micromedicao.rota:
+  - rota_id: 1
+  - rota_id: 2
+
+micromedicao.movimento_roteiro_empr:
+  - mrem_id: 1
+    mrem_ammovimento: 201501
+    rota_id: 1
+    ftgr_id: 2
+    imov_id: 1

@@ -31,8 +31,8 @@ public class ArquivoTextoRoteiroEmpresaDivisao implements Serializable {
 	@Column(name="tred_qtimovel")
 	private Integer quantidadeImovel;
 
-	@Column(name="tred_caminho")
-	private String caminho;
+//	@Column(name="tred_caminho")
+	private transient String caminho;
 	
 	@Column(name="tred_artextoparte")
 	private byte[] arquivoTexto;
@@ -56,6 +56,8 @@ public class ArquivoTextoRoteiroEmpresaDivisao implements Serializable {
 	@Column(name="tred_tmultimaalteracao")
 	private Date ultimaAlteracao;
 
+	private transient StringBuilder conteudoArquivo;
+	
 	public ArquivoTextoRoteiroEmpresaDivisao() {}
 	
 	public ArquivoTextoRoteiroEmpresaDivisao(
@@ -83,21 +85,29 @@ public class ArquivoTextoRoteiroEmpresaDivisao implements Serializable {
 		this.ultimaAlteracao = ultimaAlteracao;
 	}
 
+    public void acrescentaSequencial(int seq) {
+        this.numeroSequenciaArquivo = seq;
+        this.nomeArquivo += "_PARTE_" + seq;
+    }
+
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public ArquivoTextoRoteiroEmpresa getArquivoTextoRoteiroEmpresa() {
 		return arquivoTextoRoteiroEmpresa;
 	}
-
 	public void setArquivoTextoRoteiroEmpresa(ArquivoTextoRoteiroEmpresa arquivoTextoRoteiroEmpresa) {
 		this.arquivoTextoRoteiroEmpresa = arquivoTextoRoteiroEmpresa;
 	}
+    public StringBuilder getConteudoArquivo() {
+        return conteudoArquivo;
+    }
+    public void setConteudoArquivo(StringBuilder conteudoArquivo) {
+        this.conteudoArquivo = conteudoArquivo;
+    }
 
 	public Integer getQuantidadeImovel() {
 		return quantidadeImovel;

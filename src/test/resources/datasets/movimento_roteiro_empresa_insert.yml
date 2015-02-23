@@ -1,0 +1,33 @@
+micromedicao.movimento_roteiro_empr:
+  - imov_id: 1
+    mrem_ammovimento: 201501
+    rota_id: 1
+    ftgr_id: 1
+    loca_id: 1
+    greg_id: 1
+    last_id: 1
+    lest_id: 1
+
+cadastro.imovel:
+  - imov_id: 1
+  - imov_id: 2
+  - imov_id: 3
+
+faturamento.faturamento_grupo:
+  - ftgr_id: 1
+
+micromedicao.rota:
+  - rota_id: 1
+
+cadastro.localidade:
+  - loca_id: 1
+    greg_id: 1
+
+cadastro.gerencia_regional:
+  - greg_id: 1
+
+atendimentopublico.ligacao_agua_situacao:
+  - last_id: 1
+
+atendimentopublico.ligacao_esgoto_situacao:
+  - lest_id: 1

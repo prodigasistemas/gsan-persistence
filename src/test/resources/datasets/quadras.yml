@@ -1,0 +1,21 @@
+micromedicao.rota:
+  - rota_id: 1
+  - rota_id: 2
+  - rota_id: 3
+
+cadastro.quadra:
+  - qdra_id: 1
+    qdra_nnquadra: 1
+    rota_id: 1
+  - qdra_id: 2
+    qdra_nnquadra: 2
+    rota_id: 1
+  - qdra_id: 3
+    qdra_nnquadra: 3
+    rota_id: 1
+  - qdra_id: 4
+    qdra_nnquadra: 9
+    rota_id: 1
+  - qdra_id: 5
+    qdra_nnquadra: 8
+    rota_id: 2

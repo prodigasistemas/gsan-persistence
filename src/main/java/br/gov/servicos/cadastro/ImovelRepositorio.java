@@ -10,6 +10,8 @@ import javax.persistence.PersistenceContext;
 import br.gov.model.cadastro.ClienteRelacaoTipo;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.exception.ErroPesquisaContaImovel;
+import br.gov.model.faturamento.Conta;
+import br.gov.model.faturamento.DebitoCreditoSituacao;
 import br.gov.model.faturamento.FaturamentoGrupo;
 import br.gov.servicos.cadastro.to.AreaConstruidaTO;
 
@@ -120,7 +122,7 @@ public class ImovelRepositorio{
 		return (qtd > 0) ? true : false; 
 	}
 
-	public List<Imovel> imoveisParaGerarArquivoTextoFaturamento(Integer idRota, int registroInicial, int quantidadeRegistros) {
+	public List<Imovel> buscarImoveisParaGerarArquivoTextoFaturamento(Integer idRota, int registroInicial, int quantidadeRegistros) {
 		StringBuilder sql = consultaImoveisParaArquivoTextoFaturamento()
 		.append(" WHERE  ")
 		.append("   imovelPerfil.indicadorGerarDadosLeitura = 1 ")
@@ -157,7 +159,7 @@ public class ImovelRepositorio{
 				.getResultList();
 	}
 	
-	public List<Imovel> imoveisParaGerarArquivoTextoFaturamentoPorRotaAlternativa(Integer idRota, int registroInicial, int quantidadeRegistros){
+	public List<Imovel> buscarImoveisParaGerarArquivoTextoFaturamentoPorRotaAlternativa(Integer idRota, int registroInicial, int quantidadeRegistros){
 		StringBuilder sql = consultaImoveisParaArquivoTextoFaturamentoPorRotaAlternativa()
 		.append(" WHERE  ")
 		.append("   imovelPerfil.indicadorGerarDadosLeitura = 1 ")
@@ -275,6 +277,39 @@ public class ImovelRepositorio{
 		}
 	}
 	
+    public AreaConstruidaTO dadosAreaConstruida(Integer idImovel){
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT new br.gov.servicos.cadastro.to.AreaConstruidaTO(imov.areaConstruida, acon.menorFaixa) ")
+        .append("FROM Imovel imov ")
+        .append("LEFT JOIN imov.areaConstruidaFaixa acon ")
+        .append("WHERE imov.id = :idImovel ");
+        
+        try {
+            return entity.createQuery(sql.toString(), AreaConstruidaTO.class)
+                    .setParameter("idImovel", idImovel)
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+	
+    public List<Imovel> obterImoveisComContasPreFaturadas(Integer referencia, Integer idRota){
+        StringBuilder sql = new StringBuilder();
+        sql.append("select i ")
+            .append(" from Imovel i")
+           .append(" inner join i.conta c ")
+           .append(" where c.referencia = :referencia ")
+           .append(" and c.rota.id = :rota ")
+           .append(" and c.debitoCreditoSituacaoAtual = :situacao ");
+        
+        return entity.createQuery(sql.toString(), Imovel.class)
+                .setParameter("referencia", referencia)
+                .setParameter("rota", idRota)
+                .setParameter("situacao", DebitoCreditoSituacao.PRE_FATURADA.getId())
+                .getResultList();       
+    }
+    
 	/***********************************************
 	 *************** PRIVATE METHODS ***************
 	 ***********************************************/
@@ -395,21 +430,7 @@ public class ImovelRepositorio{
 		
 		return sql;
 	}
-	
-	public AreaConstruidaTO dadosAreaConstruida(Integer idImovel){
-	    StringBuilder sql = new StringBuilder();
-	    sql.append("SELECT new br.gov.servicos.cadastro.to.AreaConstruidaTO(imov.areaConstruida, acon.menorFaixa) ")
-	    .append("FROM Imovel imov ")
-	    .append("LEFT JOIN imov.areaConstruidaFaixa acon ")
-	    .append("WHERE imov.id = :idImovel ");
-	    
-	    try {
-	        return entity.createQuery(sql.toString(), AreaConstruidaTO.class)
-	                .setParameter("idImovel", idImovel)
-	                .setMaxResults(1)
-	                .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
-	}
+    /*****************************************************
+     *************** PRIVATE METHODS - END ***************
+     *****************************************************/	
 }

@@ -34,6 +34,9 @@ public class LigacaoAgua implements Serializable{
 	@Column(name="lagu_nnconsumominimoagua")
 	private Integer consumoMinimoAgua;
 	
+	@Column(name="lagu_nnlacre")
+	private String numeroLacre;
+	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lagu_id", referencedColumnName="imov_id")
 	private Imovel imovel;
@@ -82,6 +85,14 @@ public class LigacaoAgua implements Serializable{
 
 	public void setConsumoMinimoAgua(Integer consumoMinimoAgua) {
 		this.consumoMinimoAgua = consumoMinimoAgua;
+	}
+
+	public String getNumeroLacre() {
+		return numeroLacre;
+	}
+
+	public void setNumeroLacre(String numeroLacre) {
+		this.numeroLacre = numeroLacre;
 	}
 
 	public String toString() {

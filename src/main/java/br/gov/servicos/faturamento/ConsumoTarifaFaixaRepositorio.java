@@ -31,7 +31,7 @@ public class ConsumoTarifaFaixaRepositorio {
 		   .append("INNER JOIN ctcg.consumoTarifaVigencia ctv ")
 		   .append("INNER JOIN ctv.consumoTarifa ct ")
 		   .append("INNER JOIN ctcg.categoria catg ")
-		   .append("INNER JOIN ctcg.subCategoria subCatg ")
+		   .append("INNER JOIN ctcg.subcategoria subCatg ")
 		   .append("WHERE ctcg.id in (:idsConsumoTarifaCategoria) ")
 		   .append("ORDER BY ct.id, ctv.dataVigencia, catg.id, subCatg.id, ctfx.numeroConsumoFaixaInicio ");
 		

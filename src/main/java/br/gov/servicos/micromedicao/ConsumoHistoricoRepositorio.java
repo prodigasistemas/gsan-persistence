@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.micromedicao.ConsumoHistorico;
 import br.gov.model.micromedicao.LigacaoTipo;
-import br.gov.servicos.to.AnormalidadeHistoricoConsumo;
+import br.gov.servicos.to.AnormalidadeHistoricoConsumoTO;
 
 @Stateless
 public class ConsumoHistoricoRepositorio {
@@ -63,11 +63,11 @@ public class ConsumoHistoricoRepositorio {
 				.getResultList();
 	}
 	
-	public AnormalidadeHistoricoConsumo anormalidadeHistoricoConsumo(Integer idImovel, LigacaoTipo ligacaoTipo, Integer anoMesReferencia){
+	public AnormalidadeHistoricoConsumoTO anormalidadeHistoricoConsumo(Integer idImovel, LigacaoTipo ligacaoTipo, Integer anoMesReferencia){
 		StringBuilder sql = consultaAnormalidade();
 
 		try {
-			return entity.createQuery(sql.toString(), AnormalidadeHistoricoConsumo.class)
+			return entity.createQuery(sql.toString(), AnormalidadeHistoricoConsumoTO.class)
 					.setParameter("idImovel", idImovel)
 					.setParameter("idLigacaoTipo", ligacaoTipo.getId())
 					.setParameter("anoMes", anoMesReferencia)
@@ -78,12 +78,12 @@ public class ConsumoHistoricoRepositorio {
 		}
 	}
 	
-	public AnormalidadeHistoricoConsumo anormalidadeHistoricoConsumo(Integer idImovel, LigacaoTipo ligacaoTipo, Integer anoMesReferencia, Integer idConsumoAnormalidade){
+	public AnormalidadeHistoricoConsumoTO anormalidadeHistoricoConsumo(Integer idImovel, LigacaoTipo ligacaoTipo, Integer anoMesReferencia, Integer idConsumoAnormalidade){
 		StringBuilder sql = consultaAnormalidade()
 				.append(" and ca.id = :idConsumoAnormalidade");
 		
 		try {
-			return entity.createQuery(sql.toString(), AnormalidadeHistoricoConsumo.class)
+			return entity.createQuery(sql.toString(), AnormalidadeHistoricoConsumoTO.class)
 					.setParameter("idImovel", idImovel)
 					.setParameter("idLigacaoTipo", ligacaoTipo.getId())
 					.setParameter("anoMes", anoMesReferencia)

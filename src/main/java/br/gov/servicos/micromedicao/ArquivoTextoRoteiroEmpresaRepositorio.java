@@ -1,18 +1,15 @@
 package br.gov.servicos.micromedicao;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 
 import br.gov.model.micromedicao.ArquivoTextoRoteiroEmpresa;
+import br.gov.model.util.GenericRepository;
 
 @Stateless
-public class ArquivoTextoRoteiroEmpresaRepositorio {
-	@PersistenceContext
-	private EntityManager entity;
+public class ArquivoTextoRoteiroEmpresaRepositorio extends GenericRepository<Integer, ArquivoTextoRoteiroEmpresa>{
 
-	public ArquivoTextoRoteiroEmpresa pesquisarPorRotaEReferencia(Integer idRota, Integer anoMesReferencia) {
+    	public ArquivoTextoRoteiroEmpresa pesquisarPorRotaEReferencia(Integer idRota, Integer anoMesReferencia) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT arq ")
 		   .append("FROM ArquivoTextoRoteiroEmpresa arq ")
@@ -27,13 +24,5 @@ public class ArquivoTextoRoteiroEmpresaRepositorio {
 		} catch (NoResultException e) {
 			return null;
 		}
-	}
-
-	public void deletarPorId(Integer id) {
-		StringBuilder sql = new StringBuilder();
-		sql.append("DELETE ArquivoTextoRoteiroEmpresa arq ")
-		   .append("WHERE arq.id = :id");
-
-		entity.createQuery(sql.toString()).setParameter("id", id).executeUpdate();
 	}
 }
