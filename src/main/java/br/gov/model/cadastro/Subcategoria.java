@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.gov.servicos.to.ImovelSubcategoriaTO;
+
 @Entity
 @Table(name="subcategoria", schema="cadastro")
 public class Subcategoria implements Serializable, ICategoria {
@@ -244,4 +246,19 @@ public class Subcategoria implements Serializable, ICategoria {
 	public String getSubcategoriaDescricaoAbreviada() {
 		return getDescricaoAbreviada();
 	}
+
+    public Subcategoria newInstance(ImovelSubcategoriaTO to) {
+        Subcategoria subcategoria = new Subcategoria();
+        
+        subcategoria.setId(to.getSubcategoriaId());
+        subcategoria.setCodigo(to.getSubcategoriaCodigo());
+        subcategoria.setDescricao(to.getDescricao());
+        subcategoria.setDescricaoAbreviada(to.getDescricaoAbreviada());
+        subcategoria.setQuantidadeEconomias(to.getQuantidadeEconomias());
+        
+        Categoria categoria = new Categoria().newInstance(to);
+        subcategoria.setCategoria(categoria);
+        
+        return subcategoria;
+    }
 }

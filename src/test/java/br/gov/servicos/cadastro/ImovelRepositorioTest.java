@@ -77,13 +77,13 @@ public class ImovelRepositorioTest extends SingleDeployment{
 	@Test
 	@UsingDataSet("imoveis.yml")
 	public void buscarImovelPorId() throws Exception {
-		assertNotNull(repositorio.buscarPeloId(1));
+		assertNotNull(repositorio.obterPorID(1));
 	}
 	
 	@Test
 	@UsingDataSet("imoveis.yml")
 	public void buscarImovelPorIdInexistente() throws Exception {
-		assertNull(repositorio.buscarPeloId(10));
+		assertNull(repositorio.obterPorID(10));
 	}
 
     @Test

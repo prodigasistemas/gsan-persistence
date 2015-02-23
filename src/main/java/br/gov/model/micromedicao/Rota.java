@@ -40,13 +40,16 @@ public class Rota implements Serializable {
 	@Column(name = "rota_icfaixafalsageracao")
 	private Short indicadorGerarFalsaFaixa;
 
-	@Column(name = "rota_pcfaixafalsageracao")
+	@Column(name="rota_pcfaixafalsageracao")
 	private BigDecimal percentualGeracaoFaixaFalsa;
 
 	@Column(name = "rota_nndiasconsumoajuste")
 	private Integer numeroDiasConsumoAjuste;
-
-	@Column(name = "rota_dtleituraajuste")
+	
+	@Column(name="rota_icuso")
+	private Short ativa;
+	
+	@Column(name="rota_dtleituraajuste")
 	@Temporal(TemporalType.DATE)
 	private Date dataAjusteLeitura;
 
@@ -61,26 +64,26 @@ public class Rota implements Serializable {
 
 	@Column(name = "rota_nnlimiteimoveis")
 	private Integer numeroLimiteImoveis;
-
-	@Column(name = "rota_nnsequencialeiturista")
+	
+	@Column(name="rota_nnsequencialeiturista")
 	private Integer numeroSequenciaLeitura;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ftgr_id")
-	private FaturamentoGrupo faturamentoGrupo;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "leit_id")
-	private Leiturista leiturista;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "empr_id")
-	private Empresa empresa;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "stcm_id")
-	private SetorComercial setorComercial;
-
+	
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ftgr_id")
+    private FaturamentoGrupo faturamentoGrupo;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="leit_id")
+    private Leiturista leiturista;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="empr_id")
+    private Empresa empresa;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="stcm_id")
+    private SetorComercial setorComercial;
+	
 	public Rota() {
 	}
 
@@ -107,142 +110,116 @@ public class Rota implements Serializable {
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public Integer getLeituraTipo() {
 		return leituraTipo;
 	}
-
 	public void setLeituraTipo(Integer leituraTipo) {
 		this.leituraTipo = leituraTipo;
 	}
-
 	public Short getIndicadorRotaAlternativa() {
 		return indicadorRotaAlternativa;
 	}
-
 	public void setIndicadorRotaAlternativa(Short indicadorRotaAlternativa) {
 		this.indicadorRotaAlternativa = indicadorRotaAlternativa;
 	}
-
 	public Short getIndicadorGerarFalsaFaixa() {
 		return indicadorGerarFalsaFaixa;
 	}
-
 	public void setIndicadorGerarFalsaFaixa(Short indicadorGerarFalsaFaixa) {
 		this.indicadorGerarFalsaFaixa = indicadorGerarFalsaFaixa;
 	}
-
 	public FaturamentoGrupo getFaturamentoGrupo() {
 		return faturamentoGrupo;
 	}
-
 	public void setFaturamentoGrupo(FaturamentoGrupo faturamentoGrupo) {
 		this.faturamentoGrupo = faturamentoGrupo;
 	}
-
 	public Leiturista getLeiturista() {
 		return leiturista;
 	}
-
 	public void setLeiturista(Leiturista leiturista) {
 		this.leiturista = leiturista;
 	}
-
 	public Empresa getEmpresa() {
 		return empresa;
 	}
-
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
-
 	public Short getCodigo() {
 		return codigo;
 	}
-
 	public void setCodigo(Short codigo) {
 		this.codigo = codigo;
 	}
-
 	public BigDecimal getPercentualGeracaoFaixaFalsa() {
 		return percentualGeracaoFaixaFalsa;
 	}
-
 	public void setPercentualGeracaoFaixaFalsa(BigDecimal percentualGeracaoFaixaFalsa) {
 		this.percentualGeracaoFaixaFalsa = percentualGeracaoFaixaFalsa;
 	}
-
 	public Integer getNumeroDiasConsumoAjuste() {
 		return numeroDiasConsumoAjuste;
 	}
-
 	public void setNumeroDiasConsumoAjuste(Integer numeroDiasConsumoAjuste) {
 		this.numeroDiasConsumoAjuste = numeroDiasConsumoAjuste;
 	}
-
 	public Date getDataAjusteLeitura() {
 		return dataAjusteLeitura;
 	}
-
 	public void setDataAjusteLeitura(Date dataAjusteLeitura) {
 		this.dataAjusteLeitura = dataAjusteLeitura;
 	}
-
 	public Short getIndicadorAjusteConsumo() {
 		return indicadorAjusteConsumo;
 	}
-
 	public void setIndicadorAjusteConsumo(Short indicadorAjusteConsumo) {
 		this.indicadorAjusteConsumo = indicadorAjusteConsumo;
 	}
-
 	public Short getIndicadorTransmissaoOffline() {
 		return indicadorTransmissaoOffline;
 	}
-
 	public void setIndicadorTransmissaoOffline(Short indicadorTransmissaoOffline) {
 		this.indicadorTransmissaoOffline = indicadorTransmissaoOffline;
 	}
-
 	public Integer getIndicadorSequencialLeitura() {
 		return indicadorSequencialLeitura;
 	}
-
 	public void setIndicadorSequencialLeitura(Integer indicadorSequencialLeitura) {
 		this.indicadorSequencialLeitura = indicadorSequencialLeitura;
 	}
-
 	public Integer getNumeroLimiteImoveis() {
 		return numeroLimiteImoveis;
 	}
-
 	public void setNumeroLimiteImoveis(Integer numeroLimiteImoveis) {
 		this.numeroLimiteImoveis = numeroLimiteImoveis;
 	}
+    public SetorComercial getSetorComercial() {
+        return setorComercial;
+    }
+    public void setSetorComercial(SetorComercial setorComercial) {
+        this.setorComercial = setorComercial;
+    }
+    public Integer getNumeroSequenciaLeitura() {
+        return numeroSequenciaLeitura;
+    }
+    public void setNumeroSequenciaLeitura(Integer numeroSequenciaLeitura) {
+        this.numeroSequenciaLeitura = numeroSequenciaLeitura;
+    }
+    public Boolean isAtiva() {
+        return ativa != null && ativa == Status.ATIVO.getId();
+    }
 
-	public SetorComercial getSetorComercial() {
-		return setorComercial;
-	}
+    public void setAtiva(Short ativa) {
+        this.ativa = ativa;
+    }
 
-	public void setSetorComercial(SetorComercial setorComercial) {
-		this.setorComercial = setorComercial;
-	}
-
-	public Integer getNumeroSequenciaLeitura() {
-		return numeroSequenciaLeitura;
-	}
-
-	public void setNumeroSequenciaLeitura(Integer numeroSequenciaLeitura) {
-		this.numeroSequenciaLeitura = numeroSequenciaLeitura;
-	}
-
-	public String toString() {
-		return "Rota [id=" + id + "]";
-	}
+    public String toString() {
+        return "Rota [id=" + id + "]";
+    }
 
 	public int hashCode() {
 		final int prime = 31;

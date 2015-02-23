@@ -59,13 +59,15 @@ public class HidrometroMedicaoHistoricoTO implements Serializable {
 		
 	}
 	public void setMedicaoHistorico(MedicaoHistorico medicaoHistorico) {
-		this.numeroLeituraInstalacao = medicaoHistorico.getLeituraAtualFaturamento();
-		this.leituraAtualFaturamento = medicaoHistorico.getLeituraAtualFaturamento();
-		this.dataLeituraAtualFaturamento = medicaoHistorico.getDataLeituraAtualFaturamento();
-		this.leituraSituacaoAtual = medicaoHistorico.getLeituraSituacaoAtual();
-		this.consumoMedioHidrometro = medicaoHistorico.getConsumoMedioHidrometro();
-		this.dataLeituraAtualInformada = medicaoHistorico.getDataLeituraAtualInformada();
-		this.leituraAtualInformada = medicaoHistorico.getLeituraAtualInformada();
+	    if (medicaoHistorico != null){
+	        this.numeroLeituraInstalacao = medicaoHistorico.getLeituraAtualFaturamento();
+	        this.leituraAtualFaturamento = medicaoHistorico.getLeituraAtualFaturamento();
+	        this.dataLeituraAtualFaturamento = medicaoHistorico.getDataLeituraAtualFaturamento();
+	        this.leituraSituacaoAtual = medicaoHistorico.getLeituraSituacaoAtual();
+	        this.consumoMedioHidrometro = medicaoHistorico.getConsumoMedioHidrometro();
+	        this.dataLeituraAtualInformada = medicaoHistorico.getDataLeituraAtualInformada();
+	        this.leituraAtualInformada = medicaoHistorico.getLeituraAtualInformada();
+	    }
 	}
 	public String getNumero() {
 		return numero;

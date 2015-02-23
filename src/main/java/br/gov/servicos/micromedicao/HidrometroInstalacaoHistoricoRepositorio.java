@@ -35,8 +35,10 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		   .append(" WHERE (lagu.imovel.id = :idImovel OR imovel.id = :idImovel) ")
 		   .append(" AND hidi.dataRetirada is null ");
 
-		return entity.createQuery(sql.toString(), HidrometroTO.class).setParameter("idImovel", idImovel).getResultList();
-	}
+		return entity.createQuery(sql.toString(), HidrometroTO.class)
+		        .setParameter("idImovel", idImovel)
+		        .getResultList();
+	}	
 	
 	public HidrometroTO dadosInstalacaoHidrometroAgua(Integer idImovel) {
 		StringBuilder sql = new StringBuilder();
@@ -111,7 +113,8 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 
 		return entity.createQuery(sql.toString(), Hidrometro.class).setParameter("idImovel", idImovel).getSingleResult();
 	}
-	
+
+	//TODO: Metodo semelhante ao dadosHidrometroInstaladoAgua
 	public HidrometroInstalacaoHistorico hidrometroInstalacaoHistoricoAtualAgua(Integer idImovel) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT hidi ")

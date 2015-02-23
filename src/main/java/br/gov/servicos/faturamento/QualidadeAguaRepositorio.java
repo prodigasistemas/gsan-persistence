@@ -1,6 +1,7 @@
 package br.gov.servicos.faturamento;
 
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 
 import br.gov.model.faturamento.QualidadeAgua;
 import br.gov.model.util.GenericRepository;
@@ -16,9 +17,14 @@ public class QualidadeAguaRepositorio extends GenericRepository<Integer, Qualida
 		.append("where qualidadeagua.anoMesReferencia = :anoMesReferencia ")
 		.append("AND qualidadeagua.sistemaAbastecimento.id = :idSistemaAbastecimento");
 
-		return entity.createQuery(sql.toString(), QualidadeAgua.class)
-		.setParameter("anoMesReferencia", anoMesReferencia)
-		.setParameter("idSistemaAbastecimento", idSistemaAbastecimento).getSingleResult();
+		try {
+		    return entity.createQuery(sql.toString(), QualidadeAgua.class)
+		            .setParameter("anoMesReferencia", anoMesReferencia)
+		            .setParameter("idSistemaAbastecimento", idSistemaAbastecimento)
+		            .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
 	}
 	
 	public QualidadeAgua buscarPorAnoMesELocalidadeESetorComFonteCaptacao(Integer anoMesReferencia,
@@ -33,9 +39,14 @@ public class QualidadeAguaRepositorio extends GenericRepository<Integer, Qualida
 		.append("AND localidade.id = :idLocalidade ")
 		.append("AND setorcomercial.id = :idSetor");
 
-		return entity.createQuery(sql.toString(), QualidadeAgua.class)
-		.setParameter("anoMesReferencia", anoMesReferencia)
-		.setParameter("idLocalidade", idLocalidade)
-		.setParameter("idSetor", idSetor).getSingleResult();
+		try {
+		    return entity.createQuery(sql.toString(), QualidadeAgua.class)
+		            .setParameter("anoMesReferencia", anoMesReferencia)
+		            .setParameter("idLocalidade", idLocalidade)
+		            .setParameter("idSetor", idSetor)
+		            .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
 	}
 }

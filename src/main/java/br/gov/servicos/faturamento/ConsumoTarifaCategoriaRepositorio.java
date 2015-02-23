@@ -50,11 +50,12 @@ public class ConsumoTarifaCategoriaRepositorio {
 			.append(" inner join ctca.categoria cat ")
 			.append(" where vig.id = :idVigencia")
 			.append("   and cat.id = :idCategoria")
-			.append("   and ctca.subcategoria is null");
+			.append("   and ctca.subcategoria.id = :subCategoria");
 		try {
 			return entity.createQuery(sql.toString(), Integer.class)
 			.setParameter("idVigencia", idVigencia)
 			.setParameter("idCategoria", idCategoria)
+			.setParameter("subCategoria", 0) //TODO: COLOCAR COMO PARAMETRO
 			.setMaxResults(1)
 			.getSingleResult();
 		} catch (NoResultException e) {
@@ -94,6 +95,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 		.append("      catg.id = :idCategoria AND ")
 		.append("      subCatg.id = :idSubcategoria ")
 		.append("order by ctv.dataVigencia DESC");
+		
 		try {
 			return entity.createQuery(sql.toString(), ConsumoTarifaCategoria.class)
 					.setParameter("dataFaturamento",dataFaturamento)
@@ -120,19 +122,13 @@ public class ConsumoTarifaCategoriaRepositorio {
 		.append("      catg.id = :idCategoria AND ")
 		.append("      subCatg.id = :idSubcategoria ")
 		.append("order by ctv.dataVigencia DESC");
-		try {
-			return entity.createQuery(sql.toString(), ConsumoTarifaCategoria.class)
-					.setParameter("dataLeituraAnterior",dataLeitura)
-					.setParameter("dataAtual", Calendar.getInstance().getTime())
-					.setParameter("idConsumoTarifa", idConsumoTarifa)
-					.setParameter("idCategoria", idCategoria)
-					.setParameter("idSubcategoria", idSubcategoria)
-					.getResultList();
-
-		} catch (NoResultException e) {
-			return null;
-		}
+		
+		return entity.createQuery(sql.toString(), ConsumoTarifaCategoria.class)
+				.setParameter("dataLeituraAnterior",dataLeitura)
+				.setParameter("dataAtual", Calendar.getInstance().getTime())
+				.setParameter("idConsumoTarifa", idConsumoTarifa)
+				.setParameter("idCategoria", idCategoria)
+				.setParameter("idSubcategoria", idSubcategoria)
+				.getResultList();
 	}
-
-	
 }

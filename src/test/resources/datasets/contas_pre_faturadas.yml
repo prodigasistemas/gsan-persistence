@@ -1,14 +1,6 @@
-cadastro.imovel:
-  - imov_id: 1
-  - imov_id: 2
-  - imov_id: 3
-  - imov_id: 4
-  - imov_id: 5
-  - imov_id: 6
-  - imov_id: 7
-  - imov_id: 8
-  - imov_id: 9
-  - imov_id: 10
+micromedicao.rota:
+  - rota_id: 1
+  - rota_id: 2
 
 micromedicao.rota:
   - rota_id: 1
@@ -17,21 +9,30 @@ micromedicao.rota:
 faturamento.conta:
   - cnta_id: 1
     cnta_amreferenciaconta: 201501
-    imov_id: 1
+    rota_id: 1
     dcst_idatual: 0 # NORMAL
   - cnta_id: 2
     cnta_amreferenciaconta: 201502
+<<<<<<< HEAD
+=======
     imov_id: 1
+>>>>>>> stage
     rota_id: 1
     dcst_idatual: 0 # NORMAL
   - cnta_id: 3
     cnta_amreferenciaconta: 201503
+<<<<<<< HEAD
+=======
     imov_id: 1
+>>>>>>> stage
     rota_id: 1
     dcst_idatual: 9 # PREFATURADA
   - cnta_id: 4
     cnta_amreferenciaconta: 201503
     rota_id: 2
+<<<<<<< HEAD
+    dcst_idatual: 0 # NORMAL
+=======
     imov_id: 2
     dcst_idatual: 0 # NORMAL
   - cnta_id: 5
@@ -79,3 +80,4 @@ faturamento.conta:
     imov_id: 1
     rota_id: 1
     dcst_idatual: 0 # NORMAL
+>>>>>>> stage

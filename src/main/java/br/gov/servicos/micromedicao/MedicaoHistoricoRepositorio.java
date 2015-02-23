@@ -65,11 +65,14 @@ public class MedicaoHistoricoRepositorio {
 			sql.append("WHERE imovel.id = :idImovel AND medicaoHistorico.anoMesReferencia = :anoMesReferencia ");
 		}
 
-		Integer retorno = entity.createQuery(sql.toString(), Integer.class)
-				.setParameter("idImovel", consumoHistorico.getImovel().getId())
-				.setParameter("anoMesReferencia", consumoHistorico.getReferenciaFaturamento())
-				.setMaxResults(1).getSingleResult();
-
-		return retorno;
+		try {
+		    return entity.createQuery(sql.toString(), Integer.class)
+		            .setParameter("idImovel", consumoHistorico.getImovel().getId())
+		            .setParameter("anoMesReferencia", consumoHistorico.getReferenciaFaturamento())
+		            .setMaxResults(1).getSingleResult();
+            
+        } catch (NoResultException e) {
+            return null;
+        }
 	}
 }

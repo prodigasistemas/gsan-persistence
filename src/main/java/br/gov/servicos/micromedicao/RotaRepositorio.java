@@ -5,19 +5,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.micromedicao.Rota;
+import br.gov.model.util.GenericRepository;
 
 @Stateless
-public class RotaRepositorio {
+public class RotaRepositorio extends GenericRepository<Integer, Rota>{
 	
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public Rota findById(Integer id){
-		return entity.find(Rota.class, id);
-	}
-	
 	public boolean isRotaAlternativa(Integer id){
-		Rota rota = findById(id);
+		Rota rota = obterPorID(id);
 		
 		return rota.isAlternativa();
 	}

@@ -169,6 +169,7 @@ public class Imovel implements Serializable {
 	private AreaConstruidaFaixa areaConstruidaFaixa;
 
 	@OneToMany(mappedBy = "imovel", fetch = FetchType.LAZY)
+	//TODO: Atributo deve ser contas
 	private List<Conta> conta;
 
 	public Imovel() {
@@ -178,6 +179,10 @@ public class Imovel implements Serializable {
 		this.id = id;
 	}
 
+	public boolean isFixo(){
+	    return !existeHidrometro() && ligacaoAguaSituacao.getId() == LigacaoAguaSituacao.LIGADO;
+	}
+	
 	public boolean responsavelRecebeConta() {
 		return imovelContaEnvio != null && (imovelContaEnvio == ImovelContaEnvio.ENVIAR_CLIENTE_RESPONSAVEL || imovelContaEnvio == ImovelContaEnvio.NAO_PAGAVEL_IMOVEL_PAGAVEL_RESPONSAVEL);
 	}

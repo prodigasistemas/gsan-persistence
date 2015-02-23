@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.exception.TarifaConsumoInexistente;
 import br.gov.servicos.to.ConsumoTarifaVigenciaTO;
 
 @Stateless
@@ -49,7 +50,7 @@ public class ConsumoTarifaVigenciaRepositorio {
 					.setParameter("data", data)
 					.setMaxResults(1).getSingleResult();
 		} catch (NoResultException e) {
-			return null;
+		    throw new TarifaConsumoInexistente(idTarifa, data);
 		}
 	}
 }

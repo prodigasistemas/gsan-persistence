@@ -188,5 +188,17 @@ public class ContaRepositorioTest extends SingleDeployment {
     @UsingDataSet("contas_pre_faturadas.yml")
     public void naoExistemContasPreFaturadas() {
         assertEquals(0, repositorio.obterContasPreFaturadas(201503, 2).size());
+    }
+    
+    @Test
+    @UsingDataSet("contas_pre_faturadas_movimento.yml")
+    public void existeContaPreFaturadaSemMovimento() {
+        assertEquals(true, repositorio.existeContaPreFaturadaSemMovimento(1, 201501));
+    }
+    
+    @Test
+    @UsingDataSet("contas_pre_faturadas_movimento.yml")
+    public void naoExisteContaPreFaturadaSemMovimento() {
+        assertEquals(false, repositorio.existeContaPreFaturadaSemMovimento(1, 201502));
     }	
 }

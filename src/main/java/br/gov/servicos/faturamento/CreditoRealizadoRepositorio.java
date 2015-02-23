@@ -8,9 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.faturamento.CreditoRealizado;
+import br.gov.model.util.GenericRepository;
 
 @Stateless
-public class CreditoRealizadoRepositorio {
+public class CreditoRealizadoRepositorio extends GenericRepository<Integer, CreditoRealizado>{
 
 	@PersistenceContext
 	private EntityManager entity;
@@ -37,11 +38,4 @@ public class CreditoRealizadoRepositorio {
 		.setParameter("ids", idsContas)
 		.executeUpdate();
 	}
-
-	public Integer inserir(CreditoRealizado creditoRealizado) {
-		entity.persist(creditoRealizado);
-		entity.flush();
-		
-		return creditoRealizado.getId();
-	}		
 }

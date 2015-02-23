@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -57,15 +58,15 @@ public class MedicaoHistorico implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dataLeituraAtualInformada;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lagu_id")
 	private LigacaoAgua ligacaoAgua;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ltan_idleitanormfatmt")
 	private LeituraAnormalidade leituraAnormalidadeFaturamento;
 	

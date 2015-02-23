@@ -112,7 +112,6 @@ public class ImovelSubcategoriaRepositorio {
 				.append("from ImovelSubcategoria imovelSubCategoria ")
 				.append("	inner join imovelSubCategoria.subcategoria subcategoria ")
 				.append("	inner join subcategoria.categoria categoria ")
-				.append("	inner join subcategoria.categoria  ")
 				.append("where imovelSubCategoria.pk.imovelId = :idImovel ")
 				.append("group by subcategoria.id, ")
 				.append("	subcategoria.codigo,")
@@ -126,7 +125,9 @@ public class ImovelSubcategoriaRepositorio {
 				.append("	categoria.fatorEconomias, subcategoria.indicadorSazonalidade, ")
 				.append("	categoria.descricaoAbreviada, subcategoria.descricaoAbreviada ");
 
-		retorno = entity.createQuery(consulta.toString(), ICategoria.class).setParameter("idImovel", imovelId).getResultList();
+		retorno = entity.createQuery(consulta.toString(), ICategoria.class)
+		        .setParameter("idImovel", imovelId)
+		        .getResultList();
 
 		return retorno;
 	}	

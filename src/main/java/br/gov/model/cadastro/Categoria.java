@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.gov.servicos.to.ImovelSubcategoriaTO;
+
 @Entity
 @Table(name="categoria", schema="cadastro")
 public class Categoria implements Serializable, ICategoria{
@@ -280,4 +282,14 @@ public class Categoria implements Serializable, ICategoria{
 	public Short getIndicadorSazonalidade() {
 		return null;
 	}
+
+    public Categoria newInstance(ImovelSubcategoriaTO to) {
+        Categoria categoria = new Categoria();
+        categoria.setId(to.getCategoriaId());
+        categoria.setDescricao(to.getCategoriaDescricao());
+        categoria.setFatorEconomias(to.getFatorEconomias());
+        categoria.setCategoriaTipo(to.getCategoriaTipoId());
+
+        return categoria;
+    }
 }
