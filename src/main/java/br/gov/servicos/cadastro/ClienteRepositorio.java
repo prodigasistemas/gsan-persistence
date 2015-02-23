@@ -44,7 +44,7 @@ public class ClienteRepositorio {
 		}
 	}
 
-	public Cliente buscarClienteResponsavelPorImovel(Integer idImovel){
+	public Cliente buscarClientePorImovel(Integer idImovel, Integer clienteRelacaoTipo){
 		try{
 			StringBuilder sql = new StringBuilder();
 			sql.append("select clienteImovel ")
@@ -59,7 +59,8 @@ public class ClienteRepositorio {
 			
 			ClienteImovel clienteImovel = entity.createQuery(sql.toString(), ClienteImovel.class)
 					.setParameter("idImovel", idImovel)
-					.setParameter("idResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
+					//.setParameter("idResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
+					.setParameter("idResponsavel", clienteRelacaoTipo)
 					.setMaxResults(1)
 					.getSingleResult();
 			
@@ -69,4 +70,6 @@ public class ClienteRepositorio {
 			return null;
 		}
 	}
+	
+	
 }

@@ -10,6 +10,10 @@ cadastro.imovel:
   - imov_id: 9
   - imov_id: 10
 
+micromedicao.rota:
+  - rota_id: 1
+  - rota_id: 2
+
 faturamento.conta:
   - cnta_id: 1
     cnta_amreferenciaconta: 201501
@@ -18,13 +22,16 @@ faturamento.conta:
   - cnta_id: 2
     cnta_amreferenciaconta: 201502
     imov_id: 1
+    rota_id: 1
     dcst_idatual: 0 # NORMAL
   - cnta_id: 3
     cnta_amreferenciaconta: 201503
     imov_id: 1
+    rota_id: 1
     dcst_idatual: 9 # PREFATURADA
   - cnta_id: 4
     cnta_amreferenciaconta: 201503
+    rota_id: 2
     imov_id: 2
     dcst_idatual: 0 # NORMAL
   - cnta_id: 5
@@ -70,4 +77,5 @@ faturamento.conta:
   - cnta_id: 15
     cnta_amreferenciaconta: 201501
     imov_id: 1
+    rota_id: 1
     dcst_idatual: 0 # NORMAL

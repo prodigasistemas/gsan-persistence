@@ -177,4 +177,16 @@ public class ContaRepositorioTest extends SingleDeployment {
 		
 		assertEquals(1, repositorio.obterQuantidadeContasPreFaturadaPorImoveis(201501, idsImoveis));
 	}
+	
+    @Test
+    @UsingDataSet("contas_pre_faturadas.yml")
+    public void existemContasPreFaturadas() {
+        assertEquals(1, repositorio.obterContasPreFaturadas(201503, 1).size());
+    }
+    
+    @Test
+    @UsingDataSet("contas_pre_faturadas.yml")
+    public void naoExistemContasPreFaturadas() {
+        assertEquals(0, repositorio.obterContasPreFaturadas(201503, 2).size());
+    }	
 }

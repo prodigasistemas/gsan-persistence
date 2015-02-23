@@ -43,7 +43,7 @@ public class ImovelRepositorioTest extends SingleDeployment{
 	@Test
 	@UsingDataSet("imoveis_gerar_arquivo_texto_faturamento.yml")
 	public void imoveisGerarArquivoTextoFaturamento() throws Exception {
-		List<Imovel> lista = repositorio.imoveisParaGerarArquivoTextoFaturamento(1, 0, 10);
+		List<Imovel> lista = repositorio.buscarImoveisParaGerarArquivoTextoFaturamento(1, 0, 10);
 		
 		assertEquals(1, lista.size());
 	}
@@ -51,7 +51,7 @@ public class ImovelRepositorioTest extends SingleDeployment{
 	@Test
 	@UsingDataSet("imoveis_gerar_arquivo_texto_faturamento.yml")
 	public void imoveisGerarArquivoTextoFaturamentoPorRotaAlternativa() throws Exception {
-		List<Imovel> lista = repositorio.imoveisParaGerarArquivoTextoFaturamentoPorRotaAlternativa(5, 0, 10);
+		List<Imovel> lista = repositorio.buscarImoveisParaGerarArquivoTextoFaturamentoPorRotaAlternativa(5, 0, 10);
 		
 		assertEquals(1, lista.size());
 	}
@@ -85,4 +85,16 @@ public class ImovelRepositorioTest extends SingleDeployment{
 	public void buscarImovelPorIdInexistente() throws Exception {
 		assertNull(repositorio.buscarPeloId(10));
 	}
+
+    @Test
+    @UsingDataSet("imoveis_contas_pre_faturadas.yml")
+    public void existemContasPreFaturadas() {
+        assertEquals(1, repositorio.obterImoveisComContasPreFaturadas(201503, 1).size());
+    }
+    
+    @Test
+    @UsingDataSet("imoveis_contas_pre_faturadas.yml")
+    public void naoExistemContasPreFaturadas() {
+        assertEquals(0, repositorio.obterImoveisComContasPreFaturadas(201503, 2).size());
+    }
 }

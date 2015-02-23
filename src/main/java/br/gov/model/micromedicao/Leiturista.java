@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +29,13 @@ public class Leiturista implements Serializable {
 	@Column(name = "leit_nnimei")
 	private Long numeroImei;
 
-	@ManyToOne
+	@Column(name = "leit_cdddd")
+	private String codigoDDD;
+	
+	@Column(name = "leit_nnfone")
+	private String numeroFone;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "usur_id")
 	private Usuario usuario;
 
@@ -56,7 +63,23 @@ public class Leiturista implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public String toString() {
+	public String getCodigoDDD() {
+        return codigoDDD;
+    }
+
+    public void setCodigoDDD(String codigoDDD) {
+        this.codigoDDD = codigoDDD;
+    }
+
+    public String getNumeroFone() {
+        return numeroFone;
+    }
+
+    public void setNumeroFone(String numeroFone) {
+        this.numeroFone = numeroFone;
+    }
+
+    public String toString() {
 		return "Leiturista [id=" + id + "]";
 	}
 }

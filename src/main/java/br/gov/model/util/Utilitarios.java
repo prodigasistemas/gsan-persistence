@@ -21,6 +21,7 @@ public class Utilitarios {
     
     public static String DIA_MES_ANO = "dd/MM/yyyy";
     public static String MES_ANO     = "MM/yyyy";
+    public static String quebraLinha = System.getProperty("line.separator");
 
     public static Integer obterDigitoVerificador(String codigoBarraCom43Posicoes, Short moduloVerificador) {
         Integer digitoVerificadorGeral = null;
@@ -407,7 +408,7 @@ public class Utilitarios {
         return texto != null ? texto.toLowerCase() : "";
     }
     
-    public int obterQuantidadeLinhasTexto(StringBuilder texto) {
+    public static int obterQuantidadeLinhasTexto(StringBuilder texto) {
         return texto != null ? texto.toString().split(System.getProperty("line.separator")).length : 0;
     }
 }

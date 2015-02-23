@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import br.gov.model.micromedicao.ConsumoAnormalidade;
 
-public class AnormalidadeHistoricoConsumo implements Serializable {
+public class AnormalidadeHistoricoConsumoTO implements Serializable {
 	private static final long serialVersionUID = -6865141713743168236L;
 	
 	private Integer idConsumoHistorico;
@@ -15,10 +15,10 @@ public class AnormalidadeHistoricoConsumo implements Serializable {
 
 	private Integer referenciaFaturamento;
 	
-	public AnormalidadeHistoricoConsumo() {
+	public AnormalidadeHistoricoConsumoTO() {
     }
 
-	public AnormalidadeHistoricoConsumo(Integer idConsumoHistorico, Integer idAnormalidade, Integer ligacaoTipo, Integer referenciaFaturamento) {
+	public AnormalidadeHistoricoConsumoTO(Integer idConsumoHistorico, Integer idAnormalidade, Integer ligacaoTipo, Integer referenciaFaturamento) {
 		this.idConsumoHistorico = idConsumoHistorico;
 		this.idAnormalidade = idAnormalidade;
 		this.ligacaoTipo = ligacaoTipo;

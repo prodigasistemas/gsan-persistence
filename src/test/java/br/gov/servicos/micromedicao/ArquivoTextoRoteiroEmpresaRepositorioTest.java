@@ -32,7 +32,7 @@ public class ArquivoTextoRoteiroEmpresaRepositorioTest extends SingleDeployment 
 	@UsingDataSet("arquivo_texto_roteiro_empresa.yml")
 	@ShouldMatchDataSet("arquivo_texto_roteiro_empresa_expected.yml")
 	public void deletarArquivo() {
-		repositorio.deletarPorId(3);
-		repositorio.deletarPorId(4);
+		repositorio.excluir(3);
+		repositorio.excluir(4);
 	}
 }

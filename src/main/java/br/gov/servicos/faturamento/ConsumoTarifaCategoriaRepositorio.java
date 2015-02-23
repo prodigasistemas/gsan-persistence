@@ -1,7 +1,6 @@
 package br.gov.servicos.faturamento;
 
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +10,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-
-import org.hibernate.HibernateException;
 
 import br.gov.model.cadastro.ICategoria;
 import br.gov.model.cadastro.SistemaParametros;
@@ -53,7 +50,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 			.append(" inner join ctca.categoria cat ")
 			.append(" where vig.id = :idVigencia")
 			.append("   and cat.id = :idCategoria")
-			.append("   and ctca.subCategoria is null");
+			.append("   and ctca.subcategoria is null");
 		try {
 			return entity.createQuery(sql.toString(), Integer.class)
 			.setParameter("idVigencia", idVigencia)
@@ -71,7 +68,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 		sql.append("select ctca.numeroConsumoMinimo ")
 		.append(" from ConsumoTarifaCategoria ctca ")
 		.append(" inner join ctca.consumoTarifaVigencia vig")
-		.append(" inner join ctca.subCategoria sub ")
+		.append(" inner join ctca.subcategoria sub ")
 		.append(" where vig.id = :idVigencia")
 		.append("   and sub.id = :idSubCategoria");
 		try {
@@ -91,7 +88,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 		.append("inner join ctcg.consumoTarifaVigencia ctv ")
 		.append("inner join ctv.consumoTarifa ct ")
 		.append("inner join ctcg.categoria catg ")
-		.append("inner join ctcg.subCategoria subCatg ")
+		.append("inner join ctcg.subcategoria subCatg ")
 		.append("WHERE ctv.dataVigencia = :dataFaturamento AND ")
 		.append("      ct.id = :idConsumoTarifa AND ")
 		.append("      catg.id = :idCategoria AND ")
@@ -117,7 +114,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 		.append("inner join ctcg.consumoTarifaVigencia ctv ")
 		.append("inner join ctv.consumoTarifa ct ")
 		.append("inner join ctcg.categoria catg ")
-		.append("inner join ctcg.subCategoria subCatg ")
+		.append("inner join ctcg.subcategoria subCatg ")
 		.append("WHERE ctv.dataVigencia between :dataLeituraAnterior and :dataAtual AND ")
 		.append("      ct.id = :idConsumoTarifa AND ")
 		.append("      catg.id = :idCategoria AND ")

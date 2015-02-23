@@ -2,7 +2,10 @@ package br.gov.model.cadastro;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -16,6 +19,10 @@ public class SetorComercial {
 	
 	@Column(name="stcm_cdsetorcomercial")
 	private Integer codigo;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="loca_id")
+	private Localidade localidade;
 	
 	public SetorComercial() {}
 	
@@ -39,7 +46,15 @@ public class SetorComercial {
 		this.codigo = codigo;
 	}
 
-	public String toString() {
+	public Localidade getLocalidade() {
+        return localidade;
+    }
+
+    public void setLocalidade(Localidade localidade) {
+        this.localidade = localidade;
+    }
+
+    public String toString() {
 		return "SetorComercial [id=" + id + "]";
 	}
 }
