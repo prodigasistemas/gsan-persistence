@@ -261,7 +261,7 @@ public class Imovel implements Serializable {
 	public String getInscricaoFormatadaSemPonto() {
 		StringBuilder inscricao = new StringBuilder();
 		inscricao.append(Utilitarios.completaComZerosEsquerda(3, localidade.getId()))
-				 .append(Utilitarios.completaComZerosEsquerda(3, setorComercial.getId()))
+				 .append(Utilitarios.completaComZerosEsquerda(3, setorComercial.getCodigo()))
 				 .append(quadra.getNumeroQuadra().toString().length() < 3 ? Utilitarios.completaComZerosEsquerda(3, quadra.getNumeroQuadra()) : 
 					 quadra.getNumeroQuadra()).append(Utilitarios.completaComZerosEsquerda(4, lote)).append(Utilitarios.completaComZerosEsquerda(3, subLote));
 
@@ -304,7 +304,7 @@ public class Imovel implements Serializable {
 		return indicadorEmissaoExtratoFaturamento != null && indicadorEmissaoExtratoFaturamento == (short) 1;
 	}
 
-	public StringBuilder getEnderecoFormatadoAbreviado() {
+	public StringBuilder getEnderecoFormatadoResumido() {
 		StringBuilder endereco = new StringBuilder();
 
 		if (logradouroCep != null && logradouroCep.getLogradouro() != null) {
@@ -328,7 +328,7 @@ public class Imovel implements Serializable {
 				}
 			}
 
-			endereco.append(numeroImovel != null ? numeroImovel.trim() : "");
+			endereco.append(" ").append(numeroImovel != null ? numeroImovel.trim() : "");
 
 			if (complementoEndereco != null) {
 				endereco.append(" - ").append(complementoEndereco.trim());
@@ -346,19 +346,30 @@ public class Imovel implements Serializable {
 				}
 
 			}
-
-			if (logradouroCep.getCep() != null) {
-				endereco.append(" ").append(logradouroCep.getCep().getCepFormatado().trim());
-			}
-
-			if (perimetroInicial != null) {
-				endereco.append(" ENTRE ").append(perimetroInicial.getDescricaoFormatada()).append(" E ").append(perimetroFinal.getDescricaoFormatada());
-			}
-
 		}
 
 		return endereco;
 	}
+
+    public StringBuilder getEnderecoFormatadoAbreviado() {
+        StringBuilder endereco = new StringBuilder();
+
+        if (logradouroCep != null && logradouroCep.getLogradouro() != null) {
+            
+            endereco.append(getEnderecoFormatadoResumido());
+
+            if (logradouroCep.getCep() != null) {
+                endereco.append(" ").append(logradouroCep.getCep().getCepFormatado().trim());
+            }
+
+            if (perimetroInicial != null) {
+                endereco.append(" ENTRE ").append(perimetroInicial.getDescricaoFormatada()).append(" E ").append(perimetroFinal.getDescricaoFormatada());
+            }
+
+        }
+
+        return endereco;
+    }
 
 	public boolean possuiFaturamentoSituacaoTipo() {
 		return faturamentoSituacaoTipo != null && faturamentoSituacaoTipo.getId() != null;

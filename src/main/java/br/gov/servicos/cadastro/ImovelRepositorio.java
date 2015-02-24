@@ -120,7 +120,8 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
 		.append("   AND imovel.indicadorExclusao <> :idExclusao ")
 		.append("   AND rota.id = :idRota")
 		.append("   AND imovel.rotaAlternativa is null ")
-		.append("   AND imovel.imovelCondominio is null ");
+		.append("   AND imovel.imovelCondominio is null ")
+		.append(" ORDER BY imovel.indicadorImovelCondominio, imovel.localidade, imovel.setorComercial, imovel.quadra.numeroQuadra, imovel.lote, imovel.subLote");
 
 		return entity.createQuery(sql.toString(), Imovel.class)
 				.setParameter("idRota", idRota)
@@ -154,7 +155,8 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
 		.append("   imovelPerfil.indicadorGerarDadosLeitura = 1 ")
 		.append("   AND imovel.indicadorExclusao <> :idExclusao ")
 		.append("   AND rotaAlternativa.id = :idRota")
-		.append("   AND imovel.imovelCondominio is null ");
+		.append("   AND imovel.imovelCondominio is null ")
+		.append(" ORDER BY imovel.indicadorImovelCondominio, localidade, setorComercial, quadra.numeroQuadra, imovel.lote, imovel.subLote");
 		
 		return entity.createQuery(sql.toString(), Imovel.class)
 				.setParameter("idRota", idRota)
@@ -302,7 +304,7 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
 	 ***********************************************/
 	private StringBuilder consultaImoveisParaArquivoTextoFaturamentoPorRotaAlternativa(){
 		StringBuilder sql = new StringBuilder();
-		sql.append("select distinct imovel ")
+        sql.append("select imovel ")
 		.append(" FROM Imovel imovel ")
 		.append(" INNER JOIN imovel.rotaAlternativa rotaAlternativa ")
 		.append(" INNER JOIN imovel.localidade localidade ")
@@ -345,7 +347,7 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
 	
 	private StringBuilder consultaImoveisParaArquivoTextoFaturamento(){
 		StringBuilder sql = new StringBuilder();
-		sql.append("select distinct imovel ")
+		sql.append("select imovel ")
 		.append(" FROM Imovel imovel ")
 		.append(" INNER JOIN imovel.localidade localidade ")
 		.append(" INNER JOIN localidade.gerenciaRegional gerenciaRegional ")

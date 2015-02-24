@@ -43,13 +43,16 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@Column(name="mrem_ammovimento")
 	private Integer anoMesMovimento;
 	
+	@Column(name="mrem_cdsetorcomercial")
+	private Integer codigoSetorComercial;
+	
 	@Column(name="mrem_nmcliente")
 	private String nomeCliente;
 
 	@Column(name="mrem_enderecoimovel")
 	private String enderecoImovel;
 	
-	@Column(name="mrem_nnhidrometro")
+	@Column(name="mrem_nnhidrometro", columnDefinition="bpchar(10)")
 	private String numeroHidrometro;
 	
 	@Column(name="mrem_qteconomias")
@@ -134,14 +137,23 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@Column(name="mrem_nmleiturista")
 	private String nomeLeiturista;
 	
-	@Column(name="mrem_dsabrevlogradourotitulo")
+	@Column(name="mrem_dsabrevlogradourotitulo", columnDefinition="bpchar(5)")
 	private String descricaoAbreviadaLogradouroTitulo;
 	
-	@Column(name="mrem_dsabrevlogradourotipo")
+	@Column(name="mrem_dsabrevlogradourotipo", columnDefinition="bpchar(5)")
 	private String descricaoAbreviadaLogradouroTipo;
 	
 	@Column(name="mrem_cdfacequadra")
 	private Integer codigoQuadraFace;
+	
+	@Column(name="mrem_nnquadra")
+	private Integer numeroQuadra;
+	
+	@Column(name="mrem_nnloteimovel", columnDefinition="bpchar(4)")
+	private String loteImovel;
+	
+	@Column(name="mrem_nnsubloteimovel", columnDefinition="bpchar(4)")
+	private String subLoteImovel;
 	
 	@Column(name="mrem_nnmoradores")
 	private Integer numeroMoradores;
@@ -732,4 +744,36 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	public void setCategoriaPrincipal(Categoria categoriaPrincipal) {
 		this.categoriaPrincipal = categoriaPrincipal;
 	}
+
+    public Integer getCodigoSetorComercial() {
+        return codigoSetorComercial;
+    }
+
+    public void setCodigoSetorComercial(Integer codigoSetorComercial) {
+        this.codigoSetorComercial = codigoSetorComercial;
+    }
+
+    public Integer getNumeroQuadra() {
+        return numeroQuadra;
+    }
+
+    public void setNumeroQuadra(Integer numeroQuadra) {
+        this.numeroQuadra = numeroQuadra;
+    }
+
+    public String getLoteImovel() {
+        return loteImovel;
+    }
+
+    public void setLoteImovel(String loteImovel) {
+        this.loteImovel = loteImovel;
+    }
+
+    public String getSubLoteImovel() {
+        return subLoteImovel;
+    }
+
+    public void setSubLoteImovel(String subLoteImovel) {
+        this.subLoteImovel = subLoteImovel;
+    }
 }

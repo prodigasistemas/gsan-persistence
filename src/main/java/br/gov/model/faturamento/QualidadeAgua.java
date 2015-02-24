@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,10 +33,6 @@ public class QualidadeAgua implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 
-	@ManyToOne
-	@JoinColumn(name="loca_id")
-	private Localidade localidade;
-	
 	@Column(name="qlag_amreferencia")
 	private Integer anoMesReferencia;
 	
@@ -71,18 +68,6 @@ public class QualidadeAgua implements Serializable{
 	
 	@Column(name="qlag_nnindicealcalinidade")
 	private BigDecimal numeroIndiceAlcalinidade;
-
-	@ManyToOne
-	@JoinColumn(name="ftcp_id")
-	private FonteCaptacao fonteCaptacao;
-
-	@ManyToOne
-	@JoinColumn(name="stcm_id")
-	private SetorComercial setorComercial;
-	
-	@ManyToOne
-	@JoinColumn(name="sabs_id")
-	private SistemaAbastecimento sistemaAbastecimento;
 
 	@Column(name="qlag_qtturbidezexigidas")
 	private Integer quantidadeTurbidezExigidas;
@@ -156,6 +141,22 @@ public class QualidadeAgua implements Serializable{
 	@Column(name="qlag_qtalcalinidadeconforme")
 	private Integer quantidadeAlcalinidadeConforme;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="ftcp_id")
+    private FonteCaptacao fonteCaptacao;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="stcm_id")
+    private SetorComercial setorComercial;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="sabs_id")
+    private SistemaAbastecimento sistemaAbastecimento;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="loca_id")
+    private Localidade localidade;
+    
 	public Integer getId() {
 		return id;
 	}

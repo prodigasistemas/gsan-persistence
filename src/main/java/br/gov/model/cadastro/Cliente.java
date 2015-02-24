@@ -277,10 +277,11 @@ public class Cliente implements Serializable {
 		return cnpj != null && !cnpj.equals("");
 	}
 	
+	//TODO: TESTAR
 	public String getCpfOuCnpj() {
 		if (possuiCpf())
 			return cpf;
-		else if (possuiCpf())
+		else if (possuiCnpj())
 			return cnpj;
 		else
 			return "";

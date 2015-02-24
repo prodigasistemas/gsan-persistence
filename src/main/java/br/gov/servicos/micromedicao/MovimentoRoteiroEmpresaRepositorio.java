@@ -1,25 +1,22 @@
 package br.gov.servicos.micromedicao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 
 import br.gov.model.cadastro.Imovel;
-import br.gov.model.exception.ErroCriacaoMovimentoRoteiroEmpresa;
 import br.gov.model.faturamento.FaturamentoGrupo;
+import br.gov.model.micromedicao.LeituraTipo;
 import br.gov.model.micromedicao.MovimentoRoteiroEmpresa;
 import br.gov.model.micromedicao.Rota;
+import br.gov.model.util.GenericRepository;
 
 @Stateless
-public class MovimentoRoteiroEmpresaRepositorio {
+public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Integer, MovimentoRoteiroEmpresa>{
 
-	@PersistenceContext
-	private EntityManager em;
-	
 	public void deletarPorRota(Rota rota){
 		deletarPorReferenciaERota(rota.getFaturamentoGrupo().getAnoMesReferencia(), rota);
 	}
@@ -31,7 +28,7 @@ public class MovimentoRoteiroEmpresaRepositorio {
 			.append(" and movimento.rota.id = :idRota ")
 			.append(" and movimento.faturamentoGrupo.id = :idFaturamentoGrupo ");
 		
-		em.createQuery(sql.toString())
+		entity.createQuery(sql.toString())
 		.setParameter("referencia", referencia)
 		.setParameter("idRota", rota.getId())
 		.setParameter("idFaturamentoGrupo", rota.getFaturamentoGrupo().getId())
@@ -55,7 +52,7 @@ public class MovimentoRoteiroEmpresaRepositorio {
 				.append(" and movimento.faturamentoGrupo.id <> :idFaturamentoGrupo ")
 				.append(" and movimento.anoMesMovimento = :anoMes ");
 
-			return em.createQuery(sql.toString(), Imovel.class)
+			return entity.createQuery(sql.toString(), Imovel.class)
 					.setParameter("ids", ids)
 					.setParameter("idFaturamentoGrupo", faturamentoGrupo.getId())
 					.setParameter("anoMes", faturamentoGrupo.getAnoMesReferencia())
@@ -66,15 +63,7 @@ public class MovimentoRoteiroEmpresaRepositorio {
 		}
 	}
 	
-	public void salvar(MovimentoRoteiroEmpresa movimento) {
-		try {
-			em.persist(movimento);
-			em.flush();
-		} catch (Exception e) {
-			throw new ErroCriacaoMovimentoRoteiroEmpresa(e, movimento.getId(), movimento.getImovel().getId());
-		}
-	}
-	
+	//TODO: Avaliar se precisa mover para um BO
 	public List<MovimentoRoteiroEmpresa> criarMovimentoRoteiroEmpresa(List<Imovel> imoveis, Rota rota) {
 
 		List<MovimentoRoteiroEmpresa> movimentos = new ArrayList<MovimentoRoteiroEmpresa>();
@@ -90,8 +79,17 @@ public class MovimentoRoteiroEmpresaRepositorio {
 			movimento.setLigacaoAguaSituacao(imovel.getLigacaoAguaSituacao());
 			movimento.setLigacaoEsgotoSituacao(imovel.getLigacaoEsgotoSituacao());
 			movimento.setRota(rota);
+			movimento.setEmpresa(rota.getEmpresa());
+			movimento.setCodigoSetorComercial(rota.getSetorComercial().getCodigo());
+			movimento.setNumeroQuadra(imovel.getQuadra().getNumeroQuadra());
+			movimento.setLoteImovel(imovel.getLote() != null ? imovel.getLote().toString() : "");
+			movimento.setSubLoteImovel(imovel.getSubLote() != null ? imovel.getSubLote().toString() : "");
+			movimento.setImovelPerfil(imovel.getImovelPerfil());
+			movimento.setUltimaAlteracao(new Date());
+			movimento.setLeituraTipo(LeituraTipo.LEITURA_E_ENTRADA_SIMULTANEA.getId());
 			
 			this.salvar(movimento);
+			
 			movimentos.add(movimento);
 		}
 		

@@ -65,16 +65,16 @@ public class Localidade implements Serializable{
 			}
 			
 			if (logradouroCep.getLogradouro().getLogradouroTitulo() != null){
-				endereco.append(logradouroCep.getLogradouro().getLogradouroTitulo().getDescricaoAbreviada());
+				endereco.append(" ").append(logradouroCep.getLogradouro().getLogradouroTitulo().getDescricaoAbreviada());
 			}
 
-			endereco.append(logradouroCep.getLogradouro().getNome());
+			endereco.append(" ").append(logradouroCep.getLogradouro().getNome());
 
 			if (enderecoReferencia != null && enderecoReferencia.getDescricao() != null) {
-				endereco.append(enderecoReferencia.getDescricao());
+				endereco.append(" - ").append(enderecoReferencia.getDescricao());
 			}
 
-			endereco.append(" - " + numeroImovel != null ? numeroImovel : "");
+			endereco.append(" - ").append(numeroImovel != null ? numeroImovel.trim() : "");
 
 			if (complementoEndereco != null) {
 				endereco.append(" - " + complementoEndereco);

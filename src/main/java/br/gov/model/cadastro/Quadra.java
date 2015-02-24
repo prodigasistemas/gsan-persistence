@@ -20,6 +20,7 @@ public class Quadra {
 	private Integer id;
 	
 	@Column(name="qdra_nnquadra")
+	//TODO: Deixar somente numero
 	private Integer numeroQuadra;
 	
 	@ManyToOne

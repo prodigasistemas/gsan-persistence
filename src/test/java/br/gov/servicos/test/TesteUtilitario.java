@@ -1,13 +1,25 @@
 package br.gov.servicos.test;
 
+import static br.gov.model.util.Utilitarios.completaComEspacosADireita;
+import static br.gov.model.util.Utilitarios.completaComZerosEsquerda;
+import static br.gov.model.util.Utilitarios.converteAnoMesParaMesAno;
+import static br.gov.model.util.Utilitarios.converteMesAnoParaAnoMes;
+import static br.gov.model.util.Utilitarios.converteParaDataComUltimoDiaMes;
+import static br.gov.model.util.Utilitarios.formataData;
+import static br.gov.model.util.Utilitarios.formatarBigDecimalComPonto;
+import static br.gov.model.util.Utilitarios.obterDigitoVerificadorModulo10;
+import static br.gov.model.util.Utilitarios.obterDigitoVerificadorModulo11;
+import static br.gov.model.util.Utilitarios.obterUltimoDiaMes;
+import static br.gov.model.util.Utilitarios.qtdDiasMes;
+import static br.gov.model.util.Utilitarios.reduzirMeses;
+import static br.gov.model.util.Utilitarios.retiraCaracteresEspeciais;
+import static br.gov.model.util.Utilitarios.converteAnoMesParaMesAnoSemBarra;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
 
 import org.junit.Test;
-
-import static br.gov.model.util.Utilitarios.*;
 
 public class TesteUtilitario {
 	
@@ -108,6 +120,12 @@ public class TesteUtilitario {
 	}
 	
 	@Test
+	public void testConversaoAnoMesParaMesAnoSemBarra(){
+	    assertEquals("102014", converteAnoMesParaMesAnoSemBarra(201410));
+	    assertEquals("012015", converteAnoMesParaMesAnoSemBarra(201501));
+	}
+	
+	@Test
 	public void testConversaoMesAnoParaAnoMes(){
 		assertEquals(201410, converteMesAnoParaAnoMes("10/2014").intValue());
 	}
@@ -144,6 +162,12 @@ public class TesteUtilitario {
 	    assertEquals(7, obterDigitoVerificadorModulo10("47400022002").intValue());
 	    assertEquals(5, obterDigitoVerificadorModulo10("8260000000958000220180049297560069672760115").intValue());
 	    assertEquals(9, obterDigitoVerificadorModulo10("8260000000958000220180492975600696727601005").intValue());
+	}
+	
+	@Test
+	public void testCompletaComEspacosADireita(){
+	    assertEquals("barco     ", completaComEspacosADireita(10, "barco"));
+	    assertEquals("barco amar", completaComEspacosADireita(10, "barco amarelo"));
 	}
 	
 	@Test
