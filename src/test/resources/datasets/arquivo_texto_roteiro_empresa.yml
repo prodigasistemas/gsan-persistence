@@ -3,19 +3,26 @@ micromedicao.arquivo_texto_rot_empr:
     txre_amreferencia: 201412
     rota_id: 1
     sitl_id: 1
+    ftgr_id: 1
   - txre_id: 2
     txre_amreferencia: 201501
     rota_id: 1
     sitl_id: 3
+    ftgr_id: 1
   - txre_id: 3
     txre_amreferencia: 201502
     rota_id: 1
     sitl_id: 2
+    ftgr_id: 1
   - txre_id: 4
     txre_amreferencia: 201412
     rota_id: 2
     sitl_id: 1
+    ftgr_id: 1
 
 micromedicao.rota:
   - rota_id: 1
   - rota_id: 2
+
+faturamento.faturamento_grupo:
+  - ftgr_id: 1
