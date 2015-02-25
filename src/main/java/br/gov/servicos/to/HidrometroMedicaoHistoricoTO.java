@@ -3,6 +3,7 @@ package br.gov.servicos.to;
 import java.io.Serializable;
 import java.util.Date;
 
+import br.gov.model.micromedicao.HidrometroInstalacaoHistorico;
 import br.gov.model.micromedicao.MedicaoHistorico;
 
 public class HidrometroMedicaoHistoricoTO implements Serializable {
@@ -54,6 +55,29 @@ public class HidrometroMedicaoHistoricoTO implements Serializable {
 		this.dataLeituraAtualInformada = null;
 		this.leituraAtualInformada = null;
 	}
+	
+	public HidrometroMedicaoHistoricoTO(HidrometroInstalacaoHistorico hidrometro) {
+        super();
+        this.numero = hidrometro.getHidrometro().getNumero();
+        this.numeroDigitosLeitura = hidrometro.getHidrometro().getNumeroDigitosLeitura();
+        this.dataInstalacao = hidrometro.getDataInstalacao();
+        this.numeroLeituraInstalacao = hidrometro.getNumeroLeituraInstalacao();
+        
+        if (hidrometro.getImovel() != null) {
+            this.idImovel = hidrometro.getImovel().getId();
+        } else {
+            this.idImovel = hidrometro.getLigacaoAgua().getId();
+        }
+        this.descricaoLocalInstalacao = hidrometro.getHidrometroLocalInstalacao().getDescricao();
+        this.rateioTipo = hidrometro.getRateioTipo();
+        this.medicaoTipo = hidrometro.getMedicaoTipo();
+        this.leituraAtualFaturamento = hidrometro.getNumeroLeituraInstalacao();
+        this.dataLeituraAtualFaturamento = null;
+        this.leituraSituacaoAtual = new Integer(2);
+        this.consumoMedioHidrometro = new Integer(0);
+        this.dataLeituraAtualInformada = null;
+        this.leituraAtualInformada = null;
+    }
 
 	public HidrometroMedicaoHistoricoTO() {
 		
