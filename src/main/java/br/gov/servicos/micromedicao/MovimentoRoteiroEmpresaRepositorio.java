@@ -23,16 +23,16 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 	
 	public void deletarPorReferenciaERota(Integer referencia, Rota rota){
 		StringBuilder sql = new StringBuilder();
-		sql.append("delete MovimentoRoteiroEmpresa as movimento ")
-			.append(" where movimento.anoMesMovimento = :referencia ") 
-			.append(" and movimento.rota.id = :idRota ")
-			.append(" and movimento.faturamentoGrupo.id = :idFaturamentoGrupo ");
+		sql.append("DELETE MovimentoRoteiroEmpresa as movimento ")
+		   .append("WHERE movimento.anoMesMovimento = :referencia ") 
+		   .append("AND movimento.rota.id = :idRota ")
+		   .append("AND movimento.faturamentoGrupo.id = :idFaturamentoGrupo ");
 		
 		entity.createQuery(sql.toString())
-		.setParameter("referencia", referencia)
-		.setParameter("idRota", rota.getId())
-		.setParameter("idFaturamentoGrupo", rota.getFaturamentoGrupo().getId())
-		.executeUpdate();
+			.setParameter("referencia", referencia)
+			.setParameter("idRota", rota.getId())
+			.setParameter("idFaturamentoGrupo", rota.getFaturamentoGrupo().getId())
+			.executeUpdate();
 	}
 	
 	public List<Imovel> pesquisarImoveisGeradosParaOutroGrupo(List<Imovel> imoveis, FaturamentoGrupo faturamentoGrupo) {
@@ -46,18 +46,17 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 		}
 
 		try {
-			sql.append(" select distinct movimento.imovel ")
-				.append(" from MovimentoRoteiroEmpresa movimento ")
-				.append(" where movimento.imovel.id in (:ids) ")
-				.append(" and movimento.faturamentoGrupo.id <> :idFaturamentoGrupo ")
-				.append(" and movimento.anoMesMovimento = :anoMes ");
+			sql.append("SELECT distinct movimento.imovel ")
+			   .append("FROM MovimentoRoteiroEmpresa movimento ")
+			   .append("WHERE movimento.imovel.id in (:ids) ")
+			   .append("AND movimento.faturamentoGrupo.id <> :idFaturamentoGrupo ")
+			   .append("AND movimento.anoMesMovimento = :anoMes");
 
 			return entity.createQuery(sql.toString(), Imovel.class)
 					.setParameter("ids", ids)
 					.setParameter("idFaturamentoGrupo", faturamentoGrupo.getId())
 					.setParameter("anoMes", faturamentoGrupo.getAnoMesReferencia())
 					.getResultList();
-
 		} catch (NoResultException e) {
 			return null;
 		}
@@ -96,5 +95,25 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 		return movimentos;
 	}
 	
-	
+	public List<MovimentoRoteiroEmpresa> pesquisarMovimentoParaLeitura(Integer idRota, Integer referencia) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT movimento ")
+		   .append("FROM MovimentoRoteiroEmpresa movimento ")
+		   .append("INNER JOIN movimento.imovel imovel ")
+		   .append("INNER JOIN movimento.localidade localidade ")
+		   .append("INNER JOIN movimento.rota rota ")
+		   .append("INNER JOIN imovel.quadra quadra ")
+		   .append("INNER JOIN rota.faturamentoGrupo grupo ")
+		   .append("WHERE rota.id = :idRota AND movimento.anoMesMovimento = :referencia ")
+		   .append("ORDER BY movimento.numeroQuadra, movimento.numeroLoteImovel");
+		   
+		try {
+			return entity.createQuery(sql.toString(), MovimentoRoteiroEmpresa.class)
+					.setParameter("idRota", idRota)
+					.setParameter("referencia", referencia)
+					.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }

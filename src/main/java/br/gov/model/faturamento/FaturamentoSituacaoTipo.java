@@ -1,5 +1,7 @@
 package br.gov.model.faturamento;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,8 +16,12 @@ import br.gov.model.micromedicao.LeituraAnormalidadeLeitura;
 
 @Entity
 @Table(name="fatur_situacao_tipo", schema="faturamento")
-public class FaturamentoSituacaoTipo {
+public class FaturamentoSituacaoTipo implements Serializable {
 	
+	private static final long serialVersionUID = 3499789303641982011L;
+	
+	public  static Short PARALIZAR_EMISSAO_CONTAS = Short.valueOf("1");
+
 	@Id
 	@Column(name="ftst_id")
 	private Integer id;

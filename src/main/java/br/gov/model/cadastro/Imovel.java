@@ -203,6 +203,14 @@ public class Imovel implements Serializable {
 	public boolean aguaLigada() {
 		return ligacaoAguaSituacao.getId().equals(LigacaoAguaSituacao.LIGADO);
 	}
+	
+	public boolean aguaCortada() {
+		return ligacaoAguaSituacao.getId().equals(LigacaoAguaSituacao.CORTADO);
+	}
+	
+	public boolean aguaSuprimida() {
+		return ligacaoAguaSituacao.getId().equals(LigacaoAguaSituacao.SUPRIMIDO);
+	}
 
 	public boolean possuiEsgoto() {
 		return ligacaoEsgoto != null;
@@ -258,6 +266,14 @@ public class Imovel implements Serializable {
 		return this.getLigacaoEsgotoSituacao().getSituacaoFaturamento().equals(Status.ATIVO);
 	}
 
+	public boolean fiscalizarSuprimido() {
+		return this.getQuadra().getRota() != null && this.getQuadra().getRota().getIndicadorFiscalizarSuprimido().shortValue() == Status.ATIVO.getId();
+	}
+	
+	public boolean fiscalizarCortado() {
+		return this.getQuadra().getRota() != null && this.getQuadra().getRota().getIndicadorFiscalizarCortado().shortValue() == Status.ATIVO.getId();
+	}
+	
 	public String getInscricaoFormatadaSemPonto() {
 		StringBuilder inscricao = new StringBuilder();
 		inscricao.append(Utilitarios.completaComZerosEsquerda(3, localidade.getId()))
@@ -362,6 +378,10 @@ public class Imovel implements Serializable {
 
 	public boolean possuiFaturamentoSituacaoTipo() {
 		return faturamentoSituacaoTipo != null && faturamentoSituacaoTipo.getId() != null;
+	}
+	
+	public boolean paralisarEmissaoContas() {
+		return possuiFaturamentoSituacaoTipo() && faturamentoSituacaoTipo.getId().intValue() == FaturamentoSituacaoTipo.PARALIZAR_EMISSAO_CONTAS.intValue();
 	}
 
 	/**********************************************
