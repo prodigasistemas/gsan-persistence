@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
@@ -43,7 +44,7 @@ public class ImovelSubcategoria implements Serializable{
 	})
     private Set<ImovelEconomia> imovelEconomias;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="scat_id", insertable=false, updatable=false)
 	private Subcategoria subcategoria;
 	

@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,15 +57,15 @@ public class DebitoAutomaticoMovimento implements Serializable{
 	@Column(name="damv_nnnsaretorno")
 	private Integer numeroSequenciaArquivoRecebido;
 	
-    @ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="cnta_id")
     private ContaGeral contaGeral;
     
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="deba_id")
 	private DebitoAutomatico debitoAutomatico;
 	
