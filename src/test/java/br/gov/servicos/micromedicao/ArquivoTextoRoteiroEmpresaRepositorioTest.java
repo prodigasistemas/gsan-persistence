@@ -2,8 +2,6 @@ package br.gov.servicos.micromedicao;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.jboss.arquillian.junit.Arquillian;
@@ -41,10 +39,8 @@ public class ArquivoTextoRoteiroEmpresaRepositorioTest extends SingleDeployment 
 	@Test
 	@UsingDataSet("arquivo_texto_roteiro_empresa.yml")
 	public void pesquisarPorGrupoEReferencia() {
-		List<ArquivoTextoRoteiroEmpresa> arquivos = repositorio.pesquisarPorGrupoEReferencia(1, 201502);
+		ArquivoTextoRoteiroEmpresa arquivo = repositorio.pesquisarPorGrupoEReferencia(1, 201502);
 
-		ArquivoTextoRoteiroEmpresa arquivo = arquivos.get(0);
-		
 		assertEquals(3, arquivo.getId().intValue());
 		assertEquals(2, arquivo.getSituacaoTransmissaoLeitura().intValue());
 	}

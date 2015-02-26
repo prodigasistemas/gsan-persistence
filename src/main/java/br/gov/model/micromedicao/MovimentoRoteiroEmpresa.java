@@ -130,7 +130,10 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 
 	@Column(name = "mrem_nmlogradouro")
 	private String nomeLogradouro;
-
+	
+	@Column(name = "mrem_nmbairro")
+	private String nomeBairro;
+	
 	@Column(name = "mrem_dscomplementoendereco")
 	private String complementoEndereco;
 
@@ -787,5 +790,13 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 
     public void setSubLoteImovel(String subLoteImovel) {
         this.subLoteImovel = subLoteImovel;
+    }
+
+    public String getNomeBairro() {
+        return nomeBairro;
+    }
+
+    public void setNomeBairro(String nomeBairro) {
+        this.nomeBairro = nomeBairro;
     }
 }
