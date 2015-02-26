@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,11 +34,11 @@ public class EEABVolumeSaida implements Serializable{
 	@Column(name="mmed_tipomedicao")
 	private Integer tipomedicao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="eabv_id", nullable=false)
 	private EEABVolume eeabVolume;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="mmed_idsaida", nullable=false)
 	private MacroMedidor medidorSaida;
 

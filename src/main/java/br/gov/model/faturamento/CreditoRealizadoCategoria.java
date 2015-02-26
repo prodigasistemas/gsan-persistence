@@ -10,6 +10,7 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -40,11 +41,11 @@ public class CreditoRealizadoCategoria implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao = new Date();
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="crrz_id", insertable=false, updatable=false)
 	private CreditoRealizado creditoRealizado;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="catg_id", insertable=false, updatable=false)
 	private Categoria categoria;
 	

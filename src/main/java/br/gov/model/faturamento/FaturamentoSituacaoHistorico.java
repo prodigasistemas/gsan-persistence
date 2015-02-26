@@ -2,6 +2,7 @@ package br.gov.model.faturamento;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -40,7 +41,7 @@ public class FaturamentoSituacaoHistorico {
 	@Column(name="ftsh_nnvolumeesgotonaomedido")
 	private Integer volumeEsgotoNaoMedido;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 	

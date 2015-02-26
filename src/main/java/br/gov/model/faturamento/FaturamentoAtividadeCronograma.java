@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,11 +35,11 @@ public class FaturamentoAtividadeCronograma implements Serializable{
 	@Column(name="ftac_tmrealizacao")
 	private Date dataRealizacao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ftat_id")
 	private FaturamentoAtividade faturamentoAtividade;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ftcm_id")
 	private FaturamentoGrupoCronogramaMensal faturamentoGrupoCronogramaMensal;
 	

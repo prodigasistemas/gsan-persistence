@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -31,11 +32,11 @@ public class RoteiroEmpresa implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="empr_id")
 	private Empresa empresa;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="leit_id")
 	private Leiturista leiturista;
 

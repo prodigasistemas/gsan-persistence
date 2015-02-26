@@ -8,6 +8,7 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -34,11 +35,11 @@ public class FaturamentoAtividadeCronogramaRota {
 	@Column(name="facr_tmultimaalteracao")
 	private Date ultimaAlteracao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ftac_id", insertable=false, updatable=false)
 	private FaturamentoAtividadeCronograma faturamentoAtividadeCronograma;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="rota_id", insertable=false, updatable=false)
 	private Rota rota;
 	
