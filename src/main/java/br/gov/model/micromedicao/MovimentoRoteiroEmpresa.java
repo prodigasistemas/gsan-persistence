@@ -180,6 +180,9 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@Column(name = "mrem_dsabrevcatgimovel")
 	private String descricaoAbreviadaCategoriaImovel;
 
+	@Column(name = "mrem_nmbairro")
+	private String nomeBairro;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;
@@ -646,6 +649,14 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 
 	public void setDescricaoAbreviadaCategoriaImovel(String descricaoAbreviadaCategoriaImovel) {
 		this.descricaoAbreviadaCategoriaImovel = descricaoAbreviadaCategoriaImovel;
+	}
+
+	public String getNomeBairro() {
+		return nomeBairro;
+	}
+
+	public void setNomeBairro(String nomeBairro) {
+		this.nomeBairro = nomeBairro;
 	}
 
 	public SetorComercial getSetorComercial() {
