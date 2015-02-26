@@ -304,60 +304,49 @@ public class Imovel implements Serializable {
 		return indicadorEmissaoExtratoFaturamento != null && indicadorEmissaoExtratoFaturamento == (short) 1;
 	}
 
-	public StringBuilder getEnderecoFormatadoResumido() {
-		StringBuilder endereco = new StringBuilder();
-
-		if (logradouroCep != null && logradouroCep.getLogradouro() != null) {
-
-			if (logradouroCep.getLogradouro().getLogradouroTipo() != null) {
-				if (logradouroCep.getLogradouro().getLogradouroTipo().getDescricaoAbreviada() != null) {
-					endereco.append(logradouroCep.getLogradouro().getLogradouroTipo().getDescricaoAbreviada().trim());
-				}
-			}
-			if (logradouroCep.getLogradouro().getLogradouroTitulo() != null) {
-				if (logradouroCep.getLogradouro().getLogradouroTitulo().getDescricaoAbreviada() != null) {
-					endereco.append(" ").append(logradouroCep.getLogradouro().getLogradouroTitulo().getDescricaoAbreviada().trim());
-				}
-			}
-
-			endereco.append(" ").append(logradouroCep.getLogradouro().getNome().trim());
-
-			if (enderecoReferencia != null) {
-				if (enderecoReferencia.getDescricaoAbreviada() != null) {
-					endereco.append(", ").append(enderecoReferencia.getDescricaoAbreviada().trim());
-				}
-			}
-
-			endereco.append(" ").append(numeroImovel != null ? numeroImovel.trim() : "");
-
-			if (complementoEndereco != null) {
-				endereco.append(" - ").append(complementoEndereco.trim());
-			}
-
-			if (logradouroBairro != null && logradouroBairro.getBairro() != null) {
-				endereco.append(" - ").append(logradouroBairro.getBairro().getNome().trim());
-
-				if (logradouroBairro.getBairro().getMunicipio() != null) {
-					endereco.append(" ").append(logradouroBairro.getBairro().getMunicipio().getNome().trim());
-
-					if (logradouroBairro.getBairro().getMunicipio().getUnidadeFederacao() != null) {
-						endereco.append(" ").append(logradouroBairro.getBairro().getMunicipio().getUnidadeFederacao().getSigla().trim());
-					}
-				}
-
-			}
-		}
-
-		return endereco;
-	}
-
     public StringBuilder getEnderecoFormatadoAbreviado() {
         StringBuilder endereco = new StringBuilder();
 
         if (logradouroCep != null && logradouroCep.getLogradouro() != null) {
             
-            endereco.append(getEnderecoFormatadoResumido());
+            if (logradouroCep.getLogradouro().getLogradouroTipo() != null) {
+                if (logradouroCep.getLogradouro().getLogradouroTipo().getDescricaoAbreviada() != null) {
+                    endereco.append(logradouroCep.getLogradouro().getLogradouroTipo().getDescricaoAbreviada().trim());
+                }
+            }
+            if (logradouroCep.getLogradouro().getLogradouroTitulo() != null) {
+                if (logradouroCep.getLogradouro().getLogradouroTitulo().getDescricaoAbreviada() != null) {
+                    endereco.append(" ").append(logradouroCep.getLogradouro().getLogradouroTitulo().getDescricaoAbreviada().trim());
+                }
+            }
 
+            endereco.append(" ").append(logradouroCep.getLogradouro().getNome().trim());
+
+            if (enderecoReferencia != null) {
+                if (enderecoReferencia.getDescricaoAbreviada() != null) {
+                    endereco.append(", ").append(enderecoReferencia.getDescricaoAbreviada().trim());
+                }
+            }
+
+            endereco.append(" ").append(numeroImovel != null ? numeroImovel.trim() : "");
+
+            if (complementoEndereco != null) {
+                endereco.append(" - ").append(complementoEndereco.trim());
+            }
+
+            if (logradouroBairro != null && logradouroBairro.getBairro() != null) {
+                endereco.append(" - ").append(logradouroBairro.getBairro().getNome().trim());
+
+                if (logradouroBairro.getBairro().getMunicipio() != null) {
+                    endereco.append(" ").append(logradouroBairro.getBairro().getMunicipio().getNome().trim());
+
+                    if (logradouroBairro.getBairro().getMunicipio().getUnidadeFederacao() != null) {
+                        endereco.append(" ").append(logradouroBairro.getBairro().getMunicipio().getUnidadeFederacao().getSigla().trim());
+                    }
+                }
+
+            }
+            
             if (logradouroCep.getCep() != null) {
                 endereco.append(" ").append(logradouroCep.getCep().getCepFormatado().trim());
             }
