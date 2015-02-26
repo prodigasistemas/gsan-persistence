@@ -38,7 +38,23 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		return entity.createQuery(sql.toString(), HidrometroTO.class)
 		        .setParameter("idImovel", idImovel)
 		        .getResultList();
-	}	
+	}
+	
+	public List<HidrometroInstalacaoHistorico> dadosInstalacaoHidrometro2(Integer idImovel) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT hidi ")
+           .append(" FROM HidrometroInstalacaoHistorico hidi")
+           .append(" LEFT JOIN hidi.hidrometro hidr ")
+           .append(" LEFT JOIN hidi.ligacaoAgua lagu ")
+           .append(" LEFT JOIN hidi.hidrometroLocalInstalacao hli ")
+           .append(" LEFT JOIN hidi.imovel imovel ")
+           .append(" WHERE (lagu.imovel.id = :idImovel OR imovel.id = :idImovel) ")
+           .append(" AND hidi.dataRetirada is null ");
+
+        return entity.createQuery(sql.toString(), HidrometroInstalacaoHistorico.class)
+                .setParameter("idImovel", idImovel)
+                .getResultList();
+    }
 	
 	public HidrometroTO dadosInstalacaoHidrometroAgua(Integer idImovel) {
 		StringBuilder sql = new StringBuilder();

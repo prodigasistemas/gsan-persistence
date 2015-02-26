@@ -19,6 +19,8 @@ import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
 import br.gov.model.cadastro.GerenciaRegional;
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.Localidade;
+import br.gov.model.cadastro.Quadra;
+import br.gov.model.cadastro.SetorComercial;
 import br.gov.model.faturamento.FaturamentoGrupo;
 import br.gov.model.micromedicao.Rota;
 import br.gov.persistence.util.SingleDeployment;
@@ -50,19 +52,28 @@ public class MovimentoRoteiroEmpresaRepositorioTest extends SingleDeployment {
 		Localidade localidade = new Localidade(1);
 		localidade.setGerenciaRegional(new GerenciaRegional(1));
 		
+		Quadra quadra = new Quadra();
+		quadra.setNumeroQuadra(1);
+		
 		Imovel imovel = new Imovel(2);
 		imovel.setLocalidade(localidade);
+		imovel.setQuadra(quadra);
 		imovel.setLigacaoAguaSituacao(new LigacaoAguaSituacao(1));
 		imovel.setLigacaoEsgotoSituacao(new LigacaoEsgotoSituacao(1));
 		imoveis.add(imovel);
 		
 		imovel = new Imovel(3);
+		imovel.setQuadra(quadra);
 		imovel.setLocalidade(localidade);
 		imovel.setLigacaoAguaSituacao(new LigacaoAguaSituacao(1));
 		imovel.setLigacaoEsgotoSituacao(new LigacaoEsgotoSituacao(1));
 		imoveis.add(imovel);
 
+		SetorComercial setor = new SetorComercial();
+		setor.setCodigo(1);
+		setor.setId(1);
 		Rota rota = new Rota(1);
+		rota.setSetorComercial(setor);
 		FaturamentoGrupo grupo = new FaturamentoGrupo(1);
 		grupo.setAnoMesReferencia(201502);
 		rota.setFaturamentoGrupo(grupo);
