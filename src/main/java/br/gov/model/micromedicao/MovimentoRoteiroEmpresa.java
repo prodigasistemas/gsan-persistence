@@ -25,6 +25,7 @@ import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.ImovelPerfil;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Logradouro;
+import br.gov.model.cadastro.SetorComercial;
 import br.gov.model.faturamento.FaturamentoGrupo;
 
 @Entity
@@ -169,6 +170,12 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 
 	@Column(name = "mrem_nnloteimovel")
 	private String numeroLoteImovel;
+	
+	@Column(name = "mrem_nnsubloteimovel")
+	private String numeroSubloteImovel;
+	
+	@Column(name = "mrem_dsabrevcatgimovel")
+	private String descricaoAbreviadaCategoriaImovel;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ftgr_id")
@@ -201,7 +208,11 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "stcm_id")
+	private SetorComercial setorComercial;
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lest_id")
 	private LigacaoEsgotoSituacao ligacaoEsgotoSituacao;
@@ -608,6 +619,38 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 
 	public void setLocalidade(Localidade localidade) {
 		this.localidade = localidade;
+	}
+
+	public String getNumeroLoteImovel() {
+		return numeroLoteImovel;
+	}
+
+	public void setNumeroLoteImovel(String numeroLoteImovel) {
+		this.numeroLoteImovel = numeroLoteImovel;
+	}
+
+	public String getNumeroSubloteImovel() {
+		return numeroSubloteImovel;
+	}
+
+	public void setNumeroSubloteImovel(String numeroSubloteImovel) {
+		this.numeroSubloteImovel = numeroSubloteImovel;
+	}
+
+	public String getDescricaoAbreviadaCategoriaImovel() {
+		return descricaoAbreviadaCategoriaImovel;
+	}
+
+	public void setDescricaoAbreviadaCategoriaImovel(String descricaoAbreviadaCategoriaImovel) {
+		this.descricaoAbreviadaCategoriaImovel = descricaoAbreviadaCategoriaImovel;
+	}
+
+	public SetorComercial getSetorComercial() {
+		return setorComercial;
+	}
+
+	public void setSetorComercial(SetorComercial setorComercial) {
+		this.setorComercial = setorComercial;
 	}
 
 	public Imovel getImovel() {

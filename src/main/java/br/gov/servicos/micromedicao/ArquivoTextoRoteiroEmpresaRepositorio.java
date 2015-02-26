@@ -1,7 +1,5 @@
 package br.gov.servicos.micromedicao;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 
@@ -28,7 +26,7 @@ public class ArquivoTextoRoteiroEmpresaRepositorio extends GenericRepository<Int
 		}
 	}
 	
-	public List<ArquivoTextoRoteiroEmpresa> pesquisarPorGrupoEReferencia(Integer idGrupo, Integer anoMesReferencia) {
+	public ArquivoTextoRoteiroEmpresa pesquisarPorGrupoEReferencia(Integer idGrupo, Integer anoMesReferencia) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT arquivo ")
 		   .append("FROM ArquivoTextoRoteiroEmpresa arquivo ")
@@ -39,7 +37,7 @@ public class ArquivoTextoRoteiroEmpresaRepositorio extends GenericRepository<Int
 			return entity.createQuery(sql.toString(), ArquivoTextoRoteiroEmpresa.class)
 					.setParameter("idGrupo", idGrupo)
 					.setParameter("anoMesReferencia", anoMesReferencia)
-					.getResultList();
+					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
