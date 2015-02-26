@@ -277,7 +277,7 @@ public class Imovel implements Serializable {
 	public String getInscricaoFormatadaSemPonto() {
 		StringBuilder inscricao = new StringBuilder();
 		inscricao.append(Utilitarios.completaComZerosEsquerda(3, localidade.getId()))
-				 .append(Utilitarios.completaComZerosEsquerda(3, setorComercial.getId()))
+				 .append(Utilitarios.completaComZerosEsquerda(3, setorComercial.getCodigo()))
 				 .append(quadra.getNumeroQuadra().toString().length() < 3 ? Utilitarios.completaComZerosEsquerda(3, quadra.getNumeroQuadra()) : 
 					 quadra.getNumeroQuadra()).append(Utilitarios.completaComZerosEsquerda(4, lote)).append(Utilitarios.completaComZerosEsquerda(3, subLote));
 
@@ -320,61 +320,61 @@ public class Imovel implements Serializable {
 		return indicadorEmissaoExtratoFaturamento != null && indicadorEmissaoExtratoFaturamento == (short) 1;
 	}
 
-	public StringBuilder getEnderecoFormatadoAbreviado() {
-		StringBuilder endereco = new StringBuilder();
+    public StringBuilder getEnderecoFormatadoAbreviado() {
+        StringBuilder endereco = new StringBuilder();
 
-		if (logradouroCep != null && logradouroCep.getLogradouro() != null) {
+        if (logradouroCep != null && logradouroCep.getLogradouro() != null) {
+            
+            if (logradouroCep.getLogradouro().getLogradouroTipo() != null) {
+                if (logradouroCep.getLogradouro().getLogradouroTipo().getDescricaoAbreviada() != null) {
+                    endereco.append(logradouroCep.getLogradouro().getLogradouroTipo().getDescricaoAbreviada().trim());
+                }
+            }
+            if (logradouroCep.getLogradouro().getLogradouroTitulo() != null) {
+                if (logradouroCep.getLogradouro().getLogradouroTitulo().getDescricaoAbreviada() != null) {
+                    endereco.append(" ").append(logradouroCep.getLogradouro().getLogradouroTitulo().getDescricaoAbreviada().trim());
+                }
+            }
 
-			if (logradouroCep.getLogradouro().getLogradouroTipo() != null) {
-				if (logradouroCep.getLogradouro().getLogradouroTipo().getDescricaoAbreviada() != null) {
-					endereco.append(logradouroCep.getLogradouro().getLogradouroTipo().getDescricaoAbreviada().trim());
-				}
-			}
-			if (logradouroCep.getLogradouro().getLogradouroTitulo() != null) {
-				if (logradouroCep.getLogradouro().getLogradouroTitulo().getDescricaoAbreviada() != null) {
-					endereco.append(" ").append(logradouroCep.getLogradouro().getLogradouroTitulo().getDescricaoAbreviada().trim());
-				}
-			}
+            endereco.append(" ").append(logradouroCep.getLogradouro().getNome().trim());
 
-			endereco.append(" ").append(logradouroCep.getLogradouro().getNome().trim());
+            if (enderecoReferencia != null) {
+                if (enderecoReferencia.getDescricaoAbreviada() != null) {
+                    endereco.append(", ").append(enderecoReferencia.getDescricaoAbreviada().trim());
+                }
+            }
 
-			if (enderecoReferencia != null) {
-				if (enderecoReferencia.getDescricaoAbreviada() != null) {
-					endereco.append(", ").append(enderecoReferencia.getDescricaoAbreviada().trim());
-				}
-			}
+            endereco.append(" ").append(numeroImovel != null ? numeroImovel.trim() : "");
 
-			endereco.append(numeroImovel != null ? numeroImovel.trim() : "");
+            if (complementoEndereco != null) {
+                endereco.append(" - ").append(complementoEndereco.trim());
+            }
 
-			if (complementoEndereco != null) {
-				endereco.append(" - ").append(complementoEndereco.trim());
-			}
+            if (logradouroBairro != null && logradouroBairro.getBairro() != null) {
+                endereco.append(" - ").append(logradouroBairro.getBairro().getNome().trim());
 
-			if (logradouroBairro != null && logradouroBairro.getBairro() != null) {
-				endereco.append(" - ").append(logradouroBairro.getBairro().getNome().trim());
+                if (logradouroBairro.getBairro().getMunicipio() != null) {
+                    endereco.append(" ").append(logradouroBairro.getBairro().getMunicipio().getNome().trim());
 
-				if (logradouroBairro.getBairro().getMunicipio() != null) {
-					endereco.append(" ").append(logradouroBairro.getBairro().getMunicipio().getNome().trim());
+                    if (logradouroBairro.getBairro().getMunicipio().getUnidadeFederacao() != null) {
+                        endereco.append(" ").append(logradouroBairro.getBairro().getMunicipio().getUnidadeFederacao().getSigla().trim());
+                    }
+                }
 
-					if (logradouroBairro.getBairro().getMunicipio().getUnidadeFederacao() != null) {
-						endereco.append(" ").append(logradouroBairro.getBairro().getMunicipio().getUnidadeFederacao().getSigla().trim());
-					}
-				}
+            }
+            
+            if (logradouroCep.getCep() != null) {
+                endereco.append(" ").append(logradouroCep.getCep().getCepFormatado().trim());
+            }
 
-			}
+            if (perimetroInicial != null) {
+                endereco.append(" ENTRE ").append(perimetroInicial.getDescricaoFormatada()).append(" E ").append(perimetroFinal.getDescricaoFormatada());
+            }
 
-			if (logradouroCep.getCep() != null) {
-				endereco.append(" ").append(logradouroCep.getCep().getCepFormatado().trim());
-			}
+        }
 
-			if (perimetroInicial != null) {
-				endereco.append(" ENTRE ").append(perimetroInicial.getDescricaoFormatada()).append(" E ").append(perimetroFinal.getDescricaoFormatada());
-			}
-
-		}
-
-		return endereco;
-	}
+        return endereco;
+    }
 
 	public boolean possuiFaturamentoSituacaoTipo() {
 		return faturamentoSituacaoTipo != null && faturamentoSituacaoTipo.getId() != null;

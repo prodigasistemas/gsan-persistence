@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,23 +45,23 @@ public class EEABVolume implements Serializable{
 	@Column(name="eabv_volume")
 	private Double volume;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="greg_id")
 	private RegionalProxy regionalProxy = new RegionalProxy();
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="uneg_id")
 	private UnidadeNegocioProxy unidadeNegocioProxy = new UnidadeNegocioProxy();
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="muni_id")
 	private MunicipioProxy municipioProxy = new MunicipioProxy();
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="loca_id")
 	private LocalidadeProxy localidadeProxy = new LocalidadeProxy();
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="eeab_id", nullable=false)
 	private EEAB eeab;
 	

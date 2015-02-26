@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,15 +28,15 @@ public class ConsumoAnormalidadeAcao implements Serializable{
 	@Column(name="csaa_id")
 	private Integer id;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="csan_id")
 	private ConsumoAnormalidade consumoAnormalidade;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="catg_id")
 	private Categoria categoria; 
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="iper_id")
 	private ImovelPerfil imovelPerfil; 
 	
@@ -57,15 +58,15 @@ public class ConsumoAnormalidadeAcao implements Serializable{
 	@Column(name="csaa_icgeracaocartames3")
     private Short indicadorGeracaoCartaMes3;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lacs_idmes1")
     private LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes1;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lacs_idmes2")
     private LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes2;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lacs_idmes3")
     private LeituraAnormalidadeConsumo leituraAnormalidadeConsumoMes3;
 

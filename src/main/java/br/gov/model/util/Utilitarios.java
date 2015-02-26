@@ -316,15 +316,19 @@ public class Utilitarios {
 		return Integer.valueOf(String.valueOf(anoMesDia).substring(6,8));
 	}
 	
-	public static Integer converteMesAnoParaAnoMes(String anoMes) {
-		if (anoMes!= null && anoMes.length() == 7)
-			return Integer.valueOf(String.valueOf(anoMes).substring(3) + String.valueOf(anoMes).substring(0,2));
+	public static Integer converteMesAnoParaAnoMes(String mesAno) {
+		if (mesAno!= null && mesAno.length() == 7)
+			return Integer.valueOf(String.valueOf(mesAno).substring(3) + String.valueOf(mesAno).substring(0,2));
 		else
 			return null;
 	}
 	
 	public static String converteAnoMesParaMesAno(Integer anoMes) {
 		return String.valueOf(anoMes).substring(4) + "/" + String.valueOf(anoMes).substring(0,4);
+	}
+	
+	public static String converteAnoMesParaMesAnoSemBarra(Integer anoMes) {
+	    return String.valueOf(anoMes).substring(4) + String.valueOf(anoMes).substring(0,4);
 	}
 	
 	public static String retiraCaracteresEspeciais(String texto){
@@ -336,12 +340,26 @@ public class Utilitarios {
 		return completaStringADireita(tamanhoCampo, campo, ' ');
 	}
 	
+	private static String limitaTexto(int tamanhoCampo, Object campo) {
+	    String texto = "";
+	    
+	    if (campo != null){
+	        texto = String.valueOf(campo);
+	        texto = texto.length() > tamanhoCampo ? texto.substring(0, tamanhoCampo) : texto;
+	    }
+	    return texto;
+	}
+	
 	public static String completaStringAEsquerda(int tamanhoCampo, Object campo, char caractere) {
-		return StringUtils.leftPad(campo != null ? String.valueOf(campo) : "", tamanhoCampo, caractere);
+	    String texto = limitaTexto(tamanhoCampo, campo);
+	    
+		return StringUtils.leftPad(texto, tamanhoCampo, caractere);
 	}
 	
 	private static String completaStringADireita(int tamanhoCampo, Object campo, char caractere) {
-		return StringUtils.rightPad(campo != null ? String.valueOf(campo) : "", tamanhoCampo, caractere);
+        String texto = limitaTexto(tamanhoCampo, campo);
+
+	    return StringUtils.rightPad(texto, tamanhoCampo, caractere);
 	}
 	
 	public static int arredondarParaCima(BigDecimal numero) {

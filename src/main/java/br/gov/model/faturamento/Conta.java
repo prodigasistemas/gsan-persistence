@@ -151,47 +151,47 @@ public class Conta implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dataRevisao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lest_id")
 	private LigacaoEsgotoSituacao ligacaoEsgotoSituacao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="last_id")
 	private LigacaoAguaSituacao ligacaoAguaSituacao;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "imov_id")
 	private Imovel imovel;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="loca_id")
 	private Localidade localidade;
 		
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="qdra_id")
 	private Quadra quadra;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="rota_id")
 	private Rota rota;
 	
-	@OneToOne
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cnta_id")
 	private ContaGeral contaGeral;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cstf_id")
 	private ConsumoTarifa consumoTarifa;
 	
-	@ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="iper_id")
 	private ImovelPerfil imovelPerfil;
 	
-	@ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="parc_id")
 	private Parcelamento parcelamento;
 	

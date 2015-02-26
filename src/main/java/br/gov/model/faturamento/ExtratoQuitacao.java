@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,7 +31,7 @@ public class ExtratoQuitacao implements Serializable {
 	@Column(name="extq_icimpressaoconta")
 	private Integer indicadorImpressaoNaConta;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 	

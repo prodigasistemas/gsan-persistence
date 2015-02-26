@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -67,27 +68,27 @@ public class CreditoRealizado implements Serializable{
 	@Column(name="crrz_nnparcelabonus")
 	private Short numeroParcelaBonus;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="crti_id")
 	private CreditoTipo creditoTipo;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lict_id")
 	private LancamentoItemContabil lancamentoItemContabil;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="loca_id")
 	private Localidade localidade;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="crog_id")
 	private CreditoOrigem creditoOrigem;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="crar_id")
 	private CreditoRealizarGeral creditoRealizarGeral;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cnta_id")
 	private Conta conta;
 	

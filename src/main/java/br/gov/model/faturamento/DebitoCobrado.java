@@ -28,7 +28,7 @@ public class DebitoCobrado implements IDebito{
 	@Column(name="dbcb_id")
 	private Integer id;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="dbac_id")
 	private DebitoCobrarGeral debitoCobrarGeral;
 	

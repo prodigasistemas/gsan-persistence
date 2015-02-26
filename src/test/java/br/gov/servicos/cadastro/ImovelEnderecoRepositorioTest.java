@@ -51,6 +51,7 @@ public class ImovelEnderecoRepositorioTest extends SingleDeployment{
 		.append(" ")
 		.append(logradouroNome)
 		.append(" ")
+		.append(" ")
 		.append(cepFormatado);
 		assertEquals(endereco.toString(), imovel.getEnderecoFormatadoAbreviado().toString());
 	}
@@ -66,6 +67,7 @@ public class ImovelEnderecoRepositorioTest extends SingleDeployment{
 		.append(logradouroTitulo)
 		.append(" ")
 		.append(logradouroNome)
+		.append(" ")
 		.append(numero)
 		.append(" - ")
 		.append(complemento)
@@ -92,6 +94,7 @@ public class ImovelEnderecoRepositorioTest extends SingleDeployment{
 		.append(logradouroTitulo)
 		.append(" ")
 		.append(logradouroNome)
+		.append(" ")
 		.append(numero)
 		.append(" - ")
 		.append(complemento)

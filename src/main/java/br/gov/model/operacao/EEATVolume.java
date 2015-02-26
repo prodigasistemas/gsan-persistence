@@ -44,23 +44,23 @@ public class EEATVolume implements Serializable{
 	@Column(name="eatv_volume")
 	private Double volume;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="greg_id")
 	private RegionalProxy regionalProxy = new RegionalProxy();;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="uneg_id")
 	private UnidadeNegocioProxy unidadeNegocioProxy = new UnidadeNegocioProxy();
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="muni_id")
 	private MunicipioProxy municipioProxy = new MunicipioProxy();
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="loca_id")
 	private LocalidadeProxy localidadeProxy = new LocalidadeProxy();
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="eeat_id", nullable=false)
 	private EEAT eeat;
 	

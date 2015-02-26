@@ -2,6 +2,7 @@ package br.gov.model.cadastro;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,13 +21,14 @@ public class Quadra {
 	private Integer id;
 	
 	@Column(name="qdra_nnquadra")
+	//TODO: Deixar somente numero
 	private Integer numeroQuadra;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="rota_id")
 	private Rota rota;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="roem_id")
 	private RoteiroEmpresa roteiroEmpresa;
 

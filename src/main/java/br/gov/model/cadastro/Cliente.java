@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -87,7 +88,7 @@ public class Cliente implements Serializable {
 	@Column(name="clie_icpermitenegativacao")
 	private Short indicadorPermiteNegativacao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cltp_id")
 	private ClienteTipo clienteTipo;
 	
@@ -277,10 +278,11 @@ public class Cliente implements Serializable {
 		return cnpj != null && !cnpj.equals("");
 	}
 	
+	//TODO: TESTAR
 	public String getCpfOuCnpj() {
 		if (possuiCpf())
 			return cpf;
-		else if (possuiCpf())
+		else if (possuiCnpj())
 			return cnpj;
 		else
 			return "";

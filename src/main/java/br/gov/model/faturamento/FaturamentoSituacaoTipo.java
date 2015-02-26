@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,19 +38,19 @@ public class FaturamentoSituacaoTipo implements Serializable {
     @Column(name="ftst_icvalidoesgoto")
     private Short validoEsgoto;
     
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lacs_idconsacobrarcomleit")
 	private LeituraAnormalidadeConsumo leituraAnormalidadeConsumoComLeitura;
 	
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lacs_idconsacobrarsemleit")
 	private LeituraAnormalidadeConsumo leituraAnormalidadeConsumoSemLeitura;
     
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lalt_idleitafaturarcomleit")
 	private LeituraAnormalidadeLeitura leituraAnormalidadeLeituraComLeitura;
     
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lalt_idleitafaturarsemleit")
 	private LeituraAnormalidadeLeitura leituraAnormalidadeLeituraSemLeitura;
     

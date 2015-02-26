@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,11 +47,11 @@ public class ConsumoMinimoArea implements Serializable{
     @Temporal(value=TemporalType.TIMESTAMP)
     private Date ultimaAlteracao;
     
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="catg_id", referencedColumnName="catg_id")
     private Categoria categoria;
     
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="scat_id", referencedColumnName="scat_id")
     private Subcategoria subcategoria;
     

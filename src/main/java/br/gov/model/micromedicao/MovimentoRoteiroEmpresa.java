@@ -42,14 +42,17 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 
 	@Column(name = "mrem_ammovimento")
 	private Integer anoMesMovimento;
-
-	@Column(name = "mrem_nmcliente")
+	
+	@Column(name="mrem_cdsetorcomercial")
+	private Integer codigoSetorComercial;
+	
+	@Column(name="mrem_nmcliente")
 	private String nomeCliente;
 
 	@Column(name = "mrem_enderecoimovel")
 	private String enderecoImovel;
-
-	@Column(name = "mrem_nnhidrometro")
+	
+	@Column(name="mrem_nnhidrometro", columnDefinition="bpchar(10)")
 	private String numeroHidrometro;
 
 	@Column(name = "mrem_qteconomias")
@@ -127,23 +130,32 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 
 	@Column(name = "mrem_nmlogradouro")
 	private String nomeLogradouro;
-
+	
 	@Column(name = "mrem_dscomplementoendereco")
 	private String complementoEndereco;
 
 	@Column(name = "mrem_nmleiturista")
 	private String nomeLeiturista;
-
-	@Column(name = "mrem_dsabrevlogradourotitulo")
+	
+	@Column(name="mrem_dsabrevlogradourotitulo", columnDefinition="bpchar(5)")
 	private String descricaoAbreviadaLogradouroTitulo;
-
-	@Column(name = "mrem_dsabrevlogradourotipo")
+	
+	@Column(name="mrem_dsabrevlogradourotipo", columnDefinition="bpchar(5)")
 	private String descricaoAbreviadaLogradouroTipo;
 
 	@Column(name = "mrem_cdfacequadra")
 	private Integer codigoQuadraFace;
-
-	@Column(name = "mrem_nnmoradores")
+	
+	@Column(name="mrem_nnquadra")
+	private Integer numeroQuadra;
+	
+	@Column(name="mrem_nnloteimovel", columnDefinition="bpchar(4)")
+	private String loteImovel;
+	
+	@Column(name="mrem_nnsubloteimovel", columnDefinition="bpchar(4)")
+	private String subLoteImovel;
+	
+	@Column(name="mrem_nnmoradores")
 	private Integer numeroMoradores;
 
 	@Column(name = "mrem_cdanormalidadeanterior")
@@ -156,9 +168,6 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@Column(name = "medt_id")
 	private Integer medicaoTipo;
 
-	@Column(name = "mrem_nnquadra")
-	private Integer numeroQuadra;
-	
 	@Column(name = "mrem_nnloteimovel")
 	private String numeroLoteImovel;
 	
@@ -178,77 +187,77 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "rota_id")
 	private Rota rota;
-
-	@ManyToOne
-	@JoinColumn(name = "roem_id")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="roem_id")
 	private RoteiroEmpresa roteiroEmpresa;
 
-	@ManyToOne
-	@JoinColumn(name = "empr_id")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="empr_id")
 	private Empresa empresa;
-
-	@ManyToOne
-	@JoinColumn(name = "leit_id")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="leit_id")
 	private Leiturista leiturista;
-
-	@ManyToOne
-	@JoinColumn(name = "ltan_id")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ltan_id")
 	private LeituraAnormalidade leituraAnormalidade;
 
-	@ManyToOne
-	@JoinColumn(name = "loca_id")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="loca_id")
 	private Localidade localidade;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="imov_id")
+	private Imovel imovel;
+
 	@ManyToOne
 	@JoinColumn(name = "stcm_id")
 	private SetorComercial setorComercial;
 
-	@ManyToOne
-	@JoinColumn(name = "imov_id")
-	private Imovel imovel;
-
-	@ManyToOne
-	@JoinColumn(name = "lest_id")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="lest_id")
 	private LigacaoEsgotoSituacao ligacaoEsgotoSituacao;
-
-	@ManyToOne
-	@JoinColumn(name = "iper_id")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="iper_id")
 	private ImovelPerfil imovelPerfil;
-
-	@ManyToOne
-	@JoinColumn(name = "hipr_id")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="hipr_id")
 	private HidrometroProtecao hidrometroProtecao;
-
-	@ManyToOne
-	@JoinColumn(name = "himc_id")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="himc_id")
 	private HidrometroMarca hidrometroMarca;
-
-	@ManyToOne
-	@JoinColumn(name = "hili_id")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="hili_id")
 	private HidrometroLocalInstalacao hidrometroLocalInstalacao;
-
-	@ManyToOne
-	@JoinColumn(name = "last_id")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="last_id")
 	private LigacaoAguaSituacao ligacaoAguaSituacao;
-
-	@ManyToOne
-	@JoinColumn(name = "hicp_id")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="hicp_id")
 	private HidrometroCapacidade hidrometroCapacidade;
-
-	@ManyToOne
-	@JoinColumn(name = "catg_id")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="catg_id")
 	private Categoria categoria2;
-
-	@ManyToOne
-	@JoinColumn(name = "logr_id")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="logr_id")
 	private Logradouro logradouro;
-
-	@ManyToOne
-	@JoinColumn(name = "greg_id")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="greg_id")
 	private GerenciaRegional gerenciaRegional;
-
-	@ManyToOne
-	@JoinColumn(name = "catg_idprincipal")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="catg_idprincipal")
 	private Categoria categoriaPrincipal;
 
 	public MovimentoRoteiroEmpresa() {
@@ -615,14 +624,6 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 		this.localidade = localidade;
 	}
 
-	public Integer getNumeroQuadra() {
-		return numeroQuadra;
-	}
-
-	public void setNumeroQuadra(Integer numeroQuadra) {
-		this.numeroQuadra = numeroQuadra;
-	}
-
 	public String getNumeroLoteImovel() {
 		return numeroLoteImovel;
 	}
@@ -645,14 +646,6 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 
 	public void setDescricaoAbreviadaCategoriaImovel(String descricaoAbreviadaCategoriaImovel) {
 		this.descricaoAbreviadaCategoriaImovel = descricaoAbreviadaCategoriaImovel;
-	}
-
-	public String getNomeBairro() {
-		return nomeBairro;
-	}
-
-	public void setNomeBairro(String nomeBairro) {
-		this.nomeBairro = nomeBairro;
 	}
 
 	public SetorComercial getSetorComercial() {
@@ -766,4 +759,44 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	public void setCategoriaPrincipal(Categoria categoriaPrincipal) {
 		this.categoriaPrincipal = categoriaPrincipal;
 	}
+
+    public Integer getCodigoSetorComercial() {
+        return codigoSetorComercial;
+    }
+
+    public void setCodigoSetorComercial(Integer codigoSetorComercial) {
+        this.codigoSetorComercial = codigoSetorComercial;
+    }
+
+    public Integer getNumeroQuadra() {
+        return numeroQuadra;
+    }
+
+    public void setNumeroQuadra(Integer numeroQuadra) {
+        this.numeroQuadra = numeroQuadra;
+    }
+
+    public String getLoteImovel() {
+        return loteImovel;
+    }
+
+    public void setLoteImovel(String loteImovel) {
+        this.loteImovel = loteImovel;
+    }
+
+    public String getSubLoteImovel() {
+        return subLoteImovel;
+    }
+
+    public void setSubLoteImovel(String subLoteImovel) {
+        this.subLoteImovel = subLoteImovel;
+    }
+
+    public String getNomeBairro() {
+        return nomeBairro;
+    }
+
+    public void setNomeBairro(String nomeBairro) {
+        this.nomeBairro = nomeBairro;
+    }
 }

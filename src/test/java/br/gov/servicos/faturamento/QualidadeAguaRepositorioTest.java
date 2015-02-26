@@ -20,15 +20,24 @@ public class QualidadeAguaRepositorioTest extends SingleDeployment {
 	@Test
 	@UsingDataSet("qualidade_agua.yml")
 	public void buscarPorAnoMesESistemaAbastecimentoComFonteCaptacaoETipoCaptacaoValido() {
-		assertNotNull(repositorio.buscarPorAnoMesESistemaAbastecimentoComFonteCaptacaoETipoCaptacao(201501, 1));
+		assertNotNull(repositorio.buscarComFonteCaptacaoETipoCaptacao(201501, 1));
 	}
 	
 	@Test
 	@UsingDataSet("qualidade_agua_tipocaptacao.yml")
 	public void buscarPorAnoMesELocalidadeESetorComFonteCaptacao() {
-		assertNotNull(repositorio.buscarPorAnoMesELocalidadeESetorComFonteCaptacao(201501, 1, 1));
+		assertNotNull(repositorio.buscarSemFonteCaptacao(201501, 1, 1));
 	}
-	
-	
 
+    @Test
+    @UsingDataSet("qualidade_agua_tipocaptacao.yml")
+    public void buscarPorAnoMesELocalidadeComFonteCaptacao() {
+        assertNotNull(repositorio.buscarSemFonteCaptacao(201502, null, 2));
+    }
+    
+    @Test
+    @UsingDataSet("qualidade_agua_tipocaptacao.yml")
+    public void buscarPorAnoMesComFonteCaptacao() {
+        assertNotNull(repositorio.buscarSemFonteCaptacao(201503, null, null));
+    }	
 }

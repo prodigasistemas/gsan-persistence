@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,11 +27,11 @@ public class MovimentoContaPrefaturada implements Serializable {
 	@SequenceGenerator(name = "SEQ_MOV_CONTA_PREFATURADA", schema = "faturamento", sequenceName = "seq_mov_conta_prefaturada", allocationSize = 1)
 	private Integer id;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "cnta_id")
 	private ContaGeral conta;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "imov_id")
 	private Imovel imovel;
 

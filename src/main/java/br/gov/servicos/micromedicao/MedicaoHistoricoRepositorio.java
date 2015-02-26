@@ -34,18 +34,17 @@ public class MedicaoHistoricoRepositorio {
 
 	public MedicaoHistorico buscarPorLigacaoAguaOuPoco(Integer idImovel, Integer anoMesReferencia) {
 		StringBuilder sql = new StringBuilder();
+		 
 		sql.append("SELECT mdhi ")
-		   .append(" FROM MedicaoHistorico mdhi ")
-		   .append(" LEFT JOIN mdhi.ligacaoAgua lagu ")
-		   .append(" LEFT JOIN mdhi.imovel imovel ")
-		   .append(" WHERE mdhi.anoMesReferencia = :anoMesReferencia ")
-		   .append(" AND (imovel.id = :idImovel OR lagu.imovel.id = :idImovel) ");
+		.append(" FROM MedicaoHistorico mdhi ")
+		.append(" WHERE mdhi.anoMesReferencia = :anoMesReferencia ")
+		.append(" AND (mdhi.imovel.id = :idImovel OR mdhi.ligacaoAgua.id = :idImovel) ");
 
 		try {
-			return entity.createQuery(sql.toString(), MedicaoHistorico.class)
-					.setParameter("anoMesReferencia", anoMesReferencia)
-					.setParameter("idImovel", idImovel)
-					.setMaxResults(1).getSingleResult();
+            return entity.createQuery(sql.toString(), MedicaoHistorico.class)
+                    .setParameter("anoMesReferencia", anoMesReferencia)
+                    .setParameter("idImovel", idImovel)
+                    .setMaxResults(1).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}

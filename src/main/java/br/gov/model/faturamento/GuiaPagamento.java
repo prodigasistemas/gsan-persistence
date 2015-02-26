@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.ColumnResult;
 import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -79,11 +80,11 @@ public class GuiaPagamento implements Serializable{
 	@Column(name="dcst_idatual")
 	private Integer situacao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="parc_id")
 	private Parcelamento parcelamento;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="dbtp_id")
 	private DebitoTipo debitoTipo;
 	

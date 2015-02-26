@@ -209,16 +209,8 @@ public class ContaRepositorio extends GenericRepository<Integer, Conta>{
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT conta ")
 		   .append("FROM Conta conta ")
-		   .append("INNER JOIN FETCH conta.imovel imovel ")
-		   .append("INNER JOIN FETCH conta.localidade localidade ")
-		   .append("INNER JOIN FETCH localidade.gerenciaRegional gerenciaRegional ")
-		   .append("INNER JOIN FETCH conta.quadra quadra ")
-		   .append("INNER JOIN FETCH conta.ligacaoAguaSituacao ligacaoAguaSituacao ")
-		   .append("INNER JOIN FETCH conta.ligacaoEsgotoSituacao ligacaoEsgotoSituacao ")
-		   .append("INNER JOIN FETCH conta.imovelPerfil imovelPerfil ")
-		   .append("INNER JOIN FETCH conta.consumoTarifa consumoTarifa ")
-		   .append("LEFT JOIN FETCH conta.clienteContas clienteContas ")
-		   .append("LEFT JOIN FETCH clienteContas.cliente cliente ")
+		   .append("INNER JOIN conta.imovel imovel ")
+		   .append("LEFT JOIN conta.clienteContas clienteContas ")
 		   .append("LEFT JOIN conta.faturamentoGrupo fg ")
 		   .append("WHERE imovel.id = :idImovel ")
 		   .append("AND conta.referencia = :anoMesReferencia ")
@@ -243,16 +235,15 @@ public class ContaRepositorio extends GenericRepository<Integer, Conta>{
         
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT count(conta) from Conta conta")
-           .append(" INNER JOIN conta.imovel imovel ")
            .append(" LEFT JOIN conta.clienteContas clienteContasUsuario WITH ")
            .append(" (clienteContasUsuario.clienteRelacaoTipo.id = :idClienteRelacaoTipoUsuario) ")
            .append(" LEFT JOIN conta.clienteContas clienteContasReponsavel WITH ")
            .append(" (clienteContasReponsavel.clienteRelacaoTipo.id = :idClienteRelacaoTipoResponsavel) ")
            .append(" LEFT JOIN conta.faturamentoGrupo fg ")
-           .append(" WHERE imovel.id = :idImovel ")
+           .append(" WHERE conta.imovel.id = :idImovel ")
            .append(" AND conta.referencia = :anoMesReferencia ")
            .append(" AND conta.debitoCreditoSituacaoAtual = :preFaturada ")
-           .append(" AND not exists ( from MovimentoContaPrefaturada mcpf where mcpf.anoMesReferenciaPreFaturamento = fg.anoMesReferencia and imovel.id = mcpf.imovel.id  )");
+           .append(" AND not exists ( from MovimentoContaPrefaturada mcpf where mcpf.anoMesReferenciaPreFaturamento = fg.anoMesReferencia and conta.imovel.id = mcpf.imovel.id  )");
 
         long count = entity.createQuery(sql.toString(), Long.class)
                 .setParameter("idClienteRelacaoTipoUsuario", ClienteRelacaoTipo.USUARIO.intValue())

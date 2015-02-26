@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -34,19 +35,19 @@ public class ContaMensagem implements Serializable{
 	@Column(name = "ctms_dscontamensagem03")
 	private String descricaoContaMensagem03;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="greg_id")
 	private GerenciaRegional gerenciaRegional;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="loca_id")
 	private Localidade localidade;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="stcm_id")
 	private SetorComercial setorComercial;
 	

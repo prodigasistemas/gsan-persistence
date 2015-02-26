@@ -146,7 +146,7 @@ public class ContaRepositorioTest extends SingleDeployment {
 		assertEquals(2, conta.getImovel().getImovelContaEnvio().intValue());
 		
 		List<ClienteConta> clienteContas = conta.getClienteContas();
-		assertEquals(2, clienteContas.size());
+		assertEquals(3, clienteContas.size());
 		
 		for (ClienteConta clienteConta : clienteContas) {
 			int relacao = clienteConta.getClienteRelacaoTipo().getId().intValue();

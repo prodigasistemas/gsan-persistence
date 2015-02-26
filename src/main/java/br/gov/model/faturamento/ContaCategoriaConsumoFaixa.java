@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,15 +57,15 @@ public class ContaCategoriaConsumoFaixa implements Serializable{
 	@Column(name="cccf_vltarifafaixa")
 	private BigDecimal valorTarifaFaixa;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="catg_id", insertable=false, updatable=false)
 	private Categoria categoria;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="scat_id", insertable=false, updatable=false)
 	private Subcategoria subcategoria;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumns({
 		@JoinColumn(name="cnta_id", referencedColumnName="cnta_id"),
 		@JoinColumn(name="catg_id", referencedColumnName="catg_id"),

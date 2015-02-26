@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,7 +33,7 @@ public class Parcelamento {
 	@Column(name="parc_icconfirmacao")
 	private Short indicadorConfirmacaoParcelamento;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 	

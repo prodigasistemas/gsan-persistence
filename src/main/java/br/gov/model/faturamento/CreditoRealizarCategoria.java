@@ -9,6 +9,7 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -35,11 +36,11 @@ public class CreditoRealizarCategoria {
 	@Column(name="cacg_tmultimaalteracao")
 	private Date ultimaAlteracao;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="crar_id", insertable = false, updatable = false)
     private CreditoRealizar creditoRealizar;
     
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="catg_id", insertable = false, updatable = false)
     private Categoria categoria;
     

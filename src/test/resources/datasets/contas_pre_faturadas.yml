@@ -13,26 +13,18 @@ faturamento.conta:
     dcst_idatual: 0 # NORMAL
   - cnta_id: 2
     cnta_amreferenciaconta: 201502
-<<<<<<< HEAD
-=======
     imov_id: 1
->>>>>>> stage
     rota_id: 1
     dcst_idatual: 0 # NORMAL
   - cnta_id: 3
     cnta_amreferenciaconta: 201503
-<<<<<<< HEAD
-=======
     imov_id: 1
->>>>>>> stage
     rota_id: 1
     dcst_idatual: 9 # PREFATURADA
   - cnta_id: 4
     cnta_amreferenciaconta: 201503
     rota_id: 2
-<<<<<<< HEAD
     dcst_idatual: 0 # NORMAL
-=======
     imov_id: 2
     dcst_idatual: 0 # NORMAL
   - cnta_id: 5
@@ -80,4 +72,3 @@ faturamento.conta:
     imov_id: 1
     rota_id: 1
     dcst_idatual: 0 # NORMAL
->>>>>>> stage
