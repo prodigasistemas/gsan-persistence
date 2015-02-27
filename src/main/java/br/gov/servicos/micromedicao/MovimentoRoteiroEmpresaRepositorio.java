@@ -82,7 +82,7 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 			movimento.setCodigoSetorComercial(rota.getSetorComercial().getCodigo());
 			movimento.setNumeroQuadra(imovel.getQuadra().getNumeroQuadra());
 			movimento.setLoteImovel(imovel.getLote() != null ? imovel.getLote().toString() : "");
-			movimento.setSubLoteImovel(imovel.getSubLote() != null ? imovel.getSubLote().toString() : "");
+			movimento.setSubloteImovel(imovel.getSubLote() != null ? imovel.getSubLote().toString() : "");
 			movimento.setImovelPerfil(imovel.getImovelPerfil());
 			movimento.setUltimaAlteracao(new Date());
 			movimento.setLeituraTipo(LeituraTipo.LEITURA_E_ENTRADA_SIMULTANEA.getId());

@@ -67,9 +67,6 @@ public class ArquivoTextoRoteiroEmpresa implements Serializable {
 	@Column(name = "txre_nnimei")
 	private Long numeroImei;
 
-	@Column(name = "stce_id")
-	private Integer tipoServicoCelular;
-
 	@Column(name = "txre_tmultimaalteracao")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
@@ -242,14 +239,6 @@ public class ArquivoTextoRoteiroEmpresa implements Serializable {
 
 	public void setUltimaAlteracao(Date ultimaAlteracao) {
 		this.ultimaAlteracao = ultimaAlteracao;
-	}
-
-	public Integer getTipoServicoCelular() {
-		return tipoServicoCelular;
-	}
-
-	public void setTipoServicoCelular(Integer tipoServicoCelular) {
-		this.tipoServicoCelular = tipoServicoCelular;
 	}
 
 	public List<ArquivoTextoRoteiroEmpresaDivisao> getDivisoes() {

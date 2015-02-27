@@ -25,7 +25,6 @@ import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.ImovelPerfil;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Logradouro;
-import br.gov.model.cadastro.SetorComercial;
 import br.gov.model.faturamento.FaturamentoGrupo;
 
 @Entity
@@ -153,7 +152,7 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	private String loteImovel;
 	
 	@Column(name="mrem_nnsubloteimovel", columnDefinition="bpchar(4)")
-	private String subLoteImovel;
+	private String subloteImovel;
 	
 	@Column(name="mrem_nnmoradores")
 	private Integer numeroMoradores;
@@ -168,12 +167,6 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@Column(name = "medt_id")
 	private Integer medicaoTipo;
 
-	@Column(name = "mrem_nnloteimovel")
-	private String numeroLoteImovel;
-	
-	@Column(name = "mrem_nnsubloteimovel")
-	private String numeroSubloteImovel;
-	
 	@Column(name = "mrem_dsabrevcatgimovel")
 	private String descricaoAbreviadaCategoriaImovel;
 
@@ -640,22 +633,6 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 		this.localidade = localidade;
 	}
 
-	public String getNumeroLoteImovel() {
-		return numeroLoteImovel;
-	}
-
-	public void setNumeroLoteImovel(String numeroLoteImovel) {
-		this.numeroLoteImovel = numeroLoteImovel;
-	}
-
-	public String getNumeroSubloteImovel() {
-		return numeroSubloteImovel;
-	}
-
-	public void setNumeroSubloteImovel(String numeroSubloteImovel) {
-		this.numeroSubloteImovel = numeroSubloteImovel;
-	}
-
 	public String getDescricaoAbreviadaCategoriaImovel() {
 		return descricaoAbreviadaCategoriaImovel;
 	}
@@ -792,12 +769,12 @@ public class MovimentoRoteiroEmpresa implements Serializable {
         this.loteImovel = loteImovel;
     }
 
-    public String getSubLoteImovel() {
-        return subLoteImovel;
+    public String getSubloteImovel() {
+        return subloteImovel;
     }
 
-    public void setSubLoteImovel(String subLoteImovel) {
-        this.subLoteImovel = subLoteImovel;
+    public void setSubloteImovel(String subloteImovel) {
+        this.subloteImovel = subloteImovel;
     }
 
     public String getNomeBairro() {
