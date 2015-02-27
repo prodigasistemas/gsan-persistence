@@ -25,7 +25,6 @@ import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.ImovelPerfil;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Logradouro;
-import br.gov.model.cadastro.SetorComercial;
 import br.gov.model.faturamento.FaturamentoGrupo;
 
 @Entity
