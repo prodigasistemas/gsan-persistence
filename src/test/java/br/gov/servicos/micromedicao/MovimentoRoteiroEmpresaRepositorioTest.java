@@ -99,7 +99,7 @@ public class MovimentoRoteiroEmpresaRepositorioTest extends SingleDeployment {
 	@Test
 	@UsingDataSet("movimento_roteiro_empresa_para_leitura.yml")
 	public void pesquisarMovimentoParaLeitura() {
-		List<MovimentoRoteiroEmpresa> movimento = repositorio.pesquisarMovimentoParaLeitura(1, 201502);
+		List<MovimentoRoteiroEmpresa> movimento = repositorio.pesquisarMovimentoParaLeitura(1, 201502, 0);
 		
 		assertNotNull(movimento);
 		assertEquals(2, movimento.size());

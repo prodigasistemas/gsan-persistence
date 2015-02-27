@@ -156,7 +156,7 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	private String loteImovel;
 	
 	@Column(name="mrem_nnsubloteimovel", columnDefinition="bpchar(4)")
-	private String subLoteImovel;
+	private String subloteImovel;
 	
 	@Column(name="mrem_nnmoradores")
 	private Integer numeroMoradores;
@@ -171,12 +171,6 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@Column(name = "medt_id")
 	private Integer medicaoTipo;
 
-	@Column(name = "mrem_nnloteimovel")
-	private String numeroLoteImovel;
-	
-	@Column(name = "mrem_nnsubloteimovel")
-	private String numeroSubloteImovel;
-	
 	@Column(name = "mrem_dsabrevcatgimovel")
 	private String descricaoAbreviadaCategoriaImovel;
 
@@ -267,6 +261,26 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 		super();
 	}
 
+	public boolean temDescricaoCategoria() {
+		return this.getDescricaoAbreviadaCategoriaImovel() != null;
+	}
+	
+	public boolean isResidencial() {
+		return temDescricaoCategoria() && this.getDescricaoAbreviadaCategoriaImovel().equals(Categoria.RESIDENCIAL_DESCRICAO_ABREVIADA);
+	}
+	
+	public boolean isComercial() {
+		return temDescricaoCategoria() && this.getDescricaoAbreviadaCategoriaImovel().equals(Categoria.COMERCIAL_DESCRICAO_ABREVIADA);
+	}
+	
+	public boolean isIndustrial() {
+		return temDescricaoCategoria() && this.getDescricaoAbreviadaCategoriaImovel().equals(Categoria.INDUSTRIAL_DESCRICAO_ABREVIADA);
+	}
+	
+	public boolean isPublico() {
+		return temDescricaoCategoria() && this.getDescricaoAbreviadaCategoriaImovel().equals(Categoria.PUBLICO_DESCRICAO_ABREVIADA);
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -627,36 +641,12 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 		this.localidade = localidade;
 	}
 
-	public String getNumeroLoteImovel() {
-		return numeroLoteImovel;
-	}
-
-	public void setNumeroLoteImovel(String numeroLoteImovel) {
-		this.numeroLoteImovel = numeroLoteImovel;
-	}
-
-	public String getNumeroSubloteImovel() {
-		return numeroSubloteImovel;
-	}
-
-	public void setNumeroSubloteImovel(String numeroSubloteImovel) {
-		this.numeroSubloteImovel = numeroSubloteImovel;
-	}
-
 	public String getDescricaoAbreviadaCategoriaImovel() {
 		return descricaoAbreviadaCategoriaImovel;
 	}
 
 	public void setDescricaoAbreviadaCategoriaImovel(String descricaoAbreviadaCategoriaImovel) {
 		this.descricaoAbreviadaCategoriaImovel = descricaoAbreviadaCategoriaImovel;
-	}
-
-	public SetorComercial getSetorComercial() {
-		return setorComercial;
-	}
-
-	public void setSetorComercial(SetorComercial setorComercial) {
-		this.setorComercial = setorComercial;
 	}
 
 	public Imovel getImovel() {
@@ -787,12 +777,12 @@ public class MovimentoRoteiroEmpresa implements Serializable {
         this.loteImovel = loteImovel;
     }
 
-    public String getSubLoteImovel() {
-        return subLoteImovel;
+    public String getSubloteImovel() {
+        return subloteImovel;
     }
 
-    public void setSubLoteImovel(String subLoteImovel) {
-        this.subLoteImovel = subLoteImovel;
+    public void setSubloteImovel(String subloteImovel) {
+        this.subloteImovel = subloteImovel;
     }
 
     public String getNomeBairro() {
