@@ -105,7 +105,7 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 		   .append("INNER JOIN imovel.quadra quadra ")
 		   .append("INNER JOIN rota.faturamentoGrupo grupo ")
 		   .append("WHERE rota.id = :idRota AND movimento.anoMesMovimento = :referencia ")
-		   .append("ORDER BY movimento.numeroQuadra, movimento.numeroLoteImovel");
+		   .append("ORDER BY movimento.numeroQuadra, movimento.loteImovel");
 		   
 		try {
 			return entity.createQuery(sql.toString(), MovimentoRoteiroEmpresa.class)
