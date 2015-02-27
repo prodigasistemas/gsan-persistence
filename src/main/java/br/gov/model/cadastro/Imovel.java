@@ -383,6 +383,10 @@ public class Imovel implements Serializable {
 	public boolean paralisarEmissaoContas() {
 		return possuiFaturamentoSituacaoTipo() && faturamentoSituacaoTipo.getId().intValue() == FaturamentoSituacaoTipo.PARALIZAR_EMISSAO_CONTAS.intValue();
 	}
+	
+	public boolean pertenceARotaAlternativa(){
+	    return rotaAlternativa != null;
+	}
 
 	/**********************************************
 	 ************ GETTERS AND SETTERS *************

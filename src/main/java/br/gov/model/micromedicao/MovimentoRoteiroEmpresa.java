@@ -52,6 +52,9 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@Column(name = "mrem_enderecoimovel")
 	private String enderecoImovel;
 	
+	@Column(name = "mrem_nmlocalidade")
+	private String nomeLocalidade;
+	
 	@Column(name="mrem_nnhidrometro", columnDefinition="bpchar(10)")
 	private String numeroHidrometro;
 
@@ -212,7 +215,7 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "stcm_id")
 	private SetorComercial setorComercial;
 
@@ -798,5 +801,13 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 
     public void setNomeBairro(String nomeBairro) {
         this.nomeBairro = nomeBairro;
+    }
+
+    public String getNomeLocalidade() {
+        return nomeLocalidade;
+    }
+
+    public void setNomeLocalidade(String nomeLocalidade) {
+        this.nomeLocalidade = nomeLocalidade;
     }
 }

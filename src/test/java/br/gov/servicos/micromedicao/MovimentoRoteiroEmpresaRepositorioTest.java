@@ -79,7 +79,7 @@ public class MovimentoRoteiroEmpresaRepositorioTest extends SingleDeployment {
 		grupo.setAnoMesReferencia(201502);
 		rota.setFaturamentoGrupo(grupo);
 
-		repositorio.criarMovimentoRoteiroEmpresa(imoveis, rota);
+//		repositorio.criarMovimentoRoteiroEmpresa(imoveis, rota);
 	}
 
 	@Test
