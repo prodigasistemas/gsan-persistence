@@ -1,0 +1,59 @@
+micromedicao.movimento_roteiro_empr:
+  - mrem_id: 1
+    mrem_ammovimento: 201501
+    rota_id: 1
+    imov_id: 1
+    ftgr_id: 1
+    loca_id: 1
+  - mrem_id: 2
+    mrem_ammovimento: 201502
+    rota_id: 1
+    imov_id: 2
+    ftgr_id: 1
+    loca_id: 1
+  - mrem_id: 3
+    mrem_ammovimento: 201502
+    rota_id: 1
+    imov_id: 3
+    ftgr_id: 1
+    loca_id: 2
+  - mrem_id: 4
+    mrem_ammovimento: 201502
+    rota_id: 2
+    imov_id: 4
+    ftgr_id: 1
+    loca_id: 1
+  - mrem_id: 5
+    mrem_ammovimento: 201502
+    rota_id: 1
+    imov_id: 5
+    ftgr_id: 1
+    loca_id: 1
+
+cadastro.imovel:
+ - imov_id: 1
+   qdra_id: 1
+ - imov_id: 2
+   qdra_id: 2
+ - imov_id: 3
+   qdra_id: 2
+ - imov_id: 4
+   qdra_id: 1
+
+cadastro.quadra:
+  - qdra_id: 1
+  - qdra_id: 2
+
+cadastro.localidade:
+  - loca_id: 1
+  - loca_id: 2
+
+micromedicao.rota:
+  - rota_id: 1
+    ftgr_id: 1
+  - rota_id: 2
+    ftgr_id: 2
+
+faturamento.faturamento_grupo:
+ - ftgr_id: 1
+ - ftgr_id: 2

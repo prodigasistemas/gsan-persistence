@@ -25,22 +25,22 @@ import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.ImovelPerfil;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Logradouro;
+import br.gov.model.cadastro.SetorComercial;
 import br.gov.model.faturamento.FaturamentoGrupo;
 
 @Entity
-@Table(name="movimento_roteiro_empr", schema="micromedicao")
-
+@Table(name = "movimento_roteiro_empr", schema = "micromedicao")
 public class MovimentoRoteiroEmpresa implements Serializable {
 
 	private static final long serialVersionUID = -2764912426208248682L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_MOVIMENTO_ROTEIRO_EMPR")
-	@SequenceGenerator(name="SEQ_MOVIMENTO_ROTEIRO_EMPR", schema="micromedicao", sequenceName="seq_movimento_roteiro_empr", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_MOVIMENTO_ROTEIRO_EMPR")
+	@SequenceGenerator(name = "SEQ_MOVIMENTO_ROTEIRO_EMPR", schema = "micromedicao", sequenceName = "seq_movimento_roteiro_empr", allocationSize = 1)
 	@Column(name = "mrem_id")
 	private Integer id;
-	
-	@Column(name="mrem_ammovimento")
+
+	@Column(name = "mrem_ammovimento")
 	private Integer anoMesMovimento;
 	
 	@Column(name="mrem_cdsetorcomercial")
@@ -49,92 +49,92 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@Column(name="mrem_nmcliente")
 	private String nomeCliente;
 
-	@Column(name="mrem_enderecoimovel")
+	@Column(name = "mrem_enderecoimovel")
 	private String enderecoImovel;
 	
 	@Column(name="mrem_nnhidrometro", columnDefinition="bpchar(10)")
 	private String numeroHidrometro;
-	
-	@Column(name="mrem_qteconomias")
+
+	@Column(name = "mrem_qteconomias")
 	private Short quantidadeEconomias;
-	
-	@Column(name="mrem_nnleituraanterior")
+
+	@Column(name = "mrem_nnleituraanterior")
 	private Integer numeroLeituraAnterior;
-	
-	@Column(name="mrem_nnfaixaleitespinicial")
+
+	@Column(name = "mrem_nnfaixaleitespinicial")
 	private Integer numeroFaixaLeituraEsperadaInicial;
-	
-	@Column(name="mrem_nnfaixaleitespfinal")
+
+	@Column(name = "mrem_nnfaixaleitespfinal")
 	private Integer numeroFaixaLeituraEsperadaFinal;
-	
-	@Column(name="mrem_nnleiturahidrometro")
+
+	@Column(name = "mrem_nnleiturahidrometro")
 	private Integer numeroLeituraHidrometro;
-	
-	@Column(name="mrem_icconfirmacaoleitura")
+
+	@Column(name = "mrem_icconfirmacaoleitura")
 	private Short indicadorConfirmacaoLeitura;
-	
-	@Column(name="mrem_icatualizarleitura")
+
+	@Column(name = "mrem_icatualizarleitura")
 	private Short indicadorAtualizacaoLeitura;
-	
-	@Column(name="mrem_tmleitura")
+
+	@Column(name = "mrem_tmleitura")
 	private Date tempoLeitura;
-	
-	@Column(name="mrem_tmultimaalteracao")
+
+	@Column(name = "mrem_tmultimaalteracao")
 	private Date ultimaAlteracao;
-	
-	@Column(name="mrem_dtinstalacaohidrometro")
+
+	@Column(name = "mrem_dtinstalacaohidrometro")
 	@Temporal(TemporalType.DATE)
 	private Date dataInstalacaoHidrometro;
-	
-	@Column(name="mrem_tmprocessamento")
+
+	@Column(name = "mrem_tmprocessamento")
 	private Date dataHoraProcessamento;
-	
-	@Column(name="lttp_id")
+
+	@Column(name = "lttp_id")
 	private Integer leituraTipo;
-	
-	@Column(name="mrem_cdsubcategoria")
+
+	@Column(name = "mrem_cdsubcategoria")
 	private Integer codigoSubcategoria1;
-	
-	@Column(name="mrem_qteconomias2")
+
+	@Column(name = "mrem_qteconomias2")
 	private Short quantidadeEconomias2;
-	
-	@Column(name="mrem_cdsubcategoria2")
+
+	@Column(name = "mrem_cdsubcategoria2")
 	private Integer codigoSubcategoria2;
-	
-	@Column(name="mrem_nnconsumofaturado1")
+
+	@Column(name = "mrem_nnconsumofaturado1")
 	private Integer numeroConsumoFaturadoMenos1Mes;
-	
-	@Column(name="mrem_nnconsumofaturado2")
+
+	@Column(name = "mrem_nnconsumofaturado2")
 	private Integer numeroConsumoFaturadoMenos2Meses;
-	
-	@Column(name="mrem_nnconsumofaturado3")
+
+	@Column(name = "mrem_nnconsumofaturado3")
 	private Integer numeroConsumoFaturadoMenos3Meses;
-	
-	@Column(name="mrem_dsconsumotipo")
+
+	@Column(name = "mrem_dsconsumotipo")
 	private String descricaoConsumoTipo;
-	
-	@Column(name="mrem_nnlacre")
+
+	@Column(name = "mrem_nnlacre")
 	private String numeroLacreLigacaoAgua;
-	
-	@Column(name="mrem_nnconsumofaturado4")
+
+	@Column(name = "mrem_nnconsumofaturado4")
 	private Integer numeroConsumoFaturadoMenos4Meses;
-	
-	@Column(name="mrem_nnconsumofaturado5")
+
+	@Column(name = "mrem_nnconsumofaturado5")
 	private Integer numeroConsumoFaturadoMenos5Meses;
-	
-	@Column(name="mrem_nnconsumofaturado6")
+
+	@Column(name = "mrem_nnconsumofaturado6")
 	private Integer numeroConsumoFaturadoMenos6Meses;
-	
-	@Column(name="mrem_nnconsumomedio")
+
+	@Column(name = "mrem_nnconsumomedio")
 	private Integer numeroConsumoMedio;
-	
-	@Column(name="mrem_nmlogradouro")
+
+	@Column(name = "mrem_nmlogradouro")
 	private String nomeLogradouro;
 	
-	@Column(name="mrem_dscomplementoendereco")
+	@Column(name = "mrem_dscomplementoendereco")
 	private String complementoEndereco;
-	
-	@Column(name="mrem_nmleiturista")
+
+	@Column(name = "mrem_nmleiturista")
 	private String nomeLeiturista;
 	
 	@Column(name="mrem_dsabrevlogradourotitulo", columnDefinition="bpchar(5)")
@@ -142,8 +142,8 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	
 	@Column(name="mrem_dsabrevlogradourotipo", columnDefinition="bpchar(5)")
 	private String descricaoAbreviadaLogradouroTipo;
-	
-	@Column(name="mrem_cdfacequadra")
+
+	@Column(name = "mrem_cdfacequadra")
 	private Integer codigoQuadraFace;
 	
 	@Column(name="mrem_nnquadra")
@@ -157,23 +157,35 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	
 	@Column(name="mrem_nnmoradores")
 	private Integer numeroMoradores;
-	
-	@Column(name="mrem_cdanormalidadeanterior")
+
+	@Column(name = "mrem_cdanormalidadeanterior")
 	private Integer codigoAnormalidadeAnterior;
-	
-	@Column(name="mrem_dtleituraanterior")
+
+	@Column(name = "mrem_dtleituraanterior")
 	@Temporal(TemporalType.DATE)
 	private Date dataLeituraAnterior;
-	
-	@Column(name="medt_id")
+
+	@Column(name = "medt_id")
 	private Integer medicaoTipo;
+
+	@Column(name = "mrem_nnloteimovel")
+	private String numeroLoteImovel;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="ftgr_id")
+	@Column(name = "mrem_nnsubloteimovel")
+	private String numeroSubloteImovel;
+	
+	@Column(name = "mrem_dsabrevcatgimovel")
+	private String descricaoAbreviadaCategoriaImovel;
+
+	@Column(name = "mrem_nmbairro")
+	private String nomeBairro;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="rota_id")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "rota_id")
 	private Rota rota;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -199,7 +211,11 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "stcm_id")
+	private SetorComercial setorComercial;
+
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lest_id")
 	private LigacaoEsgotoSituacao ligacaoEsgotoSituacao;
@@ -252,166 +268,133 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public Integer getAnoMesMovimento() {
 		return anoMesMovimento;
 	}
 
-
 	public void setAnoMesMovimento(Integer anoMesMovimento) {
 		this.anoMesMovimento = anoMesMovimento;
 	}
-
 
 	public String getNomeCliente() {
 		return nomeCliente;
 	}
 
-
 	public void setNomeCliente(String nomeCliente) {
 		this.nomeCliente = nomeCliente;
 	}
-
 
 	public String getEnderecoImovel() {
 		return enderecoImovel;
 	}
 
-
 	public void setEnderecoImovel(String enderecoImovel) {
 		this.enderecoImovel = enderecoImovel;
 	}
-
 
 	public String getNumeroHidrometro() {
 		return numeroHidrometro;
 	}
 
-
 	public void setNumeroHidrometro(String numeroHidrometro) {
 		this.numeroHidrometro = numeroHidrometro;
 	}
-
 
 	public Short getQuantidadeEconomias() {
 		return quantidadeEconomias;
 	}
 
-
 	public void setQuantidadeEconomias(Short quantidadeEconomias) {
 		this.quantidadeEconomias = quantidadeEconomias;
 	}
-
 
 	public Integer getNumeroLeituraAnterior() {
 		return numeroLeituraAnterior;
 	}
 
-
 	public void setNumeroLeituraAnterior(Integer numeroLeituraAnterior) {
 		this.numeroLeituraAnterior = numeroLeituraAnterior;
 	}
-
 
 	public Integer getNumeroFaixaLeituraEsperadaInicial() {
 		return numeroFaixaLeituraEsperadaInicial;
 	}
 
-
 	public void setNumeroFaixaLeituraEsperadaInicial(Integer numeroFaixaLeituraEsperadaInicial) {
 		this.numeroFaixaLeituraEsperadaInicial = numeroFaixaLeituraEsperadaInicial;
 	}
-
 
 	public Integer getNumeroFaixaLeituraEsperadaFinal() {
 		return numeroFaixaLeituraEsperadaFinal;
 	}
 
-
 	public void setNumeroFaixaLeituraEsperadaFinal(Integer numeroFaixaLeituraEsperadaFinal) {
 		this.numeroFaixaLeituraEsperadaFinal = numeroFaixaLeituraEsperadaFinal;
 	}
-
 
 	public Integer getNumeroLeituraHidrometro() {
 		return numeroLeituraHidrometro;
 	}
 
-
 	public void setNumeroLeituraHidrometro(Integer numeroLeituraHidrometro) {
 		this.numeroLeituraHidrometro = numeroLeituraHidrometro;
 	}
-
 
 	public Short getIndicadorConfirmacaoLeitura() {
 		return indicadorConfirmacaoLeitura;
 	}
 
-
 	public void setIndicadorConfirmacaoLeitura(Short indicadorConfirmacaoLeitura) {
 		this.indicadorConfirmacaoLeitura = indicadorConfirmacaoLeitura;
 	}
-
 
 	public Short getIndicadorAtualizacaoLeitura() {
 		return indicadorAtualizacaoLeitura;
 	}
 
-
 	public void setIndicadorAtualizacaoLeitura(Short indicadorAtualizacaoLeitura) {
 		this.indicadorAtualizacaoLeitura = indicadorAtualizacaoLeitura;
 	}
-
 
 	public Date getTempoLeitura() {
 		return tempoLeitura;
 	}
 
-
 	public void setTempoLeitura(Date tempoLeitura) {
 		this.tempoLeitura = tempoLeitura;
 	}
-
 
 	public Date getUltimaAlteracao() {
 		return ultimaAlteracao;
 	}
 
-
 	public void setUltimaAlteracao(Date ultimaAlteracao) {
 		this.ultimaAlteracao = ultimaAlteracao;
 	}
-
 
 	public Date getDataInstalacaoHidrometro() {
 		return dataInstalacaoHidrometro;
 	}
 
-
 	public void setDataInstalacaoHidrometro(Date dataInstalacaoHidrometro) {
 		this.dataInstalacaoHidrometro = dataInstalacaoHidrometro;
 	}
-
 
 	public Date getDataHoraProcessamento() {
 		return dataHoraProcessamento;
 	}
 
-
 	public void setDataHoraProcessamento(Date dataHoraProcessamento) {
 		this.dataHoraProcessamento = dataHoraProcessamento;
 	}
 
-
 	public Integer getLeituraTipo() {
 		return leituraTipo;
 	}
-
 
 	public void setLeituraTipo(Integer leituraTipo) {
 		this.leituraTipo = leituraTipo;
@@ -641,6 +624,38 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 		this.localidade = localidade;
 	}
 
+	public String getNumeroLoteImovel() {
+		return numeroLoteImovel;
+	}
+
+	public void setNumeroLoteImovel(String numeroLoteImovel) {
+		this.numeroLoteImovel = numeroLoteImovel;
+	}
+
+	public String getNumeroSubloteImovel() {
+		return numeroSubloteImovel;
+	}
+
+	public void setNumeroSubloteImovel(String numeroSubloteImovel) {
+		this.numeroSubloteImovel = numeroSubloteImovel;
+	}
+
+	public String getDescricaoAbreviadaCategoriaImovel() {
+		return descricaoAbreviadaCategoriaImovel;
+	}
+
+	public void setDescricaoAbreviadaCategoriaImovel(String descricaoAbreviadaCategoriaImovel) {
+		this.descricaoAbreviadaCategoriaImovel = descricaoAbreviadaCategoriaImovel;
+	}
+
+	public SetorComercial getSetorComercial() {
+		return setorComercial;
+	}
+
+	public void setSetorComercial(SetorComercial setorComercial) {
+		this.setorComercial = setorComercial;
+	}
+
 	public Imovel getImovel() {
 		return imovel;
 	}
@@ -775,5 +790,13 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 
     public void setSubLoteImovel(String subLoteImovel) {
         this.subLoteImovel = subLoteImovel;
+    }
+
+    public String getNomeBairro() {
+        return nomeBairro;
+    }
+
+    public void setNomeBairro(String nomeBairro) {
+        this.nomeBairro = nomeBairro;
     }
 }

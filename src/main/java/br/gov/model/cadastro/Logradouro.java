@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,15 +31,15 @@ public class Logradouro implements Serializable {
 	@Column(name="logr_nmlogradouro")
 	private String nome;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lgtt_id")
 	private LogradouroTitulo logradouroTitulo;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lgtp_id")
 	private LogradouroTipo logradouroTipo; 
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="muni_id")
 	private Municipio municipio; 
 	

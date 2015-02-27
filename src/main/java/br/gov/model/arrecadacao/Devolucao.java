@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,11 +48,11 @@ public class Devolucao implements Serializable{
 	@Column(name="devl_amreferenciadevolucao")
 	private Integer anoMesReferenciaDevolucao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="crar_id")
 	private CreditoRealizar creditoRealizar;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="crar_id", insertable=false, updatable=false)
 	private CreditoRealizarGeral creditoRealizarGeral;
 	
