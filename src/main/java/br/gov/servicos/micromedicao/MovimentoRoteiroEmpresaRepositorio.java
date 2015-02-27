@@ -95,7 +95,7 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 		return movimentos;
 	}
 	
-	public List<MovimentoRoteiroEmpresa> pesquisarMovimentoParaLeitura(int idRota, int referencia) {
+	public List<MovimentoRoteiroEmpresa> pesquisarMovimentoParaLeitura(int idRota, int referencia, int indice) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT movimento ")
 		   .append("FROM MovimentoRoteiroEmpresa movimento ")
@@ -111,6 +111,8 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 			return entity.createQuery(sql.toString(), MovimentoRoteiroEmpresa.class)
 					.setParameter("idRota", idRota)
 					.setParameter("referencia", referencia)
+					.setFirstResult(indice)
+					.setMaxResults(1000)
 					.getResultList();
 		} catch (NoResultException e) {
 			return null;

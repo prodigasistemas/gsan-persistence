@@ -212,10 +212,6 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 
-	@ManyToOne
-	@JoinColumn(name = "stcm_id")
-	private SetorComercial setorComercial;
-
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lest_id")
 	private LigacaoEsgotoSituacao ligacaoEsgotoSituacao;
@@ -264,6 +260,26 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 		super();
 	}
 
+	public boolean temDescricaoCategoria() {
+		return this.getDescricaoAbreviadaCategoriaImovel() != null;
+	}
+	
+	public boolean isResidencial() {
+		return temDescricaoCategoria() && this.getDescricaoAbreviadaCategoriaImovel().equals(Categoria.RESIDENCIAL_DESCRICAO_ABREVIADA);
+	}
+	
+	public boolean isComercial() {
+		return temDescricaoCategoria() && this.getDescricaoAbreviadaCategoriaImovel().equals(Categoria.COMERCIAL_DESCRICAO_ABREVIADA);
+	}
+	
+	public boolean isIndustrial() {
+		return temDescricaoCategoria() && this.getDescricaoAbreviadaCategoriaImovel().equals(Categoria.INDUSTRIAL_DESCRICAO_ABREVIADA);
+	}
+	
+	public boolean isPublico() {
+		return temDescricaoCategoria() && this.getDescricaoAbreviadaCategoriaImovel().equals(Categoria.PUBLICO_DESCRICAO_ABREVIADA);
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -646,14 +662,6 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 
 	public void setDescricaoAbreviadaCategoriaImovel(String descricaoAbreviadaCategoriaImovel) {
 		this.descricaoAbreviadaCategoriaImovel = descricaoAbreviadaCategoriaImovel;
-	}
-
-	public SetorComercial getSetorComercial() {
-		return setorComercial;
-	}
-
-	public void setSetorComercial(SetorComercial setorComercial) {
-		this.setorComercial = setorComercial;
 	}
 
 	public Imovel getImovel() {
