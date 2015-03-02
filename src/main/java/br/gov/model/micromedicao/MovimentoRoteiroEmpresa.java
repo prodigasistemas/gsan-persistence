@@ -25,7 +25,6 @@ import br.gov.model.cadastro.Imovel;
 import br.gov.model.cadastro.ImovelPerfil;
 import br.gov.model.cadastro.Localidade;
 import br.gov.model.cadastro.Logradouro;
-import br.gov.model.cadastro.SetorComercial;
 import br.gov.model.faturamento.FaturamentoGrupo;
 
 @Entity
@@ -208,10 +207,6 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
-
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "stcm_id")
-	private SetorComercial setorComercial;
 
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lest_id")
@@ -799,5 +794,34 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 
     public void setNomeLocalidade(String nomeLocalidade) {
         this.nomeLocalidade = nomeLocalidade;
+    }
+
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((anoMesMovimento == null) ? 0 : anoMesMovimento.hashCode());
+        result = prime * result + ((nomeCliente == null) ? 0 : nomeCliente.hashCode());
+        return result;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        MovimentoRoteiroEmpresa other = (MovimentoRoteiroEmpresa) obj;
+        if (anoMesMovimento == null) {
+            if (other.anoMesMovimento != null)
+                return false;
+        } else if (!anoMesMovimento.equals(other.anoMesMovimento))
+            return false;
+        if (nomeCliente == null) {
+            if (other.nomeCliente != null)
+                return false;
+        } else if (!nomeCliente.equals(other.nomeCliente))
+            return false;
+        return true;
     }
 }
