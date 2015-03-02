@@ -328,7 +328,11 @@ public class Utilitarios {
 	}
 	
 	public static String converteAnoMesParaMesAnoSemBarra(Integer anoMes) {
-	    return String.valueOf(anoMes).substring(4) + String.valueOf(anoMes).substring(0,4);
+	    if (anoMes != null && String.valueOf(anoMes).length() >= 6){
+	        return String.valueOf(anoMes).substring(4) + String.valueOf(anoMes).substring(0,4);
+	    }else{
+	        return "";
+	    }
 	}
 	
 	public static String retiraCaracteresEspeciais(String texto){

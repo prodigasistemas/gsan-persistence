@@ -286,4 +286,8 @@ public class Cliente implements Serializable {
 		else
 			return "";
 	}
+
+    public String toString() {
+        return "Cliente [id=" + id + ", nome=" + nome + "]";
+    }
 }
