@@ -15,44 +15,40 @@ import br.gov.servicos.cadastro.to.AreaConstruidaTO;
 
 @Stateless
 public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
-	public long totalImoveisParaPreFaturamentoSemRotaAlternativa(int idRota){
+	
+	public long totalImoveisParaPreFaturamentoSemRotaAlternativa(int idRota) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(imovel) ").append(consultaImoveisSemRotaAlternativa(false));
-		
-		return entity.createQuery(sql.toString(), Long.class)
-				.setParameter("rotaId", idRota)
-				.getSingleResult();
+
+		return entity.createQuery(sql.toString(), Long.class).setParameter("rotaId", idRota).getSingleResult();
 	}
 	
-	public long totalImoveisParaPreFaturamentoComRotaAlternativa(int idRota){
+	public long totalImoveisParaPreFaturamentoComRotaAlternativa(int idRota) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(imovel) ").append(consultaImoveisComRotaAlternativa(false));
-		
-		return entity.createQuery(sql.toString(), Long.class)
-				.setParameter("rotaId", idRota)
-				.getSingleResult();
+
+		return entity.createQuery(sql.toString(), Long.class).setParameter("rotaId", idRota).getSingleResult();
 	}
 				
-	public long totalImoveisParaPreFaturamento(int idRota){
+	public long totalImoveisParaPreFaturamento(int idRota) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(im) from Imovel im ")
-		.append(" inner join im.setorComercial setor ")
-		.append(" inner join im.quadra qua ")
-		.append(" inner join qua.rota rot ")
-		.append(" WHERE rot.id = :rotaId ");
-		
-		return entity.createQuery(sql.toString(), Long.class)
-				.setParameter("rotaId", idRota)
-				.getSingleResult();
+		   .append(" inner join im.setorComercial setor ")
+		   .append(" inner join im.quadra qua ")
+		   .append(" inner join qua.rota rot ")
+		   .append(" WHERE rot.id = :rotaId ");
+
+		return entity.createQuery(sql.toString(), Long.class).setParameter("rotaId", idRota).getSingleResult();
 	}
 	
 	public List<Imovel> imoveisParaPreFaturamentoSemRotaAlternativa(int idRota, int firstItem, int numItems) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select imovel ").append(consultaImoveisSemRotaAlternativa(true));
-		
+
 		return entity.createQuery(sql.toString(), Imovel.class)
 				.setParameter("rotaId", idRota)
-				.setFirstResult(firstItem).setMaxResults(numItems)
+				.setFirstResult(firstItem)
+				.setMaxResults(numItems)
 				.getResultList();
 	}
 		
@@ -69,48 +65,45 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
 	public List<Imovel> imoveisParaPreFaturamento(int idRota, int firstItem, int numItems) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select im from Imovel im ")
-		.append(" inner join fetch im.setorComercial setor ")
-		.append(" inner join fetch im.quadra qua ")
-		.append(" inner join qua.rota rot ")
-		.append(" WHERE rot.id = :rotaId ");
-		
+		   .append(" inner join fetch im.setorComercial setor ")
+		   .append(" inner join fetch im.quadra qua ")
+		   .append(" inner join qua.rota rot ")
+		   .append(" WHERE rot.id = :rotaId ");
+
 		return entity.createQuery(sql.toString(), Imovel.class)
 				.setParameter("rotaId", idRota)
-				.setFirstResult(firstItem).setMaxResults(numItems)
+				.setFirstResult(firstItem)
+				.setMaxResults(numItems)
 				.getResultList();
 	}
 	
 	public boolean existeImovel(Integer idImovel) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select count (im) from Imovel im ")
-		.append("where im.id = :idImovel");
-		
-		long qtd = entity.createQuery(sql.toString(), Long.class)
-			.setParameter("idImovel", idImovel)
-			.getSingleResult();
-		
-		return (qtd > 0) ? true : false; 
+		sql.append("select count(imovel) from Imovel imovel where imovel.id = :idImovel");
+
+		long quantidade = entity.createQuery(sql.toString(), Long.class).setParameter("idImovel", idImovel).getSingleResult();
+
+		return (quantidade > 0) ? true : false;
 	}	
 	
-	public boolean existeContaImovel(Integer idImovel, Integer anoMesReferencia) throws Exception{
-		long qtd = 0;
-		
+	public boolean existeContaImovel(Integer idImovel, Integer anoMesReferencia) throws Exception {
+		long quantidade = 0;
+
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("select count (ct) from Conta ct ")
-			.append("inner join ct.imovel im ")
-			.append("where im.id = :idImovel and ct.referencia = :anoMesReferencia");
-			
-			qtd = entity.createQuery(sql.toString(), Long.class)
+			   .append("inner join ct.imovel im ")
+			   .append("where im.id = :idImovel and ct.referencia = :anoMesReferencia");
+
+			quantidade = entity.createQuery(sql.toString(), Long.class)
 					.setParameter("idImovel", idImovel)
-					.setParameter("anoMesReferencia" , anoMesReferencia)
+					.setParameter("anoMesReferencia", anoMesReferencia)
 					.getSingleResult();
 		} catch (Exception e) {
 			throw new ErroPesquisaContaImovel(e, idImovel);
 		}
-		
-		
-		return (qtd > 0) ? true : false; 
+
+		return (quantidade > 0) ? true : false;
 	}
 
 	public List<Imovel> buscarImoveisParaGerarArquivoTextoFaturamento(Integer idRota, int registroInicial, int quantidadeRegistros) {
@@ -299,31 +292,32 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
                 .getResultList();
     }
     
-    public List<Imovel> imoveisParaArquivoConvencionalComRotaAlternativa(int idRota) {
-
+    public List<Imovel> imoveisParaLeituraComRotaAlternativa(int idRota) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT imovel ")
-		   .append("FROM Imovel imovel ")
-		   .append("INNER JOIN imovel.rotaAlternativa rotaAlternativa ")
-		   .append("LEFT JOIN imovel.imovelPerfil imovelPerfil ")
-		   .append("WHERE rotaAlternativa.id = :idRota ")
-		   .append("AND imovelPerfil.indicadorGerarDadosLeitura = 1 ");
+		sql.append("SELECT imovel ").append(consultaImoveisLeituraComRotaAlternativa());
 
 		return entity.createQuery(sql.toString(), Imovel.class).setParameter("idRota", idRota).getResultList();
 	}
 
-	public List<Imovel> imoveisParaArquivoConvencionalSemRotaAlternativa(int idRota) {
+	public List<Imovel> imoveisParaLeituraSemRotaAlternativa(int idRota) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT imovel ")
-		   .append("FROM Imovel imovel ")
-		   .append("INNER JOIN imovel.quadra quadra ")
-		   .append("INNER JOIN quadra.rota rota ")
-		   .append("LEFT JOIN imovel.imovelPerfil imovelPerfil ")
-		   .append("WHERE rota.id = :idRota ")
-		   .append("AND imovel.rotaAlternativa IS NULL ")
-		   .append("AND imovelPerfil.indicadorGerarDadosLeitura = 1 ");
+		sql.append("SELECT imovel ").append(consultaImoveisLeituraSemRotaAlternativa());
 
 		return entity.createQuery(sql.toString(), Imovel.class).setParameter("idRota", idRota).getResultList();
+	}
+	
+	public long totalImoveisParaLeituraComRotaAlternativa(int idRota) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT count(imovel) ").append(consultaImoveisLeituraComRotaAlternativa());
+
+		return entity.createQuery(sql.toString(), Long.class).setParameter("idRota", idRota).getSingleResult();
+	}
+
+	public long totalImoveisParaLeituraSemRotaAlternativa(int idRota) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT count(imovel) ").append(consultaImoveisLeituraSemRotaAlternativa());
+
+		return entity.createQuery(sql.toString(), Long.class).setParameter("idRota", idRota).getSingleResult();
 	}
     
 	/***********************************************
@@ -373,6 +367,7 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
 		return sql;
 	}
 	
+	// TODO - Remover eager
 	private StringBuilder consultaImoveisComRotaAlternativa(boolean eager){
 		StringBuilder sql = new StringBuilder();
 		sql.append("from Imovel imovel ")
@@ -389,6 +384,7 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
 		return sql;
 	}
 
+	// TODO - Remover eager
 	private StringBuilder consultaImoveisSemRotaAlternativa(boolean eager){
 		StringBuilder sql = new StringBuilder();
 		sql.append("from Imovel imovel ")
@@ -402,6 +398,30 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
 		.append(" and imovel.indicadorExclusao <> 1 ")
 		.append(" and imovelPerfil.indicadorGerarDadosLeitura = 1 ");
 		
+		return sql;
+	}
+	
+	private StringBuilder consultaImoveisLeituraSemRotaAlternativa() {
+		StringBuilder sql = new StringBuilder();
+		sql.append("FROM Imovel imovel ")
+		   .append("INNER JOIN imovel.quadra quadra ")
+		   .append("INNER JOIN quadra.rota rota ")
+		   .append("LEFT JOIN imovel.imovelPerfil imovelPerfil ")
+		   .append("WHERE rota.id = :idRota ")
+		   .append("AND imovel.rotaAlternativa IS NULL ")
+		   .append("AND imovelPerfil.indicadorGerarDadosLeitura = 1 ");
+		
+		return sql;
+	}
+	
+	private StringBuilder consultaImoveisLeituraComRotaAlternativa() {
+		StringBuilder sql = new StringBuilder();
+		sql.append("FROM Imovel imovel ")
+		   .append("INNER JOIN imovel.rotaAlternativa rotaAlternativa ")
+		   .append("LEFT JOIN imovel.imovelPerfil imovelPerfil ")
+		   .append("WHERE rotaAlternativa.id = :idRota ")
+		   .append("AND imovelPerfil.indicadorGerarDadosLeitura = 1 ");
+
 		return sql;
 	}
     /*****************************************************
