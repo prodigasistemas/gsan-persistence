@@ -33,6 +33,7 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 			.executeUpdate();
 	}
 	
+	// TODO - Verificar possível exclusão do método
 	public List<Imovel> pesquisarImoveisGeradosParaOutroGrupo(List<Imovel> imoveis, FaturamentoGrupo faturamentoGrupo) {
 		if(imoveis.isEmpty()) return imoveis;
 		
@@ -60,8 +61,25 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 		}
 	}
 	
+	public boolean existeMovimentoParaGrupoDiferenteDoImovel(Integer idImovel, Integer idGrupo, Integer anoMesReferencia) {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT count(movimento) ")
+		   .append("FROM MovimentoRoteiroEmpresa movimento ")
+		   .append("WHERE movimento.imovel.id = :idImovel ")
+		   .append("AND movimento.faturamentoGrupo.id <> :idGrupo ")
+		   .append("AND movimento.anoMesMovimento = :anoMesReferencia");
+
+		Long qtd = entity.createQuery(sql.toString(), Long.class)
+				.setParameter("idImovel", idImovel)
+				.setParameter("idGrupo", idGrupo)
+				.setParameter("anoMesReferencia", anoMesReferencia)
+				.getSingleResult();
+		
+		return qtd > 0 ? true : false;	
+	}
 	
-	public List<MovimentoRoteiroEmpresa> pesquisarMovimentoParaLeitura(int idRota, int referencia, int indice) {
+	public List<MovimentoRoteiroEmpresa> pesquisarMovimentoParaLeitura(int idRota, int referencia) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT movimento ")
 		   .append("FROM MovimentoRoteiroEmpresa movimento ")
@@ -77,8 +95,6 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 			return entity.createQuery(sql.toString(), MovimentoRoteiroEmpresa.class)
 					.setParameter("idRota", idRota)
 					.setParameter("referencia", referencia)
-					.setFirstResult(indice)
-					.setMaxResults(1000)
 					.getResultList();
 		} catch (NoResultException e) {
 			return null;
