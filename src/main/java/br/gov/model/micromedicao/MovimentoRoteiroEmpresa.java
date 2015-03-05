@@ -197,7 +197,7 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	private Leiturista leiturista;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="ltan_id")
+	@JoinColumn(name="ltan_id", columnDefinition="int2")
 	private LeituraAnormalidade leituraAnormalidade;
 
 	@ManyToOne(fetch=FetchType.LAZY)
