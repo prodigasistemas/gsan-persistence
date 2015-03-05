@@ -292,18 +292,26 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
                 .getResultList();
     }
     
-    public List<Imovel> imoveisParaLeituraComRotaAlternativa(int idRota) {
+    public List<Imovel> imoveisParaLeituraComRotaAlternativa(int idRota, int firstItem, int numItems) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT imovel ").append(consultaImoveisLeituraComRotaAlternativa());
 
-		return entity.createQuery(sql.toString(), Imovel.class).setParameter("idRota", idRota).getResultList();
+		return entity.createQuery(sql.toString(), Imovel.class)
+				.setParameter("idRota", idRota)
+				.setFirstResult(firstItem)
+				.setMaxResults(numItems)
+				.getResultList();
 	}
 
-	public List<Imovel> imoveisParaLeituraSemRotaAlternativa(int idRota) {
+	public List<Imovel> imoveisParaLeituraSemRotaAlternativa(int idRota, int firstItem, int numItems) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT imovel ").append(consultaImoveisLeituraSemRotaAlternativa());
 
-		return entity.createQuery(sql.toString(), Imovel.class).setParameter("idRota", idRota).getResultList();
+		return entity.createQuery(sql.toString(), Imovel.class)
+				.setFirstResult(firstItem)
+				.setMaxResults(numItems)
+				.setParameter("idRota", idRota)
+				.getResultList();
 	}
 	
 	public long totalImoveisParaLeituraComRotaAlternativa(int idRota) {

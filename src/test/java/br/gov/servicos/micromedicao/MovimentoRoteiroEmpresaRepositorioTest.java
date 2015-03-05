@@ -60,4 +60,16 @@ public class MovimentoRoteiroEmpresaRepositorioTest extends SingleDeployment {
 		assertNotNull(movimento);
 		assertEquals(2, movimento.size());
 	}
+	
+	@Test
+	@UsingDataSet("movimento_roteiro_empresa_outros_grupos.yml")
+	public void existeMovimentoParaGrupoDiferenteDoImovel() {
+		assertEquals(true, repositorio.existeMovimentoParaGrupoDiferenteDoImovel(1, 1, 201501));
+	}
+	
+	@Test
+	@UsingDataSet("movimento_roteiro_empresa_outros_grupos.yml")
+	public void naoExisteMovimentoParaGrupoDiferenteDoImovel() {
+		assertEquals(false, repositorio.existeMovimentoParaGrupoDiferenteDoImovel(1, 2, 201501));
+	}
 }
