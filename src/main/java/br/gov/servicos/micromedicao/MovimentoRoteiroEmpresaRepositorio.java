@@ -79,10 +79,39 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 		return qtd > 0 ? true : false;	
 	}
 	
-	public List<MovimentoRoteiroEmpresa> pesquisarMovimentoParaLeitura(int idRota, int referencia) {
+	//FIXME: Recolocar os parametros de limite na consulta
+	public List<MovimentoRoteiroEmpresa> pesquisarMovimentoParaLeitura(int idRota, int referencia, int firstItem, int numItens) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT movimento ")
-		   .append("FROM MovimentoRoteiroEmpresa movimento ")
+		sql.append("SELECT movimento ").append(consultaMovimentoParaLeitura());
+		   
+		try {
+			return entity.createQuery(sql.toString(), MovimentoRoteiroEmpresa.class)
+					.setParameter("idRota", idRota)
+					.setParameter("referencia", referencia)
+//					.setFirstResult(firstItem)
+//					.setMaxResults(numItens)
+					.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	public long totalMovimentosParaLeitura(int idRota, int referencia) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT count(movimento) ").append(consultaMovimentoParaLeitura());
+
+		return entity.createQuery(sql.toString(), Long.class)
+				.setParameter("idRota", idRota)
+				.setParameter("referencia", referencia)
+				.getSingleResult();
+	}
+	
+	/**
+	 * PRIVATE METHODS
+	 **/
+	private StringBuilder consultaMovimentoParaLeitura() {
+		StringBuilder sql = new StringBuilder();
+		sql.append("FROM MovimentoRoteiroEmpresa movimento ")
 		   .append("INNER JOIN movimento.imovel imovel ")
 		   .append("INNER JOIN movimento.localidade localidade ")
 		   .append("INNER JOIN movimento.rota rota ")
@@ -90,14 +119,7 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 		   .append("INNER JOIN rota.faturamentoGrupo grupo ")
 		   .append("WHERE rota.id = :idRota AND movimento.anoMesMovimento = :referencia ")
 		   .append("ORDER BY movimento.numeroQuadra, movimento.loteImovel");
-		   
-		try {
-			return entity.createQuery(sql.toString(), MovimentoRoteiroEmpresa.class)
-					.setParameter("idRota", idRota)
-					.setParameter("referencia", referencia)
-					.getResultList();
-		} catch (NoResultException e) {
-			return null;
-		}
+		
+		return sql;
 	}
 }
