@@ -31,7 +31,7 @@ public class IOUtil {
         return arquivo;
     }
 
-    public static void criarArquivoCompactado(String nome, String caminho, String conteudo) {
+    public static void criarArquivoTextoCompactado(String nome, String caminho, String conteudo) {
 		File arquivo = criarArquivoTexto(nome, caminho, conteudo);
 		IOUtil.comprimirParaGzip(arquivo);
 		arquivo.delete();
