@@ -70,7 +70,7 @@ public class MedicaoHistorico implements Serializable{
 	@JoinColumn(name="ltan_idleitanormfatmt")
 	private LeituraAnormalidade leituraAnormalidadeFaturamento;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ltan_idleitanorminformada")
 	private LeituraAnormalidade leituraAnormalidadeInformada;
 

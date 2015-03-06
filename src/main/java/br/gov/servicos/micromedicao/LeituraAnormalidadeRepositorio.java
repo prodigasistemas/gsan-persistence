@@ -20,4 +20,14 @@ public class LeituraAnormalidadeRepositorio extends GenericRepository<Integer, L
 		.setParameter("idLeituraAnormalidade", idLeituraAnormalidade)
 		.setParameter("indicadorImpressaoSimultanea", indicadorEmissaoSimultanea).getResultList();
 	}
+	
+	public List<LeituraAnormalidade> listarLeituraAnormalidadeImpressaoSimultanea(Short indicadorEmissaoSimultanea){
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT leitura FROM LeituraAnormalidade leitura ")
+		.append("WHERE leitura.indicadorImpressaoSimultanea = :indicadorImpressaoSimultanea ")
+		.append("ORDER BY leitura.id");
+
+		return entity.createQuery(sql.toString(), LeituraAnormalidade.class)
+		.setParameter("indicadorImpressaoSimultanea", indicadorEmissaoSimultanea).getResultList();
+	}
 }

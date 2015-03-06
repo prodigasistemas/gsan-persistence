@@ -278,7 +278,6 @@ public class Cliente implements Serializable {
 		return cnpj != null && !cnpj.equals("");
 	}
 	
-	//TODO: TESTAR
 	public String getCpfOuCnpj() {
 		if (possuiCpf())
 			return cpf;
@@ -287,4 +286,8 @@ public class Cliente implements Serializable {
 		else
 			return "";
 	}
+
+    public String toString() {
+        return "Cliente [id=" + id + ", nome=" + nome + "]";
+    }
 }

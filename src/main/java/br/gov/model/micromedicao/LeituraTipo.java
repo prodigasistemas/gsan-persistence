@@ -15,4 +15,13 @@ public enum LeituraTipo {
 	public int getId() {
 		return id;
 	}
+	
+    public static LeituraTipo findById(int id){
+        for (LeituraTipo tipo : LeituraTipo.values()){
+            if (tipo.id == id)
+                return tipo;
+        }
+        
+        return null;
+    }	
 }

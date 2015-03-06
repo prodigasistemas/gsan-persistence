@@ -1,8 +1,9 @@
-package br.gov.model.util;
+package br.gov.persistence.util;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,11 +13,26 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.zip.GZIPOutputStream;
 
+import org.apache.commons.io.filefilter.WildcardFileFilter;
+
 public class IOUtil {
 
-	public static void criarArquivo(String nome, String caminho, String conteudo) {
-		File arquivo = new File(caminho + nome);
-		IOUtil.escreverArquivo(arquivo, conteudo);
+    public static File[] arquivosFiltrados(String caminho, String[] wildcards){
+        FileFilter filtro = new WildcardFileFilter(wildcards);
+        
+        File dir = new File(caminho);
+        
+        return dir.listFiles(filtro);
+    }
+    
+    public static File criarArquivoTexto(String nome, String caminho, String conteudo) {
+        File arquivo = new File(caminho + nome);
+        IOUtil.escreverArquivo(arquivo, conteudo);
+        return arquivo;
+    }
+
+    public static void criarArquivoTextoCompactado(String nome, String caminho, String conteudo) {
+		File arquivo = criarArquivoTexto(nome, caminho, conteudo);
 		IOUtil.comprimirParaGzip(arquivo);
 		arquivo.delete();
 	}

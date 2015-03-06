@@ -1,0 +1,13 @@
+faturamento.faturamento_grupo:
+  - ftgr_id: 1
+
+micromedicao.rota:
+  - rota_id: 1
+    ftgr_id: 1
+    lttp_id: 1
+  - rota_id: 2
+    ftgr_id: 1
+    lttp_id: 2
+  - rota_id: 3
+    ftgr_id: 1
+    lttp_id: 2
