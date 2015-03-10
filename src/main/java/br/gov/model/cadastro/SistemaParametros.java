@@ -157,7 +157,7 @@ public class SistemaParametros implements Serializable {
 	}
 	
 	public boolean indicadorTarifaCategoria() {
-		return getIndicadorTarifaCategoria() == INDICADOR_TARIFA_CATEGORIA;
+		return getIndicadorTarifaCategoria().equals(SistemaParametros.INDICADOR_TARIFA_CATEGORIA);
 	}
 
 	public Short getIndicadorTarifaCategoria() {

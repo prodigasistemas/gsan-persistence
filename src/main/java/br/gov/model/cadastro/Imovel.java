@@ -3,6 +3,7 @@ package br.gov.model.cadastro;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -383,6 +384,10 @@ public class Imovel implements Serializable {
 	public boolean paralisarEmissaoContas() {
 		return possuiFaturamentoSituacaoTipo() && faturamentoSituacaoTipo.getId().intValue() == FaturamentoSituacaoTipo.PARALIZAR_EMISSAO_CONTAS.intValue();
 	}
+	
+	public boolean pertenceARotaAlternativa(){
+	    return rotaAlternativa != null;
+	}
 
 	/**********************************************
 	 ************ GETTERS AND SETTERS *************
@@ -702,4 +707,13 @@ public class Imovel implements Serializable {
 	public String toString() {
 		return "Imovel [id=" + id + ", numeroImovel=" + numeroImovel + "]";
 	}
+	
+	public Cliente getCliente(Integer idClienteRelacaoTipo) {
+		return (Cliente) clienteImoveis.stream()
+										.filter(c -> c.getClienteRelacaoTipo().getId().equals(idClienteRelacaoTipo))
+										.collect(Collectors.toList())
+										.get(0)
+										.getCliente();
+	}
+	
 }

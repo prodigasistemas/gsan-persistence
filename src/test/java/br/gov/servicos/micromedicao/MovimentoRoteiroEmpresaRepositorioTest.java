@@ -14,13 +14,7 @@ import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
-import br.gov.model.atendimentopublico.LigacaoEsgotoSituacao;
-import br.gov.model.cadastro.GerenciaRegional;
 import br.gov.model.cadastro.Imovel;
-import br.gov.model.cadastro.Localidade;
-import br.gov.model.cadastro.Quadra;
-import br.gov.model.cadastro.SetorComercial;
 import br.gov.model.faturamento.FaturamentoGrupo;
 import br.gov.model.micromedicao.MovimentoRoteiroEmpresa;
 import br.gov.model.micromedicao.Rota;
@@ -45,44 +39,6 @@ public class MovimentoRoteiroEmpresaRepositorioTest extends SingleDeployment {
 	}
 
 	@Test
-	@UsingDataSet("movimento_roteiro_empresa_insert.yml")
-	@ShouldMatchDataSet("movimento_roteiro_empresa_insert_expected.yml")
-	public void criarMovimento() {
-		List<Imovel> imoveis = new ArrayList<Imovel>();
-
-		Localidade localidade = new Localidade(1);
-		localidade.setGerenciaRegional(new GerenciaRegional(1));
-		
-		Quadra quadra = new Quadra();
-		quadra.setNumeroQuadra(1);
-		
-		Imovel imovel = new Imovel(2);
-		imovel.setLocalidade(localidade);
-		imovel.setQuadra(quadra);
-		imovel.setLigacaoAguaSituacao(new LigacaoAguaSituacao(1));
-		imovel.setLigacaoEsgotoSituacao(new LigacaoEsgotoSituacao(1));
-		imoveis.add(imovel);
-
-		imovel = new Imovel(3);
-		imovel.setQuadra(quadra);
-		imovel.setLocalidade(localidade);
-		imovel.setLigacaoAguaSituacao(new LigacaoAguaSituacao(1));
-		imovel.setLigacaoEsgotoSituacao(new LigacaoEsgotoSituacao(1));
-		imoveis.add(imovel);
-
-		SetorComercial setor = new SetorComercial();
-		setor.setCodigo(1);
-		setor.setId(1);
-		Rota rota = new Rota(1);
-		rota.setSetorComercial(setor);
-		FaturamentoGrupo grupo = new FaturamentoGrupo(1);
-		grupo.setAnoMesReferencia(201502);
-		rota.setFaturamentoGrupo(grupo);
-
-		repositorio.criarMovimentoRoteiroEmpresa(imoveis, rota);
-	}
-
-	@Test
 	@UsingDataSet("movimento_roteiro_empresa_outros_grupos.yml")
 	public void pesquisarImoveisGeradosParaOutroGrupo() {
 		List<Imovel> imoveis = new ArrayList<Imovel>();
@@ -99,9 +55,21 @@ public class MovimentoRoteiroEmpresaRepositorioTest extends SingleDeployment {
 	@Test
 	@UsingDataSet("movimento_roteiro_empresa_para_leitura.yml")
 	public void pesquisarMovimentoParaLeitura() {
-		List<MovimentoRoteiroEmpresa> movimento = repositorio.pesquisarMovimentoParaLeitura(1, 201502);
+		List<MovimentoRoteiroEmpresa> movimento = repositorio.pesquisarMovimentoParaLeitura(1, 201502, 1, 10);
 		
 		assertNotNull(movimento);
 		assertEquals(2, movimento.size());
+	}
+	
+	@Test
+	@UsingDataSet("movimento_roteiro_empresa_outros_grupos.yml")
+	public void existeMovimentoParaGrupoDiferenteDoImovel() {
+		assertEquals(true, repositorio.existeMovimentoParaGrupoDiferenteDoImovel(1, 1, 201501));
+	}
+	
+	@Test
+	@UsingDataSet("movimento_roteiro_empresa_outros_grupos.yml")
+	public void naoExisteMovimentoParaGrupoDiferenteDoImovel() {
+		assertEquals(false, repositorio.existeMovimentoParaGrupoDiferenteDoImovel(1, 2, 201501));
 	}
 }

@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.Status;
 import br.gov.model.micromedicao.ConsumoHistorico;
 import br.gov.model.micromedicao.LigacaoTipo;
 import br.gov.servicos.to.AnormalidadeHistoricoConsumoTO;
@@ -57,7 +58,7 @@ public class ConsumoHistoricoRepositorio {
 				.setParameter("idLigacao", idLigacaoTipo)
 				.setParameter("amReferenciaInicial", amReferenciaInicial)
 				.setParameter("amReferenciaFinal", amReferenciaFinal)
-				.setParameter("indicadorCalculoMedia", Short.valueOf("1"))
+				.setParameter("indicadorCalculoMedia", Status.ATIVO.getId())
 				.getResultList();
 	}
 	

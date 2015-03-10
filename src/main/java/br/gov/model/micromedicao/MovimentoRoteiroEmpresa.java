@@ -51,6 +51,9 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@Column(name = "mrem_enderecoimovel")
 	private String enderecoImovel;
 	
+	@Column(name = "mrem_nmlocalidade")
+	private String nomeLocalidade;
+	
 	@Column(name="mrem_nnhidrometro", columnDefinition="bpchar(10)")
 	private String numeroHidrometro;
 
@@ -194,7 +197,7 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	private Leiturista leiturista;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="ltan_id")
+	@JoinColumn(name="ltan_id", columnDefinition="int2")
 	private LeituraAnormalidade leituraAnormalidade;
 
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -253,6 +256,50 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 		super();
 	}
 
+	public boolean temDescricaoCategoria() {
+		return this.getDescricaoAbreviadaCategoriaImovel() != null;
+	}
+	
+	public boolean isResidencial() {
+		return temDescricaoCategoria() && this.getDescricaoAbreviadaCategoriaImovel().equals(Categoria.RESIDENCIAL_DESCRICAO_ABREVIADA);
+	}
+	
+	public boolean isComercial() {
+		return temDescricaoCategoria() && this.getDescricaoAbreviadaCategoriaImovel().equals(Categoria.COMERCIAL_DESCRICAO_ABREVIADA);
+	}
+	
+	public boolean isIndustrial() {
+		return temDescricaoCategoria() && this.getDescricaoAbreviadaCategoriaImovel().equals(Categoria.INDUSTRIAL_DESCRICAO_ABREVIADA);
+	}
+	
+	public boolean isPublico() {
+		return temDescricaoCategoria() && this.getDescricaoAbreviadaCategoriaImovel().equals(Categoria.PUBLICO_DESCRICAO_ABREVIADA);
+	}
+	
+	public Object calcularConsumoMinimo() {
+		recuperaLeituraAnterior(); 
+		
+		if (numeroFaixaLeituraEsperadaInicial != null) {
+			return numeroFaixaLeituraEsperadaInicial - numeroLeituraAnterior;
+		} else {
+			return 0;
+		}
+	}
+	
+	public Object calcularConsumoMaximo() {
+		recuperaLeituraAnterior(); 
+		
+		if (numeroFaixaLeituraEsperadaFinal != null) {
+			return numeroFaixaLeituraEsperadaFinal - numeroLeituraAnterior;
+		} else {
+			return 0;
+		}
+	}
+
+	private void recuperaLeituraAnterior() {
+		numeroLeituraAnterior = numeroLeituraAnterior != null ? numeroLeituraAnterior : 0;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -763,5 +810,42 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 
     public void setNomeBairro(String nomeBairro) {
         this.nomeBairro = nomeBairro;
+    }
+
+    public String getNomeLocalidade() {
+        return nomeLocalidade;
+    }
+
+    public void setNomeLocalidade(String nomeLocalidade) {
+        this.nomeLocalidade = nomeLocalidade;
+    }
+
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((anoMesMovimento == null) ? 0 : anoMesMovimento.hashCode());
+        result = prime * result + ((nomeCliente == null) ? 0 : nomeCliente.hashCode());
+        return result;
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        MovimentoRoteiroEmpresa other = (MovimentoRoteiroEmpresa) obj;
+        if (anoMesMovimento == null) {
+            if (other.anoMesMovimento != null)
+                return false;
+        } else if (!anoMesMovimento.equals(other.anoMesMovimento))
+            return false;
+        if (nomeCliente == null) {
+            if (other.nomeCliente != null)
+                return false;
+        } else if (!nomeCliente.equals(other.nomeCliente))
+            return false;
+        return true;
     }
 }

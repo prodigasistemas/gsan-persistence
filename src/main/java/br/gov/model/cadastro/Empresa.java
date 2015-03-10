@@ -21,6 +21,13 @@ public class Empresa implements Serializable{
 	@Column(name="empr_id")
 	private Integer id;
 
+	public Empresa() {
+	}
+	
+	public Empresa(Integer id) {
+		this.id = id;
+	}
+
 	public Integer getId() {
 		return id;
 	}

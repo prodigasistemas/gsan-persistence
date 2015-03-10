@@ -97,14 +97,14 @@ public class ImovelRepositorioTest extends SingleDeployment {
 	}
 
 	@Test
-	@UsingDataSet("imoveis_arquivo_convencional_sem_rota_alternativa.yml")
-	public void imoveisArquivoConvencionalSemRotaAlternativa() {
-		assertEquals(2, repositorio.imoveisParaArquivoConvencionalSemRotaAlternativa(1).size());
+	@UsingDataSet("imoveis_arquivo_leitura_sem_rota_alternativa.yml")
+	public void imoveisArquivoLeituraSemRotaAlternativa() {
+		assertEquals(2, repositorio.imoveisParaLeituraSemRotaAlternativa(1, 0, 10).size());
 	}
 	
 	@Test
-	@UsingDataSet("imoveis_arquivo_convencional_com_rota_alternativa.yml")
-	public void imoveisArquivoConvencionalComRotaAlternativa() {
-		assertEquals(1, repositorio.imoveisParaArquivoConvencionalComRotaAlternativa(2).size());
+	@UsingDataSet("imoveis_arquivo_leitura_com_rota_alternativa.yml")
+	public void imoveisArquivoLeituraComRotaAlternativa() {
+		assertEquals(1, repositorio.imoveisParaLeituraComRotaAlternativa(2, 0, 10).size());
 	}
 }

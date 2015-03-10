@@ -1,7 +1,6 @@
 package br.gov.servicos.micromedicao;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,7 +8,6 @@ import javax.persistence.NoResultException;
 
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.faturamento.FaturamentoGrupo;
-import br.gov.model.micromedicao.LeituraTipo;
 import br.gov.model.micromedicao.MovimentoRoteiroEmpresa;
 import br.gov.model.micromedicao.Rota;
 import br.gov.model.util.GenericRepository;
@@ -35,6 +33,7 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 			.executeUpdate();
 	}
 	
+	// TODO - Verificar possível exclusão do método
 	public List<Imovel> pesquisarImoveisGeradosParaOutroGrupo(List<Imovel> imoveis, FaturamentoGrupo faturamentoGrupo) {
 		if(imoveis.isEmpty()) return imoveis;
 		
@@ -62,58 +61,65 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 		}
 	}
 	
-	//TODO: Avaliar se precisa mover para um BO
-	public List<MovimentoRoteiroEmpresa> criarMovimentoRoteiroEmpresa(List<Imovel> imoveis, Rota rota) {
+	public boolean existeMovimentoParaGrupoDiferenteDoImovel(Integer idImovel, Integer idGrupo, Integer anoMesReferencia) {
+		StringBuilder sql = new StringBuilder();
 
-		List<MovimentoRoteiroEmpresa> movimentos = new ArrayList<MovimentoRoteiroEmpresa>();
+		sql.append("SELECT count(movimento) ")
+		   .append("FROM MovimentoRoteiroEmpresa movimento ")
+		   .append("WHERE movimento.imovel.id = :idImovel ")
+		   .append("AND movimento.faturamentoGrupo.id <> :idGrupo ")
+		   .append("AND movimento.anoMesMovimento = :anoMesReferencia");
+
+		Long qtd = entity.createQuery(sql.toString(), Long.class)
+				.setParameter("idImovel", idImovel)
+				.setParameter("idGrupo", idGrupo)
+				.setParameter("anoMesReferencia", anoMesReferencia)
+				.getSingleResult();
 		
-		for (Imovel imovel : imoveis) {
-			MovimentoRoteiroEmpresa movimento = new MovimentoRoteiroEmpresa();
-			
-			movimento.setAnoMesMovimento(rota.getFaturamentoGrupo().getAnoMesReferencia());
-			movimento.setImovel(imovel);
-			movimento.setFaturamentoGrupo(rota.getFaturamentoGrupo());
-			movimento.setLocalidade(imovel.getLocalidade());
-			movimento.setGerenciaRegional(imovel.getLocalidade().getGerenciaRegional());
-			movimento.setLigacaoAguaSituacao(imovel.getLigacaoAguaSituacao());
-			movimento.setLigacaoEsgotoSituacao(imovel.getLigacaoEsgotoSituacao());
-			movimento.setRota(rota);
-			movimento.setEmpresa(rota.getEmpresa());
-			movimento.setCodigoSetorComercial(rota.getSetorComercial().getCodigo());
-			movimento.setNumeroQuadra(imovel.getQuadra().getNumeroQuadra());
-			movimento.setLoteImovel(imovel.getLote() != null ? imovel.getLote().toString() : "");
-			movimento.setSubloteImovel(imovel.getSubLote() != null ? imovel.getSubLote().toString() : "");
-			movimento.setImovelPerfil(imovel.getImovelPerfil());
-			movimento.setUltimaAlteracao(new Date());
-			movimento.setLeituraTipo(LeituraTipo.LEITURA_E_ENTRADA_SIMULTANEA.getId());
-			
-			this.salvar(movimento);
-			
-			movimentos.add(movimento);
-		}
-		
-		return movimentos;
+		return qtd > 0 ? true : false;	
 	}
 	
-	public List<MovimentoRoteiroEmpresa> pesquisarMovimentoParaLeitura(int idRota, int referencia) {
+	//FIXME: Recolocar os parametros de limite na consulta
+	public List<MovimentoRoteiroEmpresa> pesquisarMovimentoParaLeitura(int idRota, int referencia, int firstItem, int numItens) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT movimento ")
-		   .append("FROM MovimentoRoteiroEmpresa movimento ")
+		sql.append("SELECT movimento ").append(consultaMovimentoParaLeitura());
+		   
+		try {
+			return entity.createQuery(sql.toString(), MovimentoRoteiroEmpresa.class)
+					.setParameter("idRota", idRota)
+					.setParameter("referencia", referencia)
+//					.setFirstResult(firstItem)
+//					.setMaxResults(numItens)
+					.getResultList();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	public long totalMovimentosParaLeitura(int idRota, int referencia) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT count(movimento) ").append(consultaMovimentoParaLeitura());
+
+		return entity.createQuery(sql.toString(), Long.class)
+				.setParameter("idRota", idRota)
+				.setParameter("referencia", referencia)
+				.getSingleResult();
+	}
+	
+	/**
+	 * PRIVATE METHODS
+	 **/
+	private StringBuilder consultaMovimentoParaLeitura() {
+		StringBuilder sql = new StringBuilder();
+		sql.append("FROM MovimentoRoteiroEmpresa movimento ")
 		   .append("INNER JOIN movimento.imovel imovel ")
 		   .append("INNER JOIN movimento.localidade localidade ")
 		   .append("INNER JOIN movimento.rota rota ")
 		   .append("INNER JOIN imovel.quadra quadra ")
 		   .append("INNER JOIN rota.faturamentoGrupo grupo ")
 		   .append("WHERE rota.id = :idRota AND movimento.anoMesMovimento = :referencia ")
-		   .append("ORDER BY movimento.numeroQuadra, movimento.numeroLoteImovel");
-		   
-		try {
-			return entity.createQuery(sql.toString(), MovimentoRoteiroEmpresa.class)
-					.setParameter("idRota", idRota)
-					.setParameter("referencia", referencia)
-					.getResultList();
-		} catch (NoResultException e) {
-			return null;
-		}
+		   .append("ORDER BY movimento.numeroQuadra, movimento.loteImovel");
+		
+		return sql;
 	}
 }
