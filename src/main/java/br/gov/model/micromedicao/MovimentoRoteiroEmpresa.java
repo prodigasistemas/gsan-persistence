@@ -276,6 +276,30 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 		return temDescricaoCategoria() && this.getDescricaoAbreviadaCategoriaImovel().equals(Categoria.PUBLICO_DESCRICAO_ABREVIADA);
 	}
 	
+	public Object calcularConsumoMinimo() {
+		recuperaLeituraAnterior(); 
+		
+		if (numeroFaixaLeituraEsperadaInicial != null) {
+			return numeroFaixaLeituraEsperadaInicial - numeroLeituraAnterior;
+		} else {
+			return 0;
+		}
+	}
+	
+	public Object calcularConsumoMaximo() {
+		recuperaLeituraAnterior(); 
+		
+		if (numeroFaixaLeituraEsperadaFinal != null) {
+			return numeroFaixaLeituraEsperadaFinal - numeroLeituraAnterior;
+		} else {
+			return 0;
+		}
+	}
+
+	private void recuperaLeituraAnterior() {
+		numeroLeituraAnterior = numeroLeituraAnterior != null ? numeroLeituraAnterior : 0;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

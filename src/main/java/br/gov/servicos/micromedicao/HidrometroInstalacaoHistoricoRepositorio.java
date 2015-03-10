@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.micromedicao.Hidrometro;
-import br.gov.model.micromedicao.HidrometroInstalacaoHistorico;
 import br.gov.servicos.to.HidrometroTO;
 
 @Stateless
@@ -40,6 +40,7 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		        .getResultList();
 	}
 	
+	// TODO: Método não está mais sendo utilizado?
 	public HidrometroTO dadosInstalacaoHidrometroAgua(Integer idImovel) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT new br.gov.servicos.to.HidrometroTO(")
@@ -63,6 +64,7 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		return entity.createQuery(sql.toString(), HidrometroTO.class).setParameter("idImovel", idImovel).getSingleResult();
 	}
 	
+	// TODO: Método não está mais sendo utilizado?
 	public HidrometroTO dadosInstalacaoHidrometroPoco(Integer idImovel) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT new br.gov.servicos.to.HidrometroTO(")
@@ -97,9 +99,14 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		   .append(" WHERE lagu.id = :idImovel ")
 		   .append(" AND hidi.dataRetirada is null ");
 
-		return entity.createQuery(sql.toString(), Hidrometro.class).setParameter("idImovel", idImovel).getSingleResult();
+		try {
+			return entity.createQuery(sql.toString(), Hidrometro.class).setParameter("idImovel", idImovel).getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 	
+	// TODO: Método não está mais sendo utilizado?
 	public Hidrometro dadosHidrometroInstaladoPoco(Integer idImovel) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT hidr ")
@@ -112,20 +119,5 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		   .append(" AND hidi.dataRetirada is null ");
 
 		return entity.createQuery(sql.toString(), Hidrometro.class).setParameter("idImovel", idImovel).getSingleResult();
-	}
-
-	//TODO: Metodo semelhante ao dadosHidrometroInstaladoAgua
-	public HidrometroInstalacaoHistorico hidrometroInstalacaoHistoricoAtualAgua(Integer idImovel) {
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT hidi ")
-		   .append(" FROM HidrometroInstalacaoHistorico hidi")
-		   .append(" LEFT JOIN hidi.hidrometro hidr ")
-		   .append(" LEFT JOIN hidi.ligacaoAgua lagu ")
-		   .append(" LEFT JOIN hidi.hidrometroLocalInstalacao hli ")
-		   .append(" LEFT JOIN hidi.imovel imovel ")
-		   .append(" WHERE lagu.imovel.id = :idImovel")
-		   .append(" AND hidi.dataRetirada is null ");
-
-		return entity.createQuery(sql.toString(), HidrometroInstalacaoHistorico.class).setParameter("idImovel", idImovel).getSingleResult();
 	}
 }
