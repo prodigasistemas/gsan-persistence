@@ -45,9 +45,15 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@Column(name="mrem_cdsetorcomercial")
 	private Integer codigoSetorComercial;
 	
+	@Column(name="mrem_cdrota")
+	private Short codigoRota;
+	
 	@Column(name="mrem_nmcliente")
 	private String nomeCliente;
 
+	@Column(name = "mrem_inscricaoimovel")
+	private String inscricaoImovel;
+	
 	@Column(name = "mrem_enderecoimovel")
 	private String enderecoImovel;
 	
@@ -779,6 +785,14 @@ public class MovimentoRoteiroEmpresa implements Serializable {
     public void setCodigoSetorComercial(Integer codigoSetorComercial) {
         this.codigoSetorComercial = codigoSetorComercial;
     }
+    
+    public Short getCodigoRota() {
+        return codigoRota;
+    }
+
+    public void setCodigoRota(Short codigoRota) {
+        this.codigoRota = codigoRota;
+    }
 
     public Integer getNumeroQuadra() {
         return numeroQuadra;
@@ -820,6 +834,14 @@ public class MovimentoRoteiroEmpresa implements Serializable {
         this.nomeLocalidade = nomeLocalidade;
     }
 
+    public String getInscricaoImovel() {
+        return inscricaoImovel;
+    }
+
+    public void setInscricaoImovel(String inscricaoImovel) {
+        this.inscricaoImovel = inscricaoImovel;
+    }
+    
     public int hashCode() {
         final int prime = 31;
         int result = 1;
