@@ -20,7 +20,6 @@ public class CobrancaDocumentoRepositorio {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT cbdo ")
 		.append(" FROM CobrancaDocumento as cbdo ")
-		.append(" LEFT JOIN fetch cbdo.localidade as loca ")
 		.append(" WHERE cbdo.imovel.id = :idImovel ")
 		.append("   AND cbdo.documentoTipo = :idDocumentoTipo ")
 		.append("   AND cbdo.cobrancaDebitoSituacao = :idCobrancaDebitoSituacao ")
