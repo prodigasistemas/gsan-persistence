@@ -61,7 +61,7 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		   .append(" WHERE lagu.imovel.id = :idImovel ")
 		   .append(" AND hidi.dataRetirada is null ");
 
-		return entity.createQuery(sql.toString(), HidrometroTO.class).setParameter("idImovel", idImovel).getSingleResult();
+		return entity.createQuery(sql.toString(), HidrometroTO.class).setParameter("idImovel", idImovel).setMaxResults(1).getSingleResult();
 	}
 	
 	// TODO: Método não está mais sendo utilizado?
@@ -85,7 +85,7 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		   .append(" WHERE imovel.id = :idImovel ")
 		   .append(" AND hidi.dataRetirada is null ");
 
-		return entity.createQuery(sql.toString(), HidrometroTO.class).setParameter("idImovel", idImovel).getSingleResult();
+		return entity.createQuery(sql.toString(), HidrometroTO.class).setParameter("idImovel", idImovel).setMaxResults(1).getSingleResult();
 	}
 	
 	public Hidrometro dadosHidrometroInstaladoAgua(Integer idImovel) {
@@ -100,7 +100,7 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		   .append(" AND hidi.dataRetirada is null ");
 
 		try {
-			return entity.createQuery(sql.toString(), Hidrometro.class).setParameter("idImovel", idImovel).getSingleResult();
+			return entity.createQuery(sql.toString(), Hidrometro.class).setParameter("idImovel", idImovel).setMaxResults(1).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
@@ -118,6 +118,6 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		   .append(" WHERE imovel.id = :idImovel ")
 		   .append(" AND hidi.dataRetirada is null ");
 
-		return entity.createQuery(sql.toString(), Hidrometro.class).setParameter("idImovel", idImovel).getSingleResult();
+		return entity.createQuery(sql.toString(), Hidrometro.class).setParameter("idImovel", idImovel).setMaxResults(1).getSingleResult();
 	}
 }

@@ -252,9 +252,9 @@ public class Imovel implements Serializable {
 	}
 
 	public boolean existeHidrometroAgua() {
-		return ligacaoAgua != null && ligacaoAgua.getHidrometroInstalacoesHistorico() != null && ligacaoAgua.getHidrometroInstalacoesHistorico().size() > 0;
+		return ligacaoAgua != null && ligacaoAgua.getHidrometroInstalacoesHistorico() != null && ligacaoAgua.existeHidrometrosInstalado();
 	}
-
+	
 	public boolean existeHidrometroPoco() {
 		return hidrometroInstalacaoHistorico != null;
 	}

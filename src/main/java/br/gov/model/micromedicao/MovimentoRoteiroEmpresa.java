@@ -182,6 +182,9 @@ public class MovimentoRoteiroEmpresa implements Serializable {
 	@Column(name = "mrem_nmbairro")
 	private String nomeBairro;
 	
+	@Column(name="mrem_nnsequencialrota")
+	private Integer numeroSequencialRota;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ftgr_id")
 	private FaturamentoGrupo faturamentoGrupo;
@@ -842,7 +845,15 @@ public class MovimentoRoteiroEmpresa implements Serializable {
         this.inscricaoImovel = inscricaoImovel;
     }
     
-    public int hashCode() {
+    public Integer getNumeroSequencialRota() {
+		return numeroSequencialRota;
+	}
+
+	public void setNumeroSequencialRota(Integer numeroSequencialRota) {
+		this.numeroSequencialRota = numeroSequencialRota;
+	}
+
+	public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((anoMesMovimento == null) ? 0 : anoMesMovimento.hashCode());
