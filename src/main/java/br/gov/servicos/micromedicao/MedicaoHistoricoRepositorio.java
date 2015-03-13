@@ -52,17 +52,19 @@ public class MedicaoHistoricoRepositorio {
 
 	public Integer buscarLeituraAnormalidadeFaturamento(ConsumoHistorico consumoHistorico) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT leituraAnormalidadeFaturamento.id ");
-		sql.append("FROM MedicaoHistorico medicaoHistorico ");
-		sql.append("INNER JOIN medicaoHistorico.leituraAnormalidadeFaturamento leituraAnormalidadeFaturamento ");
+		sql.append("SELECT leituraAnormalidadeFaturamento.id ")
+		.append("FROM MedicaoHistorico medicaoHistorico ")
+		.append("INNER JOIN medicaoHistorico.leituraAnormalidadeFaturamento leituraAnormalidadeFaturamento ")
+		.append(" WHERE ");
+		
 
 		if (consumoHistorico.getLigacaoTipo() == LigacaoTipo.AGUA.getId()) {
-			sql.append("INNER JOIN medicaoHistorico.ligacaoAgua ligacaoAgua ");
-			sql.append("WHERE ligacaoAgua.id = :idImovel AND medicaoHistorico.anoMesReferencia = :anoMesReferencia ");
+			sql.append("medicaoHistorico.ligacaoAgua.id = :idImovel ");
 		} else {
-			sql.append("INNER JOIN medicaoHistorico.imovel imovel ");
-			sql.append("WHERE imovel.id = :idImovel AND medicaoHistorico.anoMesReferencia = :anoMesReferencia ");
+			sql.append("medicaoHistorico.imovel.id = :idImovel ");
 		}
+		
+		sql.append(" AND medicaoHistorico.anoMesReferencia = :anoMesReferencia ");
 
 		try {
 		    return entity.createQuery(sql.toString(), Integer.class)

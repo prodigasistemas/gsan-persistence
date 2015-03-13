@@ -23,9 +23,7 @@ public class ConsumoHistoricoRepositorio {
 		
 		sql.append("SELECT consumoHistorico ");
 		sql.append("FROM ConsumoHistorico consumoHistorico ");
-		sql.append("INNER JOIN consumoHistorico.imovel imovel ");
-		sql.append("LEFT JOIN consumoHistorico.consumoAnormalidade consumoAnormalidade ");
-		sql.append("WHERE imovel.id = :idImovel ");
+		sql.append("WHERE consumoHistorico.imovel.id = :idImovel ");
 		sql.append("AND consumoHistorico.ligacaoTipo = :tipoLigacao ");
 		sql.append("ORDER BY consumoHistorico.referenciaFaturamento desc");
 
@@ -44,13 +42,12 @@ public class ConsumoHistoricoRepositorio {
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ch from ConsumoHistorico ch")
-		.append(" inner join ch.consumoTipo ct ")
 		.append(" left join ch.consumoAnormalidade ca ")
 		.append("	with ca.indicadorCalcularMedia = :indicadorCalculoMedia ")
 		.append(" where ch.imovel.id = :idImovel ")
 		.append("   and ch.ligacaoTipo = :idLigacao ")
 		.append("   and ch.referenciaFaturamento between :amReferenciaInicial and :amReferenciaFinal ")
-		.append("   and ct.indicadorCalculoMedia = :indicadorCalculoMedia ")
+		.append("   and ch.consumoTipo.indicadorCalculoMedia = :indicadorCalculoMedia ")
 		.append(" order by ch.referenciaFaturamento desc");
 		
 		return entity.createQuery(sql.toString(), ConsumoHistorico.class)
