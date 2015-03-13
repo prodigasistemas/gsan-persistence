@@ -15,6 +15,7 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
+	//TODO: Trocar a chamada deste metodo pelos outros dois: dadosInstalacaoHidrometroAgua e dadosInstalacaoHidrometroPoco
 	public List<HidrometroTO> dadosInstalacaoHidrometro(Integer idImovel) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT new br.gov.servicos.to.HidrometroTO(")
@@ -22,7 +23,7 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		   .append(", hidr.numeroDigitosLeitura")
 		   .append(", hidi.dataInstalacao")
 		   .append(", hidi.numeroLeituraInstalacao")
-		   .append(", coalesce(lagu.imovel.id, imovel.id) ")
+		   .append(", coalesce(lagu.id, imovel.id) ")
 		   .append(", hli.descricao")
 		   .append(", hidi.rateioTipo")
 		   .append(", hidi.medicaoTipo")
@@ -32,11 +33,11 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		   .append(" LEFT JOIN hidi.ligacaoAgua lagu ")
 		   .append(" LEFT JOIN hidi.hidrometroLocalInstalacao hli ")
 		   .append(" LEFT JOIN hidi.imovel imovel ")
-		   .append(" WHERE (lagu.imovel.id = :idImovel OR imovel.id = :idImovel) ")
+		   .append(" WHERE (lagu.id = :id OR imovel.id = :id) ")
 		   .append(" AND hidi.dataRetirada is null ");
 
 		return entity.createQuery(sql.toString(), HidrometroTO.class)
-		        .setParameter("idImovel", idImovel)
+		        .setParameter("id", idImovel)
 		        .getResultList();
 	}
 	
@@ -48,7 +49,7 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		   .append(", hidr.numeroDigitosLeitura")
 		   .append(", hidi.dataInstalacao")
 		   .append(", hidi.numeroLeituraInstalacao")
-		   .append(", coalesce(lagu.imovel.id, imovel.id) ")
+		   .append(", lagu.imovel.id ")
 		   .append(", hli.descricao")
 		   .append(", hidi.rateioTipo")
 		   .append(", hidi.medicaoTipo")
@@ -57,11 +58,17 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		   .append(" LEFT JOIN hidi.hidrometro hidr ")
 		   .append(" LEFT JOIN hidi.ligacaoAgua lagu ")
 		   .append(" LEFT JOIN hidi.hidrometroLocalInstalacao hli ")
-		   .append(" LEFT JOIN hidi.imovel imovel ")
 		   .append(" WHERE lagu.imovel.id = :idImovel ")
 		   .append(" AND hidi.dataRetirada is null ");
-
-		return entity.createQuery(sql.toString(), HidrometroTO.class).setParameter("idImovel", idImovel).setMaxResults(1).getSingleResult();
+		
+		try {
+		    return entity.createQuery(sql.toString(), HidrometroTO.class)
+		            .setParameter("idImovel", idImovel)
+		            .setMaxResults(1)
+		            .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
 	}
 	
 	// TODO: Método não está mais sendo utilizado?
@@ -72,20 +79,26 @@ public class HidrometroInstalacaoHistoricoRepositorio {
 		   .append(", hidr.numeroDigitosLeitura")
 		   .append(", hidi.dataInstalacao")
 		   .append(", hidi.numeroLeituraInstalacao")
-		   .append(", coalesce(lagu.imovel.id, imovel.id) ")
+		   .append(", imovel.id")
 		   .append(", hli.descricao")
 		   .append(", hidi.rateioTipo")
 		   .append(", hidi.medicaoTipo")
 		   .append(" ) ")
 		   .append(" FROM HidrometroInstalacaoHistorico hidi")
 		   .append(" LEFT JOIN hidi.hidrometro hidr ")
-		   .append(" LEFT JOIN hidi.ligacaoAgua lagu ")
 		   .append(" LEFT JOIN hidi.hidrometroLocalInstalacao hli ")
 		   .append(" LEFT JOIN hidi.imovel imovel ")
 		   .append(" WHERE imovel.id = :idImovel ")
 		   .append(" AND hidi.dataRetirada is null ");
 
-		return entity.createQuery(sql.toString(), HidrometroTO.class).setParameter("idImovel", idImovel).setMaxResults(1).getSingleResult();
+      try {
+          return entity.createQuery(sql.toString(), HidrometroTO.class)
+                  .setParameter("idImovel", idImovel)
+                  .setMaxResults(1)
+                  .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
 	}
 	
 	public Hidrometro dadosHidrometroInstaladoAgua(Integer idImovel) {

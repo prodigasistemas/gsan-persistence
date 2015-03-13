@@ -76,6 +76,19 @@ public class MedicaoHistorico implements Serializable{
 
 	public MedicaoHistorico() {
 	}
+	
+	//TODO: Refactoring: pode retornar leituraAnteriorFaturamento uma vez?
+	public int obterLeituraAnterior() {
+        if (possuiLeituraInformada()) {
+            if (leituraAnteriorInformada.intValue() == leituraAtualInformada.intValue()) {
+                return leituraAnteriorInformada;
+            } else {
+                return leituraAnteriorFaturamento;
+            }
+        } else {
+            return leituraAnteriorFaturamento;
+        }
+    }
 
 	public Integer getId() {
 		return id;
