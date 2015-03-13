@@ -39,8 +39,7 @@ public class ConsumoTarifaVigenciaRepositorio {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select new br.gov.servicos.to.ConsumoTarifaVigenciaTO(vig.id, vig.dataVigencia) ")
 		   .append(" from ConsumoTarifaVigencia vig")
-		   .append(" inner join vig.consumoTarifa ct ")
-		   .append(" where ct.id = :idTarifa ")
+		   .append(" where vig.consumoTarifa.id = :idTarifa ")
 		   .append(" and vig.dataVigencia <= :data")
 		   .append(" order by vig.dataVigencia desc ");
 

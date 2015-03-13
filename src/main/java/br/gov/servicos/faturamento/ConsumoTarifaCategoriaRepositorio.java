@@ -68,10 +68,8 @@ public class ConsumoTarifaCategoriaRepositorio {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ctca.numeroConsumoMinimo ")
 		.append(" from ConsumoTarifaCategoria ctca ")
-		.append(" inner join ctca.consumoTarifaVigencia vig")
-		.append(" inner join ctca.subcategoria sub ")
-		.append(" where vig.id = :idVigencia")
-		.append("   and sub.id = :idSubCategoria");
+		.append(" where ctca.consumoTarifaVigencia.id = :idVigencia")
+		.append("   and ctca.subcategoria.id = :idSubCategoria");
 		try {
 			return entity.createQuery(sql.toString(), Integer.class)
 					.setParameter("idVigencia", idVigencia)
@@ -87,13 +85,10 @@ public class ConsumoTarifaCategoriaRepositorio {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT ctcg FROM ConsumoTarifaCategoria ctcg ")
 		.append("inner join ctcg.consumoTarifaVigencia ctv ")
-		.append("inner join ctv.consumoTarifa ct ")
-		.append("inner join ctcg.categoria catg ")
-		.append("inner join ctcg.subcategoria subCatg ")
 		.append("WHERE ctv.dataVigencia = :dataFaturamento AND ")
-		.append("      ct.id = :idConsumoTarifa AND ")
-		.append("      catg.id = :idCategoria AND ")
-		.append("      subCatg.id = :idSubcategoria ")
+		.append("      ctv.consumoTarifa.id = :idConsumoTarifa AND ")
+		.append("      ctcg.categoria.id = :idCategoria AND ")
+		.append("      ctcg.subcategoria.id = :idSubcategoria ")
 		.append("order by ctv.dataVigencia DESC");
 		
 		try {
@@ -114,13 +109,10 @@ public class ConsumoTarifaCategoriaRepositorio {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT ctcg FROM ConsumoTarifaCategoria ctcg ")
 		.append("inner join ctcg.consumoTarifaVigencia ctv ")
-		.append("inner join ctv.consumoTarifa ct ")
-		.append("inner join ctcg.categoria catg ")
-		.append("inner join ctcg.subcategoria subCatg ")
 		.append("WHERE ctv.dataVigencia between :dataLeituraAnterior and :dataAtual AND ")
-		.append("      ct.id = :idConsumoTarifa AND ")
-		.append("      catg.id = :idCategoria AND ")
-		.append("      subCatg.id = :idSubcategoria ")
+		.append("      ctv.consumoTarifa.id = :idConsumoTarifa AND ")
+		.append("      ctcg.categoria.id = :idCategoria AND ")
+		.append("      ctcg.subcategoria.id = :idSubcategoria ")
 		.append("order by ctv.dataVigencia DESC");
 		
 		return entity.createQuery(sql.toString(), ConsumoTarifaCategoria.class)

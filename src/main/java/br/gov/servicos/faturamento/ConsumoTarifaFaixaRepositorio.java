@@ -18,10 +18,10 @@ public class ConsumoTarifaFaixaRepositorio {
 	    StringBuilder sql = new StringBuilder();
 		
 		sql.append("SELECT new br.gov.servicos.to.ConsumoTarifaFaixaTO(")
-		   .append("ct.id, ")
+		   .append("ctv.consumoTarifa.id, ")
            .append("ctv.dataVigencia, ")
-           .append("catg.id, ")
-           .append("subCatg.id, ")
+           .append("ctfx.consumoTarifaCategoria.id, ")
+           .append("ctcg.subcategoria.id, ")
            .append("ctfx.numeroConsumoFaixaInicio, ")
            .append("ctfx.numeroConsumoFaixaFim, ")
            .append("ctfx.valorConsumoTarifa ")
@@ -29,11 +29,8 @@ public class ConsumoTarifaFaixaRepositorio {
            .append(" FROM ConsumoTarifaFaixa ctfx ")
 		   .append(" INNER JOIN ctfx.consumoTarifaCategoria ctcg ")
 		   .append(" INNER JOIN ctcg.consumoTarifaVigencia ctv ")
-		   .append(" INNER JOIN ctv.consumoTarifa ct ")
-		   .append(" INNER JOIN ctcg.categoria catg ")
-		   .append(" INNER JOIN ctcg.subcategoria subCatg ")
 		   .append(" WHERE ctcg.id in ( :idsConsumoTarifaCategoria ) ")
-		   .append(" ORDER BY ct.id, ctv.dataVigencia, catg.id, subCatg.id, ctfx.numeroConsumoFaixaInicio ");
+		   .append(" ORDER BY ctv.consumoTarifa.id, ctv.dataVigencia, ctfx.consumoTarifaCategoria.id, ctcg.subcategoria.id, ctfx.numeroConsumoFaixaInicio ");
 		
 		return entity.createQuery(sql.toString(), ConsumoTarifaFaixaTO.class)
 				.setParameter("idsConsumoTarifaCategoria", idsConsumoTarifaCategoria)
