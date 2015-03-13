@@ -3,6 +3,7 @@ package br.gov.model.atendimentopublico;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -97,5 +98,13 @@ public class LigacaoAgua implements Serializable{
 
 	public String toString() {
 		return "LigacaoAgua [id=" + id + ", imovel=" + imovel + "]";
+	}
+	
+	public boolean existeHidrometrosInstalado() {
+		boolean existe = false;
+		if (!hidrometroInstalacoesHistorico.isEmpty()) {
+			existe = (!hidrometroInstalacoesHistorico.stream().filter(h -> h.getDataRetirada() == null).collect(Collectors.toList()).isEmpty());
+		}
+		return existe;
 	}
 }

@@ -1,6 +1,6 @@
 package br.gov.servicos.cadastro;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 
 import br.gov.model.cadastro.ICategoria;
 import br.gov.persistence.util.SingleDeployment;
+import br.gov.servicos.to.CategoriaPrincipalTO;
 
 @RunWith(Arquillian.class)
 public class ImovelSubcategoriaRepositorioTest extends SingleDeployment{
@@ -73,5 +74,15 @@ public class ImovelSubcategoriaRepositorioTest extends SingleDeployment{
     	assertEquals(2, subcategoria.getIndicadorSazonalidade().intValue());
     	assertEquals("RES", subcategoria.getCategoriaDescricaoAbreviada());
     	assertEquals("R1", subcategoria.getSubcategoriaDescricaoAbreviada());
+    }
+    
+    @Test
+    @UsingDataSet("categoria_principal.yml")
+    public void buscarCategoriaPrincipalImovel() throws Exception {
+    	CategoriaPrincipalTO categoria = repositorio.buscarCategoriaPrincipal(1);
+    	
+    	assertEquals(2, categoria.getQuantidadeEconomias().intValue());
+    	assertEquals(1, categoria.getIdCategoria().intValue());
+    	
     }
 }

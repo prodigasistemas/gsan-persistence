@@ -252,9 +252,9 @@ public class Imovel implements Serializable {
 	}
 
 	public boolean existeHidrometroAgua() {
-		return ligacaoAgua != null && ligacaoAgua.getHidrometroInstalacoesHistorico() != null && ligacaoAgua.getHidrometroInstalacoesHistorico().size() > 0;
+		return ligacaoAgua != null && ligacaoAgua.getHidrometroInstalacoesHistorico() != null && ligacaoAgua.existeHidrometrosInstalado();
 	}
-
+	
 	public boolean existeHidrometroPoco() {
 		return hidrometroInstalacaoHistorico != null;
 	}
@@ -285,6 +285,17 @@ public class Imovel implements Serializable {
 		return inscricao.toString();
 	}
 
+	public String getInscricaoFormatada() {
+		StringBuilder inscricao = new StringBuilder();
+		inscricao.append(Utilitarios.completaComZerosEsquerda(3, localidade.getId())).append(".")
+				 .append(Utilitarios.completaComZerosEsquerda(3, setorComercial.getCodigo())).append(".")
+				 .append(quadra.getNumeroQuadra().toString().length() < 3 ? Utilitarios.completaComZerosEsquerda(3, quadra.getNumeroQuadra()) : quadra.getNumeroQuadra()).append(".")
+				 .append(Utilitarios.completaComZerosEsquerda(4, lote)).append(".")
+				 .append(Utilitarios.completaComZerosEsquerda(3, subLote));
+
+		return inscricao.toString();
+	}
+	
 	public boolean enviarContaParaImovel() {
 		return imovelContaEnvio != null && imovelContaEnvio == ImovelContaEnvio.ENVIAR_IMOVEL;
 	}

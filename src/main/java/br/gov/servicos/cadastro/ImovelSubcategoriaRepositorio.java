@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 
 import br.gov.model.cadastro.ICategoria;
 import br.gov.model.cadastro.SistemaParametros;
+import br.gov.servicos.to.CategoriaPrincipalTO;
 
 @Stateless
 public class ImovelSubcategoriaRepositorio {
@@ -131,4 +132,28 @@ public class ImovelSubcategoriaRepositorio {
 
 		return retorno;
 	}	
+	
+	public CategoriaPrincipalTO buscarCategoriaPrincipal(Integer idImovel) {
+
+		StringBuffer consulta = new StringBuffer();
+
+		CategoriaPrincipalTO retorno = null;
+		
+		consulta.append("SELECT new br.gov.servicos.to.CategoriaPrincipalTO(categoria.id, sum(imovelSubCategoria.quantidadeEconomias)) ")
+				.append("from ImovelSubcategoria imovelSubCategoria ")
+				.append("	inner join imovelSubCategoria.subcategoria subcategoria ")
+				.append("	inner join subcategoria.categoria categoria ")
+				.append("where imovelSubCategoria.pk.imovelId = :idImovel ")
+				.append("group by categoria.id ")
+				.append("order by sum(imovelSubCategoria.quantidadeEconomias) DESC");
+
+		retorno = entity.createQuery(consulta.toString(), CategoriaPrincipalTO.class)
+				.setParameter("idImovel", idImovel)
+				.setMaxResults(1)
+				.getSingleResult();
+
+		return retorno;
+
+	}
+	
 }

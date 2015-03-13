@@ -16,10 +16,6 @@ import br.gov.model.util.GenericRepository;
 public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Integer, MovimentoRoteiroEmpresa>{
 
 	public void deletarPorRota(Rota rota){
-		deletarPorReferenciaERota(rota.getFaturamentoGrupo().getAnoMesReferencia(), rota);
-	}
-	
-	public void deletarPorReferenciaERota(Integer referencia, Rota rota){
 		StringBuilder sql = new StringBuilder();
 		sql.append("DELETE MovimentoRoteiroEmpresa as movimento ")
 		   .append("WHERE movimento.anoMesMovimento = :referencia ") 
@@ -27,9 +23,21 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 		   .append("AND movimento.faturamentoGrupo.id = :idFaturamentoGrupo ");
 		
 		entity.createQuery(sql.toString())
-			.setParameter("referencia", referencia)
+			.setParameter("referencia", rota.getFaturamentoGrupo().getAnoMesReferencia())
 			.setParameter("idRota", rota.getId())
 			.setParameter("idFaturamentoGrupo", rota.getFaturamentoGrupo().getId())
+			.executeUpdate();
+	}
+	
+	public void deletarPorImovelEReferencia(Integer referencia, Integer idImovel){
+		StringBuilder sql = new StringBuilder();
+		sql.append("DELETE MovimentoRoteiroEmpresa as movimento ")
+		   .append("WHERE movimento.anoMesMovimento = :referencia ") 
+		   .append("AND movimento.imovel.id = :idImovel ");
+		
+		entity.createQuery(sql.toString())
+			.setParameter("referencia", referencia)
+			.setParameter("idImovel", idImovel)
 			.executeUpdate();
 	}
 	
