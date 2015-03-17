@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.cadastro.ICategoria;
@@ -36,6 +37,7 @@ public class ImovelSubcategoriaRepositorio {
 
          Long qtd = entity.createQuery(sql.toString(), Long.class)
                     .setParameter("imovel", id)
+                    .setMaxResults(1)
                     .getSingleResult();
          
          return qtd != null ? qtd : 0L; 
@@ -134,11 +136,7 @@ public class ImovelSubcategoriaRepositorio {
 	}	
 	
 	public CategoriaPrincipalTO buscarCategoriaPrincipal(Integer idImovel) {
-
 		StringBuffer consulta = new StringBuffer();
-
-		CategoriaPrincipalTO retorno = null;
-		
 		consulta.append("SELECT new br.gov.servicos.to.CategoriaPrincipalTO(categoria.id, sum(imovelSubCategoria.quantidadeEconomias)) ")
 				.append("from ImovelSubcategoria imovelSubCategoria ")
 				.append("	inner join imovelSubCategoria.subcategoria subcategoria ")
@@ -147,13 +145,13 @@ public class ImovelSubcategoriaRepositorio {
 				.append("group by categoria.id ")
 				.append("order by sum(imovelSubCategoria.quantidadeEconomias) DESC");
 
-		retorno = entity.createQuery(consulta.toString(), CategoriaPrincipalTO.class)
-				.setParameter("idImovel", idImovel)
-				.setMaxResults(1)
-				.getSingleResult();
-
-		return retorno;
-
+		try {
+			return entity.createQuery(consulta.toString(), CategoriaPrincipalTO.class)
+					.setParameter("idImovel", idImovel)
+					.setMaxResults(1)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
-	
 }

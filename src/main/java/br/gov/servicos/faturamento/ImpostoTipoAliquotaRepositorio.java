@@ -15,20 +15,19 @@ public class ImpostoTipoAliquotaRepositorio {
 
 	public ImpostoTipoAliquota buscarAliquotaImposto(Integer idImpostoTipo, Integer anoMesReferencia) {
 
-		try{
-			StringBuilder consulta = new StringBuilder(); 
-			
+		try {
+			StringBuilder consulta = new StringBuilder();
+
 			consulta.append("from ImpostoTipoAliquota impostoTipoAliquota ")
-					.append("where impostoTipoAliquota.impostoTipo.id = :idImpostoTipo AND ")
+				    .append("where impostoTipoAliquota.impostoTipo.id = :idImpostoTipo AND ")
 					.append("(impostoTipoAliquota.anoMesReferencia = :anoMesReferencia OR impostoTipoAliquota.anoMesReferencia < :anoMesReferencia) ")
 					.append("order by impostoTipoAliquota.anoMesReferencia ");
-			
-			ImpostoTipoAliquota retorno = entity.createQuery(consulta.toString(), ImpostoTipoAliquota.class)
+
+			return entity.createQuery(consulta.toString(), ImpostoTipoAliquota.class)
 					.setParameter("idImpostoTipo", idImpostoTipo)
 					.setParameter("anoMesReferencia", anoMesReferencia)
+					.setMaxResults(1)
 					.getSingleResult();
-			
-			return retorno;
 		} catch (NoResultException e) {
 			return null;
 		}

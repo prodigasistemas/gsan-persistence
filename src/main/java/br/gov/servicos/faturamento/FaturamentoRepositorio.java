@@ -17,7 +17,7 @@ public class FaturamentoRepositorio {
 	public Integer gerarSequencialContaBoleto() {
 		String consulta = "select faturamento.seq_conta_numero_boleto.nextval as sequencial from dual ";
 
-		return entity.createQuery(consulta, Integer.class).getSingleResult();
+		return entity.createQuery(consulta, Integer.class).setMaxResults(1).getSingleResult();
 	}
 	
 	public List<CreditoRealizadoTO> buscarCreditoRealizado(Conta conta){

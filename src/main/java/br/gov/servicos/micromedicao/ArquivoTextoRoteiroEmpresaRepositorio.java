@@ -20,12 +20,13 @@ public class ArquivoTextoRoteiroEmpresaRepositorio extends GenericRepository<Int
 			return entity.createQuery(sql.toString(), ArquivoTextoRoteiroEmpresa.class)
 					.setParameter("idRota", idRota)
 					.setParameter("anoMesReferencia", anoMesReferencia)
-					.setMaxResults(1).getSingleResult();
+					.setMaxResults(1)
+					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
-	
+
 	public ArquivoTextoRoteiroEmpresa pesquisarPorGrupoEReferencia(Integer idGrupo, Integer anoMesReferencia) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT arquivo ")
@@ -37,6 +38,7 @@ public class ArquivoTextoRoteiroEmpresaRepositorio extends GenericRepository<Int
 			return entity.createQuery(sql.toString(), ArquivoTextoRoteiroEmpresa.class)
 					.setParameter("idGrupo", idGrupo)
 					.setParameter("anoMesReferencia", anoMesReferencia)
+					.setMaxResults(1)
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;

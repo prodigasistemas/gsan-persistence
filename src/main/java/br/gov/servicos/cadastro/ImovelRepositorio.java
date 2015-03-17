@@ -14,20 +14,20 @@ import br.gov.model.util.GenericRepository;
 import br.gov.servicos.cadastro.to.AreaConstruidaTO;
 
 @Stateless
-public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
+public class ImovelRepositorio extends GenericRepository<Integer, Imovel> {
 	
 	public long totalImoveisParaPreFaturamentoSemRotaAlternativa(int idRota) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(imovel) ").append(consultaImoveisSemRotaAlternativa(false));
 
-		return entity.createQuery(sql.toString(), Long.class).setParameter("rotaId", idRota).getSingleResult();
+		return entity.createQuery(sql.toString(), Long.class).setParameter("rotaId", idRota).setMaxResults(1).getSingleResult();
 	}
 	
 	public long totalImoveisParaPreFaturamentoComRotaAlternativa(int idRota) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(imovel) ").append(consultaImoveisComRotaAlternativa(false));
 
-		return entity.createQuery(sql.toString(), Long.class).setParameter("rotaId", idRota).getSingleResult();
+		return entity.createQuery(sql.toString(), Long.class).setParameter("rotaId", idRota).setMaxResults(1).getSingleResult();
 	}
 				
 	public long totalImoveisParaPreFaturamento(int idRota) {
@@ -38,7 +38,7 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
 		   .append(" inner join qua.rota rot ")
 		   .append(" WHERE rot.id = :rotaId ");
 
-		return entity.createQuery(sql.toString(), Long.class).setParameter("rotaId", idRota).getSingleResult();
+		return entity.createQuery(sql.toString(), Long.class).setParameter("rotaId", idRota).setMaxResults(1).getSingleResult();
 	}
 	
 	public List<Imovel> imoveisParaPreFaturamentoSemRotaAlternativa(int idRota, int firstItem, int numItems) {
@@ -81,7 +81,7 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
 		StringBuilder sql = new StringBuilder();
 		sql.append("select count(imovel) from Imovel imovel where imovel.id = :idImovel");
 
-		long quantidade = entity.createQuery(sql.toString(), Long.class).setParameter("idImovel", idImovel).getSingleResult();
+		long quantidade = entity.createQuery(sql.toString(), Long.class).setParameter("idImovel", idImovel).setMaxResults(1).getSingleResult();
 
 		return (quantidade > 0) ? true : false;
 	}	
@@ -98,6 +98,7 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
 			quantidade = entity.createQuery(sql.toString(), Long.class)
 					.setParameter("idImovel", idImovel)
 					.setParameter("anoMesReferencia", anoMesReferencia)
+					.setMaxResults(1)
 					.getSingleResult();
 		} catch (Exception e) {
 			throw new ErroPesquisaContaImovel(e, idImovel);
@@ -203,20 +204,22 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
 		try {
 			return entity.createQuery(sql.toString(), Imovel.class)
 					.setParameter("idImovel", idImovel)
+					.setMaxResults(1)
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
 	}
 
-	public String recuperaEnderecoAnterior(Integer idImovel){
+	public String recuperaEnderecoAnterior(Integer idImovel) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select enderecoAnterior from ImovelEnderecoAnterior")
-			.append(" where imovel.id = :idImovel ");
-		
+		   .append(" where imovel.id = :idImovel ");
+
 		try {
 			return entity.createQuery(sql.toString(), String.class)
 					.setParameter("idImovel", idImovel)
+					.setMaxResults(1)
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return "";
@@ -318,14 +321,14 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel>{
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT count(imovel) ").append(consultaImoveisLeituraComRotaAlternativa());
 
-		return entity.createQuery(sql.toString(), Long.class).setParameter("idRota", idRota).getSingleResult();
+		return entity.createQuery(sql.toString(), Long.class).setParameter("idRota", idRota).setMaxResults(1).getSingleResult();
 	}
 
 	public long totalImoveisParaLeituraSemRotaAlternativa(int idRota) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT count(imovel) ").append(consultaImoveisLeituraSemRotaAlternativa());
 
-		return entity.createQuery(sql.toString(), Long.class).setParameter("idRota", idRota).getSingleResult();
+		return entity.createQuery(sql.toString(), Long.class).setParameter("idRota", idRota).setMaxResults(1).getSingleResult();
 	}
     
 	/***********************************************
