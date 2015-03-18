@@ -225,6 +225,7 @@ public class ContaRepositorio extends GenericRepository<Integer, Conta>{
 					.setParameter("idImovel", idImovel)
 					.setParameter("anoMesReferencia", anoMesReferencia)
 					.setParameter("preFaturada", DebitoCreditoSituacao.PRE_FATURADA.getId())
+					.setMaxResults(1)
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
@@ -251,6 +252,7 @@ public class ContaRepositorio extends GenericRepository<Integer, Conta>{
                 .setParameter("preFaturada",DebitoCreditoSituacao.PRE_FATURADA.getId())
                 .setParameter("idImovel", idImovel)
                 .setParameter("anoMesReferencia", anoMesReferencia)
+                .setMaxResults(1)
                 .getSingleResult();
         
         return count > 0 ? true : false; 
@@ -268,6 +270,7 @@ public class ContaRepositorio extends GenericRepository<Integer, Conta>{
 				.setParameter("anoMesReferencia", anoMesReferencia)
 				.setParameter("idsImoveis", idsImoveis)
 				.setParameter("preFaturada", DebitoCreditoSituacao.PRE_FATURADA.getId())
+				.setMaxResults(1)
 				.getSingleResult().intValue();
 	}
 	

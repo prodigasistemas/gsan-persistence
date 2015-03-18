@@ -34,6 +34,7 @@ public class FaturamentoAtividadeCronogramaRepositorio extends GenericRepository
 					.setParameter("idAtividade", idAtividade)
 					.setParameter("idGrupo", idGrupo)
 					.setParameter("referencia", anoMesReferencia)
+					.setMaxResults(1)
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
@@ -56,6 +57,7 @@ public class FaturamentoAtividadeCronogramaRepositorio extends GenericRepository
 					.setParameter("idGrupo", idGrupo)
 					.setParameter("idAtividade", idAtividade)
 					.setParameter("anoMesReferencia", anoMesReferencia)
+					.setMaxResults(1)
 					.getSingleResult();
 		} catch (Exception e) {
 			return null;
