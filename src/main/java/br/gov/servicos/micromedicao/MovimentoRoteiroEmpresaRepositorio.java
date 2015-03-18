@@ -96,8 +96,6 @@ public class MovimentoRoteiroEmpresaRepositorio extends GenericRepository<Intege
 			return entity.createQuery(sql.toString(), MovimentoRoteiroEmpresa.class)
 					.setParameter("idRota", idRota)
 					.setParameter("referencia", referencia)
-//					.setFirstResult(firstItem)
-//					.setMaxResults(numItens)
 					.getResultList();
 		} catch (NoResultException e) {
 			return null;

@@ -67,7 +67,7 @@ public class ClienteEndereco implements Serializable {
 
 		if (logradouroCep != null && logradouroCep.temLogradouro()) {
 			if (logradouroCep.temTipoDescricaoAbreviada()) {
-				endereco.append(logradouroCep.getLogradouro().getLogradouroTipo().getDescricaoAbreviada().trim());
+				endereco.append(logradouroCep.getLogradouro().getLogradouroTipo().getDescricao().trim());
 			}
 			
 			if (this.getLogradouroCep().temTitulo() && this.getLogradouroCep().temDescricaoAbreviada()) {
