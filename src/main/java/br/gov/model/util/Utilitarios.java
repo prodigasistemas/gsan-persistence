@@ -379,9 +379,9 @@ public class Utilitarios {
 			Integer mesFim = extrairMes(dataFim);
 			Integer mesInicio = extrairMes(dataInicio);
 			
-			if(anoFim == anoInicio){
+			if(anoFim.intValue() == anoInicio.intValue()){
 				return mesFim - mesInicio;
-			}else if(anoFim > anoInicio){
+			}else if(anoFim.intValue() > anoInicio.intValue()){
 				return ((anoFim-anoInicio)*12)-(mesFim+mesInicio);
 			}
 		}

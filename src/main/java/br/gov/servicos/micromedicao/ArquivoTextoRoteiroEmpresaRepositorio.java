@@ -4,6 +4,7 @@ import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 
 import br.gov.model.micromedicao.ArquivoTextoRoteiroEmpresa;
+import br.gov.model.micromedicao.Rota;
 import br.gov.model.util.GenericRepository;
 
 @Stateless
@@ -43,5 +44,14 @@ public class ArquivoTextoRoteiroEmpresaRepositorio extends GenericRepository<Int
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+	
+	public void deletar(Rota rota) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("");
+		
+		entity.createQuery(sql.toString(), ArquivoTextoRoteiroEmpresa.class)
+				.setParameter("idRota", rota.getId())
+				.setParameter("referencia", rota.getFaturamentoGrupo().getAnoMesReferencia());
 	}
 }
