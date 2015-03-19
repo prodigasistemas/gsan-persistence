@@ -26,7 +26,11 @@ public class IOUtil {
     }
     
     public static File criarArquivoTexto(String nome, String caminho, String conteudo) {
-        File arquivo = new File(caminho + nome);
+    	File dir = new File(caminho);
+		if (!dir.exists())
+			dir.mkdirs();
+    	
+        File arquivo = new File(dir, nome);
         IOUtil.escreverArquivo(arquivo, conteudo);
         return arquivo;
     }
