@@ -241,6 +241,10 @@ public class Utilitarios {
         return completaStringAEsquerda(tamanhoCampo, campo, ' ');
     }
     
+    public static String completaTextoADireita(int tamanhoCampo, Object campo) {
+        return completaStringADireita(tamanhoCampo, campo, ' ');
+    }
+    
     public static String converteParaTexto(Object campo) {
         return campo == null ? "" : String.valueOf(campo);
     }

@@ -17,8 +17,13 @@ public class DebitoCobradoNaoParceladoTO implements Serializable {
 	public DebitoCobradoNaoParceladoTO() {
 	}
 	
-    public DebitoCobradoNaoParceladoTO(Integer anoMesReferencia, Short numeroPrestacaoDebito, Short totalPrestacao, BigDecimal valorPrestacao,
-            Integer debitoTipo, String descricaoTipoDebito, Integer constanteTipoDebito) {
+    public DebitoCobradoNaoParceladoTO(Integer anoMesReferencia
+            , Short numeroPrestacaoDebito
+            , Short totalPrestacao
+            , BigDecimal valorPrestacao
+            , Integer debitoTipo
+            , String descricaoTipoDebito
+            , Integer constanteTipoDebito) {
         this.anoMesReferencia = anoMesReferencia;
         this.numeroPrestacaoDebito = numeroPrestacaoDebito;
         this.totalPrestacao = totalPrestacao;
