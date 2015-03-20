@@ -15,6 +15,7 @@ import static br.gov.model.util.Utilitarios.qtdDiasMes;
 import static br.gov.model.util.Utilitarios.reduzirDias;
 import static br.gov.model.util.Utilitarios.reduzirMeses;
 import static br.gov.model.util.Utilitarios.retiraCaracteresEspeciais;
+import static br.gov.model.util.Utilitarios.formatarBigDecimalComVirgula;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
@@ -102,6 +103,11 @@ public class TesteUtilitario {
 	@Test
 	public void testFormataDecimal04(){
 		assertEquals("12345678.45", formatarBigDecimalComPonto(new BigDecimal(12345678.45))); 
+	}
+	
+	@Test
+	public void testFormataDecimal05() {
+		assertEquals("1234,45", formatarBigDecimalComVirgula(new BigDecimal(1234.45)));
 	}
 	
 	@Test

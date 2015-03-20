@@ -91,15 +91,12 @@ public class Utilitarios {
         return ordem;
     }
     
-    public static String formatarBigDecimalComPonto(BigDecimal numero) {
+    private static String formatarBigDecimal(BigDecimal numero, DecimalFormatSymbols symbols) {
 
         if (numero == null) {
             numero = new BigDecimal("0.00");
         }
 
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setDecimalSeparator('.');
-        
         NumberFormat formato = new DecimalFormat("##0.00", symbols);
         formato.setMaximumFractionDigits(2);
         formato.setMinimumFractionDigits(2);
@@ -107,7 +104,19 @@ public class Utilitarios {
 
         return formato.format(numero);
     }
+
+    public static String formatarBigDecimalComPonto(BigDecimal numero) {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
+        return formatarBigDecimal(numero, symbols);
+    }
     
+    public static String formatarBigDecimalComVirgula(BigDecimal numero) {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator(',');
+        return formatarBigDecimal(numero, symbols);
+    }
+
     public static String formatarAnoMesParaMesAno(int anoMes) {
 
         String anoMesFormatado = "";
