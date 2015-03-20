@@ -14,6 +14,14 @@ import org.junit.Test;
 public class IOUtilTest {
     
     @Test
+    public void testaFiltroArquivosComCaminhoInexistente() throws IOException{
+        String[] wildcards = new String[]{"*.txt"};
+        File[] arquivos = arquivosFiltrados("/tmp/caminho_inexistente", wildcards);
+        
+        assertEquals(0, arquivos.length);
+    }
+    
+    @Test
     public void testaFiltroArquivosComExtensaoTxt() throws IOException{
         String[] wildcards = new String[]{"*.txt"};
         File arq = new File("/tmp", "arq.txt");

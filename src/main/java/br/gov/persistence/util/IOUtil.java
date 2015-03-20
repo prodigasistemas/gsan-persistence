@@ -22,7 +22,12 @@ public class IOUtil {
         
         File dir = new File(caminho);
         
-        return dir.listFiles(filtro);
+        if (dir.exists()){
+            return dir.listFiles(filtro);
+        }else{
+            return new File[0];
+        }
+        
     }
     
     public static File criarArquivoTexto(String nome, String caminho, String conteudo) {
