@@ -19,7 +19,8 @@ public class ClienteEnderecoRepositorioTest extends SingleDeployment{
 	@Inject
 	ClienteEnderecoRepositorio repositorio;
 	
-	private String logradouroTipo   = "AC";
+	private String logradouroTipoAbreviado   = "AC";
+	private String logradouroTipo   = "ACESSO";
 	private String logradouroTitulo = "BR";
 	private String logradouroNome   = "NAZARE";
 	private String cepFormatado     = "68707-000";
@@ -100,12 +101,12 @@ public class ClienteEnderecoRepositorioTest extends SingleDeployment{
 		.append(cepFormatado)
 		
 		.append(" ENTRE ")
-		.append(logradouroTipo)
+		.append(logradouroTipoAbreviado)
 		.append(logradouroTitulo)
 		.append(logradouroNome)
 		
 		.append(" E ")
-		.append(logradouroTipo)
+		.append(logradouroTipoAbreviado)
 		.append(logradouroTitulo)
 		.append(logradouroNome);
 
