@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 
 import br.gov.model.operacao.LocalidadeProxy;
 import br.gov.persistence.util.SingleDeployment;
-import br.gov.servicos.operacao.to.ConsultaHorasTO;
+import br.gov.servicos.operacao.to.FiltroOperacionalTO;
 import br.gov.servicos.operacao.to.HorasRelatorioTO;
 
 @RunWith(Arquillian.class)
@@ -26,7 +26,7 @@ public class RelatorioHorasRepositorioTest extends SingleDeployment{
 	@UsingDataSet("horas.yml")
 	public void apenasHorasParadasPorEnergia() throws Exception{
 	    
-	    ConsultaHorasTO consulta = new ConsultaHorasTO();
+	    FiltroOperacionalTO consulta = new FiltroOperacionalTO();
 	    consulta.setReferenciaInicial(201402);
 	    consulta.setReferenciaFinal(201406);
 		List<HorasRelatorioTO> lista = repositorio.consultaHoras(consulta);
@@ -40,7 +40,7 @@ public class RelatorioHorasRepositorioTest extends SingleDeployment{
 	@UsingDataSet("horas.yml")
 	public void calculaHorasCMB() throws Exception{
 	    
-	    ConsultaHorasTO consulta = new ConsultaHorasTO();
+	    FiltroOperacionalTO consulta = new FiltroOperacionalTO();
 	    consulta.setReferenciaInicial(201402);
 	    consulta.setReferenciaFinal(201406);
 	    List<HorasRelatorioTO> lista = repositorio.consultaHoras(consulta);
@@ -58,7 +58,7 @@ public class RelatorioHorasRepositorioTest extends SingleDeployment{
 	@UsingDataSet("horas.yml")
 	public void filtraPorLocalidade() throws Exception{
 	    
-	    ConsultaHorasTO consulta = new ConsultaHorasTO();
+	    FiltroOperacionalTO consulta = new FiltroOperacionalTO();
 	    consulta.setReferenciaInicial(201402);
 	    consulta.setReferenciaFinal(201406);
 	    consulta.setLocalidade(new LocalidadeProxy(2, "Bairro Alto"));
@@ -72,7 +72,7 @@ public class RelatorioHorasRepositorioTest extends SingleDeployment{
 	@Test
     @UsingDataSet("horas.yml")
     public void quantidadeTotalCMB() throws Exception{
-        ConsultaHorasTO consulta = new ConsultaHorasTO();
+        FiltroOperacionalTO consulta = new FiltroOperacionalTO();
         consulta.setReferenciaInicial(201402);
         consulta.setReferenciaFinal(201406);
         consulta.setLocalidade(new LocalidadeProxy(2, "Bairro Alto"));

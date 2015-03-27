@@ -7,7 +7,7 @@ import br.gov.model.operacao.RegionalProxy;
 import br.gov.model.operacao.UnidadeNegocioProxy;
 
 
-public class ConsultaHorasTO implements ConsultaCadastroTO{
+public class FiltroOperacionalTO implements ConsultaCadastroTO{
     private static final long serialVersionUID = 5953127874354297216L;
 
     private RegionalProxy regional;

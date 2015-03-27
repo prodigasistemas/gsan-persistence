@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 import br.gov.model.operacao.Hora;
 import br.gov.model.operacao.HoraCMB;
-import br.gov.servicos.operacao.to.ConsultaHorasTO;
+import br.gov.servicos.operacao.to.FiltroOperacionalTO;
 import br.gov.servicos.operacao.to.HorasRelatorioTO;
 
 @Stateless
@@ -20,7 +20,7 @@ public class RelatorioHorasRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public Integer quantidadeMaximaCmb(ConsultaHorasTO consulta) {
+	public Integer quantidadeMaximaCmb(FiltroOperacionalTO consulta) {
         StringBuilder sql = new StringBuilder();
 
         sql.append("SELECT max(e.quantidadeCmb)")
@@ -33,7 +33,7 @@ public class RelatorioHorasRepositorio {
                 .setParameter("refFim", consulta.getReferenciaFinal())
                 .getSingleResult();        
 	}
-	public List<HorasRelatorioTO> consultaHoras(ConsultaHorasTO to) {
+	public List<HorasRelatorioTO> consultaHoras(FiltroOperacionalTO to) {
 
 		StringBuilder sql = new StringBuilder();
 

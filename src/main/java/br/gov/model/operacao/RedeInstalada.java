@@ -27,6 +27,13 @@ public class RedeInstalada implements Serializable{
 	@Column(name="rdin_id")
 	private Integer codigo;
 
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumns({
+//		@JoinColumn(name="hora_tipo_unidade", referencedColumnName="ucop_tipooperacional", insertable=false, updatable=false), 
+//		@JoinColumn(name="hora_id_unidade", referencedColumnName="ucop_idoperacional", insertable=false, updatable=false)
+//	})
+//	private UnidadeConsumidoraOperacional unidadeConsumidoraOperacional;
+
 	@Column(name="rdin_referencia", nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date referencia;
@@ -139,7 +146,14 @@ public class RedeInstalada implements Serializable{
 	public void setUltimaAlteracao(Date ultimaAlteracao) {
 		this.ultimaAlteracao = ultimaAlteracao;
 	}
-
+//	public UnidadeConsumidoraOperacional getUnidadeConsumidoraOperacional() {
+//		return unidadeConsumidoraOperacional;
+//	}
+//
+//	public void setUnidadeConsumidoraOperacional(
+//			UnidadeConsumidoraOperacional unidadeConsumidoraOperacional) {
+//		this.unidadeConsumidoraOperacional = unidadeConsumidoraOperacional;
+//	}
 	
 	public int hashCode() {
 		final int prime = 31;
