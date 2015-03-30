@@ -1,19 +1,12 @@
 package br.gov.servicos.operacao.to;
 
-import static br.gov.model.util.Utilitarios.formatarBigDecimalComVirgula;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
-public class RedesInstaladasRelatorioTO implements Serializable, ConverteParaRelatorio {
-	private static final long serialVersionUID = -4744219275978355560L;
-
-	private Date referencia;
-
-	private Integer cdRegional;
+public class RedeInstaladaCadastroTO implements Serializable{
+    private static final long serialVersionUID = -1629984952397072921L;
+    
+    private Integer cdRegional;
 	private String nomeRegional;
 	private Integer cdUnidadeNegocio;
 	private String nomeUnidadeNegocio;
@@ -21,14 +14,15 @@ public class RedesInstaladasRelatorioTO implements Serializable, ConverteParaRel
 	private String nomeMunicipio;
 	private Integer cdLocalidade;
 	private String nomeLocalidade;
+	private Integer referencia;
 	private BigDecimal redeCadastrada = BigDecimal.ZERO;
 	private BigDecimal redeExistente = BigDecimal.ZERO;
 	
-	public Date getReferencia() {
+	public Integer getReferencia() {
 		return referencia;
 	}
 
-	public void setReferencia(Date referencia) {
+	public void setReferencia(Integer referencia) {
 		this.referencia = referencia;
 	}
 
@@ -111,18 +105,4 @@ public class RedesInstaladasRelatorioTO implements Serializable, ConverteParaRel
 	public void setRedeExistente(BigDecimal redeExistente) {
 		this.redeExistente = redeExistente;
 	}
-
-	@Override
-	public List<String> toArray() {
-		final List<String> s = new LinkedList<String>();
-        s.add(nomeRegional);
-        s.add(nomeUnidadeNegocio);
-        s.add(nomeMunicipio);
-        s.add(nomeLocalidade);
-        s.add(String.valueOf(referencia));
-        s.add(formatarBigDecimalComVirgula(redeCadastrada));
-        s.add(formatarBigDecimalComVirgula(redeExistente));
-        return s;
-	}
-
 }

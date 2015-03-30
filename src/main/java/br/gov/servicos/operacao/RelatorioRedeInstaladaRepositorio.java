@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import br.gov.model.operacao.RedeInstalada;
 import br.gov.servicos.operacao.to.FiltroOperacionalTO;
-import br.gov.servicos.operacao.to.RedesInstaladasRelatorioTO;
+import br.gov.servicos.operacao.to.RedeInstaladaRelatorioTO;
 
 @Stateless
 public class RelatorioRedeInstaladaRepositorio {
@@ -17,28 +17,24 @@ public class RelatorioRedeInstaladaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public List<RedesInstaladasRelatorioTO> consultarRedesInstaladas(FiltroOperacionalTO to){
+	public List<RedeInstaladaRelatorioTO> consultarRedesInstaladas(FiltroOperacionalTO to){
 		StringBuilder sql = new StringBuilder();
 
 		sql.append("SELECT r")
-			.append("  FROM operacao.rede_instalada")
-			.append("  inner join r.gerencia_regional g")
-			.append("  inner join r.unidade_negocio u")
-			.append("  inner join r.municipio m")
-			.append("  inner join r.localidade l")
+			.append("  FROM RedeInstalada r")
 			.append(" WHERE r.referencia BETWEEN :refINI AND :refFim");
 
         if (to.getRegional() != null && to.getRegional().getCodigo() != -1) {
-            sql.append(" AND r.unidadeConsumidoraOperacional.UC.regionalProxy.codigo = " + to.getRegional().getCodigo());
+            sql.append(" AND r.regional.codigo = " + to.getRegional().getCodigo());
         }
         if (to.getUnidadeNegocio() != null  && to.getUnidadeNegocio().getCodigo() != -1) {
-            sql.append("  AND r.unidadeConsumidoraOperacional.UC.unidadeNegocioProxy.codigo = " + to.getUnidadeNegocio().getCodigo());
+            sql.append("  AND r.unidadeNegocio.codigo = " + to.getUnidadeNegocio().getCodigo());
         }
         if (to.getMunicipio() != null  && to.getMunicipio().getCodigo() != -1) {
-            sql.append("  AND r.unidadeConsumidoraOperacional.UC.municioProxy.codigo = " + to.getMunicipio().getCodigo());
+            sql.append("  AND r.municio.codigo = " + to.getMunicipio().getCodigo());
         }
         if (to.getLocalidade() != null  && to.getLocalidade().getCodigo() != -1) {
-            sql.append("  AND unidadeConsumidoraOperacional.UC.localidadeProxy.codigo = " + to.getLocalidade().getCodigo());
+            sql.append("  AND r.localidade.codigo = " + to.getLocalidade().getCodigo());
         }
         
         List<RedeInstalada> redes_instaladas = entity.createQuery(sql.toString(), RedeInstalada.class)
@@ -46,17 +42,17 @@ public class RelatorioRedeInstaladaRepositorio {
 				.setParameter("refFim", to.getReferenciaFinal())
 				.getResultList();
         
-        List<RedesInstaladasRelatorioTO> relatorioTO = new ArrayList<RedesInstaladasRelatorioTO>();
+        List<RedeInstaladaRelatorioTO> relatorioTO = new ArrayList<RedeInstaladaRelatorioTO>();
         for (RedeInstalada rede : redes_instaladas) {
-        	RedesInstaladasRelatorioTO item = new RedesInstaladasRelatorioTO();
-        	item.setCdLocalidade(rede.getLocalidadeProxy().getCodigo());
-        	item.setCdMunicipio(rede.getMunicipioProxy().getCodigo());
-        	item.setCdRegional(rede.getRegionalProxy().getCodigo());
-        	item.setCdUnidadeNegocio(rede.getUnidadeNegocioProxy().getCodigo());
-        	item.setNomeLocalidade(rede.getLocalidadeProxy().getNome());
-        	item.setNomeMunicipio(rede.getMunicipioProxy().getNome());
-        	item.setNomeRegional(rede.getRegionalProxy().getNome());
-        	item.setNomeUnidadeNegocio(rede.getUnidadeNegocioProxy().getNome());
+        	RedeInstaladaRelatorioTO item = new RedeInstaladaRelatorioTO();
+        	item.setCdLocalidade(rede.getLocalidade().getCodigo());
+        	item.setCdMunicipio(rede.getMunicipio().getCodigo());
+        	item.setCdRegional(rede.getRegional().getCodigo());
+        	item.setCdUnidadeNegocio(rede.getUnidadeNegocio().getCodigo());
+        	item.setNomeLocalidade(rede.getLocalidade().getNome());
+        	item.setNomeMunicipio(rede.getMunicipio().getNome());
+        	item.setNomeRegional(rede.getRegional().getNome());
+        	item.setNomeUnidadeNegocio(rede.getUnidadeNegocio().getNome());
         	item.setReferencia(rede.getReferencia());
         	item.setRedeCadastrada(rede.getRedeCadastrada());
         	item.setRedeExistente(rede.getRedeExistente());
