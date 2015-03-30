@@ -14,11 +14,29 @@ public class RedeInstaladaCadastroTO implements Serializable{
 	private String nomeMunicipio;
 	private Integer cdLocalidade;
 	private String nomeLocalidade;
+	private Integer idRedeInstalada;
 	private Integer referencia;
 	private BigDecimal redeCadastrada = BigDecimal.ZERO;
 	private BigDecimal redeExistente = BigDecimal.ZERO;
 	
-	public Integer getReferencia() {
+	public RedeInstaladaCadastroTO() {
+    }
+	
+	public RedeInstaladaCadastroTO(Integer cdRegional, Integer cdUnidadeNegocio, Integer cdMunicipio, Integer cdLocalidade
+	        , Integer idRedeInstalada, Integer referencia,
+            BigDecimal redeCadastrada, BigDecimal redeExistente) {
+        super();
+        this.cdRegional = cdRegional;
+        this.cdUnidadeNegocio = cdUnidadeNegocio;
+        this.cdMunicipio = cdMunicipio;
+        this.cdLocalidade = cdLocalidade;
+        this.idRedeInstalada = idRedeInstalada;
+        this.referencia = referencia;
+        this.redeCadastrada = redeCadastrada;
+        this.redeExistente = redeExistente;
+    }
+
+    public Integer getReferencia() {
 		return referencia;
 	}
 
@@ -105,4 +123,12 @@ public class RedeInstaladaCadastroTO implements Serializable{
 	public void setRedeExistente(BigDecimal redeExistente) {
 		this.redeExistente = redeExistente;
 	}
+
+    public Integer getIdRedeInstalada() {
+        return idRedeInstalada;
+    }
+
+    public void setIdRedeInstalada(Integer idRedeInstalada) {
+        this.idRedeInstalada = idRedeInstalada;
+    }
 }

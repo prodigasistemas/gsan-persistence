@@ -46,19 +46,19 @@ public class RedeInstaladaRepositorio extends GenericRepository<Integer, RedeIns
                 .getResultList();
     }
 
-    public boolean verificaMesReferencia(Integer codigoRegional
+    public boolean existeCadastroNestaReferencia(Integer codigoRegional
             , Integer codigoUnidadeNegocio
             , Integer codigoMunicipio
             , Integer codigoLocalidade
             , Integer referencia) throws Exception {
         StringBuilder sql = new StringBuilder();
-        sql.append("select c1 from RedeInstalada c1 where regional = :regional")
-            .append(" and unidadeNegocio = :negocio")
-            .append(" and municipio = :municipio")
-            .append(" and localidade = :localidade")
+        sql.append("select c1 from RedeInstalada c1 where regional.codigo = :regional")
+            .append(" and unidadeNegocio.codigo = :negocio")
+            .append(" and municipio.codigo = :municipio")
+            .append(" and localidade.codigo = :localidade")
             .append(" and referencia = :referencia");
         
-        List<RedeInstalada> redeInstalada = entity.createQuery(sql.toString(), RedeInstalada.class)
+        List<RedeInstalada> lista = entity.createQuery(sql.toString(), RedeInstalada.class)
             .setParameter("regional", codigoRegional)
             .setParameter("negocio", codigoUnidadeNegocio)
             .setParameter("municipio", codigoMunicipio)
@@ -66,11 +66,7 @@ public class RedeInstaladaRepositorio extends GenericRepository<Integer, RedeIns
             .setParameter("referencia", referencia)
             .getResultList();
         
-        if (redeInstalada.size() > 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return lista.size() > 0 ? true : false;
     }
 
     public RedeInstaladaCadastroTO obterRedeInstalada(Integer id) {
