@@ -37,6 +37,8 @@ public class RelatorioRedeInstaladaRepositorio {
             sql.append("  AND r.localidade.codigo = " + to.getLocalidade().getCodigo());
         }
         
+        sql.append(" ORDER BY r.regional.codigo, r.unidadeNegocio.codigo, r.municipio.codigo, r.localidade.codigo, r.referencia");
+        
         List<RedeInstalada> redes_instaladas = entity.createQuery(sql.toString(), RedeInstalada.class)
 		        .setParameter("refINI", to.getReferenciaInicial())
 				.setParameter("refFim", to.getReferenciaFinal())
