@@ -31,7 +31,7 @@ public class RelatorioRedeInstaladaRepositorio {
             sql.append("  AND r.unidadeNegocio.codigo = " + to.getUnidadeNegocio().getCodigo());
         }
         if (to.getMunicipio() != null  && to.getMunicipio().getCodigo() != -1) {
-            sql.append("  AND r.municio.codigo = " + to.getMunicipio().getCodigo());
+            sql.append("  AND r.municipio.codigo = " + to.getMunicipio().getCodigo());
         }
         if (to.getLocalidade() != null  && to.getLocalidade().getCodigo() != -1) {
             sql.append("  AND r.localidade.codigo = " + to.getLocalidade().getCodigo());
