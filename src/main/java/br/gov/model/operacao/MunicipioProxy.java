@@ -23,10 +23,13 @@ public class MunicipioProxy implements Serializable, BaseEntidade {
 		
 	}
 	
-	public MunicipioProxy(Integer codigo, String nome) {
-		super();
+	public MunicipioProxy(Integer codigo) {
 		this.codigo = codigo;
-		this.nome = nome;
+	}
+	
+	public MunicipioProxy(Integer codigo, String nome) {
+	    this.codigo = codigo;
+	    this.nome = nome;
 	}
 
 	public Integer getCodigo() {

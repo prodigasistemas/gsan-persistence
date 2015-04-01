@@ -23,12 +23,16 @@ public class RegionalProxy implements Serializable, BaseEntidade {
 	public RegionalProxy() {
 	}
 	
-	public RegionalProxy(Integer codigo, String nome) {
-		super();
+	public RegionalProxy(Integer codigo) {
 		this.codigo = codigo;
-		this.nome = nome;
 	}
 
+	public RegionalProxy(Integer codigo, String nome) {
+	    super();
+	    this.codigo = codigo;
+	    this.nome = nome;
+	}
+	
 	public Integer getCodigo() {
 		return codigo;
 	}
