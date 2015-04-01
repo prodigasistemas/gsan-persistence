@@ -1,0 +1,43 @@
+cadastro.gerencia_regional:
+  - greg_id: 1
+    greg_nmregional: METROPOLITANA
+  - greg_id: 2
+    greg_nmregional: INTERIOR
+
+cadastro.unidade_negocio:
+  - uneg_id: 1
+    uneg_nmunidadenegocio: UNIDADE NORTE
+  - uneg_id: 2
+    uneg_nmunidadenegocio: UNIDADE OESTE
+
+cadastro.municipio:
+  - muni_id: 1
+    muni_nmmunicipio: BELEM
+  - muni_id: 2
+    muni_nmmunicipio: MARABA
+
+cadastro.localidade:
+  - loca_id: 1
+    loca_nmlocalidade: BAIXA
+  - loca_id: 2
+    loca_nmlocalidade: ALTA
+
+operacao.rede_instalada:
+  - rdin_id: 1
+    greg_id: 1
+    uneg_id: 1
+    muni_id: 1
+    loca_id: 1
+    rdin_referencia: 201501
+  - rdin_id: 2
+    greg_id: 1
+    uneg_id: 1
+    muni_id: 1
+    loca_id: 1
+    rdin_referencia: 201502
+  - rdin_id: 3
+    greg_id: 2
+    uneg_id: 2
+    muni_id: 2
+    loca_id: 2
+    rdin_referencia: 201503
