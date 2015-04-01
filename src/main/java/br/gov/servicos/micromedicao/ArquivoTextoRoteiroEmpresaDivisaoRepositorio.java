@@ -4,6 +4,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.micromedicao.Rota;
+
 @Stateless
 public class ArquivoTextoRoteiroEmpresaDivisaoRepositorio {
 	@PersistenceContext
@@ -16,4 +18,5 @@ public class ArquivoTextoRoteiroEmpresaDivisaoRepositorio {
 
 		entity.createQuery(sql.toString()).setParameter("idRoteitoEmpresa", idRoteitoEmpresa).executeUpdate();
 	}
+	
 }
