@@ -1,6 +1,5 @@
 package br.gov.servicos.operacao.to;
 
-import static br.gov.model.util.Utilitarios.formatarBigDecimalComPonto;
 import static br.gov.model.util.Utilitarios.formatarBigDecimalComVirgula;
 
 import java.io.Serializable;

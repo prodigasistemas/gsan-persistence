@@ -24,8 +24,11 @@ public class LocalidadeProxy implements Serializable, BaseEntidade {
 		
 	}
 
+	public LocalidadeProxy(Integer codigo) {
+	    this.codigo = codigo;
+	}
+	
 	public LocalidadeProxy(Integer codigo, String nome) {
-		super();
 		this.codigo = codigo;
 		this.nome = nome;
 	}
