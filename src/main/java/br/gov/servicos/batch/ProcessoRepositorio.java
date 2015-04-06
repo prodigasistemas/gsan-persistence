@@ -4,28 +4,40 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.NoResultException;
 
 import br.gov.model.batch.Processo;
 import br.gov.model.batch.ProcessoIniciado;
 import br.gov.model.batch.ProcessoSituacao;
+import br.gov.model.util.GenericRepository;
 
 @Stateless
-public class ProcessoRepositorio {
-
-	@PersistenceContext
-	private EntityManager entity;
-
-	public boolean iniciaExecucaoProcesso(Integer idProcessoIniciado, Long executionId){
+public class ProcessoRepositorio extends GenericRepository<Integer, Processo>{
+    
+    public Processo obterProcessoPeloIniciado(Integer idProcessoIniciado){
+        StringBuilder sql = new StringBuilder();
+        sql.append("select p from ProcessoIniciado i")
+            .append(" inner join i.processo p ")
+            .append(" where i.id = :id");
+        
+        try {
+            return entity.createQuery(sql.toString(), Processo.class)
+            .setParameter("id", idProcessoIniciado)
+            .setMaxResults(1)
+            .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+	
+	public boolean iniciaExecucaoProcesso(Integer idProcessoIniciado){
 		StringBuilder sql = new StringBuilder();
 		sql.append("update ProcessoIniciado ")
-			.append(" set situacao = :situacao, inicio = :inicio, ultimaAlteracao = :ultimaAlteracao, executionId = :executionId ")
+			.append(" set situacao = :situacao, inicio = :inicio, ultimaAlteracao = :ultimaAlteracao ")
 			.append(" where id = :processoId ");
 
 		int result = entity.createQuery(sql.toString())
 						.setParameter("situacao", ProcessoSituacao.EM_PROCESSAMENTO.getId())
-						.setParameter("executionId", executionId)
 						.setParameter("inicio", new Date())
 						.setParameter("ultimaAlteracao", new Date())
 						.setParameter("processoId", idProcessoIniciado)
@@ -51,10 +63,6 @@ public class ProcessoRepositorio {
 						.setParameter("idSituacao", situacao.getId())
 						.getResultList();
 	}
-
-	public ProcessoIniciado buscarProcessoIniciadoPorId(Integer idProcessoIniciado){
-		return entity.find(ProcessoIniciado.class, idProcessoIniciado);
-  }
 
 	public ProcessoIniciado buscarProcessosIniciado(Integer idProcesso){
 		return entity.createQuery("from ProcessoIniciado where id = :idProcesso", ProcessoIniciado.class)
