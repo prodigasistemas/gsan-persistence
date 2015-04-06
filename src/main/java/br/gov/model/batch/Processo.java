@@ -3,12 +3,14 @@ package br.gov.model.batch;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -39,6 +41,9 @@ public class Processo implements Serializable{
 	
 	@Column(name="prtp_id")
 	private Integer tipo;
+	
+	@OneToMany(mappedBy="processo")
+	private List<ProcessoAtividade> atividades;
 	
 	public Processo(){}
 
@@ -90,7 +95,15 @@ public class Processo implements Serializable{
 		this.tipo = tipo;
 	}
 	
-	public boolean isRecorrente() {
+	public List<ProcessoAtividade> getAtividades() {
+        return atividades;
+    }
+
+    public void setAtividades(List<ProcessoAtividade> atividades) {
+        this.atividades = atividades;
+    }
+
+    public boolean isRecorrente() {
 		return tipo == ProcessoTipo.MENSAL.getId() || tipo == ProcessoTipo.SEMANAL.getId() || tipo == ProcessoTipo.DIARIO.getId();
 	}
 
