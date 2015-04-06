@@ -8,31 +8,28 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
-import br.gov.model.cadastro.Imovel;
+import br.gov.model.Status;
 import br.gov.model.micromedicao.ConsumoHistorico;
 import br.gov.model.micromedicao.LigacaoTipo;
-import br.gov.servicos.to.AnormalidadeHistoricoConsumo;
+import br.gov.servicos.to.AnormalidadeHistoricoConsumoTO;
 
 @Stateless
 public class ConsumoHistoricoRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public Collection<ConsumoHistorico> buscarUltimos6ConsumosAguaImovel(Imovel imovel) {
+	public Collection<ConsumoHistorico> buscarUltimos6ConsumosAguaImovel(Integer idImovel) {
 		StringBuilder sql = new StringBuilder(); 
 		
 		sql.append("SELECT consumoHistorico ");
 		sql.append("FROM ConsumoHistorico consumoHistorico ");
-		sql.append("INNER JOIN consumoHistorico.imovel imovel ");
-		sql.append("INNER JOIN consumoHistorico.ligacaoTipo ligacaoTipo ");
-		sql.append("LEFT JOIN consumoHistorico.consumoAnormalidade consumoAnormalidade ");
-		sql.append("WHERE imovel.id = :idImovel ");
-		sql.append("AND ligacaoTipo.id = :tipoLigacao ");
+		sql.append("WHERE consumoHistorico.imovel.id = :idImovel ");
+		sql.append("AND consumoHistorico.ligacaoTipo = :tipoLigacao ");
 		sql.append("ORDER BY consumoHistorico.referenciaFaturamento desc");
 
 		Collection<ConsumoHistorico> resultado = entity.createQuery(sql.toString(), ConsumoHistorico.class)
-				.setParameter("idImovel", imovel.getId())
-				.setParameter("tipoLigacao", LigacaoTipo.AGUA)
+				.setParameter("idImovel", idImovel)
+				.setParameter("tipoLigacao", LigacaoTipo.AGUA.getId())
 				.setMaxResults(6).getResultList();
 
 		return resultado;
@@ -45,13 +42,12 @@ public class ConsumoHistoricoRepositorio {
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ch from ConsumoHistorico ch")
-		.append(" inner join ch.consumoTipo ct ")
 		.append(" left join ch.consumoAnormalidade ca ")
 		.append("	with ca.indicadorCalcularMedia = :indicadorCalculoMedia ")
 		.append(" where ch.imovel.id = :idImovel ")
 		.append("   and ch.ligacaoTipo = :idLigacao ")
 		.append("   and ch.referenciaFaturamento between :amReferenciaInicial and :amReferenciaFinal ")
-		.append("   and ct.indicadorCalculoMedia = :indicadorCalculoMedia ")
+		.append("   and ch.consumoTipo.indicadorCalculoMedia = :indicadorCalculoMedia ")
 		.append(" order by ch.referenciaFaturamento desc");
 		
 		return entity.createQuery(sql.toString(), ConsumoHistorico.class)
@@ -59,15 +55,15 @@ public class ConsumoHistoricoRepositorio {
 				.setParameter("idLigacao", idLigacaoTipo)
 				.setParameter("amReferenciaInicial", amReferenciaInicial)
 				.setParameter("amReferenciaFinal", amReferenciaFinal)
-				.setParameter("indicadorCalculoMedia", Short.valueOf("1"))
+				.setParameter("indicadorCalculoMedia", Status.ATIVO.getId())
 				.getResultList();
 	}
 	
-	public AnormalidadeHistoricoConsumo anormalidadeHistoricoConsumo(Integer idImovel, LigacaoTipo ligacaoTipo, Integer anoMesReferencia){
+	public AnormalidadeHistoricoConsumoTO anormalidadeHistoricoConsumo(Integer idImovel, LigacaoTipo ligacaoTipo, Integer anoMesReferencia){
 		StringBuilder sql = consultaAnormalidade();
 
 		try {
-			return entity.createQuery(sql.toString(), AnormalidadeHistoricoConsumo.class)
+			return entity.createQuery(sql.toString(), AnormalidadeHistoricoConsumoTO.class)
 					.setParameter("idImovel", idImovel)
 					.setParameter("idLigacaoTipo", ligacaoTipo.getId())
 					.setParameter("anoMes", anoMesReferencia)
@@ -78,12 +74,12 @@ public class ConsumoHistoricoRepositorio {
 		}
 	}
 	
-	public AnormalidadeHistoricoConsumo anormalidadeHistoricoConsumo(Integer idImovel, LigacaoTipo ligacaoTipo, Integer anoMesReferencia, Integer idConsumoAnormalidade){
+	public AnormalidadeHistoricoConsumoTO anormalidadeHistoricoConsumo(Integer idImovel, LigacaoTipo ligacaoTipo, Integer anoMesReferencia, Integer idConsumoAnormalidade){
 		StringBuilder sql = consultaAnormalidade()
 				.append(" and ca.id = :idConsumoAnormalidade");
 		
 		try {
-			return entity.createQuery(sql.toString(), AnormalidadeHistoricoConsumo.class)
+			return entity.createQuery(sql.toString(), AnormalidadeHistoricoConsumoTO.class)
 					.setParameter("idImovel", idImovel)
 					.setParameter("idLigacaoTipo", ligacaoTipo.getId())
 					.setParameter("anoMes", anoMesReferencia)
@@ -97,7 +93,7 @@ public class ConsumoHistoricoRepositorio {
 	
 	public StringBuilder consultaAnormalidade(){
 		StringBuilder sql = new StringBuilder();
-		sql.append("select new br.gov.servicos.to.AnormalidadeHistoricoConsumo(ch.id, ca.id, ch.ligacaoTipo,  ch.referenciaFaturamento) ")
+		sql.append("select new br.gov.servicos.to.AnormalidadeHistoricoConsumoTO(ch.id, ca.id, ch.ligacaoTipo,  ch.referenciaFaturamento) ")
 		.append(" from ConsumoHistorico ch ")
 		.append(" inner join ch.consumoAnormalidade ca ")
 		.append(" inner join ch.imovel im ")

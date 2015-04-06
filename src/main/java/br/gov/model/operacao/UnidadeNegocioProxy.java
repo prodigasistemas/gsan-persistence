@@ -22,10 +22,12 @@ public class UnidadeNegocioProxy implements Serializable, BaseEntidade {
 	public UnidadeNegocioProxy() {
 	}
 	
-	public UnidadeNegocioProxy(Integer codigo, String nome) {
-		super();
+	public UnidadeNegocioProxy(Integer codigo) {
 		this.codigo = codigo;
-		this.nome = nome;
+	}
+	public UnidadeNegocioProxy(Integer codigo, String nome) {
+	    this.codigo = codigo;
+	    this.nome = nome;
 	}
 	public Integer getCodigo() {
 		return codigo;

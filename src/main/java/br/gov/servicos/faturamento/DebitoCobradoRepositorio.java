@@ -9,11 +9,12 @@ import javax.persistence.PersistenceContext;
 
 import br.gov.model.faturamento.DebitoCobrado;
 import br.gov.model.financeiro.TipoFinanciamento;
+import br.gov.model.util.GenericRepository;
 import br.gov.servicos.to.DebitoCobradoNaoParceladoTO;
 import br.gov.servicos.to.ParcelaDebitoCobradoTO;
 
 @Stateless
-public class DebitoCobradoRepositorio {
+public class DebitoCobradoRepositorio extends GenericRepository<Integer, DebitoCobrado>{
 
 	@PersistenceContext
 	private EntityManager entity;
@@ -37,13 +38,6 @@ public class DebitoCobradoRepositorio {
 		.executeUpdate();
 	}
 
-	public Integer inserir(DebitoCobrado debitoCobrado) {
-		entity.persist(debitoCobrado);
-		entity.flush();
-		
-		return debitoCobrado.getId();
-	}		
-	
 	public Collection<ParcelaDebitoCobradoTO> pesquisarDebitoCobradoParcelamento(Integer idConta) {
 
 		StringBuilder sql = new StringBuilder();

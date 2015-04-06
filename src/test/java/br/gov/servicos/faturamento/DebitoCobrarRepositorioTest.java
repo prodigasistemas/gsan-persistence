@@ -10,20 +10,15 @@ import javax.inject.Inject;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.ShouldMatchDataSet;
 import org.jboss.arquillian.persistence.UsingDataSet;
-import org.jboss.logging.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import br.gov.model.cadastro.Imovel;
 import br.gov.model.faturamento.DebitoCobrar;
 import br.gov.persistence.util.SingleDeployment;
 
 
 @RunWith(Arquillian.class)
 public class DebitoCobrarRepositorioTest extends SingleDeployment{
-	
-	private static Logger logger = Logger.getLogger(DebitoCobrarRepositorioTest.class);
-		
 	@Inject
 	DebitoCobrarRepositorio repositorio;
 	
@@ -33,13 +28,7 @@ public class DebitoCobrarRepositorioTest extends SingleDeployment{
 	@Test
 	@UsingDataSet("debitosCobrarVigentes.yml")
 	public void debitosCobrarVigentes() throws Exception {
-		logger.info("Verificar debitos a cobrar vigentes");
-		Imovel imovel = new Imovel();
-		imovel.setId(1);
-
-		Collection<DebitoCobrar> debitos = repositorio.debitosCobrarPorImovelComPendenciaESemRevisao(imovel);
-		
-		logger.info("Debitos a cobrar vigentes: " + debitos.size());
+		Collection<DebitoCobrar> debitos = repositorio.debitosCobrarPorImovelComPendenciaESemRevisao(1);
 		
 		assertTrue(debitos.size() == 1);
 	}

@@ -160,4 +160,8 @@ public class LigacaoEsgoto implements Serializable {
 	public boolean possuiNumeroConsumoPercentualAlternativo() {
 		return numeroConsumoPercentualAlternativo != null;
 	}
+
+    public boolean existeValorPercentualConsumoAlternativo() {
+        return numeroConsumoPercentualAlternativo != null && numeroConsumoPercentualAlternativo.intValue() >= 0;
+    }
 }

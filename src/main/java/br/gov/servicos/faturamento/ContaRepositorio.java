@@ -9,27 +9,18 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.cadastro.ClienteRelacaoTipo;
-import br.gov.model.exception.ErroCriacaoConta;
 import br.gov.model.faturamento.Conta;
 import br.gov.model.faturamento.DebitoCreditoSituacao;
+import br.gov.model.util.GenericRepository;
 import br.gov.servicos.to.ConsultaDebitoImovelTO;
 import br.gov.servicos.to.ContaTO;
 
 @Stateless
-public class ContaRepositorio {
+public class ContaRepositorio extends GenericRepository<Integer, Conta>{
 	
 	@PersistenceContext
 	private EntityManager entity;
 
-	public void salvar(Conta conta) throws Exception{
-		try {
-			entity.persist(conta);
-			entity.flush();
-		} catch (Exception e) {
-			throw new ErroCriacaoConta(e, conta.getId(), conta.getImovel().getId());
-		}
-	}
-	
 	public void apagar(List<Integer> ids) {
 		String sql = "DELETE FROM faturamento.conta WHERE cnta_id in (:ids)";
 		entity.createNativeQuery(sql).setParameter("ids", ids).executeUpdate();
@@ -158,42 +149,7 @@ public class ContaRepositorio {
 		
 		return result;
 	}
-	
-	public boolean existeContaPreFaturada(Integer idImovel, Integer anoMesReferencia) {
 		
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT count(conta) from Conta ")
-		   .append("INNER JOIN conta.imovel imovel ")
-		   .append("INNER JOIN conta.debitoCreditoSituacaoAtual debitoCreditoSituacaoAtual ")
-		   .append("INNER JOIN conta.localidade localidade ")
-		   .append("INNER JOIN localidade.gerenciaRegional gerenciaRegional ")
-		   .append("INNER JOIN conta.ligacaoAguaSituacao ligacaoAguaSituacao ")
-		   .append("INNER JOIN conta.ligacaoEsgotoSituacao ligacaoEsgotoSituacao ")
-		   .append("INNER JOIN conta.imovelPerfil imovelPerfil ")
-		   .append("INNER JOIN conta.consumoTarifa consumoTarifa ")
-		   .append("LEFT JOIN conta.clienteContas clienteContasUsuario WITH ")
-		   .append("(clienteContasUsuario.clienteRelacaoTipo.id = :idClienteRelacaoTipoUsuario) ")
-		   .append("LEFT JOIN clienteContasUsuario.cliente clienteUsuario ")
-		   .append("LEFT JOIN conta.clienteContas clienteContasReponsavel WITH ")
-		   .append("(clienteContasReponsavel.clienteRelacaoTipo.id = :idClienteRelacaoTipoResponsavel) ")
-		   .append("LEFT JOIN clienteContasReponsavel.cliente clienteResposanvel ")
-		   .append("LEFT JOIN conta.faturamentoGrupo fg ")
-		   .append("WHERE imovel.id = :idImovel ")
-		   .append("AND conta.referencia = :anoMesReferencia ")
-		   .append("AND debitoCreditoSituacaoAtual.id = :preFaturada ")
-		   .append("AND not exists ( from MovimentoContaPrefaturada mcpf where mcpf.anoMesReferenciaPreFaturamento = fg.anoMesReferencia and imovel.id = mcpf.imovel.id  )");
-
-		long count = entity.createQuery(sql.toString(), Long.class)
-				.setParameter("idClienteRelacaoTipoUsuario", ClienteRelacaoTipo.USUARIO)
-				.setParameter("idClienteRelacaoTipoResponsavel", ClienteRelacaoTipo.RESPONSAVEL)
-				.setParameter("preFaturada",DebitoCreditoSituacao.PRE_FATURADA)
-				.setParameter("idImovel", idImovel)
-				.setParameter("anoMesReferencia", anoMesReferencia)
-				.getSingleResult();
-		
-		return count > 0 ? true : false; 
-	}
-	
 	public List<ContaTO> pesquisarContasImovel(ConsultaDebitoImovelTO to) {
 		
 		StringBuilder sql = new StringBuilder();
@@ -253,16 +209,8 @@ public class ContaRepositorio {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT conta ")
 		   .append("FROM Conta conta ")
-		   .append("INNER JOIN FETCH conta.imovel imovel ")
-		   .append("INNER JOIN FETCH conta.localidade localidade ")
-		   .append("INNER JOIN FETCH localidade.gerenciaRegional gerenciaRegional ")
-		   .append("INNER JOIN FETCH conta.quadra quadra ")
-		   .append("INNER JOIN FETCH conta.ligacaoAguaSituacao ligacaoAguaSituacao ")
-		   .append("INNER JOIN FETCH conta.ligacaoEsgotoSituacao ligacaoEsgotoSituacao ")
-		   .append("INNER JOIN FETCH conta.imovelPerfil imovelPerfil ")
-		   .append("INNER JOIN FETCH conta.consumoTarifa consumoTarifa ")
-		   .append("LEFT JOIN FETCH conta.clienteContas clienteContas ")
-		   .append("LEFT JOIN FETCH clienteContas.cliente cliente ")
+		   .append("INNER JOIN conta.imovel imovel ")
+		   .append("LEFT JOIN conta.clienteContas clienteContas ")
 		   .append("LEFT JOIN conta.faturamentoGrupo fg ")
 		   .append("WHERE imovel.id = :idImovel ")
 		   .append("AND conta.referencia = :anoMesReferencia ")
@@ -277,9 +225,67 @@ public class ContaRepositorio {
 					.setParameter("idImovel", idImovel)
 					.setParameter("anoMesReferencia", anoMesReferencia)
 					.setParameter("preFaturada", DebitoCreditoSituacao.PRE_FATURADA.getId())
+					.setMaxResults(1)
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+	
+    public boolean existeContaPreFaturadaSemMovimento(Integer idImovel, Integer anoMesReferencia) {
+        
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT count(conta) from Conta conta")
+           .append(" LEFT JOIN conta.clienteContas clienteContasUsuario WITH ")
+           .append(" (clienteContasUsuario.clienteRelacaoTipo.id = :idClienteRelacaoTipoUsuario) ")
+           .append(" LEFT JOIN conta.clienteContas clienteContasReponsavel WITH ")
+           .append(" (clienteContasReponsavel.clienteRelacaoTipo.id = :idClienteRelacaoTipoResponsavel) ")
+           .append(" LEFT JOIN conta.faturamentoGrupo fg ")
+           .append(" WHERE conta.imovel.id = :idImovel ")
+           .append(" AND conta.referencia = :anoMesReferencia ")
+           .append(" AND conta.debitoCreditoSituacaoAtual = :preFaturada ")
+           .append(" AND not exists ( from MovimentoContaPrefaturada mcpf where mcpf.anoMesReferenciaPreFaturamento = fg.anoMesReferencia and conta.imovel.id = mcpf.imovel.id  )");
+
+        long count = entity.createQuery(sql.toString(), Long.class)
+                .setParameter("idClienteRelacaoTipoUsuario", ClienteRelacaoTipo.USUARIO.intValue())
+                .setParameter("idClienteRelacaoTipoResponsavel", ClienteRelacaoTipo.RESPONSAVEL.intValue())
+                .setParameter("preFaturada",DebitoCreditoSituacao.PRE_FATURADA.getId())
+                .setParameter("idImovel", idImovel)
+                .setParameter("anoMesReferencia", anoMesReferencia)
+                .setMaxResults(1)
+                .getSingleResult();
+        
+        return count > 0 ? true : false; 
+    }
+	
+	public int obterQuantidadeContasPreFaturadaPorImoveis(Integer anoMesReferencia, List<Integer> idsImoveis) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT count(conta) ")
+		   .append("FROM Conta AS conta ")
+		   .append("WHERE conta.referencia = :anoMesReferencia ")
+		   .append("AND imovel.id IN (:idsImoveis) ")
+		   .append("AND debitoCreditoSituacaoAtual = :preFaturada ");
+		
+		return entity.createQuery(sql.toString(), Long.class)
+				.setParameter("anoMesReferencia", anoMesReferencia)
+				.setParameter("idsImoveis", idsImoveis)
+				.setParameter("preFaturada", DebitoCreditoSituacao.PRE_FATURADA.getId())
+				.setMaxResults(1)
+				.getSingleResult().intValue();
+	}
+	
+	public List<Conta> obterContasPreFaturadas(Integer referencia, Integer idRota){
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT c ")
+           .append("FROM Conta c ")
+           .append("WHERE c.referencia = :referencia ")
+           .append("AND c.rota.id = :rota ")
+           .append("AND c.debitoCreditoSituacaoAtual = :situacao ");
+        
+        return entity.createQuery(sql.toString(), Conta.class)
+                .setParameter("referencia", referencia)
+                .setParameter("rota", idRota)
+                .setParameter("situacao", DebitoCreditoSituacao.PRE_FATURADA.getId())
+                .getResultList();	    
 	}
 }

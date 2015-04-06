@@ -1,0 +1,4 @@
+seguranca.parametro:
+  - id: 1
+    nome: CAMINHO_ARQUIVOS
+    valor: /tmp/

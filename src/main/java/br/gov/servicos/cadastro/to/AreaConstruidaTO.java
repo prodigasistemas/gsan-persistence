@@ -3,32 +3,32 @@ package br.gov.servicos.cadastro.to;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class AreaConstruidaTO implements Serializable{
-    private static final long serialVersionUID = -1692415698817749618L;
+public class AreaConstruidaTO implements Serializable {
+	private static final long serialVersionUID = -1692415698817749618L;
 
-    private BigDecimal areaConstruida;
-    
-    private Integer menorFaixa;
+	private BigDecimal areaConstruida;
 
-    public AreaConstruidaTO(BigDecimal areaConstruida, Integer maiorFaixa) {
-        super();
-        this.areaConstruida = areaConstruida;
-        this.menorFaixa = maiorFaixa;
-    }
+	private Integer menorFaixa;
 
-    public BigDecimal getAreaConstruida() {
-        return areaConstruida;
-    }
+	public AreaConstruidaTO(BigDecimal areaConstruida, Integer menorFaixa) {
+		super();
+		this.areaConstruida = areaConstruida;
+		this.menorFaixa = menorFaixa;
+	}
 
-    public void setAreaConstruida(BigDecimal areaConstruida) {
-        this.areaConstruida = areaConstruida;
-    }
+	public BigDecimal getAreaConstruida() {
+		return areaConstruida;
+	}
 
-    public Integer getMenorFaixa() {
-        return menorFaixa;
-    }
+	public void setAreaConstruida(BigDecimal areaConstruida) {
+		this.areaConstruida = areaConstruida;
+	}
 
-    public void setMenorFaixa(Integer faixa) {
-        this.menorFaixa = faixa;
-    }
+	public Integer getMenorFaixa() {
+		return menorFaixa;
+	}
+
+	public void setMenorFaixa(Integer menorFaixa) {
+		this.menorFaixa = menorFaixa;
+	}
 }

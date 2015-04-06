@@ -6,10 +6,12 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.cadastro.ICategoria;
 import br.gov.model.cadastro.SistemaParametros;
+import br.gov.servicos.to.CategoriaPrincipalTO;
 
 @Stateless
 public class ImovelSubcategoriaRepositorio {
@@ -35,6 +37,7 @@ public class ImovelSubcategoriaRepositorio {
 
          Long qtd = entity.createQuery(sql.toString(), Long.class)
                     .setParameter("imovel", id)
+                    .setMaxResults(1)
                     .getSingleResult();
          
          return qtd != null ? qtd : 0L; 
@@ -112,7 +115,6 @@ public class ImovelSubcategoriaRepositorio {
 				.append("from ImovelSubcategoria imovelSubCategoria ")
 				.append("	inner join imovelSubCategoria.subcategoria subcategoria ")
 				.append("	inner join subcategoria.categoria categoria ")
-				.append("	inner join subcategoria.categoria  ")
 				.append("where imovelSubCategoria.pk.imovelId = :idImovel ")
 				.append("group by subcategoria.id, ")
 				.append("	subcategoria.codigo,")
@@ -126,8 +128,30 @@ public class ImovelSubcategoriaRepositorio {
 				.append("	categoria.fatorEconomias, subcategoria.indicadorSazonalidade, ")
 				.append("	categoria.descricaoAbreviada, subcategoria.descricaoAbreviada ");
 
-		retorno = entity.createQuery(consulta.toString(), ICategoria.class).setParameter("idImovel", imovelId).getResultList();
+		retorno = entity.createQuery(consulta.toString(), ICategoria.class)
+		        .setParameter("idImovel", imovelId)
+		        .getResultList();
 
 		return retorno;
 	}	
+	
+	public CategoriaPrincipalTO buscarCategoriaPrincipal(Integer idImovel) {
+		StringBuffer consulta = new StringBuffer();
+		consulta.append("SELECT new br.gov.servicos.to.CategoriaPrincipalTO(categoria.id, sum(imovelSubCategoria.quantidadeEconomias)) ")
+				.append("from ImovelSubcategoria imovelSubCategoria ")
+				.append("	inner join imovelSubCategoria.subcategoria subcategoria ")
+				.append("	inner join subcategoria.categoria categoria ")
+				.append("where imovelSubCategoria.pk.imovelId = :idImovel ")
+				.append("group by categoria.id ")
+				.append("order by sum(imovelSubCategoria.quantidadeEconomias) DESC");
+
+		try {
+			return entity.createQuery(consulta.toString(), CategoriaPrincipalTO.class)
+					.setParameter("idImovel", idImovel)
+					.setMaxResults(1)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }

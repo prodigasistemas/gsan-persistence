@@ -1,7 +1,7 @@
 package br.gov.servicos.operacao.to;
 
 import static br.gov.model.util.Utilitarios.formataData;
-import static br.gov.model.util.Utilitarios.formatarBigDecimalComPonto;
+import static br.gov.model.util.Utilitarios.formatarBigDecimalComVirgula;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -60,11 +60,11 @@ public class RelatorioConsumoProdutoSinteticoTO implements Serializable, IRelato
         List<String> cols = new LinkedList<String>();
         cols.add(this.getNomeProduto());
         cols.add(formataData(this.getVigencia(), FormatoData.DIA_MES_ANO));
-        cols.add(formatarBigDecimalComPonto(this.getQuantidade()));
+        cols.add(formatarBigDecimalComVirgula(this.getQuantidade()));
         
         if (tipo == TipoRelatorioProdutoQuimico.FINANCEIRO){
-            cols.add(formatarBigDecimalComPonto(this.getValorUnitario()));
-            cols.add(formatarBigDecimalComPonto(this.getValorTotal()));
+            cols.add(formatarBigDecimalComVirgula(this.getValorUnitario()));
+            cols.add(formatarBigDecimalComVirgula(this.getValorTotal()));
         }
         
         return cols;

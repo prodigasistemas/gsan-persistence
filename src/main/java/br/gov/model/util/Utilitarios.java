@@ -21,6 +21,7 @@ public class Utilitarios {
     
     public static String DIA_MES_ANO = "dd/MM/yyyy";
     public static String MES_ANO     = "MM/yyyy";
+    public static String quebraLinha = System.getProperty("line.separator");
 
     public static Integer obterDigitoVerificador(String codigoBarraCom43Posicoes, Short moduloVerificador) {
         Integer digitoVerificadorGeral = null;
@@ -90,15 +91,12 @@ public class Utilitarios {
         return ordem;
     }
     
-    public static String formatarBigDecimalComPonto(BigDecimal numero) {
+    private static String formatarBigDecimal(BigDecimal numero, DecimalFormatSymbols symbols) {
 
         if (numero == null) {
             numero = new BigDecimal("0.00");
         }
 
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-        symbols.setDecimalSeparator('.');
-        
         NumberFormat formato = new DecimalFormat("##0.00", symbols);
         formato.setMaximumFractionDigits(2);
         formato.setMinimumFractionDigits(2);
@@ -106,7 +104,19 @@ public class Utilitarios {
 
         return formato.format(numero);
     }
+
+    public static String formatarBigDecimalComPonto(BigDecimal numero) {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
+        return formatarBigDecimal(numero, symbols);
+    }
     
+    public static String formatarBigDecimalComVirgula(BigDecimal numero) {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator(',');
+        return formatarBigDecimal(numero, symbols);
+    }
+
     public static String formatarAnoMesParaMesAno(int anoMes) {
 
         String anoMesFormatado = "";
@@ -240,6 +250,10 @@ public class Utilitarios {
         return completaStringAEsquerda(tamanhoCampo, campo, ' ');
     }
     
+    public static String completaTextoADireita(int tamanhoCampo, Object campo) {
+        return completaStringADireita(tamanhoCampo, campo, ' ');
+    }
+    
     public static String converteParaTexto(Object campo) {
         return campo == null ? "" : String.valueOf(campo);
     }
@@ -315,15 +329,23 @@ public class Utilitarios {
 		return Integer.valueOf(String.valueOf(anoMesDia).substring(6,8));
 	}
 	
-	public static Integer converteMesAnoParaAnoMes(String anoMes) {
-		if (anoMes!= null && anoMes.length() == 7)
-			return Integer.valueOf(String.valueOf(anoMes).substring(3) + String.valueOf(anoMes).substring(0,2));
+	public static Integer converteMesAnoParaAnoMes(String mesAno) {
+		if (mesAno!= null && mesAno.length() == 7)
+			return Integer.valueOf(String.valueOf(mesAno).substring(3) + String.valueOf(mesAno).substring(0,2));
 		else
 			return null;
 	}
 	
 	public static String converteAnoMesParaMesAno(Integer anoMes) {
 		return String.valueOf(anoMes).substring(4) + "/" + String.valueOf(anoMes).substring(0,4);
+	}
+	
+	public static String converteAnoMesParaMesAnoSemBarra(Integer anoMes) {
+	    if (anoMes != null && String.valueOf(anoMes).length() >= 6){
+	        return String.valueOf(anoMes).substring(4) + String.valueOf(anoMes).substring(0,4);
+	    }else{
+	        return "";
+	    }
 	}
 	
 	public static String retiraCaracteresEspeciais(String texto){
@@ -335,12 +357,27 @@ public class Utilitarios {
 		return completaStringADireita(tamanhoCampo, campo, ' ');
 	}
 	
+	private static String limitaTexto(int tamanhoCampo, Object campo) {
+	    String texto = "";
+	    
+	    if (campo != null){
+	        texto = String.valueOf(campo);
+	        texto = texto.length() > tamanhoCampo ? texto.substring(0, tamanhoCampo) : texto;
+	    }
+	    return texto;
+	}
+	
 	public static String completaStringAEsquerda(int tamanhoCampo, Object campo, char caractere) {
-		return StringUtils.leftPad(campo != null ? String.valueOf(campo) : "", tamanhoCampo, caractere);
+	    String texto = limitaTexto(tamanhoCampo, campo);
+	    
+		return StringUtils.leftPad(texto, tamanhoCampo, caractere);
+
 	}
 	
 	private static String completaStringADireita(int tamanhoCampo, Object campo, char caractere) {
-		return StringUtils.rightPad(campo != null ? String.valueOf(campo) : "", tamanhoCampo, caractere);
+        String texto = limitaTexto(tamanhoCampo, campo);
+
+	    return StringUtils.rightPad(texto, tamanhoCampo, caractere);
 	}
 	
 	public static int arredondarParaCima(BigDecimal numero) {
@@ -356,9 +393,9 @@ public class Utilitarios {
 			Integer mesFim = extrairMes(dataFim);
 			Integer mesInicio = extrairMes(dataInicio);
 			
-			if(anoFim == anoInicio){
+			if(anoFim.intValue() == anoInicio.intValue()){
 				return mesFim - mesInicio;
-			}else if(anoFim > anoInicio){
+			}else if(anoFim.intValue() > anoInicio.intValue()){
 				return ((anoFim-anoInicio)*12)-(mesFim+mesInicio);
 			}
 		}
@@ -405,5 +442,9 @@ public class Utilitarios {
     
     public static String minusculas(String texto){
         return texto != null ? texto.toLowerCase() : "";
-    }    
+    }
+    
+    public static int obterQuantidadeLinhasTexto(StringBuilder texto) {
+        return texto != null ? texto.toString().split(System.getProperty("line.separator")).length : 0;
+    }
 }

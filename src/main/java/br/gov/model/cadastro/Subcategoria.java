@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import br.gov.servicos.to.ImovelSubcategoriaTO;
 
 @Entity
 @Table(name="subcategoria", schema="cadastro")
@@ -58,7 +61,7 @@ public class Subcategoria implements Serializable, ICategoria {
 	@Column(name="scat_icsazonalidade")
 	private Short indicadorSazonalidade;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="catg_id")
 	private Categoria categoria;
 	
@@ -244,4 +247,19 @@ public class Subcategoria implements Serializable, ICategoria {
 	public String getSubcategoriaDescricaoAbreviada() {
 		return getDescricaoAbreviada();
 	}
+
+    public Subcategoria newInstance(ImovelSubcategoriaTO to) {
+        Subcategoria subcategoria = new Subcategoria();
+        
+        subcategoria.setId(to.getSubcategoriaId());
+        subcategoria.setCodigo(to.getSubcategoriaCodigo());
+        subcategoria.setDescricao(to.getDescricao());
+        subcategoria.setDescricaoAbreviada(to.getDescricaoAbreviada());
+        subcategoria.setQuantidadeEconomias(to.getQuantidadeEconomias());
+        
+        Categoria categoria = new Categoria().newInstance(to);
+        subcategoria.setCategoria(categoria);
+        
+        return subcategoria;
+    }
 }

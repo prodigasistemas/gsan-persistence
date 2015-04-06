@@ -1,0 +1,41 @@
+cadastro.cliente_relacao_tipo:
+  - crtp_id: 1
+  - crtp_id: 2
+  - crtp_id: 3
+
+cadastro.cliente_conta:
+  - clct_id: 1
+    crtp_id: 2
+    cnta_id: 2
+
+cadastro.imovel:
+  - imov_id: 1
+
+faturamento.faturamento_grupo:
+  - ftgr_id: 1
+    ftgr_amreferencia: 201502
+
+faturamento.mov_conta_prefaturada:
+  - mcpf_id: 1
+    cnta_id: 2
+    imov_id: 1
+    mcpf_ammovimento: 201502
+
+faturamento.conta:
+  - cnta_id: 1
+    cnta_amreferenciaconta: 201501
+    dcst_idatual: 9 # PREFATURADA
+    imov_id: 1
+  - cnta_id: 2
+    cnta_amreferenciaconta: 201502
+    dcst_idatual: 9 # PREFATURADA
+    imov_id: 1
+    ftgr_id: 1
+  - cnta_id: 3
+    cnta_amreferenciaconta: 201503
+    dcst_idatual: 9 # PREFATURADA
+    imov_id: 1
+  - cnta_id: 4
+    cnta_amreferenciaconta: 201503
+    dcst_idatual: 0 # NORMAL
+    imov_id: 1

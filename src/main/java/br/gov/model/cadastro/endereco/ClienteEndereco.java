@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,27 +37,27 @@ public class ClienteEndereco implements Serializable {
 	@Column(name="cled_icenderecocorrespondencia")
 	private Short indicadorEnderecoCorrespondencia;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="edrf_id")
 	private EnderecoReferencia enderecoReferencia; 
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lgcp_id")
 	private LogradouroCep logradouroCep; 
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lgbr_id")
 	private LogradouroBairro logradouroBairro;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="logr_idinicioperimetro", referencedColumnName="logr_id")
 	private Logradouro perimetroInicial;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="logr_idfimperimetro", referencedColumnName="logr_id")
 	private Logradouro perimetroFinal;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="clie_id")
 	private Cliente cliente;
 	
@@ -66,7 +67,7 @@ public class ClienteEndereco implements Serializable {
 
 		if (logradouroCep != null && logradouroCep.temLogradouro()) {
 			if (logradouroCep.temTipoDescricaoAbreviada()) {
-				endereco.append(logradouroCep.getLogradouro().getLogradouroTipo().getDescricaoAbreviada().trim());
+				endereco.append(logradouroCep.getLogradouro().getLogradouroTipo().getDescricao().trim());
 			}
 			
 			if (this.getLogradouroCep().temTitulo() && this.getLogradouroCep().temDescricaoAbreviada()) {

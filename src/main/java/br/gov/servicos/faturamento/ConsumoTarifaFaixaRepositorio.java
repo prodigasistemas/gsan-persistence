@@ -15,32 +15,25 @@ public class ConsumoTarifaFaixaRepositorio {
 	private EntityManager entity;
 	
 	public List<ConsumoTarifaFaixaTO> dadosConsumoTarifaFaixa(List<Integer> idsConsumoTarifaCategoria) {
-		StringBuilder sql = new StringBuilder();
+	    StringBuilder sql = new StringBuilder();
 		
 		sql.append("SELECT new br.gov.servicos.to.ConsumoTarifaFaixaTO(")
-		   .append("ct.id, ")
+		   .append("ctv.consumoTarifa.id, ")
            .append("ctv.dataVigencia, ")
-           .append("catg.id, ")
-           .append("subCatg.id, ")
+           .append("ctfx.consumoTarifaCategoria.id, ")
+           .append("ctcg.subcategoria.id, ")
            .append("ctfx.numeroConsumoFaixaInicio, ")
            .append("ctfx.numeroConsumoFaixaFim, ")
            .append("ctfx.valorConsumoTarifa ")
            .append(")")
-           .append("FROM ConsumoTarifaFaixa ctfx ")
-		   .append("INNER JOIN ctfx.consumoTarifaCategoria ctcg ")
-		   .append("INNER JOIN ctcg.consumoTarifaVigencia ctv ")
-		   .append("INNER JOIN ctv.consumoTarifa ct ")
-		   .append("INNER JOIN ctcg.categoria catg ")
-		   .append("INNER JOIN ctcg.subCategoria subCatg ")
-		   .append("WHERE ctcg.id in (:idsConsumoTarifaCategoria) ")
-		   .append("ORDER BY ct.id, ctv.dataVigencia, catg.id, subCatg.id, ctfx.numeroConsumoFaixaInicio ");
+           .append(" FROM ConsumoTarifaFaixa ctfx ")
+		   .append(" INNER JOIN ctfx.consumoTarifaCategoria ctcg ")
+		   .append(" INNER JOIN ctcg.consumoTarifaVigencia ctv ")
+		   .append(" WHERE ctcg.id in ( :idsConsumoTarifaCategoria ) ")
+		   .append(" ORDER BY ctv.consumoTarifa.id, ctv.dataVigencia, ctfx.consumoTarifaCategoria.id, ctcg.subcategoria.id, ctfx.numeroConsumoFaixaInicio ");
 		
-		try {
-			return entity.createQuery(sql.toString(), ConsumoTarifaFaixaTO.class)
-					.setParameter("idsConsumoTarifaCategoria", idsConsumoTarifaCategoria)
-					.getResultList();
-		} catch (Exception e) {
-			return null;
-		}
+		return entity.createQuery(sql.toString(), ConsumoTarifaFaixaTO.class)
+				.setParameter("idsConsumoTarifaCategoria", idsConsumoTarifaCategoria)
+				.getResultList();
 	}
 }

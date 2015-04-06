@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +51,7 @@ public class ImovelEconomia implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)	
 	private Date ultimaAlteracao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumns({
 		@JoinColumn(name="imov_id", referencedColumnName="imov_id"),
 		@JoinColumn(name="scat_id", referencedColumnName="scat_id")

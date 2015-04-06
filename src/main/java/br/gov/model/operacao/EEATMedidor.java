@@ -31,7 +31,7 @@ public class EEATMedidor implements BaseEntidade, Serializable{
     @JoinColumn(name="eeat_id")
     private EEAT eeat;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="mmed_idsaida", nullable=false)
 	private MacroMedidor medidorSaida = new MacroMedidor();
 

@@ -13,3 +13,6 @@ migracoes-operacional/environments/development.properties
 migracoes-operacional/environments/stage.properties
 migracoes-operacional/environments/production.properties
 ambiente-test/environments/development.properties
+/bin/
+/bin/
+/bin/

@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.gov.model.Status;
+
 @Entity
 @Table(name="ligacao_esgoto_situacao", schema="atendimentopublico")
 public class LigacaoEsgotoSituacao implements Serializable {
@@ -29,6 +31,10 @@ public class LigacaoEsgotoSituacao implements Serializable {
 
 	public LigacaoEsgotoSituacao(Integer id) {
 		this.id = id;
+	}
+	
+	public boolean isSituacaoFaturamentoAtivo(){
+	    return situacaoFaturamento != null && situacaoFaturamento == Status.ATIVO.getId(); 
 	}
 	
 	public Integer getId() {

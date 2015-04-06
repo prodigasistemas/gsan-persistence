@@ -36,6 +36,9 @@ public class ConsumoTipo implements Serializable{
 	@Column(name="cstp_iccalculomedia")
 	private Short indicadorCalculoMedia;
 
+	@Column(name="cstp_dsconsumotipo")
+	private String descricao;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -50,6 +53,14 @@ public class ConsumoTipo implements Serializable{
 
 	public void setIndicadorCalculoMedia(Short indicadorCalculoMedia) {
 		this.indicadorCalculoMedia = indicadorCalculoMedia;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public String toString() {

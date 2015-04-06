@@ -34,7 +34,7 @@ public class ContratoEnergia implements Serializable{
 	@Column(name="cene_nmcontrato", nullable=false, length=50)
 	private String numeroContrato;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ucon_id", nullable=false)
 	private UnidadeConsumidora unidadeConsumidora = new UnidadeConsumidora();
 	

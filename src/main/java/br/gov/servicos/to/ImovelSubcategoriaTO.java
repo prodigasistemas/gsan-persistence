@@ -40,9 +40,29 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	
 	private String categoriaTipoDescricao;
 	
+	private ICategoria categoria;
+	
+	private ICategoria subcategoria;
+	
 	public ImovelSubcategoriaTO(){}
 	
-	public ImovelSubcategoriaTO(
+	public ImovelSubcategoriaTO(Integer categoriaId) {
+        super();
+        this.categoriaId = categoriaId;
+        this.categoria = new Categoria().newInstance(this);
+    }
+	
+	public ImovelSubcategoriaTO(Integer categoriaId, Integer subcategoriaId) {
+	    super();
+	    this.categoriaId = categoriaId;
+	    this.subcategoriaId = subcategoriaId;
+	    
+	    this.categoria = new Categoria().newInstance(this);
+	    this.subcategoria = new Subcategoria().newInstance(this);
+	}
+
+
+    public ImovelSubcategoriaTO(
 			Integer categoriaId, 
 			String categoriaDescricao, 
 			Integer consumoEstouro, 
@@ -58,6 +78,7 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 			Short indicadorCobrancaAcrescimos,
 			Short fatorEconomias, 
 			Integer categoriaTipoId) {
+	    
 		this.categoriaId = categoriaId;
 		this.categoriaDescricao = categoriaDescricao;
 		this.consumoEstouro = consumoEstouro;
@@ -73,6 +94,8 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 		this.indicadorCobrancaAcrescimos = indicadorCobrancaAcrescimos;
 		this.fatorEconomias = fatorEconomias;
 		this.categoriaTipoId = categoriaTipoId;
+
+		this.categoria = new Categoria().newInstance(this);
 	}
 
 	public ImovelSubcategoriaTO(
@@ -89,6 +112,8 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 			Short indicadorSazonalidade,
 			String categoriaDescricaoAbreviada,
 			String subcategoriaDescricaoAbreviada) {
+	    
+	    
 		this.subcategoriaId = subcategoriaId;
 		this.subcategoriaCodigo = subcategoriaCodigo;
 		this.subcategoriaDescricao = subcategoriaDescricao;
@@ -102,11 +127,9 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 		this.indicadorSazonalidade = indicadorSazonalidade;
 		this.categoriaDescricaoAbreviada = categoriaDescricaoAbreviada;
 		this.subcategoriaDescricaoAbreviada = subcategoriaDescricaoAbreviada;
-	}
-	
-	public void setId(Integer id){
-		setCategoriaId(id);
-		setSubcategoriaId(id);
+		
+		this.categoria = new Categoria().newInstance(this);
+		this.subcategoria = new Subcategoria().newInstance(this);
 	}
 	
 	public Integer getId(){
@@ -346,25 +369,13 @@ public class ImovelSubcategoriaTO implements Serializable, ICategoria{
 	}
 
 	public ICategoria getCategoria() {
-		return getICategoria();
+		return categoria;
 	}
 
 	public ICategoria getSubcategoria() {
-		return getICategoria();
+		return subcategoria;
 	}
 	
-	private ICategoria getICategoria(){
-		if(subcategoriaId != null){
-			ICategoria subcategoria = new Subcategoria();
-			subcategoria.setId(subcategoriaId);
-			return subcategoria;
-		} else {
-			ICategoria categoria = new Categoria();
-			categoria.setId(categoriaId);
-			return categoria;
-		}
-	}
-
 	public Integer getCodigoSubcategoria() {
 		return subcategoriaCodigo;
 	}

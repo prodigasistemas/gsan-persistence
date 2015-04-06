@@ -21,7 +21,7 @@ public class ArquivoTextoRoteiroEmpresaRepositorioTest extends SingleDeployment 
 	
 	@Test
 	@UsingDataSet("arquivo_texto_roteiro_empresa.yml")
-	public void recuperarArquivoTextoRoteiroEmpresa() {
+	public void pesquisarPorRotaEReferencia() {
 		ArquivoTextoRoteiroEmpresa arquivo = repositorio.pesquisarPorRotaEReferencia(1, 201502);
 
 		assertEquals(3, arquivo.getId().intValue());
@@ -32,7 +32,16 @@ public class ArquivoTextoRoteiroEmpresaRepositorioTest extends SingleDeployment 
 	@UsingDataSet("arquivo_texto_roteiro_empresa.yml")
 	@ShouldMatchDataSet("arquivo_texto_roteiro_empresa_expected.yml")
 	public void deletarArquivo() {
-		repositorio.deletarPorId(3);
-		repositorio.deletarPorId(4);
+		repositorio.excluir(3);
+		repositorio.excluir(4);
+	}
+	
+	@Test
+	@UsingDataSet("arquivo_texto_roteiro_empresa.yml")
+	public void pesquisarPorGrupoEReferencia() {
+		ArquivoTextoRoteiroEmpresa arquivo = repositorio.pesquisarPorGrupoEReferencia(1, 201502);
+
+		assertEquals(3, arquivo.getId().intValue());
+		assertEquals(2, arquivo.getSituacaoTransmissaoLeitura().intValue());
 	}
 }

@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,15 +29,15 @@ public class ConsumoTarifaCategoria implements Serializable {
 	@Column(name="cstc_vltarifaminima")
 	private BigDecimal valorTarifaMinima;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="catg_id")
 	private Categoria categoria;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="scat_id")
-	private Subcategoria subCategoria;
+	private Subcategoria subcategoria;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cstv_id")
 	private ConsumoTarifaVigencia consumoTarifaVigencia;
 	
@@ -72,12 +73,12 @@ public class ConsumoTarifaCategoria implements Serializable {
 		this.categoria = categoria;
 	}
 
-	public Subcategoria getSubCategoria() {
-		return subCategoria;
+	public Subcategoria getSubcategoria() {
+		return subcategoria;
 	}
 
-	public void setSubCategoria(Subcategoria subcategoria) {
-		this.subCategoria = subcategoria;
+	public void setSubcategoria(Subcategoria subcategoria) {
+		this.subcategoria = subcategoria;
 	}
 
 	public ConsumoTarifaVigencia getConsumoTarifaVigencia() {

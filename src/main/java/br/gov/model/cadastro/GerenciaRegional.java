@@ -24,6 +24,12 @@ public class GerenciaRegional implements Serializable{
 	@Column(name="greg_nmregional")
 	private String nome;
 
+	public GerenciaRegional() {}
+	
+	public GerenciaRegional (Integer id) {
+		this.id = id;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

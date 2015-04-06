@@ -1,6 +1,6 @@
 package br.gov.servicos.operacao.to;
 
-import static br.gov.model.util.Utilitarios.formatarBigDecimalComPonto;
+import static br.gov.model.util.Utilitarios.formatarBigDecimalComVirgula;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -246,14 +246,14 @@ public class HorasRelatorioTO implements Serializable, ConverteParaRelatorio{
         s.add(String.valueOf(cdUnidadeOperacional));
         s.add(descricaoUnidadeOperacional);
         s.add(String.valueOf(referencia));
-        s.add(formatarBigDecimalComPonto(horasMes));
+        s.add(formatarBigDecimalComVirgula(horasMes));
         s.add(String.valueOf(totalCmb));
-        s.add(formatarBigDecimalComPonto(horasParadasPorEnergia));
-        s.add(formatarBigDecimalComPonto(horasParadasParaManutencao));
-        s.add(formatarBigDecimalComPonto(horasParadasParaControle));
-        s.add(formatarBigDecimalComPonto(horasTrabalhadas));
+        s.add(formatarBigDecimalComVirgula(horasParadasPorEnergia));
+        s.add(formatarBigDecimalComVirgula(horasParadasParaManutencao));
+        s.add(formatarBigDecimalComVirgula(horasParadasParaControle));
+        s.add(formatarBigDecimalComVirgula(horasTrabalhadas));
         cmbs.forEach(cmb -> {
-            s.add(formatarBigDecimalComPonto(cmb.getHorasCmb()));
+            s.add(formatarBigDecimalComVirgula(cmb.getHorasCmb()));
         });
         return s;
     }

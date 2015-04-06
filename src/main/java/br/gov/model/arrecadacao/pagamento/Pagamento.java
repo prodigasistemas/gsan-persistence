@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,15 +48,15 @@ public class Pagamento implements Serializable{
 	@Column(name="pgmt_amreferenciaarrecadacao")
 	private Integer anoMesReferenciaArrecadacao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cnta_id")
 	private ContaGeral contaGeral;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="dbac_id")
 	private DebitoCobrarGeral debitoCobrarGeral;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="gpag_id")
 	private GuiaPagamento guiaPagamento;
 	

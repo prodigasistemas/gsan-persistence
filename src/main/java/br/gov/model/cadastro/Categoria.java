@@ -14,74 +14,83 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.gov.servicos.to.ImovelSubcategoriaTO;
+
 @Entity
-@Table(name="categoria", schema="cadastro")
-public class Categoria implements Serializable, ICategoria{
+@Table(name = "categoria", schema = "cadastro")
+public class Categoria implements Serializable, ICategoria {
+	
 	private static final long serialVersionUID = 2892000798308722486L;
 
+	public final static String RESIDENCIAL_DESCRICAO_ABREVIADA = "RES";
+	public final static String COMERCIAL_DESCRICAO_ABREVIADA = "COM";
+	public final static String INDUSTRIAL_DESCRICAO_ABREVIADA = "IND";
+	public final static String PUBLICO_DESCRICAO_ABREVIADA = "PUB";
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_CATEGORIA")
-	@SequenceGenerator(name="SEQ_CATEGORIA", schema="cadastro", sequenceName="seq_categoria", allocationSize=1)
-	@Column(name="catg_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CATEGORIA")
+	@SequenceGenerator(name = "SEQ_CATEGORIA", schema = "cadastro", sequenceName = "seq_categoria", allocationSize = 1)
+	@Column(name = "catg_id")
 	private Integer id;
-	
-	@Column(name="catg_dscategoria")
+
+	@Column(name = "catg_dscategoria")
 	private String descricao;
-	
-	@Column(name="catg_dsabreviado", columnDefinition="bpchar(3)")
+
+	@Column(name = "catg_dsabreviado", columnDefinition = "bpchar(3)")
 	private String descricaoAbreviada;
-	
-	@Column(name="catg_nnconsumominimo")
+
+	@Column(name = "catg_nnconsumominimo")
 	private Integer consumoMinimo;
-	
-	@Column(name="catg_nnconsumoestouro")
+
+	@Column(name = "catg_nnconsumoestouro")
 	private Integer consumoEstouro;
-	
-	@Column(name="catg_nnvezesmediaestouro")
+
+	@Column(name = "catg_nnvezesmediaestouro")
 	private BigDecimal vezesMediaEstouro;
-	
-	@Column(name="catg_nnmediabaixoconsumo")
+
+	@Column(name = "catg_nnmediabaixoconsumo")
 	private Integer mediaBaixoConsumo;
-	
-	@Column(name="catg_pcmediabaixoconsumo")
+
+	@Column(name = "catg_pcmediabaixoconsumo")
 	private BigDecimal porcentagemMediaBaixoConsumo;
-	
-	@Column(name="catg_nnconsumoalto")
+
+	@Column(name = "catg_nnconsumoalto")
 	private Integer consumoAlto;
-	
-	@Column(name="catg_nnvezesmediaaltoconsumo")
+
+	@Column(name = "catg_nnvezesmediaaltoconsumo")
 	private BigDecimal vezesMediaAltoConsumo;
-	
-	@Column(name="catg_icuso")
+
+	@Column(name = "catg_icuso")
 	private Short indicadorUso;
-	
-	@Column(name="catg_tmultimaalteracao")
-	@Temporal(TemporalType.TIMESTAMP)	
+
+	@Column(name = "catg_tmultimaalteracao")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
-	
-	@Column(name="catg_nnconsumomaximoec")
+
+	@Column(name = "catg_nnconsumomaximoec")
 	private Integer numeroConsumoMaximoEc;
-	
-	@Column(name="catg_iccobrancaacrescimos")
+
+	@Column(name = "catg_iccobrancaacrescimos")
 	private Short indicadorCobrancaAcrescimos;
-	
-	@Column(name="catg_nnmaxeconomiasvalidacao")
+
+	@Column(name = "catg_nnmaxeconomiasvalidacao")
 	private Integer consumoMaximoEconomiasValidacao;
-	
-	@Column(name="catg_nnfatoreconomias")
+
+	@Column(name = "catg_nnfatoreconomias")
 	private Short fatorEconomias;
-	
-	@Column(name="catg_icpermissaoespecial")
+
+	@Column(name = "catg_icpermissaoespecial")
 	private Short indicadorPermissaoEspecial;
-	
-	@Column(name="cgtp_id")
+
+	@Column(name = "cgtp_id")
 	private Integer categoriaTipo;
-	
+
 	private transient Integer quantidadeEconomias;
-	
-	public Categoria(){}
-	
-	public Categoria(Integer id){
+
+	public Categoria() {
+	}
+
+	public Categoria(Integer id) {
 		this.id = id;
 	}
 
@@ -96,11 +105,11 @@ public class Categoria implements Serializable, ICategoria{
 	public String getDescricao() {
 		return descricao;
 	}
-	
+
 	public String getCategoriaDescricao() {
 		return getDescricao();
 	}
-	
+
 	public String getSubcategoriaDescricao() {
 		return "";
 	}
@@ -108,7 +117,7 @@ public class Categoria implements Serializable, ICategoria{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 	public String getCategoriaDescricaoAbreviada() {
 		return getDescricaoAbreviada();
 	}
@@ -220,7 +229,7 @@ public class Categoria implements Serializable, ICategoria{
 	public Short getFatorEconomias() {
 		return fatorEconomias;
 	}
-	
+
 	public void setFatorEconomias(Short fatorEconomias) {
 		this.fatorEconomias = fatorEconomias;
 	}
@@ -240,7 +249,7 @@ public class Categoria implements Serializable, ICategoria{
 	public void setQuantidadeEconomias(Integer quantidadeEconomias) {
 		this.quantidadeEconomias = quantidadeEconomias;
 	}
-	
+
 	public Integer getCategoriaTipo() {
 		return categoriaTipo;
 	}
@@ -249,11 +258,11 @@ public class Categoria implements Serializable, ICategoria{
 		this.categoriaTipo = categoriaTipo;
 	}
 
-	public Categoria getCategoria(){
+	public Categoria getCategoria() {
 		return this;
 	}
-	
-	public Subcategoria getSubcategoria(){
+
+	public Subcategoria getSubcategoria() {
 		return Subcategoria.SUBCATEGORIA_ZERO;
 	}
 
@@ -279,5 +288,15 @@ public class Categoria implements Serializable, ICategoria{
 
 	public Short getIndicadorSazonalidade() {
 		return null;
+	}
+
+	public Categoria newInstance(ImovelSubcategoriaTO to) {
+		Categoria categoria = new Categoria();
+		categoria.setId(to.getCategoriaId());
+		categoria.setDescricao(to.getCategoriaDescricao());
+		categoria.setFatorEconomias(to.getFatorEconomias());
+		categoria.setCategoriaTipo(to.getCategoriaTipoId());
+
+		return categoria;
 	}
 }

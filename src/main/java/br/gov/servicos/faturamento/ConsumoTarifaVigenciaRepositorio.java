@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.exception.TarifaConsumoInexistente;
 import br.gov.servicos.to.ConsumoTarifaVigenciaTO;
 
 @Stateless
@@ -38,8 +39,7 @@ public class ConsumoTarifaVigenciaRepositorio {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select new br.gov.servicos.to.ConsumoTarifaVigenciaTO(vig.id, vig.dataVigencia) ")
 		   .append(" from ConsumoTarifaVigencia vig")
-		   .append(" inner join vig.consumoTarifa ct ")
-		   .append(" where ct.id = :idTarifa ")
+		   .append(" where vig.consumoTarifa.id = :idTarifa ")
 		   .append(" and vig.dataVigencia <= :data")
 		   .append(" order by vig.dataVigencia desc ");
 
@@ -49,7 +49,7 @@ public class ConsumoTarifaVigenciaRepositorio {
 					.setParameter("data", data)
 					.setMaxResults(1).getSingleResult();
 		} catch (NoResultException e) {
-			return null;
+		    throw new TarifaConsumoInexistente(idTarifa, data);
 		}
 	}
 }

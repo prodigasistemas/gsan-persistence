@@ -18,7 +18,7 @@ public class DebitoCobrarRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public Collection<DebitoCobrar> debitosCobrarPorImovelComPendenciaESemRevisao(Imovel imovel){
+	public Collection<DebitoCobrar> debitosCobrarPorImovelComPendenciaESemRevisao(Integer idImovel){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select dc from DebitoCobrar dc ")
 		.append(" left join dc.parcelamento parc ")
@@ -29,7 +29,7 @@ public class DebitoCobrarRepositorio {
 		.append(" and dc.situacaoAtual = :situacao");
 		
 		Collection<DebitoCobrar> debitos = entity.createQuery(sql.toString(), DebitoCobrar.class)
-				.setParameter("idImovel", imovel.getId())
+				.setParameter("idImovel", idImovel)
 				.setParameter("situacao", DebitoCreditoSituacao.NORMAL)
 				.getResultList();
 		return debitos;
@@ -51,8 +51,8 @@ public class DebitoCobrarRepositorio {
 		}
 	}
 
-	public void atualizarDebitoCobrar(List<DebitoCobrar> debitoCobrarAtualizado) {
-		debitoCobrarAtualizado.forEach(debitoCobrar -> atualizarDebitoCobrar(debitoCobrar));
+	public void atualizarDebitoCobrar(List<DebitoCobrar> debitos) {
+		debitos.forEach(debitoCobrar -> atualizarDebitoCobrar(debitoCobrar));
 	}
 	
 	public void atualizarDebitoCobrar(DebitoCobrar debitoCobrar) {

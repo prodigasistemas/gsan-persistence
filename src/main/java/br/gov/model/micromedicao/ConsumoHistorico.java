@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -72,15 +73,15 @@ public class ConsumoHistorico implements Serializable, Comparable<ConsumoHistori
 	@Column(name="cshi_nnconsimoveisvinculados")
 	private Integer consumoImovelVinculadosCondominio;
 		
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="csan_id")
 	private ConsumoAnormalidade consumoAnormalidade;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="cstp_id")
 	private ConsumoTipo consumoTipo;
 	

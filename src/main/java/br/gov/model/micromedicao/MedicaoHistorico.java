@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -57,20 +58,37 @@ public class MedicaoHistorico implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dataLeituraAtualInformada;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lagu_id")
 	private LigacaoAgua ligacaoAgua;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ltan_idleitanormfatmt")
 	private LeituraAnormalidade leituraAnormalidadeFaturamento;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ltan_idleitanorminformada")
+	private LeituraAnormalidade leituraAnormalidadeInformada;
+
 	public MedicaoHistorico() {
 	}
+	
+	//TODO: Refactoring: pode retornar leituraAnteriorFaturamento uma vez?
+	public int obterLeituraAnterior() {
+        if (possuiLeituraInformada()) {
+            if (leituraAnteriorInformada.intValue() == leituraAtualInformada.intValue()) {
+                return leituraAnteriorInformada;
+            } else {
+                return leituraAnteriorFaturamento;
+            }
+        } else {
+            return leituraAnteriorFaturamento;
+        }
+    }
 
 	public Integer getId() {
 		return id;
@@ -192,4 +210,12 @@ public class MedicaoHistorico implements Serializable{
 		return this.leituraAnteriorInformada != null && this.leituraAtualInformada != null;
 	}
 
+	public LeituraAnormalidade getLeituraAnormalidadeInformada() {
+		return leituraAnormalidadeInformada;
+	}
+
+	public void setLeituraAnormalidadeInformada(LeituraAnormalidade leituraAnormalidadeInformada) {
+		this.leituraAnormalidadeInformada = leituraAnormalidadeInformada;
+	}
+	
 }

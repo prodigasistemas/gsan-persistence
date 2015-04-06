@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.cadastro.ClienteImovel;
-import br.gov.model.cadastro.Imovel;
 
 @Stateless
 public class ClienteImovelRepositorio {
@@ -15,7 +14,7 @@ public class ClienteImovelRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public List<ClienteImovel> pesquisarClienteImovelAtivos(Imovel imovel) {
+	public List<ClienteImovel> pesquisarClienteImovelAtivos(Integer idImovel) {
 
 		StringBuffer consulta = new StringBuffer();
 
@@ -26,7 +25,7 @@ public class ClienteImovelRepositorio {
 		consulta.append(" and clim.dataFimRelacao is null");
 
 		return entity.createQuery(consulta.toString(), ClienteImovel.class)
-								.setParameter("idImovel", imovel.getId())
+								.setParameter("idImovel", idImovel)
 								.getResultList();
 	}
 }

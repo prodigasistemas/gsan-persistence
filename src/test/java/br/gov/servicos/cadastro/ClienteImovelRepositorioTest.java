@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import br.gov.model.cadastro.ClienteImovel;
-import br.gov.model.cadastro.Imovel;
 import br.gov.persistence.util.SingleDeployment;
 
 @RunWith(Arquillian.class)
@@ -23,9 +22,7 @@ public class ClienteImovelRepositorioTest extends SingleDeployment{
 	@Test
 	@UsingDataSet("cliente_imovel.yml")
 	public void pesquisarClienteImovelAtivos(){
-		Imovel imovel = new Imovel(1);
-		
-		List<ClienteImovel> clientesImovel = repositorio.pesquisarClienteImovelAtivos(imovel);
+		List<ClienteImovel> clientesImovel = repositorio.pesquisarClienteImovelAtivos(1);
 		
 		assertEquals(3, clientesImovel.size());
 	}

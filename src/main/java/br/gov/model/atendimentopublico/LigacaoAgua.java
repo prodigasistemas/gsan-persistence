@@ -3,6 +3,7 @@ package br.gov.model.atendimentopublico;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +34,9 @@ public class LigacaoAgua implements Serializable{
 	
 	@Column(name="lagu_nnconsumominimoagua")
 	private Integer consumoMinimoAgua;
+	
+	@Column(name="lagu_nnlacre")
+	private String numeroLacre;
 	
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lagu_id", referencedColumnName="imov_id")
@@ -84,7 +88,23 @@ public class LigacaoAgua implements Serializable{
 		this.consumoMinimoAgua = consumoMinimoAgua;
 	}
 
+	public String getNumeroLacre() {
+		return numeroLacre;
+	}
+
+	public void setNumeroLacre(String numeroLacre) {
+		this.numeroLacre = numeroLacre;
+	}
+
 	public String toString() {
 		return "LigacaoAgua [id=" + id + ", imovel=" + imovel + "]";
+	}
+	
+	public boolean existeHidrometrosInstalado() {
+		boolean existe = false;
+		if (!hidrometroInstalacoesHistorico.isEmpty()) {
+			existe = (!hidrometroInstalacoesHistorico.stream().filter(h -> h.getDataRetirada() == null).collect(Collectors.toList()).isEmpty());
+		}
+		return existe;
 	}
 }

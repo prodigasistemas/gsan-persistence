@@ -1,5 +1,6 @@
 cadastro.localidade:
  - loca_id: 1
+ - loca_id: 2
 
 cadastro.setor_comercial:
  - stcm_id: 1 
@@ -13,3 +14,10 @@ faturamento.qualidade_agua:
    stcm_id: 1
    loca_id: 1
    qlag_amreferencia: 201501
+ - qlag_id: 2
+   sabs_id: 1
+   loca_id: 2
+   qlag_amreferencia: 201502
+ - qlag_id: 3
+   sabs_id: 1
+   qlag_amreferencia: 201503

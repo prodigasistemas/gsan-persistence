@@ -1,7 +1,6 @@
 package br.gov.servicos.faturamento;
 
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +10,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-
-import org.hibernate.HibernateException;
 
 import br.gov.model.cadastro.ICategoria;
 import br.gov.model.cadastro.SistemaParametros;
@@ -53,11 +50,12 @@ public class ConsumoTarifaCategoriaRepositorio {
 			.append(" inner join ctca.categoria cat ")
 			.append(" where vig.id = :idVigencia")
 			.append("   and cat.id = :idCategoria")
-			.append("   and ctca.subCategoria is null");
+			.append("   and ctca.subcategoria.id = :subCategoria");
 		try {
 			return entity.createQuery(sql.toString(), Integer.class)
 			.setParameter("idVigencia", idVigencia)
 			.setParameter("idCategoria", idCategoria)
+			.setParameter("subCategoria", 0) //TODO: COLOCAR COMO PARAMETRO
 			.setMaxResults(1)
 			.getSingleResult();
 		} catch (NoResultException e) {
@@ -70,10 +68,8 @@ public class ConsumoTarifaCategoriaRepositorio {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ctca.numeroConsumoMinimo ")
 		.append(" from ConsumoTarifaCategoria ctca ")
-		.append(" inner join ctca.consumoTarifaVigencia vig")
-		.append(" inner join ctca.subCategoria sub ")
-		.append(" where vig.id = :idVigencia")
-		.append("   and sub.id = :idSubCategoria");
+		.append(" where ctca.consumoTarifaVigencia.id = :idVigencia")
+		.append("   and ctca.subcategoria.id = :idSubCategoria");
 		try {
 			return entity.createQuery(sql.toString(), Integer.class)
 					.setParameter("idVigencia", idVigencia)
@@ -89,14 +85,12 @@ public class ConsumoTarifaCategoriaRepositorio {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT ctcg FROM ConsumoTarifaCategoria ctcg ")
 		.append("inner join ctcg.consumoTarifaVigencia ctv ")
-		.append("inner join ctv.consumoTarifa ct ")
-		.append("inner join ctcg.categoria catg ")
-		.append("inner join ctcg.subCategoria subCatg ")
 		.append("WHERE ctv.dataVigencia = :dataFaturamento AND ")
-		.append("      ct.id = :idConsumoTarifa AND ")
-		.append("      catg.id = :idCategoria AND ")
-		.append("      subCatg.id = :idSubcategoria ")
+		.append("      ctv.consumoTarifa.id = :idConsumoTarifa AND ")
+		.append("      ctcg.categoria.id = :idCategoria AND ")
+		.append("      ctcg.subcategoria.id = :idSubcategoria ")
 		.append("order by ctv.dataVigencia DESC");
+		
 		try {
 			return entity.createQuery(sql.toString(), ConsumoTarifaCategoria.class)
 					.setParameter("dataFaturamento",dataFaturamento)
@@ -115,27 +109,18 @@ public class ConsumoTarifaCategoriaRepositorio {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT ctcg FROM ConsumoTarifaCategoria ctcg ")
 		.append("inner join ctcg.consumoTarifaVigencia ctv ")
-		.append("inner join ctv.consumoTarifa ct ")
-		.append("inner join ctcg.categoria catg ")
-		.append("inner join ctcg.subCategoria subCatg ")
 		.append("WHERE ctv.dataVigencia between :dataLeituraAnterior and :dataAtual AND ")
-		.append("      ct.id = :idConsumoTarifa AND ")
-		.append("      catg.id = :idCategoria AND ")
-		.append("      subCatg.id = :idSubcategoria ")
+		.append("      ctv.consumoTarifa.id = :idConsumoTarifa AND ")
+		.append("      ctcg.categoria.id = :idCategoria AND ")
+		.append("      ctcg.subcategoria.id = :idSubcategoria ")
 		.append("order by ctv.dataVigencia DESC");
-		try {
-			return entity.createQuery(sql.toString(), ConsumoTarifaCategoria.class)
-					.setParameter("dataLeituraAnterior",dataLeitura)
-					.setParameter("dataAtual", Calendar.getInstance().getTime())
-					.setParameter("idConsumoTarifa", idConsumoTarifa)
-					.setParameter("idCategoria", idCategoria)
-					.setParameter("idSubcategoria", idSubcategoria)
-					.getResultList();
-
-		} catch (NoResultException e) {
-			return null;
-		}
+		
+		return entity.createQuery(sql.toString(), ConsumoTarifaCategoria.class)
+				.setParameter("dataLeituraAnterior",dataLeitura)
+				.setParameter("dataAtual", Calendar.getInstance().getTime())
+				.setParameter("idConsumoTarifa", idConsumoTarifa)
+				.setParameter("idCategoria", idCategoria)
+				.setParameter("idSubcategoria", idSubcategoria)
+				.getResultList();
 	}
-
-	
 }

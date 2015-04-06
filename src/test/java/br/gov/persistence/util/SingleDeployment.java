@@ -38,6 +38,7 @@ public class SingleDeployment {
                 .addPackages(true, "br.gov.servicos.operacao")
                 .addPackages(true, "br.gov.servicos.operacao.to")
                 .addPackages(true, "br.gov.servicos.to")
+                .addPackages(true, "br.gov.servicos.seguranca")
             .addAsResource("persistence-test.xml", "META-INF/persistence.xml");
     }
 }

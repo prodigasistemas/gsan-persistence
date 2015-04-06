@@ -1,0 +1,25 @@
+cadastro.imovel:
+  - imov_id: 1
+    iper_id: 1
+    qdra_id: 1
+  - imov_id: 2
+    iper_id: 1
+    qdra_id: 1
+  - imov_id: 3
+    qdra_id: 2
+  - imov_id: 4
+    iper_id: 2
+    qdra_id: 1
+
+cadastro.imovel_perfil:
+  - iper_id: 1
+    iper_icgerardadosleitura: 1
+  - iper_id: 2
+    iper_icgerardadosleitura: 2
+
+cadastro.quadra:
+  - qdra_id: 1
+    rota_id: 1
+
+micromedicao.rota:
+  - rota_id: 1

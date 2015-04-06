@@ -1,13 +1,31 @@
 package br.gov.servicos.test;
 
+import static br.gov.model.util.Utilitarios.completaComEspacosADireita;
+import static br.gov.model.util.Utilitarios.completaComZerosEsquerda;
+import static br.gov.model.util.Utilitarios.converteAnoMesParaMesAno;
+import static br.gov.model.util.Utilitarios.converteAnoMesParaMesAnoSemBarra;
+import static br.gov.model.util.Utilitarios.converteMesAnoParaAnoMes;
+import static br.gov.model.util.Utilitarios.converteParaDataComUltimoDiaMes;
+import static br.gov.model.util.Utilitarios.formataData;
+import static br.gov.model.util.Utilitarios.formatarBigDecimalComPonto;
+import static br.gov.model.util.Utilitarios.obterDigitoVerificadorModulo10;
+import static br.gov.model.util.Utilitarios.obterDigitoVerificadorModulo11;
+import static br.gov.model.util.Utilitarios.obterUltimoDiaMes;
+import static br.gov.model.util.Utilitarios.qtdDiasMes;
+import static br.gov.model.util.Utilitarios.reduzirDias;
+import static br.gov.model.util.Utilitarios.reduzirMeses;
+import static br.gov.model.util.Utilitarios.retiraCaracteresEspeciais;
+import static br.gov.model.util.Utilitarios.formatarBigDecimalComVirgula;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
-import static br.gov.model.util.Utilitarios.*;
+import br.gov.model.util.FormatoData;
 
 public class TesteUtilitario {
 	
@@ -88,6 +106,11 @@ public class TesteUtilitario {
 	}
 	
 	@Test
+	public void testFormataDecimal05() {
+		assertEquals("1234,45", formatarBigDecimalComVirgula(new BigDecimal(1234.45)));
+	}
+	
+	@Test
 	public void test201401ParaData(){
 		assertEquals("31/01/2014", formataData(converteParaDataComUltimoDiaMes(201401))); 
 	}
@@ -105,6 +128,12 @@ public class TesteUtilitario {
 	@Test
 	public void testConversaoAnoMesParaMesAno(){
 		assertEquals("10/2014", converteAnoMesParaMesAno(201410));
+	}
+	
+	@Test
+	public void testConversaoAnoMesParaMesAnoSemBarra(){
+	    assertEquals("102014", converteAnoMesParaMesAnoSemBarra(201410));
+	    assertEquals("012015", converteAnoMesParaMesAnoSemBarra(201501));
 	}
 	
 	@Test
@@ -147,9 +176,29 @@ public class TesteUtilitario {
 	}
 	
 	@Test
+	public void testCompletaComEspacosADireita(){
+	    assertEquals("barco     ", completaComEspacosADireita(10, "barco"));
+	    assertEquals("barco amar", completaComEspacosADireita(10, "barco amarelo"));
+	}
+	
+	@Test
 	public void digitoVerificadorModulo11(){
 	    assertEquals(0, obterDigitoVerificadorModulo11("01230067896").intValue());
 	    assertEquals(9, obterDigitoVerificadorModulo11("261533").intValue());
 	    assertEquals(8, obterDigitoVerificadorModulo11("8280000000474000220020685868600001201560003").intValue());
+	}
+	
+	@Test
+	public void testReduzir5Dias() {
+		GregorianCalendar dataInicial = new GregorianCalendar(2015, 0, 10);
+		Date dataFinal = reduzirDias(dataInicial.getTime(), 5);
+		assertEquals("20150105", formataData(dataFinal, FormatoData.ANO_MES_DIA));
+	}
+	
+	@Test
+	public void testReduzir10Dias() {
+		GregorianCalendar dataInicial = new GregorianCalendar(2015, 0, 10);
+		Date dataFinal = reduzirDias(dataInicial.getTime(), 10);
+		assertEquals("20141231", formataData(dataFinal, FormatoData.ANO_MES_DIA));
 	}
 }

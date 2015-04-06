@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,34 +17,38 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="fatur_ativ_cronograma", schema="faturamento")
-public class FaturamentoAtividadeCronograma implements Serializable{
+@Table(name = "fatur_ativ_cronograma", schema = "faturamento")
+public class FaturamentoAtividadeCronograma implements Serializable {
+	
 	private static final long serialVersionUID = -3612867063663695441L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_FATUR_ATIV_CRONOGRAMA")
-	@SequenceGenerator(name="SEQ_FATUR_ATIV_CRONOGRAMA", schema="faturamento", sequenceName="seq_fatur_ativ_cronograma", allocationSize=1)		
-	@Column(name="ftac_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_FATUR_ATIV_CRONOGRAMA")
+	@SequenceGenerator(name = "SEQ_FATUR_ATIV_CRONOGRAMA", schema = "faturamento", sequenceName = "seq_fatur_ativ_cronograma", allocationSize = 1)
+	@Column(name = "ftac_id")
 	private Integer id;
-	
+
 	@Temporal(TemporalType.DATE)
-	@Column(name="ftac_dtprevista")
+	@Column(name = "ftac_dtprevista")
 	private Date dataPrevista;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="ftac_tmrealizacao")
+	@Column(name = "ftac_tmrealizacao")
 	private Date dataRealizacao;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ftat_id")
 	private FaturamentoAtividade faturamentoAtividade;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="ftcm_id")
 	private FaturamentoGrupoCronogramaMensal faturamentoGrupoCronogramaMensal;
-	
-	public FaturamentoAtividadeCronograma() {
-	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "ftac_tmultimaalteracao")
+	private Date ultimaAlteracao;
+
+	public FaturamentoAtividadeCronograma() {}
 
 	public Integer getId() {
 		return id;
@@ -52,7 +57,7 @@ public class FaturamentoAtividadeCronograma implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public Date getDataPrevista() {
 		return dataPrevista;
 	}
@@ -83,5 +88,13 @@ public class FaturamentoAtividadeCronograma implements Serializable{
 
 	public void setFaturamentoGrupoCronogramaMensal(FaturamentoGrupoCronogramaMensal faturamentoGrupoCronogramaMensal) {
 		this.faturamentoGrupoCronogramaMensal = faturamentoGrupoCronogramaMensal;
+	}
+
+	public Date getUltimaAlteracao() {
+		return ultimaAlteracao;
+	}
+
+	public void setUltimaAlteracao(Date ultimaAlteracao) {
+		this.ultimaAlteracao = ultimaAlteracao;
 	}
 }

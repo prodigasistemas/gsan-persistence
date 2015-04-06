@@ -146,7 +146,7 @@ public class ContaRepositorioTest extends SingleDeployment {
 		assertEquals(2, conta.getImovel().getImovelContaEnvio().intValue());
 		
 		List<ClienteConta> clienteContas = conta.getClienteContas();
-		assertEquals(2, clienteContas.size());
+		assertEquals(3, clienteContas.size());
 		
 		for (ClienteConta clienteConta : clienteContas) {
 			int relacao = clienteConta.getClienteRelacaoTipo().getId().intValue();
@@ -168,4 +168,37 @@ public class ContaRepositorioTest extends SingleDeployment {
 		assertNotNull(conta);
 		assertEquals(45, conta.getCodigoSetorComercial().intValue());
 	}
+	
+	@Test
+	@UsingDataSet("contas_arquivo_texto_faturamento.yml")
+	public void quantidadeContasPreFaturadaPorImoveis() {
+		List<Integer> idsImoveis = new ArrayList<Integer>();
+		idsImoveis.add(new Integer("1"));
+		
+		assertEquals(1, repositorio.obterQuantidadeContasPreFaturadaPorImoveis(201501, idsImoveis));
+	}
+	
+    @Test
+    @UsingDataSet("contas_pre_faturadas.yml")
+    public void existemContasPreFaturadas() {
+        assertEquals(1, repositorio.obterContasPreFaturadas(201503, 1).size());
+    }
+    
+    @Test
+    @UsingDataSet("contas_pre_faturadas.yml")
+    public void naoExistemContasPreFaturadas() {
+        assertEquals(0, repositorio.obterContasPreFaturadas(201503, 2).size());
+    }
+    
+    @Test
+    @UsingDataSet("contas_pre_faturadas_movimento.yml")
+    public void existeContaPreFaturadaSemMovimento() {
+        assertEquals(true, repositorio.existeContaPreFaturadaSemMovimento(1, 201501));
+    }
+    
+    @Test
+    @UsingDataSet("contas_pre_faturadas_movimento.yml")
+    public void naoExisteContaPreFaturadaSemMovimento() {
+        assertEquals(false, repositorio.existeContaPreFaturadaSemMovimento(1, 201502));
+    }	
 }

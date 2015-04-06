@@ -2,12 +2,14 @@ package br.gov.model.cadastro;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.gov.model.micromedicao.Rota;
+import br.gov.model.micromedicao.RoteiroEmpresa;
 
 
 @Entity
@@ -19,12 +21,17 @@ public class Quadra {
 	private Integer id;
 	
 	@Column(name="qdra_nnquadra")
+	//TODO: Deixar somente numero
 	private Integer numeroQuadra;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="rota_id")
 	private Rota rota;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="roem_id")
+	private RoteiroEmpresa roteiroEmpresa;
+
 	public Quadra() {}
 	
 	public Quadra(Integer id) {
@@ -53,6 +60,14 @@ public class Quadra {
 
 	public void setNumeroQuadra(Integer numeroQuadra) {
 		this.numeroQuadra = numeroQuadra;
+	}
+
+	public RoteiroEmpresa getRoteiroEmpresa() {
+		return roteiroEmpresa;
+	}
+
+	public void setRoteiroEmpresa(RoteiroEmpresa roteiroEmpresa) {
+		this.roteiroEmpresa = roteiroEmpresa;
 	}
 
 	public String toString() {

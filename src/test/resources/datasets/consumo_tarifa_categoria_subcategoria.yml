@@ -6,6 +6,7 @@ faturamento.consumo_tarifa_categoria:
     cstc_nnconsumominimo: 10
     cstv_id: 1
     catg_id: 1
+    scat_id: 0
   - cstc_id: 2
     cstc_nnconsumominimo: 20
     cstv_id: 2

@@ -2,6 +2,7 @@ package br.gov.servicos.faturamento;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.faturamento.FaturamentoSituacaoTipo;
@@ -10,21 +11,26 @@ import br.gov.model.faturamento.FaturamentoSituacaoTipo;
 public class FaturamentoSituacaoTipoRepositorio {
 
 	@PersistenceContext
-	private EntityManager em;
-	
-	public FaturamentoSituacaoTipo findById(Integer id){
-		return em.find(FaturamentoSituacaoTipo.class, id);
+	private EntityManager entity;
+
+	public FaturamentoSituacaoTipo findById(Integer id) {
+		return entity.find(FaturamentoSituacaoTipo.class, id);
 	}
-	
-	public FaturamentoSituacaoTipo situacaoTipoDoImovel(Integer idImovel){
+
+	public FaturamentoSituacaoTipo situacaoTipoDoImovel(Integer idImovel) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(" select tipo" )
-		.append(" from Imovel imovel" )
-		.append(" inner join imovel.faturamentoSituacaoTipo tipo ")
-		.append(" where imovel.id = :idImovel ");
-		
-		return em.createQuery(sql.toString(), FaturamentoSituacaoTipo.class)
-		.setParameter("idImovel", idImovel)
-		.getSingleResult();
+		sql.append(" select tipo ")
+		   .append(" from Imovel imovel ")
+		   .append(" inner join imovel.faturamentoSituacaoTipo tipo ")
+		   .append(" where imovel.id = :idImovel ");
+
+		try {
+			return entity.createQuery(sql.toString(), FaturamentoSituacaoTipo.class)
+					.setParameter("idImovel", idImovel)
+					.setMaxResults(1)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 }
