@@ -18,7 +18,7 @@
     
     <extension qualifier="persistence">
 	    <property name="defaultCleanupPhase">BEFORE</property>
-	    <property name="defaultCleanupStrategy">USED_TABLES_ONLY</property>
+	    <property name="defaultCleanupStrategy">STRICT</property>
     </extension>
 
 	<extension qualifier="persistence-dbunit">
