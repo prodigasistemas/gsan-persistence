@@ -5,7 +5,7 @@ SET indc_form = 'Despesa Total por Ultrapassagem da Demanda Contratada (R$) / De
 WHERE indc_nome = 'Conformidade da demanda de potência elétrica contratada';
 
 UPDATE operacao.indicador
-SET indc_form = 'Despesa Total com Energia Elétrica (R$)'
+SET indc_form = 'Despesa pelo Fator de Potência Elétrica em R$ / Despesa Total com Energia Elétrica (R$)'
 WHERE indc_nome = 'Despesa decorrente do Fator de Potência Elétrica';
 -- //@UNDO
 -- SQL to undo the change goes here.
