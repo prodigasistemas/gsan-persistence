@@ -34,6 +34,9 @@ public class ProcessoParametro implements Serializable {
 	@Column(name="prpr_valorparametro")
 	private String valor;
 	
+	@Column(name="prpr_temporario")
+	private Short temporario;
+	
 	public ProcessoParametro(){}
 	
 	public ProcessoParametro(ProcessoIniciado processoIniciado, String nomeParametro, String valor){
@@ -73,4 +76,12 @@ public class ProcessoParametro implements Serializable {
 	public void setValor(String valor) {
 		this.valor = valor;
 	}
+
+    public Short getTemporario() {
+        return temporario;
+    }
+
+    public void setTemporario(Short temporario) {
+        this.temporario = temporario;
+    }
 }
