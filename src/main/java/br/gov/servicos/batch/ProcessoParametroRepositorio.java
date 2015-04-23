@@ -18,6 +18,17 @@ public class ProcessoParametroRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
+	public void excluirParametrosTemporarios(Integer idProcessoIniciado){
+	    StringBuilder sql = new StringBuilder();
+	    sql.append("delete from ProcessoParametro")
+	    .append(" where temporario = 1 ")
+	    .append(" and processoIniciado.id = :idProcessoIniciado");
+	    
+	    entity.createQuery(sql.toString())
+	        .setParameter("idProcessoIniciado", idProcessoIniciado)
+	        .executeUpdate();
+	}
+	
 	public Properties buscarParametrosPorProcessoIniciado(ProcessoIniciado processoIniciado){
 		List<ProcessoParametro> processoParametros = this.buscarProcessoParametros(processoIniciado);
 		
