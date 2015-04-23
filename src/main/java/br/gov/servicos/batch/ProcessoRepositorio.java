@@ -44,6 +44,21 @@ public class ProcessoRepositorio extends GenericRepository<Integer, Processo>{
 						.executeUpdate();
 		return result >= 1;
 	}
+	
+   public boolean terminaExecucaoProcesso(Integer idProcessoIniciado, ProcessoSituacao situacao){
+        StringBuilder sql = new StringBuilder();
+        sql.append("update ProcessoIniciado ")
+            .append(" set situacao = :situacao, termino = :termino, ultimaAlteracao = :ultimaAlteracao ")
+            .append(" where id = :processoId ");
+
+        int result = entity.createQuery(sql.toString())
+                        .setParameter("situacao", situacao.getId())
+                        .setParameter("termino", new Date())
+                        .setParameter("ultimaAlteracao", new Date())
+                        .setParameter("processoId", idProcessoIniciado)
+                        .executeUpdate();
+        return result >= 1;
+    }
 
 	public boolean atualizaSituacaoProcesso(Integer idProcessoIniciado, ProcessoSituacao situacao){
 		int result = entity.createQuery("update ProcessoIniciado set situacao = :situacao, ultimaAlteracao = :ultimaAlteracao "
