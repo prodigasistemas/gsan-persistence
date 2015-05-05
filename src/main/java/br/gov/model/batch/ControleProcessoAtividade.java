@@ -49,15 +49,35 @@ public class ControleProcessoAtividade implements Serializable{
 	private ProcessoAtividade atividade;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="proximativ_id", referencedColumnName="id")
-	private ProcessoAtividade proximaAtividade;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="proi_id", referencedColumnName="proi_id")
 	private ProcessoIniciado processoIniciado;
 	
 	public ControleProcessoAtividade(){}
+	
+	public boolean podeProcessar(){
+	    return emEspera() || execucaoCancelada() || concluidaComErro();
+	}
+	
+	public boolean emEspera(){
+	    return situacao == ProcessoSituacao.EM_ESPERA.getId();
+	}
 
+	public boolean execucaoCancelada(){
+	    return situacao == ProcessoSituacao.CANCELADO.getId();
+	}
+	
+	public boolean concluidaComErro(){
+	    return situacao == ProcessoSituacao.CONCLUIDO_COM_ERRO.getId();
+	}
+	
+	public boolean concluida(){
+	    return situacao == ProcessoSituacao.CONCLUIDO.getId();
+	}
+	
+	public void concluiProcessamentoItem(){
+	    itensProcessados++;
+	}
+	
     public Integer getId() {
         return id;
     }
@@ -112,14 +132,6 @@ public class ControleProcessoAtividade implements Serializable{
 
     public void setAtividade(ProcessoAtividade atividade) {
         this.atividade = atividade;
-    }
-
-    public ProcessoAtividade getProximaAtividade() {
-        return proximaAtividade;
-    }
-
-    public void setProximaAtividade(ProcessoAtividade proximaAtividade) {
-        this.proximaAtividade = proximaAtividade;
     }
 
     public ProcessoIniciado getProcessoIniciado() {

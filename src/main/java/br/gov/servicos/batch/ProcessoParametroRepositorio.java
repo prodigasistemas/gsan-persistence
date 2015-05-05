@@ -29,8 +29,8 @@ public class ProcessoParametroRepositorio {
 	        .executeUpdate();
 	}
 	
-	public Properties buscarParametrosPorProcessoIniciado(ProcessoIniciado processoIniciado){
-		List<ProcessoParametro> processoParametros = this.buscarProcessoParametros(processoIniciado);
+	public Properties buscarParametrosPorProcessoIniciado(Integer idProcessoIniciado){
+		List<ProcessoParametro> processoParametros = this.buscarProcessoParametros(idProcessoIniciado);
 		
 		Properties parametros = new Properties();
 		
@@ -41,9 +41,9 @@ public class ProcessoParametroRepositorio {
 		return parametros;
 	}
 	
-	public List<ProcessoParametro> buscarProcessoParametros(ProcessoIniciado processoIniciado){
+	public List<ProcessoParametro> buscarProcessoParametros(Integer idProcessoIniciado){
 		return entity.createQuery("from ProcessoParametro where processoIniciado.id = :processoIniciadoId", ProcessoParametro.class)
-				.setParameter("processoIniciadoId", processoIniciado.getId())
+				.setParameter("processoIniciadoId", idProcessoIniciado)
 				.getResultList();
 	}
 	

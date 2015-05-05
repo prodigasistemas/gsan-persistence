@@ -1,0 +1,13 @@
+batch.processo_iniciado:
+  - proi_id: 1
+    proi_prioridade: 1
+
+batch.processo_atividade:
+  - id: 1
+    ordemExecucao: 1
+
+batch.controle_processo_atividade:
+  - id: 1
+    proi_id: 1
+    proa_id: 1
+    situacao: 3
