@@ -63,14 +63,29 @@ public class ControleProcessoAtividadeRepositorio extends GenericRepository<Inte
         return result >= 1;
     }
     
+    public List<ControleProcessoAtividade> proximasAtividades(Integer idControleAtividade){
+        StringBuilder sql = new StringBuilder();
+        sql.append("select c1 from ControleProcessoAtividade c1 ")
+            .append(" where c1.atividade.ordemExecucao > (")
+            .append("   select c2.atividade.ordemExecucao from ControleProcessoAtividade c2")
+            .append("   where c2.id = :id")
+            .append("   and c1.processoIniciado.id = c2.processoIniciado.id")
+            .append(" )")
+            .append(" order by c1.atividade.ordemExecucao");
+        
+        return entity.createQuery(sql.toString(), ControleProcessoAtividade.class)
+                .setParameter("id", idControleAtividade)
+                .getResultList();
+    }
+    
     public boolean terminaExecucaoAtividade(Integer idControleAtividade, ProcessoSituacao situacao){
         StringBuilder sql = new StringBuilder();
         sql.append("update ControleProcessoAtividade ")
-            .append(" set situacao = :situacao, termino = :termino")
+            .append(" set situacao = :situacao, termino = :termino, ultimaAlteracao = :ultimaAlteracao")
             .append(" where id = :id ");
 
         int result = entity.createQuery(sql.toString())
-                        .setParameter("situacao", situacao.getId())
+                        .setParameter("situacao", (short) situacao.getId())
                         .setParameter("termino", new Date())
                         .setParameter("ultimaAlteracao", new Date())
                         .setParameter("id", idControleAtividade)
