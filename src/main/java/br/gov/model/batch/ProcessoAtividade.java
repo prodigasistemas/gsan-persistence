@@ -42,61 +42,61 @@ public class ProcessoAtividade implements Serializable{
 	@JoinColumn(name="proc_id", referencedColumnName="proc_id")
 	private Processo processo;
 	
+	@ManyToOne
+	@JoinColumn(name="principal_id", referencedColumnName="id")
+	private ProcessoAtividade principal;
+	
 	public ProcessoAtividade(){}
-
+	
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
-
     public String getNomeArquivoBatch() {
         return nomeArquivoBatch;
     }
-
     public void setNomeArquivoBatch(String nomeArquivoBatch) {
         this.nomeArquivoBatch = nomeArquivoBatch;
     }
-
     public Short getLimiteExecucao() {
         return limiteExecucao;
     }
-
     public void setLimiteExecucao(Short limiteExecucao) {
         this.limiteExecucao = limiteExecucao;
     }
-
     public String getDescricao() {
         return descricao;
     }
-
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
     public Short getOrdemExecucao() {
         return ordemExecucao;
     }
-
     public void setOrdemExecucao(Short ordemExecucao) {
         this.ordemExecucao = ordemExecucao;
     }
-
     public Short getExibirEmTela() {
         return exibirEmTela;
     }
-
     public void setExibirEmTela(Short exibirEmTela) {
         this.exibirEmTela = exibirEmTela;
     }
-
     public Processo getProcesso() {
         return processo;
     }
-
     public void setProcesso(Processo processo) {
         this.processo = processo;
+    }
+    public ProcessoAtividade getPrincipal() {
+        return principal;
+    }
+    public void setPrincipal(ProcessoAtividade principal) {
+        this.principal = principal;
+    }
+    public String toString() {
+        return "ProcessoAtividade [descricao=" + descricao + "]";
     }
 }

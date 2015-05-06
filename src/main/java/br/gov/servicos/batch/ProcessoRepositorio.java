@@ -70,15 +70,6 @@ public class ProcessoRepositorio extends GenericRepository<Integer, Processo>{
 		return result >= 1;
 	}
 
-	public List<ProcessoIniciado> buscarProcessosPorSituacao(ProcessoSituacao situacao){
-		/** A condicao nomeArquivoBatch diferente de null foi colocada para manter a convivencia do antigo junto com o novo batch,
-		 *  dessa forma só os batchs migrados e que ja possuem o script de execucao na nova estrutura serao recuperados nessa busca. 
-		 */
-		return entity.createQuery("from ProcessoIniciado where situacao = :idSituacao and processo.nomeArquivoBatch is not null order by prioridade desc", ProcessoIniciado.class)
-						.setParameter("idSituacao", situacao.getId())
-						.getResultList();
-	}
-
 	public ProcessoIniciado buscarProcessosIniciado(Integer idProcesso){
 		return entity.createQuery("from ProcessoIniciado where id = :idProcesso", ProcessoIniciado.class)
 						.setParameter("idProcesso", idProcesso)
@@ -99,6 +90,15 @@ public class ProcessoRepositorio extends GenericRepository<Integer, Processo>{
 						.getSingleResult();
 	}
 
+    public List<ProcessoIniciado> buscarProcessosPorSituacao(ProcessoSituacao situacao){
+        /** A condicao nomeArquivoBatch diferente de null foi colocada para manter a convivencia do antigo junto com o novo batch,
+         *  dessa forma só os batchs migrados e que ja possuem o script de execucao na nova estrutura serao recuperados nessa busca. 
+         */
+        return entity.createQuery("from ProcessoIniciado where situacao = :idSituacao and processo.nomeArquivoBatch is not null order by prioridade desc", ProcessoIniciado.class)
+                        .setParameter("idSituacao", situacao.getId())
+                        .getResultList();
+    }
+	
 	public List<ProcessoIniciado> buscarProcessosPorSituacao(Processo processo, ProcessoSituacao situacao) {
 		return entity.createQuery("from ProcessoIniciado where processo.id = :processoId and situacao = :situacao", ProcessoIniciado.class)
 						.setParameter("processoId", processo.getId())

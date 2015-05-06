@@ -37,6 +37,20 @@ public class ProcessoParametro implements Serializable {
 	@Column(name="prpr_temporario")
 	private Short temporario;
 	
+	public enum NOMES{
+	    ATIVIDADE_INICIADA("atividadeIniciada");
+	    
+	    String nome;
+	    
+	    NOMES(String nome){
+	        this.nome = nome;
+	    }
+	    
+	    public String toString() {
+	        return nome;
+	    }
+	}
+	
 	public ProcessoParametro(){}
 	
 	public ProcessoParametro(ProcessoIniciado processoIniciado, String nomeParametro, String valor){
