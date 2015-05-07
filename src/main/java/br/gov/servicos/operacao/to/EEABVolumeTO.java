@@ -13,7 +13,7 @@ public class EEABVolumeTO implements Serializable{
 	
 	private String descricao;
 
-	public EEABVolumeTO(Integer codigo, Date referencia, String descricao) {
+	public EEABVolumeTO(Integer codigo, String descricao, Date referencia) {
 		this.codigo = codigo;
 		this.referencia = referencia;
 		this.descricao = descricao;

@@ -48,9 +48,9 @@ public class ControleProcessoAtividade implements Serializable{
 	@JoinColumn(name="proa_id", referencedColumnName="id")
 	private ProcessoAtividade atividade;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="proximativ_id", referencedColumnName="id")
-	private ProcessoAtividade proximaAtividade;
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="proximativ_id", referencedColumnName="id")
+//	private ProcessoAtividade proximaAtividade;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="proi_id", referencedColumnName="proi_id")
@@ -114,13 +114,13 @@ public class ControleProcessoAtividade implements Serializable{
         this.atividade = atividade;
     }
 
-    public ProcessoAtividade getProximaAtividade() {
-        return proximaAtividade;
-    }
-
-    public void setProximaAtividade(ProcessoAtividade proximaAtividade) {
-        this.proximaAtividade = proximaAtividade;
-    }
+//    public ProcessoAtividade getProximaAtividade() {
+//        return proximaAtividade;
+//    }
+//
+//    public void setProximaAtividade(ProcessoAtividade proximaAtividade) {
+//        this.proximaAtividade = proximaAtividade;
+//    }
 
     public ProcessoIniciado getProcessoIniciado() {
         return processoIniciado;

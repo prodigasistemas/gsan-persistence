@@ -1,12 +1,21 @@
 package br.gov.servicos.operacao;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
+import br.gov.model.operacao.EEAB;
 import br.gov.model.operacao.EEABVolume;
 import br.gov.model.util.GenericRepository;
 import br.gov.servicos.operacao.to.EEABVolumeTO;
@@ -46,96 +55,98 @@ public class EeabVolumeRepositorio extends GenericRepository<Integer, EEABVolume
 		}
 	}
 
-	public List<EEABVolumeTO> obterListaLazy(Map<String, Object> filters) throws Exception {
-		StringBuilder sql = new StringBuilder();
+	public List<EEABVolume> obterListaLazy(Map<String, Object> filters, int maxPerPage, int startingAt) throws Exception {
+//		StringBuilder sql = new StringBuilder();
+//		
+//		sql.append("select new br.gov.servicos.operacao.to.EEABVolumeTO(")
+//		        .append(" ev.codigo")
+//		        .append(", ev.eeab.descricao")
+//		        .append(", ev.referencia)")
+//		        .append(" FROM EEABVolume ev ")
+//		        .append(" JOIN FETCH ev.eeab ");
 		
-		sql.append("SEELCT new br.gov.servicos.operacao.to.EEABVolumeTO(")
-		        .append(" ev.codigo")
-		        .append(", ev.eeab.descricao")
-		        .append(", ev.referencia)")
-		        .append(" FROM EEABVolume ev ")
-		        .append(" JOIN FETCH ev.eeab ");
+//		TypedQuery<EEABVolumeTO> to = entity.createQuery(sql.toString(), EEABVolumeTO.class);
 		
-		TypedQuery<EEABVolumeTO> to = entity.createQuery(sql.toString(), EEABVolumeTO.class);
+//		return entity.createQuery(sql.toString(), EEABVolumeTO.class).getResultList();
 		
-		if(!filters.isEmpty()&&filters!=null){
-			sql.append(" where ");
-			
-			if(filters.containsKey("descricao")){
-				sql.append(" ev.eeab.descricao = :descricao ");
-				to.setParameter("descricao", filters.get("descricao"));
-			}
-			
-			if(filters.containsKey("referencia")){
-				if(filters.containsKey("descricao"))sql.append(" and ");
-				sql.append(" ev.referencia = :referencia ");
-				to.setParameter("referencia", new SimpleDateFormat("MM/yyyy").parse(filters.get("referencia").toString()));
-			}
-		}
-		
-		return to.getResultList();
-		
-//		CriteriaBuilder cb = entity.getCriteriaBuilder();
-//		CriteriaQuery<EEABVolume> q = cb.createQuery(EEABVolume.class);
-//		Root<EEABVolume> c = q.from(EEABVolume.class);
-//		// Join<ConsumoETA, RegionalProxy> greg = c.join("regionalProxy");
-//		// Join<ConsumoETA, UnidadeNegocioProxy> uneg =
-//		// c.join("unidadeNegocioProxy");
-//		// Join<ConsumoETA, MunicipioProxy> muni = c.join("municipioProxy");
-//		// Join<ConsumoETA, LocalidadeProxy> loca = c.join("localidadeProxy");
-//		Join<EEABVolume, EEAB> eab = c.join("eeab");
-//		q.select(c);
-//		if (filters != null && !filters.isEmpty()) {
-//			Predicate[] predicates = new Predicate[filters.size()];
-//			int i = 0;
-//			for (Map.Entry<String, Object> entry : filters.entrySet()) {
-//				String key = entry.getKey();
-//				String val = entry.getValue().toString();
-//				Expression<String> path;
-//				try {
-//					/*
-//					 * if (key.equals("regionalProxy.nome")) path =
-//					 * greg.get("nome"); else if
-//					 * (key.equals("unidadeNegocioProxy.nome")) path =
-//					 * uneg.get("nome"); else if
-//					 * (key.equals("municipioProxy.nome")) path =
-//					 * muni.get("nome"); else if
-//					 * (key.equals("localidadeProxy.nome")) path =
-//					 * loca.get("nome");
-//					 */
-//					if (key.equals("eeab.descricao"))
-//						path = eab.get("descricao");
-//					else
-//						path = c.get(key);
-//					if (key.equals("referencia")) {
-//						SimpleDateFormat formataData = new SimpleDateFormat("MM/yyyy");
-//						Date dataConsumo = formataData.parse(val);
-//						predicates[i] = cb.and(cb.equal(path, dataConsumo));
-//					} else {
-//						// if
-//						// (RegionalProxy.class.getDeclaredField(key).getType().equals(String.class))
-//						// {
-//						predicates[i] = cb.and(cb.like(cb.lower(path), "%" + val.toLowerCase() + "%"));
-//					}
-//				} catch (SecurityException ex) {
-//					ex.printStackTrace();
-//				}
-//				i++;
+//		if(!filters.isEmpty()&&filters!=null){
+//			sql.append(" where ");
+//			
+//			if(filters.containsKey("descricao")){
+//				sql.append(" ev.eeab.descricao = :descricao ");
+//				to.setParameter("descricao", filters.get("descricao"));
 //			}
-//			q.where(predicates);
+//			
+//			if(filters.containsKey("referencia")){
+//				if(filters.containsKey("descricao"))sql.append(" and ");
+//				sql.append(" ev.referencia = :referencia ");
+//				to.setParameter("referencia", new SimpleDateFormat("MM/yyyy").parse(filters.get("referencia").toString()));
+//			}
 //		}
-//		q.orderBy(cb.desc(c.get("referencia")));
-//		/*
-//		 * if (sortField != null && !sortField.isEmpty()) { if
-//		 * (sortOrder.equals(SortOrder.ASCENDING)) {
-//		 * q.orderBy(cb.asc(c.get(sortField))); } else if
-//		 * (sortOrder.equals(SortOrder.DESCENDING)) {
-//		 * q.orderBy(cb.desc(c.get(sortField))); } }
-//		 */
-//		TypedQuery<EEABVolume> query = entity.createQuery(q);
-//		query.setMaxResults(maxPerPage);
-//		query.setFirstResult(startingAt);
-//		List<EEABVolume> lista = query.getResultList();
+		
+//		return to.getResultList();
+		
+		CriteriaBuilder cb = entity.getCriteriaBuilder();
+		CriteriaQuery<EEABVolume> q = cb.createQuery(EEABVolume.class);
+		Root<EEABVolume> c = q.from(EEABVolume.class);
+		// Join<ConsumoETA, RegionalProxy> greg = c.join("regionalProxy");
+		// Join<ConsumoETA, UnidadeNegocioProxy> uneg =
+		// c.join("unidadeNegocioProxy");
+		// Join<ConsumoETA, MunicipioProxy> muni = c.join("municipioProxy");
+		// Join<ConsumoETA, LocalidadeProxy> loca = c.join("localidadeProxy");
+		Join<EEABVolume, EEAB> eab = c.join("eeab");
+		q.select(c);
+		if (filters != null && !filters.isEmpty()) {
+			Predicate[] predicates = new Predicate[filters.size()];
+			int i = 0;
+			for (Map.Entry<String, Object> entry : filters.entrySet()) {
+				String key = entry.getKey();
+				String val = entry.getValue().toString();
+				Expression<String> path;
+				try {
+					/*
+					 * if (key.equals("regionalProxy.nome")) path =
+					 * greg.get("nome"); else if
+					 * (key.equals("unidadeNegocioProxy.nome")) path =
+					 * uneg.get("nome"); else if
+					 * (key.equals("municipioProxy.nome")) path =
+					 * muni.get("nome"); else if
+					 * (key.equals("localidadeProxy.nome")) path =
+					 * loca.get("nome");
+					 */
+					if (key.equals("eeab.descricao"))
+						path = eab.get("descricao");
+					else
+						path = c.get(key);
+					if (key.equals("referencia")) {
+						SimpleDateFormat formataData = new SimpleDateFormat("MM/yyyy");
+						Date dataConsumo = formataData.parse(val);
+						predicates[i] = cb.and(cb.equal(path, dataConsumo));
+					} else {
+						// if
+						// (RegionalProxy.class.getDeclaredField(key).getType().equals(String.class))
+						// {
+						predicates[i] = cb.and(cb.like(cb.lower(path), "%" + val.toLowerCase() + "%"));
+					}
+				} catch (SecurityException ex) {
+					ex.printStackTrace();
+				}
+				i++;
+			}
+			q.where(predicates);
+		}
+		q.orderBy(cb.desc(c.get("referencia")));
+		/*
+		 * if (sortField != null && !sortField.isEmpty()) { if
+		 * (sortOrder.equals(SortOrder.ASCENDING)) {
+		 * q.orderBy(cb.asc(c.get(sortField))); } else if
+		 * (sortOrder.equals(SortOrder.DESCENDING)) {
+		 * q.orderBy(cb.desc(c.get(sortField))); } }
+		 */
+		TypedQuery<EEABVolume> query = entity.createQuery(q);
+		query.setMaxResults(maxPerPage);
+		query.setFirstResult(startingAt);
+		List<EEABVolume> lista = query.getResultList();
 		
 		/*
 		 * for (int i = 0; i < lista.size(); i++) {
@@ -152,60 +163,60 @@ public class EeabVolumeRepositorio extends GenericRepository<Integer, EEABVolume
 		 * lista.get(i).setLocalidadeProxy(fachadaProxy
 		 * .getLocalidade(lista.get(i).getLocalidadeProxy().getCodigo())); }
 		 */
-//		return lista;
+		return lista;
 	}
 
-//	@SuppressWarnings({ "rawtypes", "unchecked" })
-//	public int obterQtdRegistros(Map<String, Object> filters) throws Exception {
-//		CriteriaBuilder cb = entity.getCriteriaBuilder();
-//		CriteriaQuery q = cb.createQuery(EEABVolume.class);
-//		Root<EEABVolume> c = q.from(EEABVolume.class);
-//		/*
-//		 * Join<EEABVolume, RegionalProxy> greg = c.join("regionalProxy");
-//		 * Join<EEABVolume, UnidadeNegocioProxy> uneg =
-//		 * c.join("unidadeNegocioProxy"); Join<EEABVolume, MunicipioProxy> muni
-//		 * = c.join("municipioProxy"); Join<EEABVolume, LocalidadeProxy> loca =
-//		 * c.join("localidadeProxy");
-//		 */
-//		Join<EEABVolume, EEAB> eab = c.join("eeab");
-//		q.select(cb.count(c));
-//		if (filters != null && !filters.isEmpty()) {
-//			Predicate[] predicates = new Predicate[filters.size()];
-//			int i = 0;
-//			for (Map.Entry<String, Object> entry : filters.entrySet()) {
-//				String key = entry.getKey();
-//				String val = entry.getValue().toString();
-//				Expression<String> path;
-//				try {
-//					/*
-//					 * if (key.equals("regionalProxy.nome")) path =
-//					 * greg.get("nome"); else if
-//					 * (key.equals("unidadeNegocioProxy.nome")) path =
-//					 * uneg.get("nome"); else if
-//					 * (key.equals("municipioProxy.nome")) path =
-//					 * muni.get("nome"); else if
-//					 * (key.equals("localidadeProxy.nome")) path =
-//					 * loca.get("nome");
-//					 */
-//					if (key.equals("eeab.descricao"))
-//						path = eab.get("descricao");
-//					else
-//						path = c.get(key);
-//					if (key.equals("referencia")) {
-//						SimpleDateFormat formataData = new SimpleDateFormat("MM/yyyy");
-//						Date dataConsumo = formataData.parse(val);
-//						predicates[i] = cb.and(cb.equal(path, dataConsumo));
-//					} else {
-//						predicates[i] = cb.and(cb.like(cb.lower(path), "%" + val.toLowerCase() + "%"));
-//					}
-//				} catch (SecurityException ex) {
-//					ex.printStackTrace();
-//				}
-//				i++;
-//			}
-//			q.where(predicates);
-//		}
-//		Query query = entity.createQuery(q);
-//		return ((Long) query.getSingleResult()).intValue();
-//	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public int obterQtdRegistros(Map<String, Object> filters) throws Exception {
+		CriteriaBuilder cb = entity.getCriteriaBuilder();
+		CriteriaQuery q = cb.createQuery(EEABVolume.class);
+		Root<EEABVolume> c = q.from(EEABVolume.class);
+		/*
+		 * Join<EEABVolume, RegionalProxy> greg = c.join("regionalProxy");
+		 * Join<EEABVolume, UnidadeNegocioProxy> uneg =
+		 * c.join("unidadeNegocioProxy"); Join<EEABVolume, MunicipioProxy> muni
+		 * = c.join("municipioProxy"); Join<EEABVolume, LocalidadeProxy> loca =
+		 * c.join("localidadeProxy");
+		 */
+		Join<EEABVolume, EEAB> eab = c.join("eeab");
+		q.select(cb.count(c));
+		if (filters != null && !filters.isEmpty()) {
+			Predicate[] predicates = new Predicate[filters.size()];
+			int i = 0;
+			for (Map.Entry<String, Object> entry : filters.entrySet()) {
+				String key = entry.getKey();
+				String val = entry.getValue().toString();
+				Expression<String> path;
+				try {
+					/*
+					 * if (key.equals("regionalProxy.nome")) path =
+					 * greg.get("nome"); else if
+					 * (key.equals("unidadeNegocioProxy.nome")) path =
+					 * uneg.get("nome"); else if
+					 * (key.equals("municipioProxy.nome")) path =
+					 * muni.get("nome"); else if
+					 * (key.equals("localidadeProxy.nome")) path =
+					 * loca.get("nome");
+					 */
+					if (key.equals("eeab.descricao"))
+						path = eab.get("descricao");
+					else
+						path = c.get(key);
+					if (key.equals("referencia")) {
+						SimpleDateFormat formataData = new SimpleDateFormat("MM/yyyy");
+						Date dataConsumo = formataData.parse(val);
+						predicates[i] = cb.and(cb.equal(path, dataConsumo));
+					} else {
+						predicates[i] = cb.and(cb.like(cb.lower(path), "%" + val.toLowerCase() + "%"));
+					}
+				} catch (SecurityException ex) {
+					ex.printStackTrace();
+				}
+				i++;
+			}
+			q.where(predicates);
+		}
+		Query query = entity.createQuery(q);
+		return ((Long) query.getSingleResult()).intValue();
+	}
 }
