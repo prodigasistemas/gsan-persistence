@@ -1,5 +1,6 @@
 package br.gov.servicos.operacao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -15,6 +16,7 @@ import br.gov.servicos.operacao.to.HorasListagemTO;
 public class HoraRepositorio extends GenericRepository<Integer, Hora>{
 	public HorasCadastroTO obterHora(Integer codigo) throws Exception {
 		try {
+			
 		    StringBuilder sql = new StringBuilder();
 		    sql.append("select new br.gov.servicos.operacao.to.HorasCadastroTO(")
 		    .append(" h.unidadeConsumidoraOperacional.UC.regionalProxy.codigo")

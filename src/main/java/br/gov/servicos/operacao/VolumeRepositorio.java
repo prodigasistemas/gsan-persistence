@@ -1,5 +1,7 @@
 package br.gov.servicos.operacao;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -55,6 +57,7 @@ public class VolumeRepositorio extends GenericRepository<Integer, Volume>{
 
 	public VolumeCadastroTO obterVolume(Integer codigo) {
 		try {
+			
 		    StringBuilder sql = new StringBuilder();
 		    sql.append("select new br.gov.servicos.operacao.to.VolumeCadastroTO(")
 		    .append(" v.unidadeConsumidoraOperacional.UC.regionalProxy.codigo")
@@ -63,8 +66,8 @@ public class VolumeRepositorio extends GenericRepository<Integer, Volume>{
 		    .append(" , v.unidadeConsumidoraOperacional.UC.localidadeProxy.codigo")
 		    .append(" , v.unidadeConsumidoraOperacional.tipoUnidadeOperacional")
 		    .append(" , v.unidadeConsumidoraOperacional.codigoUnidadeOperacional")
-		    .append(" , v.dataMedicao")
-		    .append(" , v.ultimaAlteracao")
+//		    .append(" , v.dataMedicao")
+//		    .append(" , v.ultimaAlteracao")
 		    .append(" , v.estimado")
 		    .append(" , v.totalVolume")
 		    .append(" , v.codigo")

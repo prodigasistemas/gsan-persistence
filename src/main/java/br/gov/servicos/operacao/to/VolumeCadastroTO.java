@@ -42,7 +42,7 @@ public class VolumeCadastroTO implements Serializable{
 	public VolumeCadastroTO(Integer cdRegional, Integer cdUnidadeNegocio,
 			Integer cdMunicipio, Integer cdLocalidade,
 			Integer tipoUnidadeOperacional, Integer cdUnidadeOperacional,
-			Date dataHoraMedicao, Date ultimaAlteracao, Boolean estimado, BigDecimal volume,
+			/*Date dataHoraMedicao, Date ultimaAlteracao, */Boolean estimado, BigDecimal volume,
 			Integer codigo, Integer referencia, 
 			String observacoes) {
 		super();
@@ -52,8 +52,8 @@ public class VolumeCadastroTO implements Serializable{
 		this.cdLocalidade = cdLocalidade;
 		this.tipoUnidadeOperacional = tipoUnidadeOperacional;
 		this.cdUnidadeOperacional = cdUnidadeOperacional;
-		this.dataHoraMedicao = dataHoraMedicao;
-		this.ultimaAlteracao = ultimaAlteracao;
+//		this.dataHoraMedicao = dataHoraMedicao;
+//		this.ultimaAlteracao = ultimaAlteracao;
 		this.estimado = estimado;
 		this.volume = volume;
 		this.codigo = codigo;
