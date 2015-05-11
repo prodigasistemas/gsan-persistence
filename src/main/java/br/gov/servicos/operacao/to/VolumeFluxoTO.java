@@ -1,10 +1,10 @@
 package br.gov.servicos.operacao.to;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 import br.gov.model.operacao.MacroMedidor;
-import br.gov.model.operacao.Volume;
+import br.gov.model.operacao.MedidorUnidadeOperacional;
 
 public class VolumeFluxoTO implements Serializable{
 
@@ -12,25 +12,24 @@ public class VolumeFluxoTO implements Serializable{
 	
 	private Integer codigo;
 	
+	private Integer idMedidor;
+	
 	private Integer tipoFluxo;
 	
-	private Integer tipoMedicao;
+	private BigDecimal volumeMedicao;	
 	
-	private BigInteger volumeMedicao;
-	
-	private Volume volume;
+	private MedidorUnidadeOperacional medidor;
 	
 	private MacroMedidor macroMedidor;
 
 	public VolumeFluxoTO() {
 	}
 
-	public VolumeFluxoTO(Integer codigo, Integer tipoFluxo,
-			Integer tipoMedicao, BigInteger volumeMedicao) {
-		super();
+	public VolumeFluxoTO(Integer codigo, Integer idMedidor,
+			Integer tipoFluxo, BigDecimal volumeMedicao) {
 		this.codigo = codigo;
+		this.idMedidor = idMedidor;
 		this.tipoFluxo = tipoFluxo;
-		this.tipoMedicao = tipoMedicao;
 		this.volumeMedicao = volumeMedicao;
 	}
 
@@ -50,28 +49,28 @@ public class VolumeFluxoTO implements Serializable{
 		this.tipoFluxo = tipoFluxo;
 	}
 
-	public Integer getTipoMedicao() {
-		return tipoMedicao;
-	}
-
-	public void setTipoMedicao(Integer tipoMedicao) {
-		this.tipoMedicao = tipoMedicao;
-	}
-
-	public BigInteger getVolumeMedicao() {
+	public BigDecimal getVolumeMedicao() {
 		return volumeMedicao;
 	}
 
-	public void setVolumeMedicao(BigInteger volumeMedicao) {
+	public void setVolumeMedicao(BigDecimal volumeMedicao) {
 		this.volumeMedicao = volumeMedicao;
 	}
 
-	public Volume getVolume() {
-		return volume;
+	public MedidorUnidadeOperacional getMedidor() {
+		return medidor;
 	}
 
-	public void setVolume(Volume volume) {
-		this.volume = volume;
+	public void setMedidor(MedidorUnidadeOperacional medidor) {
+		this.medidor = medidor;
+	}
+
+	public Integer getIdMedidor() {
+		return idMedidor;
+	}
+
+	public void setIdMedidor(Integer idMedidor) {
+		this.idMedidor = idMedidor;
 	}
 
 	public MacroMedidor getMacroMedidor() {
@@ -81,6 +80,5 @@ public class VolumeFluxoTO implements Serializable{
 	public void setMacroMedidor(MacroMedidor macroMedidor) {
 		this.macroMedidor = macroMedidor;
 	}
-
 	
 }

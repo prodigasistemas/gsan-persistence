@@ -15,15 +15,13 @@ public class MedidorUnidadeOperacionalPK implements Serializable{
 	
 	@Column(name="id")
 	private Integer id;
-
-	public MedidorUnidadeOperacionalPK() {
-		super();
-	}
 	
 	public MedidorUnidadeOperacionalPK(Integer tipoUnidade, Integer idMedidor) {
-		super();
 		this.tipo = tipoUnidade;
 		this.id = idMedidor;
+	}
+
+	public MedidorUnidadeOperacionalPK() {
 	}
 
 	public Integer getTipo() {

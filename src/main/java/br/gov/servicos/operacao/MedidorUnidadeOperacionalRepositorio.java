@@ -17,18 +17,33 @@ public class MedidorUnidadeOperacionalRepositorio {
 
 	public List<MedidorUnidadeOperacional> buscarPor(Integer tipoUnidade, Integer idUnidade){
 		StringBuilder sql = new StringBuilder();
-	    sql.append(" select e from MedidorUnidadeOperacional m")
+	    sql.append(" select m from MedidorUnidadeOperacional m")
 	    .append(" WHERE m.pk.tipo = :tipoUnidade")
 	    .append(" and m.idUnidadeOperacional = :idUnidade");
 	    
 	    try {
 	        return entity.createQuery(sql.toString(), MedidorUnidadeOperacional.class)
 	                .setParameter("tipoUnidade", tipoUnidade)
-	                .setParameter("idUnidadeOperacional", idUnidade)
+	                .setParameter("idUnidade", idUnidade)
 	                .getResultList();
         } catch (NoResultException e) {
             return null;
         }
 	}
 	
+	public MedidorUnidadeOperacional buscarMedidor(Integer idMedidor, Integer tipoUnidade){
+		StringBuilder sql = new StringBuilder();
+	    sql.append(" select m from MedidorUnidadeOperacional m")
+	    .append(" WHERE m.pk.tipo = :tipoUnidade")
+	    .append(" AND m.pk.id = :idMedidor");
+	    
+	    try {
+	        return entity.createQuery(sql.toString(), MedidorUnidadeOperacional.class)
+	                .setParameter("tipoUnidade", tipoUnidade)
+	                .setParameter("idMedidor", idMedidor)
+	                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+	}
 }

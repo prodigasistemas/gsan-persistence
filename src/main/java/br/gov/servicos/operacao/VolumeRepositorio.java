@@ -1,7 +1,5 @@
 package br.gov.servicos.operacao;
 
-import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;

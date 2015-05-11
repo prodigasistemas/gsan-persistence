@@ -6,8 +6,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.gov.model.operacao.MedidorUnidadeOperacional;
-
 public class VolumeCadastroTO implements Serializable{
 
 	private static final long serialVersionUID = -4814252932910209139L;
@@ -32,7 +30,7 @@ public class VolumeCadastroTO implements Serializable{
     
     private List<VolumeFluxoTO> volumesFluxo = new ArrayList<VolumeFluxoTO>();
     
-    private List<MedidorUnidadeOperacional> medidores = new ArrayList<MedidorUnidadeOperacional>();
+//    private List<MedidorUnidadeOperacional> medidores = new ArrayList<MedidorUnidadeOperacional>();
     
     private String observacoes;
 
@@ -42,7 +40,7 @@ public class VolumeCadastroTO implements Serializable{
 	public VolumeCadastroTO(Integer cdRegional, Integer cdUnidadeNegocio,
 			Integer cdMunicipio, Integer cdLocalidade,
 			Integer tipoUnidadeOperacional, Integer cdUnidadeOperacional,
-			/*Date dataHoraMedicao, Date ultimaAlteracao, */Boolean estimado, BigDecimal volume,
+			/*Date dataHoraMedicao, */Boolean estimado, BigDecimal volume,
 			Integer codigo, Integer referencia, 
 			String observacoes) {
 		super();
@@ -53,7 +51,6 @@ public class VolumeCadastroTO implements Serializable{
 		this.tipoUnidadeOperacional = tipoUnidadeOperacional;
 		this.cdUnidadeOperacional = cdUnidadeOperacional;
 //		this.dataHoraMedicao = dataHoraMedicao;
-//		this.ultimaAlteracao = ultimaAlteracao;
 		this.estimado = estimado;
 		this.volume = volume;
 		this.codigo = codigo;
@@ -200,13 +197,13 @@ public class VolumeCadastroTO implements Serializable{
 		this.volumesFluxo = volumesFluxo;
 	}
 
-	public List<MedidorUnidadeOperacional> getMedidores() {
-		return medidores;
-	}
-
-	public void setMedidores(List<MedidorUnidadeOperacional> medidores) {
-		this.medidores = medidores;
-	}
+//	public List<MedidorUnidadeOperacional> getMedidores() {
+//		return medidores;
+//	}
+//
+//	public void setMedidores(List<MedidorUnidadeOperacional> medidores) {
+//		this.medidores = medidores;
+//	}
 	
 	public BigDecimal getValorMedicaoAux() {
 		return valorMedicaoAux;
