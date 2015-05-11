@@ -3,11 +3,11 @@
 insert into operacao.volume_fluxo
 (id, tipofluxo, tipomedicao, volume, volume_id, macromedidor_id)
 (select nextval('operacao.sequence_volume_fluxo'), 1, eabe.mmed_tipomedicao, 
-  eabe.eabe_volume, eabe.eabv_id, eabe.mmed_identrada
+  eabe.eabe_volume, volume.id, eabe.mmed_identrada
 
 from operacao.eeab_volume_entrada eabe
-inner join operacao.eeab_volume eabv on
-eabv.eabv_id = eabe.eabv_id
+inner join operacao.eeab_volume eabv on eabv.eabv_id = eabe.eabv_id
+inner join operacao.volume volume on volume.eabv_id = eabv.eabv_id
 );
 
 -- //@UNDO
