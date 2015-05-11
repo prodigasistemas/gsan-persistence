@@ -2,6 +2,7 @@ package br.gov.model.batch;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -58,11 +60,22 @@ public class ProcessoIniciado implements Serializable{
 	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="proc_id")
     private Processo processo;
+	
+	@OneToMany(mappedBy="processoIniciado")
+	private List<ControleProcessoAtividade> controleAtividades;
     
 	public ProcessoIniciado(){}
 	
 	public boolean emProcessamento() {
 		return situacao == ProcessoSituacao.EM_PROCESSAMENTO.getId();
+	}
+	
+	public boolean concluidoComErro(){
+	    return situacao == ProcessoSituacao.CONCLUIDO_COM_ERRO.getId();
+	}
+	
+	public boolean execucaoCancelada(){
+	    return situacao == ProcessoSituacao.CANCELADO.getId();
 	}
 	
 	/***********************************************
@@ -72,96 +85,80 @@ public class ProcessoIniciado implements Serializable{
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public Integer getProcessoPrecedente() {
 		return processoPrecedente;
 	}
-
 	public void setProcessoPrecedente(Integer processoPrecedente) {
 		this.processoPrecedente = processoPrecedente;
 	}
-
 	public Processo getProcesso() {
 		return processo;
 	}
-
 	public void setProcesso(Processo processo) {
 		this.processo = processo;
 	}
-
 	public Date getAgendamento() {
 		return agendamento;
 	}
-
 	public void setAgendamento(Date agendamento) {
 		this.agendamento = agendamento;
 	}
-
 	public Date getInicio() {
 		return inicio;
 	}
-
 	public void setInicio(Date inicio) {
 		this.inicio = inicio;
 	}
-
 	public Date getTermino() {
 		return termino;
 	}
-
 	public void setTermino(Date termino) {
 		this.termino = termino;
 	}
-
 	public Date getUltimaAlteracao() {
 		return ultimaAlteracao;
 	}
-
 	public void setUltimaAlteracao(Date ultimaAlteracao) {
 		this.ultimaAlteracao = ultimaAlteracao;
 	}
-
 	public Integer getSituacao() {
 		return situacao;
 	}
-
 	public void setSituacao(Integer situacao) {
 		this.situacao = situacao;
 	}
-
 	public Integer getUsuario() {
 		return usuario;
 	}
-
 	public void setUsuario(Integer usuario) {
 		this.usuario = usuario;
 	}
-	
 	public String getProcessoAbreviacao(){
 		return processo.getAbreviacao();
 	}
-
 	public Integer getPrioridade() {
 		return prioridade;
 	}
-
 	public void setPrioridade(Integer prioridade) {
 		this.prioridade = prioridade;
 	}
-	
 	public Long getExecutionId() {
 		return executionId;
 	}
-
 	public void setExecutionId(Long executionId) {
 		this.executionId = executionId;
 	}
+	public List<ControleProcessoAtividade> getControleAtividades() {
+        return controleAtividades;
+    }
+    public void setControleAtividades(List<ControleProcessoAtividade> controleAtividades) {
+        this.controleAtividades = controleAtividades;
+    }
 
-	public String toString() {
+    public String toString() {
 		return "ProcessoIniciado [id=" + id + ", processo=" + processo + ", executionId=" + executionId + "]";
 	}
 }
