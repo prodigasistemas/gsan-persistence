@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import br.gov.model.operacao.TipoFluxo;
+
 public class VolumeCadastroTO implements Serializable{
 
 	private static final long serialVersionUID = -4814252932910209139L;
@@ -178,15 +180,25 @@ public class VolumeCadastroTO implements Serializable{
 		this.ultimaAlteracao = ultimaAlteracao;
 	}
 
-	public List<VolumeFluxoTO> getVolumeFluxoSaida() {
+	public List<VolumeFluxoTO> getVolumeFluxosSaida() {
 		List<VolumeFluxoTO> saida = new ArrayList<VolumeFluxoTO>();
 		for (VolumeFluxoTO volumeFluxoTO : volumesFluxo) {
-			if(volumeFluxoTO.getTipoFluxo() == 2){
+			if(volumeFluxoTO.getTipoFluxo().intValue() == TipoFluxo.SAIDA.getId().intValue()){
 				saida.add(volumeFluxoTO);
 			}
 		}
 		return saida;
-	} 
+	}
+	
+	public List<VolumeFluxoTO> getVolumeFluxosEntrada() {
+		List<VolumeFluxoTO> entrada = new ArrayList<VolumeFluxoTO>();
+		for (VolumeFluxoTO volumeFluxoTO : volumesFluxo) {
+			if(volumeFluxoTO.getTipoFluxo().intValue() == TipoFluxo.ENTRADA.getId().intValue()){
+				entrada.add(volumeFluxoTO);
+			}
+		}
+		return entrada;
+	}
 	
 	
 	public List<VolumeFluxoTO> getVolumesFluxo() {
@@ -197,14 +209,6 @@ public class VolumeCadastroTO implements Serializable{
 		this.volumesFluxo = volumesFluxo;
 	}
 
-//	public List<MedidorUnidadeOperacional> getMedidores() {
-//		return medidores;
-//	}
-//
-//	public void setMedidores(List<MedidorUnidadeOperacional> medidores) {
-//		this.medidores = medidores;
-//	}
-	
 	public BigDecimal getValorMedicaoAux() {
 		return valorMedicaoAux;
 	}
