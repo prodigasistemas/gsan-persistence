@@ -76,6 +76,9 @@ public class Volume implements Serializable{
 	@Column(name="observacoes")
 	private String observacoes;
 	
+	@Column(name="usur_id", nullable=false)
+    private Integer usuario;
+	
 	public Volume() {
 	}
 	
@@ -197,6 +200,14 @@ public class Volume implements Serializable{
 
 	public void setIdEstacao(Integer idEstacao) {
 		this.idEstacao = idEstacao;
+	}
+
+	public Integer getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Integer usuario) {
+		this.usuario = usuario;
 	}
 }
 

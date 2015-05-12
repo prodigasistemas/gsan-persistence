@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-//@Entity
-//@Table(name="medidor_unidade_operacional", schema="operacao")
+@Entity
+@Table(name="medidor_unidade_operacional", schema="operacao")
 public class MedidorUnidadeOperacional implements Serializable{
 
 	private static final long serialVersionUID = 4849229708579891520L;

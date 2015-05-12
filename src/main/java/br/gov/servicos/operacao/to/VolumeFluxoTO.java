@@ -27,6 +27,11 @@ public class VolumeFluxoTO implements Serializable{
 		this.tipoFluxo = tipoFluxo;
 		this.volumeMedicao = volumeMedicao;
 	}
+	
+	public VolumeFluxoTO(Integer idMedidor, Integer tipoFluxo) {
+		this.idMedidor = idMedidor;
+		this.tipoFluxo = tipoFluxo;
+	}
 
 	public Integer getCodigo() {
 		return codigo;

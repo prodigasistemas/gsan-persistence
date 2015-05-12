@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-//@Embeddable
+@Embeddable
 public class MedidorUnidadeOperacionalPK implements Serializable{
 
 	private static final long serialVersionUID = 474592892921963240L;

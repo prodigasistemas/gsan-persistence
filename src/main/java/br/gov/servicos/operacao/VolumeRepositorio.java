@@ -114,4 +114,21 @@ public class VolumeRepositorio extends GenericRepository<Integer, Volume>{
 		}
 	}
 	
+	public boolean existeMesReferencia(Integer tipoUnidade, Integer id, Integer mesReferencia) throws Exception {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select count(*)")
+			.append(" from Volume v")
+			.append(" inner join v.estacao e")
+			.append(" where e.pk.tipo = :tipo")
+			.append(" and e.pk.id = :id ")
+			.append(" and v.referencia = :referencia");
+
+		long qtd = entity.createQuery(sql.toString(), Long.class)
+				.setParameter("tipo", tipoUnidade)
+				.setParameter("id", id)
+				.setParameter("referencia", mesReferencia).getSingleResult();
+
+		return qtd > 0 ? true : false;
+	}
+	
 }

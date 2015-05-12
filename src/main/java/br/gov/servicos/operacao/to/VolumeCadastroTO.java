@@ -2,8 +2,8 @@ package br.gov.servicos.operacao.to;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class VolumeCadastroTO implements Serializable{
