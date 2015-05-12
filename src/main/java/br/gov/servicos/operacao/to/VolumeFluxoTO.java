@@ -3,9 +3,6 @@ package br.gov.servicos.operacao.to;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import br.gov.model.operacao.MacroMedidor;
-import br.gov.model.operacao.MedidorUnidadeOperacional;
-
 public class VolumeFluxoTO implements Serializable{
 
 	private static final long serialVersionUID = -5661503716998445600L;
@@ -18,9 +15,7 @@ public class VolumeFluxoTO implements Serializable{
 	
 	private BigDecimal volumeMedicao;	
 	
-	private MedidorUnidadeOperacional medidor;
-	
-	private MacroMedidor macroMedidor;
+	private MacroMedidorTO macroMedidor;
 
 	public VolumeFluxoTO() {
 	}
@@ -57,14 +52,6 @@ public class VolumeFluxoTO implements Serializable{
 		this.volumeMedicao = volumeMedicao;
 	}
 
-	public MedidorUnidadeOperacional getMedidor() {
-		return medidor;
-	}
-
-	public void setMedidor(MedidorUnidadeOperacional medidor) {
-		this.medidor = medidor;
-	}
-
 	public Integer getIdMedidor() {
 		return idMedidor;
 	}
@@ -73,11 +60,11 @@ public class VolumeFluxoTO implements Serializable{
 		this.idMedidor = idMedidor;
 	}
 
-	public MacroMedidor getMacroMedidor() {
+	public MacroMedidorTO getMacroMedidor() {
 		return macroMedidor;
 	}
 
-	public void setMacroMedidor(MacroMedidor macroMedidor) {
+	public void setMacroMedidor(MacroMedidorTO macroMedidor) {
 		this.macroMedidor = macroMedidor;
 	}
 	
