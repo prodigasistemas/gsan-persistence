@@ -32,8 +32,6 @@ public class VolumeCadastroTO implements Serializable{
     
     private List<VolumeFluxoTO> volumesFluxo = new ArrayList<VolumeFluxoTO>();
     
-//    private List<MedidorUnidadeOperacional> medidores = new ArrayList<MedidorUnidadeOperacional>();
-    
     private String observacoes;
 
 	public VolumeCadastroTO() {
@@ -42,8 +40,8 @@ public class VolumeCadastroTO implements Serializable{
 	public VolumeCadastroTO(Integer cdRegional, Integer cdUnidadeNegocio,
 			Integer cdMunicipio, Integer cdLocalidade,
 			Integer tipoUnidadeOperacional, Integer cdUnidadeOperacional,
-			/*Date dataHoraMedicao, */Boolean estimado, BigDecimal volume,
-			Integer codigo, Integer referencia, 
+			Date dataHoraMedicao, Date ultimaAlteracao, Boolean estimado, 
+			BigDecimal volume, Integer codigo, Integer referencia, 
 			String observacoes) {
 		super();
 		this.cdRegional = cdRegional;
@@ -52,8 +50,9 @@ public class VolumeCadastroTO implements Serializable{
 		this.cdLocalidade = cdLocalidade;
 		this.tipoUnidadeOperacional = tipoUnidadeOperacional;
 		this.cdUnidadeOperacional = cdUnidadeOperacional;
-//		this.dataHoraMedicao = dataHoraMedicao;
 		this.estimado = estimado;
+		this.dataHoraMedicao = dataHoraMedicao;
+		this.ultimaAlteracao = ultimaAlteracao;
 		this.volume = volume;
 		this.codigo = codigo;
 		this.referencia = referencia;
@@ -180,17 +179,17 @@ public class VolumeCadastroTO implements Serializable{
 		this.ultimaAlteracao = ultimaAlteracao;
 	}
 
-	public List<VolumeFluxoTO> getVolumeFluxosSaida() {
+	public List<VolumeFluxoTO> getVolumeFluxoSaida() {
 		List<VolumeFluxoTO> saida = new ArrayList<VolumeFluxoTO>();
 		for (VolumeFluxoTO volumeFluxoTO : volumesFluxo) {
-			if(volumeFluxoTO.getTipoFluxo().intValue() == TipoFluxo.SAIDA.getId().intValue()){
+			if(volumeFluxoTO.getTipoFluxo().intValue() == TipoFluxo.SAIDA.getId()){
 				saida.add(volumeFluxoTO);
 			}
 		}
 		return saida;
 	}
 	
-	public List<VolumeFluxoTO> getVolumeFluxosEntrada() {
+	public List<VolumeFluxoTO> getVolumeFluxoEntrada() {
 		List<VolumeFluxoTO> entrada = new ArrayList<VolumeFluxoTO>();
 		for (VolumeFluxoTO volumeFluxoTO : volumesFluxo) {
 			if(volumeFluxoTO.getTipoFluxo().intValue() == TipoFluxo.ENTRADA.getId().intValue()){
@@ -199,14 +198,15 @@ public class VolumeCadastroTO implements Serializable{
 		}
 		return entrada;
 	}
-	
-	
+
 	public List<VolumeFluxoTO> getVolumesFluxo() {
 		return volumesFluxo;
 	}
 
 	public void setVolumesFluxo(List<VolumeFluxoTO> volumesFluxo) {
-		this.volumesFluxo = volumesFluxo;
+		for (VolumeFluxoTO volumeFluxoTO : volumesFluxo) {
+			this.volumesFluxo.add(volumeFluxoTO);
+		}
 	}
 
 	public BigDecimal getValorMedicaoAux() {

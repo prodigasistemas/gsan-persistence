@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import br.gov.model.operacao.MedidorEntradaUnidadeOperacional;
 import br.gov.model.operacao.MedidorUnidadeOperacional;
 
 @Stateless
@@ -15,13 +16,29 @@ public class MedidorUnidadeOperacionalRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
-	public List<MedidorUnidadeOperacional> buscarPor(Integer tipoUnidade, Integer idUnidade){
+//	public List<MedidorUnidadeOperacional> buscarPor(Integer tipoUnidade, Integer idUnidade){
+//		StringBuilder sql = new StringBuilder();
+//	    sql.append(" select m from MedidorUnidadeOperacional m")
+//	    .append(" WHERE m.pk.tipo = :tipoUnidade")
+//	    .append(" and m.idUnidadeOperacional = :idUnidade");
+//	    
+//	    try {
+//	        return entity.createQuery(sql.toString(), MedidorUnidadeOperacional.class)
+//	                .setParameter("tipoUnidade", tipoUnidade)
+//	                .setParameter("idUnidade", idUnidade)
+//	                .getResultList();
+//        } catch (NoResultException e) {
+//            return null;
+//        }
+//	}
+	
+	public List<MedidorUnidadeOperacional> buscarMedidoresSaida(Integer tipoUnidade, Integer idUnidade){
 		StringBuilder sql = new StringBuilder();
 	    sql.append(" select m from MedidorUnidadeOperacional m")
 	    .append(" WHERE m.pk.tipo = :tipoUnidade")
-	    .append(" and m.idUnidadeOperacional = :idUnidade");
+	    .append(" and m.idUnidadeOperacional = :idUnidade"); 
 	    
-	    try {
+	    try{
 	        return entity.createQuery(sql.toString(), MedidorUnidadeOperacional.class)
 	                .setParameter("tipoUnidade", tipoUnidade)
 	                .setParameter("idUnidade", idUnidade)
@@ -31,19 +48,20 @@ public class MedidorUnidadeOperacionalRepositorio {
         }
 	}
 	
-	public MedidorUnidadeOperacional buscarMedidor(Integer idMedidor, Integer tipoUnidade){
+	public List<MedidorEntradaUnidadeOperacional> buscarMedidoresEntrada(Integer tipoUnidade, Integer idUnidade){
 		StringBuilder sql = new StringBuilder();
-	    sql.append(" select m from MedidorUnidadeOperacional m")
+	    sql.append(" select m from MedidorEntradaUnidadeOperacional m")
 	    .append(" WHERE m.pk.tipo = :tipoUnidade")
-	    .append(" AND m.pk.id = :idMedidor");
+	    .append(" and m.idUnidadeOperacional = :idUnidade"); 
 	    
-	    try {
-	        return entity.createQuery(sql.toString(), MedidorUnidadeOperacional.class)
+	    try{
+	        return entity.createQuery(sql.toString(), MedidorEntradaUnidadeOperacional.class)
 	                .setParameter("tipoUnidade", tipoUnidade)
-	                .setParameter("idMedidor", idMedidor)
-	                .getSingleResult();
+	                .setParameter("idUnidade", idUnidade)
+	                .getResultList();
         } catch (NoResultException e) {
             return null;
+        
         }
 	}
 }

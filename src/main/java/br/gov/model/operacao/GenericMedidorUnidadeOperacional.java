@@ -1,16 +1,9 @@
 package br.gov.model.operacao;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="medidor_unidade_operacional", schema="operacao")
-public class MedidorUnidadeOperacional implements Serializable{
-	private static final long serialVersionUID = 8610810535057003238L;
+public abstract class GenericMedidorUnidadeOperacional {
 
 	@EmbeddedId
 	private MedidorUnidadeOperacionalPK pk;
@@ -23,11 +16,11 @@ public class MedidorUnidadeOperacional implements Serializable{
 	
 	@Column(name="identificador_leitura")
 	private String identificadorLeitura;
-	
-	public MedidorUnidadeOperacional() {
+
+	public GenericMedidorUnidadeOperacional() {
 	}
 	
-	public MedidorUnidadeOperacional(Integer idMedidor, Integer tipoUnidade,
+	public GenericMedidorUnidadeOperacional(Integer idMedidor, Integer tipoUnidade,
 			Integer idUnidadeOperacional, Integer tipo_medicao,
 			String identificadorLeitura) {
 		this.pk = new MedidorUnidadeOperacionalPK(tipoUnidade, idMedidor);
@@ -67,7 +60,6 @@ public class MedidorUnidadeOperacional implements Serializable{
 	public void setIdentificadorLeitura(String identificadorLeitura) {
 		this.identificadorLeitura = identificadorLeitura;
 	}
-	
 	public String getTipoDescricao() {
 		return TipoMedicao.findById(tipoMedicao).getDescricao();
 	}

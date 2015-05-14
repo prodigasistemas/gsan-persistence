@@ -65,7 +65,7 @@ public class Volume implements Serializable{
 	
 	@Column(name="tmmedicao", nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dataMedicao;
+    private Date dataHoraMedicao;
 	
 	@Column(name="estimado")
 	private Boolean estimado;   
@@ -146,12 +146,12 @@ public class Volume implements Serializable{
 		this.ultimaAlteracao = ultimaAlteracao;
 	}
 
-	public Date getDataMedicao() {
-		return dataMedicao;
+	public Date getDataHoraMedicao() {
+		return dataHoraMedicao;
 	}
 
-	public void setDataMedicao(Date dataMedicao) {
-		this.dataMedicao = dataMedicao;
+	public void setDataHoraMedicao(Date dataMedicao) {
+		this.dataHoraMedicao = dataMedicao;
 	}
 
 	public Boolean getEstimado() {

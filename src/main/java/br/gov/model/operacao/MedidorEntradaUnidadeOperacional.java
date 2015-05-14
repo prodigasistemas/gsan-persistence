@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="medidor_unidade_operacional", schema="operacao")
-public class MedidorUnidadeOperacional implements Serializable{
-	private static final long serialVersionUID = 8610810535057003238L;
+@Table(name="medidor_entrada_unidade_operacional", schema="operacao")
+public class MedidorEntradaUnidadeOperacional implements Serializable{
+	private static final long serialVersionUID = 3848963424071649125L;
 
 	@EmbeddedId
 	private MedidorUnidadeOperacionalPK pk;
@@ -24,10 +24,10 @@ public class MedidorUnidadeOperacional implements Serializable{
 	@Column(name="identificador_leitura")
 	private String identificadorLeitura;
 	
-	public MedidorUnidadeOperacional() {
+	public MedidorEntradaUnidadeOperacional() {
 	}
 	
-	public MedidorUnidadeOperacional(Integer idMedidor, Integer tipoUnidade,
+	public MedidorEntradaUnidadeOperacional(Integer idMedidor, Integer tipoUnidade,
 			Integer idUnidadeOperacional, Integer tipo_medicao,
 			String identificadorLeitura) {
 		this.pk = new MedidorUnidadeOperacionalPK(tipoUnidade, idMedidor);
