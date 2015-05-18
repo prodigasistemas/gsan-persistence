@@ -18,10 +18,11 @@ import javax.persistence.criteria.Root;
 import br.gov.model.operacao.EEAB;
 import br.gov.model.operacao.EEABVolume;
 import br.gov.model.util.GenericRepository;
+import br.gov.servicos.operacao.to.EEABVolumeTO;
 
 @Stateless
 public class EeabVolumeRepositorio extends GenericRepository<Integer, EEABVolume>{
-
+	
 	public List<EEABVolume> obterLista() {
 		TypedQuery<EEABVolume> query = entity.createQuery("select c1 from EEABVolume c1 order by c1.referencia DESC", EEABVolume.class);
 		return query.getResultList();
@@ -54,7 +55,37 @@ public class EeabVolumeRepositorio extends GenericRepository<Integer, EEABVolume
 		}
 	}
 
-	public List<EEABVolume> obterListaLazy(int startingAt, int maxPerPage, Map<String, Object> filters) throws Exception {
+	public List<EEABVolume> obterListaLazy(Map<String, Object> filters, int maxPerPage, int startingAt) throws Exception {
+//		StringBuilder sql = new StringBuilder();
+//		
+//		sql.append("select new br.gov.servicos.operacao.to.EEABVolumeTO(")
+//		        .append(" ev.codigo")
+//		        .append(", ev.eeab.descricao")
+//		        .append(", ev.referencia)")
+//		        .append(" FROM EEABVolume ev ")
+//		        .append(" JOIN FETCH ev.eeab ");
+		
+//		TypedQuery<EEABVolumeTO> to = entity.createQuery(sql.toString(), EEABVolumeTO.class);
+		
+//		return entity.createQuery(sql.toString(), EEABVolumeTO.class).getResultList();
+		
+//		if(!filters.isEmpty()&&filters!=null){
+//			sql.append(" where ");
+//			
+//			if(filters.containsKey("descricao")){
+//				sql.append(" ev.eeab.descricao = :descricao ");
+//				to.setParameter("descricao", filters.get("descricao"));
+//			}
+//			
+//			if(filters.containsKey("referencia")){
+//				if(filters.containsKey("descricao"))sql.append(" and ");
+//				sql.append(" ev.referencia = :referencia ");
+//				to.setParameter("referencia", new SimpleDateFormat("MM/yyyy").parse(filters.get("referencia").toString()));
+//			}
+//		}
+		
+//		return to.getResultList();
+		
 		CriteriaBuilder cb = entity.getCriteriaBuilder();
 		CriteriaQuery<EEABVolume> q = cb.createQuery(EEABVolume.class);
 		Root<EEABVolume> c = q.from(EEABVolume.class);
@@ -116,6 +147,7 @@ public class EeabVolumeRepositorio extends GenericRepository<Integer, EEABVolume
 		query.setMaxResults(maxPerPage);
 		query.setFirstResult(startingAt);
 		List<EEABVolume> lista = query.getResultList();
+		
 		/*
 		 * for (int i = 0; i < lista.size(); i++) {
 		 * lista.get(i).setEta(fachadaETA

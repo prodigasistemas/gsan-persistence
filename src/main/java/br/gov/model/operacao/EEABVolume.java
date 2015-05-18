@@ -45,23 +45,23 @@ public class EEABVolume implements Serializable{
 	@Column(name="eabv_volume")
 	private Double volume;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="greg_id")
 	private RegionalProxy regionalProxy = new RegionalProxy();
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="uneg_id")
 	private UnidadeNegocioProxy unidadeNegocioProxy = new UnidadeNegocioProxy();
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="muni_id")
 	private MunicipioProxy municipioProxy = new MunicipioProxy();
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="loca_id")
 	private LocalidadeProxy localidadeProxy = new LocalidadeProxy();
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="eeab_id", nullable=false)
 	private EEAB eeab;
 	

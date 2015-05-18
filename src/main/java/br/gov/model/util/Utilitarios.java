@@ -371,6 +371,7 @@ public class Utilitarios {
 	    String texto = limitaTexto(tamanhoCampo, campo);
 	    
 		return StringUtils.leftPad(texto, tamanhoCampo, caractere);
+
 	}
 	
 	private static String completaStringADireita(int tamanhoCampo, Object campo, char caractere) {

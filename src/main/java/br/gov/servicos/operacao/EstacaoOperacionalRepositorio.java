@@ -108,6 +108,8 @@ public class EstacaoOperacionalRepositorio {
 			sql.append(" AND ucon.loca_id = " + cdLocalidade);
 		}
 
+		sql.append(" ORDER BY esta.nome ");
+		
 		return entity.createNativeQuery(sql.toString(), EstacaoOperacional.class).getResultList();
 	}
 	
