@@ -18,8 +18,19 @@ public class ProcessoParametroRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public Properties buscarParametrosPorProcessoIniciado(ProcessoIniciado processoIniciado){
-		List<ProcessoParametro> processoParametros = this.buscarProcessoParametros(processoIniciado);
+	public void excluirParametrosTemporarios(Integer idProcessoIniciado){
+	    StringBuilder sql = new StringBuilder();
+	    sql.append("delete from ProcessoParametro")
+	    .append(" where temporario = 1 ")
+	    .append(" and processoIniciado.id = :idProcessoIniciado");
+	    
+	    entity.createQuery(sql.toString())
+	        .setParameter("idProcessoIniciado", idProcessoIniciado)
+	        .executeUpdate();
+	}
+	
+	public Properties buscarParametrosPorProcessoIniciado(Integer idProcessoIniciado){
+		List<ProcessoParametro> processoParametros = this.buscarProcessoParametros(idProcessoIniciado);
 		
 		Properties parametros = new Properties();
 		
@@ -30,9 +41,9 @@ public class ProcessoParametroRepositorio {
 		return parametros;
 	}
 	
-	public List<ProcessoParametro> buscarProcessoParametros(ProcessoIniciado processoIniciado){
+	public List<ProcessoParametro> buscarProcessoParametros(Integer idProcessoIniciado){
 		return entity.createQuery("from ProcessoParametro where processoIniciado.id = :processoIniciadoId", ProcessoParametro.class)
-				.setParameter("processoIniciadoId", processoIniciado.getId())
+				.setParameter("processoIniciadoId", idProcessoIniciado)
 				.getResultList();
 	}
 	
@@ -40,7 +51,6 @@ public class ProcessoParametroRepositorio {
 		Properties parametros = new Properties();
 		
 		parametros.setProperty("idProcessoIniciado", String.valueOf(processoIniciado.getId()));
-		parametros.setProperty("percentualProcessado", "1");
 		if (processoIniciado.getProcesso().getNomeArquivoBatch() != null){
 			parametros.setProperty("nomeArquivoBatch", processoIniciado.getProcesso().getNomeArquivoBatch());
 		}

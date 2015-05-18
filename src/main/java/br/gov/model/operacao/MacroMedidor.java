@@ -87,6 +87,11 @@ public class MacroMedidor implements BaseEntidade, Serializable{
 	public MacroMedidor() {
 		super();
 	}
+	
+	public MacroMedidor(Integer codigo) {
+		super();
+		this.codigo = codigo;
+	}
 
 	public Integer getCodigo() {
 		return codigo;

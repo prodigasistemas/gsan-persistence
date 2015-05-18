@@ -24,4 +24,19 @@ public class ProcessoAtividadeRepositorio extends GenericRepository<Integer, Pro
             throw new AtividadeProcessoNaoCadastrada(nomeArquivo); 
         }
     }
+    
+    public ProcessoAtividade obterDependencia(Integer idAtividade){
+        StringBuilder sql = new StringBuilder();
+        sql.append("select e from ProcessoAtividade e")
+        .append(" where e.principal.id = :id");
+        
+        try {
+            return entity.createQuery(sql.toString(), ProcessoAtividade.class)
+                    .setParameter("id", idAtividade)
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

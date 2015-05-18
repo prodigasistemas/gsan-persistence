@@ -32,6 +32,7 @@ public class EEATVolume implements Serializable{
 	private Integer codigo;
 
 	@Column(name="eatv_referencia")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date referencia;
 	
 	@Column(name="eatv_tmmedicao")
@@ -46,7 +47,7 @@ public class EEATVolume implements Serializable{
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="greg_id")
-	private RegionalProxy regionalProxy = new RegionalProxy();;
+	private RegionalProxy regionalProxy = new RegionalProxy();
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="uneg_id")
