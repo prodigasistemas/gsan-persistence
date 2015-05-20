@@ -22,7 +22,7 @@ public class RedeInstaladaRelatorioTO implements Serializable, ConverteParaRelat
 	private String nomeLocalidade;
 	private BigDecimal redeCadastrada = BigDecimal.ZERO;
 	private BigDecimal redeExistente = BigDecimal.ZERO;
-	
+
 	public Integer getReferencia() {
 		return referencia;
 	}
@@ -123,5 +123,4 @@ public class RedeInstaladaRelatorioTO implements Serializable, ConverteParaRelat
         s.add(formatarBigDecimalComVirgula(redeExistente));
         return s;
 	}
-
 }
