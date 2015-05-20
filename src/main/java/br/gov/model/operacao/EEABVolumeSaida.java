@@ -34,11 +34,11 @@ public class EEABVolumeSaida implements Serializable{
 	@Column(name="mmed_tipomedicao")
 	private Integer tipomedicao;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="eabv_id", nullable=false)
 	private EEABVolume eeabVolume;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="mmed_idsaida", nullable=false)
 	private MacroMedidor medidorSaida;
 
