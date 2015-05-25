@@ -10,8 +10,6 @@ import java.util.List;
 public class RedeInstaladaRelatorioTO implements Serializable, ConverteParaRelatorio {
 	private static final long serialVersionUID = -4744219275978355560L;
 
-	private Integer referencia;
-
 	private Integer cdRegional;
 	private String nomeRegional;
 	private Integer cdUnidadeNegocio;
@@ -20,19 +18,22 @@ public class RedeInstaladaRelatorioTO implements Serializable, ConverteParaRelat
 	private String nomeMunicipio;
 	private Integer cdLocalidade;
 	private String nomeLocalidade;
+	private BigDecimal redeAnterior;
+	private Integer referencia;
 	private BigDecimal redeCadastrada = BigDecimal.ZERO;
 	private BigDecimal redeExistente = BigDecimal.ZERO;
 
-	public Integer getReferencia() {
-		return referencia;
-	}
-
-	public void setReferencia(Integer referencia) {
-		this.referencia = referencia;
-	}
 
 	public Integer getCdRegional() {
 		return cdRegional;
+	}
+
+	public BigDecimal getRedeAnterior() {
+		return redeAnterior;
+	}
+
+	public void setRedeAnterior(BigDecimal redeAnterior) {
+		this.redeAnterior = redeAnterior;
 	}
 
 	public void setCdRegional(Integer cdRegional) {
@@ -94,6 +95,14 @@ public class RedeInstaladaRelatorioTO implements Serializable, ConverteParaRelat
 	public void setNomeLocalidade(String nomeLocalidade) {
 		this.nomeLocalidade = nomeLocalidade;
 	}
+	
+	public Integer getReferencia() {
+		return referencia;
+	}
+
+	public void setReferencia(Integer referencia) {
+		this.referencia = referencia;
+	}
 
 	public BigDecimal getRedeCadastrada() {
 		return redeCadastrada;
@@ -118,9 +127,11 @@ public class RedeInstaladaRelatorioTO implements Serializable, ConverteParaRelat
         s.add(nomeUnidadeNegocio);
         s.add(nomeMunicipio);
         s.add(nomeLocalidade);
+        s.add(formatarBigDecimalComVirgula(redeAnterior));
         s.add(String.valueOf(referencia));
         s.add(formatarBigDecimalComVirgula(redeCadastrada));
         s.add(formatarBigDecimalComVirgula(redeExistente));
+
         return s;
 	}
 }
