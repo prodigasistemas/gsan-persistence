@@ -55,6 +55,23 @@ public class EstacaoOperacionalRepositorio {
                 .getResultList();
     }
     
+    public List<EstacaoOperacional> listarEstacoesComVolumePendente(Integer referencia, TipoUnidadeOperacional tipo){
+    	StringBuilder sql = new StringBuilder();
+    	sql.append("select e from EstacaoOperacional e")
+    	.append(" where not exists (")
+    	.append("   select v from Volume v")
+    	.append("     where v.referencia = :referencia")
+    	.append("       and v.estacao = e")
+    	.append(" )")
+    	.append(" and e.pk.tipo = :tipo");
+    	
+    	
+    	return entity.createQuery(sql.toString(), EstacaoOperacional.class)
+    			.setParameter("referencia", referencia)
+    			.setParameter("tipo", tipo.getId())
+    			.getResultList();
+    }
+    
 	public List<EstacaoOperacional> listarPeloTipoEUsuario(UsuarioProxy usuario, TipoUnidadeOperacional tipo)  {
 	    StringBuilder sql = new StringBuilder();
 	    sql.append("select e from EstacaoOperacional e ")

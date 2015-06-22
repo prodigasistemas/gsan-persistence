@@ -1,5 +1,6 @@
 package br.gov.servicos.operacao;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,7 @@ public class RelatorioRedeInstaladaRepositorio {
 		sql.append("SELECT r")
 			.append("  FROM RedeInstalada r")
 			.append(" WHERE r.referencia BETWEEN :refINI AND :refFim");
-
-        if (to.getRegional() != null && to.getRegional().getCodigo() != -1) {
+		if (to.getRegional() != null && to.getRegional().getCodigo() != -1) {
             sql.append(" AND r.regional.codigo = " + to.getRegional().getCodigo());
         }
         if (to.getUnidadeNegocio() != null  && to.getUnidadeNegocio().getCodigo() != -1) {
@@ -36,7 +36,6 @@ public class RelatorioRedeInstaladaRepositorio {
         if (to.getLocalidade() != null  && to.getLocalidade().getCodigo() != -1) {
             sql.append("  AND r.localidade.codigo = " + to.getLocalidade().getCodigo());
         }
-        
         sql.append(" ORDER BY r.regional.codigo, r.unidadeNegocio.codigo, r.municipio.codigo, r.localidade.codigo, r.referencia");
         
         List<RedeInstalada> redes_instaladas = entity.createQuery(sql.toString(), RedeInstalada.class)
@@ -58,10 +57,32 @@ public class RelatorioRedeInstaladaRepositorio {
         	item.setReferencia(rede.getReferencia());
         	item.setRedeCadastrada(rede.getRedeCadastrada());
         	item.setRedeExistente(rede.getRedeExistente());
-        	
+        	item.setRedeAnterior(carregarRedesCadastradasAnteriores(item, to.getReferenciaInicial()));
         	relatorioTO.add(item);
 		}
-
         return relatorioTO;
 	}
+	
+	public BigDecimal carregarRedesCadastradasAnteriores(RedeInstaladaRelatorioTO relatorioTO, Integer refIni){
+		StringBuilder sql = new StringBuilder();	
+		
+		sql.append("SELECT SUM(redeCadastrada) FROM RedeInstalada r where r.referencia < :refINI ")
+		.append(" AND r.regional.codigo = :cdRegional ")
+		.append(" AND r.unidadeNegocio.codigo = :cdUnidadeNegocio ") 
+		.append(" AND r.municipio.codigo = :cdMunicipio ")
+		.append(" AND r.localidade.codigo = :cdLocalidade " );
+		
+		return (BigDecimal) entity.createQuery(sql.toString())
+				.setParameter("refINI", refIni)
+				.setParameter("cdRegional", relatorioTO.getCdRegional())
+				.setParameter("cdUnidadeNegocio", relatorioTO.getCdUnidadeNegocio())
+				.setParameter("cdMunicipio", relatorioTO.getCdMunicipio())
+				.setParameter("cdLocalidade", relatorioTO.getCdLocalidade())
+				.getSingleResult();
+	}
 }
+
+
+
+
+
