@@ -79,4 +79,23 @@ public class CreditosContaTO {
 	public void somaValorTotalCreditos(BigDecimal valorCredito) {
 		setValorTotalCreditos(valorTotalCreditos == null ? valorCredito : valorTotalCreditos.add(valorCredito));
 	}
+
+    public void atualizarValorCredito(CreditoTipo creditoTipo, BigDecimal valorCredito) {
+        if (this.possuiCreditoTipo(creditoTipo)) {
+            BigDecimal valorTotal = somaValorCreditoTipoEValorCreditoParcelaMes(creditoTipo, valorCredito);
+            this.putValoresPorCreditoTipo(creditoTipo, valorTotal);
+        } else {
+            this.putValoresPorCreditoTipo(creditoTipo, valorCredito);
+        }        
+    }
+    
+    public BigDecimal somaValorCreditoTipoEValorCreditoParcelaMes(CreditoTipo creditoTipo, BigDecimal valorCreditoParcelaMes) {
+        BigDecimal valorCreditoTipo = this.getValorCreditoTipo(creditoTipo);
+        
+        if (valorCreditoParcelaMes == null) {
+            valorCreditoParcelaMes = BigDecimal.ZERO;
+        }
+        
+        return valorCreditoTipo.add(valorCreditoParcelaMes);
+    }
 }
