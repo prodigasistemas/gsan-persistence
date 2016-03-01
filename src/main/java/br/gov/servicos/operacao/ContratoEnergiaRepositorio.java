@@ -1,36 +1,31 @@
 package br.gov.servicos.operacao;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import br.gov.model.operacao.ContratoEnergia;
-import br.gov.model.operacao.UnidadeConsumidora;
 import br.gov.model.util.GenericRepository;
+import br.gov.servicos.operacao.to.ContratoEnergiaListagemTO;
 
 @Stateless
 public class ContratoEnergiaRepositorio extends GenericRepository<Integer, ContratoEnergia>{
 
-	public List<ContratoEnergia> obterLista() {
-		TypedQuery<ContratoEnergia> query = entity.createQuery("select c1 from ContratoEnergia c1 order by cene_dataini desc", ContratoEnergia.class);
-		return query.getResultList();
-	}
+    public int obterQtdRegistros(ContratoEnergiaListagemTO filtro) throws Exception {
+        StringBuilder sql = new StringBuilder();
+        sql.append("select count(*)")
+        .append(consultaContratoEnergia(filtro));
+
+        return entity.createQuery(sql.toString(), Long.class)
+                .getSingleResult()
+                .intValue();
+    }
 
 	public ContratoEnergia obterContrato(Integer codigo) throws Exception {
-		TypedQuery<ContratoEnergia> query = entity.createQuery("select c1 from ContratoEnergia c1 where cene_id = " + codigo, ContratoEnergia.class);
-		ContratoEnergia contratoEnergia = query.getSingleResult();
+		ContratoEnergia contratoEnergia = entity
+		        .createQuery("select c1 from ContratoEnergia c1 where cene_id = " + codigo, ContratoEnergia.class)
+		        .getSingleResult();
 
 		ContratoEnergia ContratoEnergia = contratoEnergia;
 		for (int j = 0; j < ContratoEnergia.getDemanda().size(); j++) {
@@ -55,84 +50,47 @@ public class ContratoEnergiaRepositorio extends GenericRepository<Integer, Contr
         }
 	}
 
-	public List<ContratoEnergia> obterListaLazy(int startingAt, int maxPerPage, Map<String, Object> filters) throws Exception {
-		CriteriaBuilder cb = entity.getCriteriaBuilder();
-		CriteriaQuery<ContratoEnergia> q = cb.createQuery(ContratoEnergia.class);
-		Root<ContratoEnergia> c = q.from(ContratoEnergia.class);
-		Join<ContratoEnergia, UnidadeConsumidora> ucon = c.join("unidadeConsumidora");
-		q.select(c);
-		if (filters != null && !filters.isEmpty()) {
-			Predicate[] predicates = new Predicate[filters.size()];
-			int i = 0;
-			for (Map.Entry<String, Object> entry : filters.entrySet()) {
-				String key = entry.getKey();
-				String val = entry.getValue().toString();
-				Expression<String> path;
-				try {
-					if (key.equals("unidadeConsumidora.uc")) {
-						path = ucon.get("uc");
-						predicates[i] = cb.and(cb.equal(path, val));
-					} else if (key.equals("dataInicial") || key.equals("dataFinal")) {
-						path = c.get(key);
-						SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
-						val = "01/" + val;
-						Date dataConsumo = formataData.parse(val);
-						predicates[i] = cb.and(cb.equal(path, dataConsumo));
-					} else {
-						path = c.get(key);
-						predicates[i] = cb.and(cb.like(cb.lower(path), "%" + val.toLowerCase() + "%"));
-					}
-				} catch (SecurityException ex) {
-					ex.printStackTrace();
-				}
-				i++;
-			}
-			q.where(predicates);
-		}
-		q.orderBy(cb.desc(c.get("codigo")));
-		TypedQuery<ContratoEnergia> query = entity.createQuery(q);
-		query.setMaxResults(maxPerPage);
-		query.setFirstResult(startingAt);
-		List<ContratoEnergia> lista = query.getResultList();
-		return lista;
+	public List<ContratoEnergiaListagemTO> obterLista(int firstResult, int max, ContratoEnergiaListagemTO filtro) throws Exception {
+	    
+        StringBuilder sql = new StringBuilder();
+        
+        sql.append("select new br.gov.servicos.operacao.to.ContratoEnergiaListagemTO(e.codigo")
+        .append(", e.numeroContrato")
+        .append(", e.unidadeConsumidora.uc")
+        .append(", e.vigenciaInicial")
+        .append(", e.vigenciaFinal")
+        .append(")")
+        .append(consultaContratoEnergia(filtro))
+        .append(" order by e.vigenciaFinal desc, ")
+        .append("  e.vigenciaInicial desc,")
+        .append("  e.unidadeConsumidora.uc asc,")
+        .append("  e.numeroContrato asc,")
+        .append("  e.codigo asc");
+        
+        System.out.println(sql.toString());
+        
+        return entity.createQuery(sql.toString(), ContratoEnergiaListagemTO.class)
+                .setFirstResult(firstResult)
+                .setMaxResults(max)
+                .getResultList();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public int obterQtdRegistros(Map<String, Object> filters) throws Exception {
-		CriteriaBuilder cb = entity.getCriteriaBuilder();
-		CriteriaQuery q = cb.createQuery(ContratoEnergia.class);
-		Root<ContratoEnergia> c = q.from(ContratoEnergia.class);
-		Join<ContratoEnergia, UnidadeConsumidora> ucon = c.join("unidadeConsumidora");
-		q.select(cb.count(c));
-		if (filters != null && !filters.isEmpty()) {
-			Predicate[] predicates = new Predicate[filters.size()];
-			int i = 0;
-			for (Map.Entry<String, Object> entry : filters.entrySet()) {
-				String key = entry.getKey();
-				String val = entry.getValue().toString();
-				Expression<String> path;
-				try {
-					if (key.equals("unidadeConsumidora.uc")) {
-						path = ucon.get("uc");
-						predicates[i] = cb.and(cb.equal(path, val));
-					} else if (key.equals("dataInicial") || key.equals("dataFinal")) {
-						path = c.get(key);
-						SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
-						val = "01/" + val;
-						Date dataConsumo = formataData.parse(val);
-						predicates[i] = cb.and(cb.equal(path, dataConsumo));
-					} else {
-						path = c.get(key);
-						predicates[i] = cb.and(cb.like(cb.lower(path), "%" + val.toLowerCase() + "%"));
-					}
-				} catch (SecurityException ex) {
-					ex.printStackTrace();
-				}
-				i++;
-			}
-			q.where(predicates);
-		}
-		Query query = entity.createQuery(q);
-		return ((Long) query.getSingleResult()).intValue();
-	}
+    private StringBuilder consultaContratoEnergia(ContratoEnergiaListagemTO filtro){
+        StringBuilder sql = new StringBuilder();
+        sql.append(" from ContratoEnergia e")
+        .append(" where 1 = 1");
+        if (filtro.getNumeroContrato() != null ) {
+            sql.append(" and e.numeroContrato = " + filtro.getNumeroContrato());
+        }
+        if (filtro.getUc() != null ) {
+            sql.append(" and e.unidadeConsumidora.uc = " + filtro.getUc());
+        }
+        if (filtro.getVigenciaInicial() != null ) {
+            sql.append(" and e.vigenciaInicial = " + filtro.getVigenciaInicial());
+        }
+        if (filtro.getVigenciaFinal() != null ) {
+            sql.append(" and e.vigenciaFinal = " + filtro.getVigenciaFinal());
+        }
+        return sql;
+    }	
 }
