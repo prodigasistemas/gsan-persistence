@@ -23,15 +23,15 @@ public class ContratoEnergiaRepositorio extends GenericRepository<Integer, Contr
     }
 
 	public ContratoEnergia obterContrato(Integer codigo) throws Exception {
-		ContratoEnergia contratoEnergia = entity
+		ContratoEnergia contrato = entity
 		        .createQuery("select c1 from ContratoEnergia c1 where cene_id = " + codigo, ContratoEnergia.class)
 		        .getSingleResult();
-
-		ContratoEnergia ContratoEnergia = contratoEnergia;
-		for (int j = 0; j < ContratoEnergia.getDemanda().size(); j++) {
-			contratoEnergia.getDemanda().get(j);
+		
+		for(int i = 0; i < contrato.getDemandas().size(); i++){
+		    contrato.getDemandas().get(i);
 		}
-		return contratoEnergia;
+		
+		return contrato;
 	}
 
 	public ContratoEnergia obterContratoVigente(Integer codigoUC) throws Exception {

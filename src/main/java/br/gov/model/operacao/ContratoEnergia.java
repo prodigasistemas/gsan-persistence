@@ -90,8 +90,9 @@ public class ContratoEnergia implements Serializable{
 	@Column(name="cene_agrupadorfatura", length=20)
 	private String agrupadorFatura;
 
-    @OneToMany(mappedBy="contrato", fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<ContratoEnergiaDemanda> demanda = new ArrayList<ContratoEnergiaDemanda>();    
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
+    @JoinColumn(name="cene_id", referencedColumnName="cene_id")
+	private List<ContratoEnergiaDemanda> demandas = new ArrayList<ContratoEnergiaDemanda>();    
 	
     @Column(name="usur_id", nullable=false)
     private Integer usuario;
@@ -258,12 +259,12 @@ public class ContratoEnergia implements Serializable{
 		this.agrupadorFatura = agrupadorFatura;
 	}
 
-	public List<ContratoEnergiaDemanda> getDemanda() {
-		return demanda;
+	public List<ContratoEnergiaDemanda> getDemandas() {
+		return demandas;
 	}
 
-	public void setDemanda(List<ContratoEnergiaDemanda> demanda) {
-		this.demanda = demanda;
+	public void setDemandas(List<ContratoEnergiaDemanda> demandas) {
+		this.demandas = demandas;
 	}
 
 	public Integer getUsuario() {
