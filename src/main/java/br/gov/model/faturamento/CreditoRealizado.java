@@ -249,4 +249,41 @@ public class CreditoRealizado implements Serializable{
 	public String toString() {
 		return "CreditoRealizado [id=" + id + "]";
 	}
+	
+	public class Builder{
+	    private CreditoRealizado source = new CreditoRealizado();
+	    
+	    public Builder(){
+	        
+	    }
+	    
+	    public Builder creditoRealizar(CreditoRealizar creditoRealizar){
+	        source.setCreditoTipo(creditoRealizar.getCreditoTipo());
+	        source.setCreditoRealizado(creditoRealizar.getGeracaoCredito());
+	        source.setLancamentoItemContabil(creditoRealizar.getLancamentoItemContabil());
+	        source.setLocalidade(creditoRealizar.getLocalidade());
+	        source.setNumeroQuadra(creditoRealizar.getNumeroQuadra());
+	        source.setCodigoSetorComercial(creditoRealizar.getCodigoSetorComercial());
+	        source.setNumeroQuadra(creditoRealizar.getNumeroQuadra());
+	        source.setNumeroLote(creditoRealizar.getNumeroLote());
+	        source.setNumeroSublote(creditoRealizar.getNumeroSublote());
+	        source.setAnoMesReferenciaCredito(creditoRealizar.getAnoMesReferenciaCredito());
+	        source.setAnoMesCobrancaCredito(creditoRealizar.getAnoMesCobrancaCredito());
+	        source.setCreditoOrigem(creditoRealizar.getCreditoOrigem());
+	        source.setNumeroPrestacao(creditoRealizar.getNumeroPrestacaoCredito());
+	        source.setNumeroParcelaBonus(creditoRealizar.getNumeroParcelaBonus());
+	        source.setNumeroPrestacaoCredito(creditoRealizar.getNumeroPrestacaoRealizada());
+	        source.setCreditoRealizarGeral(creditoRealizar.getCreditoRealizarGeral());	        
+	        return this;
+	    }
+	    
+	    public Builder valorCredito(BigDecimal valor){
+	        source.setValorCredito(valor);
+	        return this;
+	    }
+	    
+	    public CreditoRealizado build(){
+	        return source;
+	    }
+	}
 }
