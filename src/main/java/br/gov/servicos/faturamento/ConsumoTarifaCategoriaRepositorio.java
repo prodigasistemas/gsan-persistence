@@ -42,6 +42,16 @@ public class ConsumoTarifaCategoriaRepositorio {
 		}
 	}
 	
+	public Integer valorMinimoTarifa(ICategoria categoria, Integer idVigencia){
+		Short indicadorTarifaCategoria = parametros.getIndicadorTarifaCategoria();
+
+		if (indicadorTarifaCategoria.equals(SistemaParametros.INDICADOR_TARIFA_CATEGORIA)) {
+			return valorMinimoTarifaCategoria(categoria.getCategoria().getId(), idVigencia);
+		} else {
+			return valorMinimoTarifaSubCategoria(categoria.getSubcategoria().getId(), idVigencia);
+		}
+	}
+	
 	public Integer consumoMinimoTarifaCategoria(Integer idCategoria, Integer idVigencia){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ctca.numeroConsumoMinimo ")
@@ -67,6 +77,45 @@ public class ConsumoTarifaCategoriaRepositorio {
 	public Integer consumoMinimoTarifaSubCategoria(Integer idSubCategoria, Integer idVigencia){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ctca.numeroConsumoMinimo ")
+		.append(" from ConsumoTarifaCategoria ctca ")
+		.append(" where ctca.consumoTarifaVigencia.id = :idVigencia")
+		.append("   and ctca.subcategoria.id = :idSubCategoria");
+		try {
+			return entity.createQuery(sql.toString(), Integer.class)
+					.setParameter("idVigencia", idVigencia)
+					.setParameter("idSubCategoria", idSubCategoria)
+					.setMaxResults(1)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	public Integer valorMinimoTarifaCategoria(Integer idCategoria, Integer idVigencia){
+		StringBuilder sql = new StringBuilder();
+		sql.append("select ctca.valorTarifaMinima ")
+			.append(" from ConsumoTarifaCategoria ctca ")
+			.append(" inner join ctca.consumoTarifaVigencia vig")
+			.append(" inner join ctca.categoria cat ")
+			.append(" where vig.id = :idVigencia")
+			.append("   and cat.id = :idCategoria")
+			.append("   and ctca.subcategoria.id = :subCategoria");
+		try {
+			return entity.createQuery(sql.toString(), Integer.class)
+			.setParameter("idVigencia", idVigencia)
+			.setParameter("idCategoria", idCategoria)
+			.setParameter("subCategoria", 0) //TODO: COLOCAR COMO PARAMETRO
+			.setMaxResults(1)
+			.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	
+	public Integer valorMinimoTarifaSubCategoria(Integer idSubCategoria, Integer idVigencia){
+		StringBuilder sql = new StringBuilder();
+		sql.append("select ctca.valorTarifaMinima ")
 		.append(" from ConsumoTarifaCategoria ctca ")
 		.append(" where ctca.consumoTarifaVigencia.id = :idVigencia")
 		.append("   and ctca.subcategoria.id = :idSubCategoria");

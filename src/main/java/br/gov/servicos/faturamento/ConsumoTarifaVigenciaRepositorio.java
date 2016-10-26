@@ -2,6 +2,7 @@ package br.gov.servicos.faturamento;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,6 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.exception.TarifaConsumoInexistente;
+import br.gov.model.faturamento.ConsumoTarifaVigencia;
 import br.gov.servicos.to.ConsumoTarifaVigenciaTO;
 
 @Stateless
@@ -51,5 +53,9 @@ public class ConsumoTarifaVigenciaRepositorio {
 		} catch (NoResultException e) {
 		    throw new TarifaConsumoInexistente(idTarifa, data);
 		}
+	}
+
+	public List<ConsumoTarifaVigencia> buscarTarifasPorPeriodo(Date dataLeituraAnterior, Date dataLeituraAtual) {
+		return null;
 	}
 }
