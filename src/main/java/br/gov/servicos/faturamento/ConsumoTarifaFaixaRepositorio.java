@@ -36,4 +36,27 @@ public class ConsumoTarifaFaixaRepositorio {
 				.setParameter("idsConsumoTarifaCategoria", idsConsumoTarifaCategoria)
 				.getResultList();
 	}
+	
+	public List<ConsumoTarifaFaixaTO> buscarConsumoTarifaFaixaPorCategoria(Integer idConsumoTarifaCategoria) {
+	    StringBuilder sql = new StringBuilder();
+		
+		sql.append("SELECT new br.gov.servicos.to.ConsumoTarifaFaixaTO(")
+		   .append("ctv.consumoTarifa.id, ")
+           .append("ctv.dataVigencia, ")
+           .append("ctfx.consumoTarifaCategoria.id, ")
+           .append("ctcg.subcategoria.id, ")
+           .append("ctfx.numeroConsumoFaixaInicio, ")
+           .append("ctfx.numeroConsumoFaixaFim, ")
+           .append("ctfx.valorConsumoTarifa ")
+           .append(")")
+           .append(" FROM ConsumoTarifaFaixa ctfx ")
+		   .append(" INNER JOIN ctfx.consumoTarifaCategoria ctcg ")
+		   .append(" INNER JOIN ctcg.consumoTarifaVigencia ctv ")
+		   .append(" WHERE ctcg.id = :idConsumoTarifaCategoria ")
+		   .append(" ORDER BY ctv.consumoTarifa.id, ctv.dataVigencia, ctfx.consumoTarifaCategoria.id, ctcg.subcategoria.id, ctfx.numeroConsumoFaixaInicio ");
+		
+		return entity.createQuery(sql.toString(), ConsumoTarifaFaixaTO.class)
+				.setParameter("idConsumoTarifaCategoria", idConsumoTarifaCategoria)
+				.getResultList();
+	}
 }
