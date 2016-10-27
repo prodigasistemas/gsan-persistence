@@ -40,15 +40,9 @@ public class ConsumoTarifaFaixaRepositorio {
 				.setParameter("idsConsumoTarifaCategoria", idsConsumoTarifaCategoria)
 				.getResultList();
 	}
-
-	public List<ConsumoTarifaFaixaTO> obterFaixas(ConsumoImovelCategoriaTO consumoImovel, MedicaoHistorico medicaoHistorico) {
-		Date dataLeituraAnterior = medicaoHistorico.getDataLeituraAnteriorFaturamento();
-		Date dataLeituraAtual = medicaoHistorico.getDataLeituraAtualInformada();
-		
-		ICategoria categoria = consumoImovel.getCategoria();
-		
-		StringBuilder sql = new StringBuilder();
-		
+	
+	public List<ConsumoTarifaFaixaTO> buscarConsumoTarifaFaixaPorCategoria(Integer idConsumoTarifaCategoria) {
+	    StringBuilder sql = new StringBuilder();		
 		sql.append("SELECT new br.gov.servicos.to.ConsumoTarifaFaixaTO(")
 		   .append("ctv.consumoTarifa.id, ")
            .append("ctv.dataVigencia, ")
@@ -60,16 +54,12 @@ public class ConsumoTarifaFaixaRepositorio {
            .append(")")
            .append(" FROM ConsumoTarifaFaixa ctfx ")
 		   .append(" INNER JOIN ctfx.consumoTarifaCategoria ctcg ")
-		   .append(" INNER JOIN ctcg.categoria catg ")
 		   .append(" INNER JOIN ctcg.consumoTarifaVigencia ctv ")
-		   .append(" WHERE ctv.consumoTarifa.id = :idConsumoTarifa ")
-		   .append(" AND ctv.dataVigencia between :dataLeituraAnterior and :dataAtual")
-		   .append(" AND catg.id in :idCategoria ")
+		   .append(" WHERE ctcg.id = :idConsumoTarifaCategoria ")
 		   .append(" ORDER BY ctv.consumoTarifa.id, ctv.dataVigencia, ctfx.consumoTarifaCategoria.id, ctcg.subcategoria.id, ctfx.numeroConsumoFaixaInicio ");
 		
 		return entity.createQuery(sql.toString(), ConsumoTarifaFaixaTO.class)
-				//.setParameter("idsConsumoTarifaCategoria", idsConsumoTarifaCategoria)
-				.setParameter("idCategoria", consumoImovel.getCategoria().getId())
+				.setParameter("idConsumoTarifaCategoria", idConsumoTarifaCategoria)
 				.getResultList();
 	}
 }
