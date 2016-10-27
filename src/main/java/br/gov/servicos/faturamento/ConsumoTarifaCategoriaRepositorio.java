@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 
 import br.gov.model.cadastro.ICategoria;
 import br.gov.model.cadastro.SistemaParametros;
+import br.gov.model.faturamento.ConsumoImovelCategoriaTO;
 import br.gov.model.faturamento.ConsumoTarifaCategoria;
 import br.gov.servicos.cadastro.SistemaParametrosRepositorio;
 
@@ -154,7 +155,23 @@ public class ConsumoTarifaCategoriaRepositorio {
 		}
 	}
 	
+	public List<ConsumoTarifaCategoria> buscarConsumoTarifaCategoriaVigentePelaDataLeitura(Date dataLeituraAnterior, Date dataLeituraAtual, ConsumoImovelCategoriaTO consumoImovelTO) {
+		Integer idConsumotarifa = consumoImovelTO.getIdConsumoTarifa();
+		Integer idCategoria = consumoImovelTO.getCategoria().getId();
+		Integer idSubcategoria = consumoImovelTO.getCategoria().getSubcategoria().getId();
+		
+		return buscarConsumoTarifaCategoriaVigentePelaDataLeitura(dataLeituraAnterior, dataLeituraAtual, idConsumotarifa, idCategoria, idSubcategoria);
+	}
+	
 	public List<ConsumoTarifaCategoria> buscarConsumoTarifaCategoriaVigentePelaDataLeitura(Date dataLeitura, Integer idConsumoTarifa, Integer idCategoria, Integer idSubcategoria) {
+		return buscarConsumoTarifaCategoriaVigentePelaDataLeitura(dataLeitura, Calendar.getInstance().getTime(), idConsumoTarifa, idCategoria, idSubcategoria);
+	}
+	
+	public List<ConsumoTarifaCategoria> buscarConsumoTarifaCategoriaVigentePelaDataLeitura(Date dataLeituraAnterior, 
+			Date dataLeituraAtual,
+			Integer idConsumoTarifa, 
+			Integer idCategoria, 
+			Integer idSubcategoria) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT ctcg FROM ConsumoTarifaCategoria ctcg ")
 		.append("inner join ctcg.consumoTarifaVigencia ctv ")
@@ -165,7 +182,8 @@ public class ConsumoTarifaCategoriaRepositorio {
 		.append("order by ctv.dataVigencia DESC");
 		
 		return entity.createQuery(sql.toString(), ConsumoTarifaCategoria.class)
-				.setParameter("dataLeituraAnterior",dataLeitura)
+				.setParameter("dataLeituraAnterior",dataLeituraAnterior)
+				.setParameter("dataLeituraAtual",dataLeituraAtual)
 				.setParameter("dataAtual", Calendar.getInstance().getTime())
 				.setParameter("idConsumoTarifa", idConsumoTarifa)
 				.setParameter("idCategoria", idCategoria)

@@ -670,6 +670,10 @@ public class Imovel implements Serializable {
 	public ConsumoTarifa getConsumoTarifa() {
 		return consumoTarifa;
 	}
+	
+	public Integer getIdConsumoTarifa() {
+		return consumoTarifa.getId();
+	}
 
 	public void setConsumoTarifa(ConsumoTarifa consumoTarifa) {
 		this.consumoTarifa = consumoTarifa;
