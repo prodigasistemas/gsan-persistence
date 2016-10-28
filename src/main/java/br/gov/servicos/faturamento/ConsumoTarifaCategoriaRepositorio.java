@@ -1,5 +1,6 @@
 package br.gov.servicos.faturamento;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +44,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 		}
 	}
 	
-	public Integer valorMinimoTarifa(ICategoria categoria, Integer idVigencia){
+	public BigDecimal valorMinimoTarifa(ICategoria categoria, Integer idVigencia){
 		Short indicadorTarifaCategoria = parametros.getIndicadorTarifaCategoria();
 
 		if (indicadorTarifaCategoria.equals(SistemaParametros.INDICADOR_TARIFA_CATEGORIA)) {
@@ -92,7 +93,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 		}
 	}
 
-	public Integer valorMinimoTarifaCategoria(Integer idCategoria, Integer idVigencia){
+	public BigDecimal valorMinimoTarifaCategoria(Integer idCategoria, Integer idVigencia){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ctca.valorTarifaMinima ")
 			.append(" from ConsumoTarifaCategoria ctca ")
@@ -102,7 +103,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 			.append("   and cat.id = :idCategoria")
 			.append("   and ctca.subcategoria.id = :subCategoria");
 		try {
-			return entity.createQuery(sql.toString(), Integer.class)
+			return entity.createQuery(sql.toString(), BigDecimal.class)
 			.setParameter("idVigencia", idVigencia)
 			.setParameter("idCategoria", idCategoria)
 			.setParameter("subCategoria", 0) //TODO: COLOCAR COMO PARAMETRO
@@ -114,14 +115,14 @@ public class ConsumoTarifaCategoriaRepositorio {
 	}
 	
 	
-	public Integer valorMinimoTarifaSubCategoria(Integer idSubCategoria, Integer idVigencia){
+	public BigDecimal valorMinimoTarifaSubCategoria(Integer idSubCategoria, Integer idVigencia){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ctca.valorTarifaMinima ")
 		.append(" from ConsumoTarifaCategoria ctca ")
 		.append(" where ctca.consumoTarifaVigencia.id = :idVigencia")
 		.append("   and ctca.subcategoria.id = :idSubCategoria");
 		try {
-			return entity.createQuery(sql.toString(), Integer.class)
+			return entity.createQuery(sql.toString(), BigDecimal.class)
 					.setParameter("idVigencia", idVigencia)
 					.setParameter("idSubCategoria", idSubCategoria)
 					.setMaxResults(1)
