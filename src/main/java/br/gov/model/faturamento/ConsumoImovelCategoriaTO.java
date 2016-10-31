@@ -21,6 +21,7 @@ public class ConsumoImovelCategoriaTO {
 	private Map<ConsumoTarifaFaixaTO, Integer> consumoPorFaixa;
 	private List<ConsumoTarifaCategoriaTO> consumoTarifasCategoria;
 	private BigDecimal valorConsumo;
+	private Integer qtdDiasConsumoTarifa;
 
 	public ConsumoImovelCategoriaTO() {
 		consumoPorFaixa = new HashMap<ConsumoTarifaFaixaTO, Integer>();
@@ -98,6 +99,14 @@ public class ConsumoImovelCategoriaTO {
 		this.consumoTarifasCategoria = consumoTarifasCategoria;
 	}
 
+	public Integer getQtdDiasConsumoTarifa() {
+		return qtdDiasConsumoTarifa;
+	}
+	
+	public void setQtdDiasConsumoTarifa(Integer qtdDiasConsumoTarifa) {
+		this.qtdDiasConsumoTarifa = qtdDiasConsumoTarifa;
+	}
+	
 	public BigDecimal getValorConsumo() {
 		if (this.valorConsumo == null) {
 			calcularValorConsumo();

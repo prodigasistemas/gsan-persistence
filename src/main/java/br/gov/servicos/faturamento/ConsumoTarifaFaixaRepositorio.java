@@ -1,15 +1,11 @@
 package br.gov.servicos.faturamento;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import br.gov.model.cadastro.ICategoria;
-import br.gov.model.faturamento.ConsumoImovelCategoriaTO;
-import br.gov.model.micromedicao.MedicaoHistorico;
 import br.gov.servicos.to.ConsumoTarifaFaixaTO;
 
 @Stateless
