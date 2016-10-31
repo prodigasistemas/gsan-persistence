@@ -19,7 +19,12 @@ public class ConsumoTarifaVigenciaRepositorio {
 	@PersistenceContext
 	private EntityManager entity;
 
+	@Deprecated
 	public ConsumoTarifaVigenciaTO maiorDataVigenciaConsumoTarifa(Integer idTarifa) {
+		return buscarConsumoTarifaVigenciaAtual(idTarifa);
+	}
+
+	public ConsumoTarifaVigenciaTO buscarConsumoTarifaVigenciaAtual(Integer idTarifa) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select new br.gov.servicos.to.ConsumoTarifaVigenciaTO(vig.id, vig.dataVigencia) ")
 		   .append(" from ConsumoTarifaVigencia vig")
@@ -37,7 +42,12 @@ public class ConsumoTarifaVigenciaRepositorio {
 		}
 	}
 	
+	@Deprecated
 	public ConsumoTarifaVigenciaTO maiorDataVigenciaConsumoTarifaPorData(Integer idTarifa, Date data) {
+		return buscarConsumoTarifaVigenciaPorData(idTarifa, data);
+	}
+
+	public ConsumoTarifaVigenciaTO buscarConsumoTarifaVigenciaPorData(Integer idTarifa, Date data) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select new br.gov.servicos.to.ConsumoTarifaVigenciaTO(vig.id, vig.dataVigencia) ")
 		   .append(" from ConsumoTarifaVigencia vig")
