@@ -2,11 +2,13 @@ package br.gov.servicos.desempenho;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.desempenho.ContratoMedicaoCoeficiente;
 
+@Stateless
 public class ContratoMedicaoCoeficienteRepositorio {
 
 	@PersistenceContext

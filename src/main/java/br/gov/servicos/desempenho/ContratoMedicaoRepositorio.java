@@ -3,12 +3,14 @@ package br.gov.servicos.desempenho;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.desempenho.ContratoMedicao;
 
+@Stateless
 public class ContratoMedicaoRepositorio {
 
 	@PersistenceContext

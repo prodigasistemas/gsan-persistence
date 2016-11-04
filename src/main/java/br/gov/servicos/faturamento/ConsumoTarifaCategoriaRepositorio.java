@@ -14,9 +14,9 @@ import javax.persistence.PersistenceContext;
 
 import br.gov.model.cadastro.ICategoria;
 import br.gov.model.cadastro.SistemaParametros;
-import br.gov.model.faturamento.ConsumoImovelCategoriaTO;
 import br.gov.model.faturamento.ConsumoTarifaCategoria;
 import br.gov.servicos.cadastro.SistemaParametrosRepositorio;
+import br.gov.servicos.to.ConsumoImovelCategoriaTO;
 
 @Stateless
 public class ConsumoTarifaCategoriaRepositorio {

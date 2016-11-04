@@ -2,6 +2,7 @@ package br.gov.servicos.to;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import br.gov.model.cadastro.Categoria;
 import br.gov.model.faturamento.ConsumoTarifa;
@@ -72,6 +73,10 @@ public class ConsumoTarifaCategoriaTO implements Serializable{
 	}
 	public BigDecimal getValorConsumoMinimo() {
 		return (new BigDecimal(consumoMinimo.intValue())).multiply(this.valorTarifaMinima);
+	}
+
+	public boolean possuiVigencia(Date dataVigencia) {
+		return getConsumoTarifaVigencia().getDataVigencia().equals(dataVigencia);
 	}
 	
 }
