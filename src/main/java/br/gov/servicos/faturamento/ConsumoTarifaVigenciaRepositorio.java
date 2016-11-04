@@ -1,5 +1,6 @@
 package br.gov.servicos.faturamento;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -9,8 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.joda.time.DateTime;
+
 import br.gov.model.exception.TarifaConsumoInexistente;
-import br.gov.model.faturamento.ConsumoTarifaVigencia;
 import br.gov.servicos.to.ConsumoTarifaVigenciaTO;
 
 @Stateless
@@ -44,10 +46,10 @@ public class ConsumoTarifaVigenciaRepositorio {
 	
 	@Deprecated
 	public ConsumoTarifaVigenciaTO maiorDataVigenciaConsumoTarifaPorData(Integer idTarifa, Date data) {
-		return buscarConsumoTarifaVigenciaPorData(idTarifa, data);
+		return buscarConsumoTarifaVigenciaRecentePorData(idTarifa, data);
 	}
 
-	public ConsumoTarifaVigenciaTO buscarConsumoTarifaVigenciaPorData(Integer idTarifa, Date data) {
+	public ConsumoTarifaVigenciaTO buscarConsumoTarifaVigenciaRecentePorData(Integer idTarifa, Date data) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select new br.gov.servicos.to.ConsumoTarifaVigenciaTO(vig.id, vig.dataVigencia) ")
 		   .append(" from ConsumoTarifaVigencia vig")
@@ -64,8 +66,19 @@ public class ConsumoTarifaVigenciaRepositorio {
 		    throw new TarifaConsumoInexistente(idTarifa, data);
 		}
 	}
-
-	public List<ConsumoTarifaVigencia> buscarTarifasPorPeriodo(Date dataLeituraAnterior, Date dataLeituraAtual) {
-		return null;
+	
+	public List<ConsumoTarifaVigenciaTO> buscarTarifasPorPeriodo(Integer idTarifa, Date dataLeituraAnterior, Date dataLeituraAtual) {
+		List<ConsumoTarifaVigenciaTO> tarifasVigentes = new ArrayList<ConsumoTarifaVigenciaTO>();
+		
+		Date dataVigenciaReferencia = dataLeituraAtual;
+		
+		while(dataLeituraAnterior.before(dataVigenciaReferencia)) {
+			ConsumoTarifaVigenciaTO consumoTarifaVigenciaTO = buscarConsumoTarifaVigenciaRecentePorData(idTarifa, dataVigenciaReferencia);
+			dataVigenciaReferencia = new DateTime(consumoTarifaVigenciaTO.getDataVigencia()).minusDays(1).toDate();
+			
+			tarifasVigentes.add(consumoTarifaVigenciaTO);
+		}
+		
+		return tarifasVigentes;
 	}
 }

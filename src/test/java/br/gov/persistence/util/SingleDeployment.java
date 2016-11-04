@@ -1,11 +1,12 @@
 package br.gov.persistence.util;
 
+import org.eu.ingwar.tools.arquillian.extension.suite.annotations.ArquillianSuiteDeployment;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 
-//@ArquillianSuiteDeployment
+@ArquillianSuiteDeployment
 public class SingleDeployment {
 
     @Deployment

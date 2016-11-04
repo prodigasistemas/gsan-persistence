@@ -88,4 +88,9 @@ public class ConsumoTarifaCategoria implements Serializable {
 	public void setConsumoTarifaVigencia(ConsumoTarifaVigencia consumoTarifaVigencia) {
 		this.consumoTarifaVigencia = consumoTarifaVigencia;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return getId().equals(((ConsumoTarifaCategoria)obj).getId());
+	}
 }

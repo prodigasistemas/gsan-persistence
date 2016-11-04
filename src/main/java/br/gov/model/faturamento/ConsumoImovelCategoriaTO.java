@@ -1,12 +1,18 @@
 package br.gov.model.faturamento;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 import br.gov.model.cadastro.ICategoria;
 import br.gov.model.cadastro.Imovel;
+import br.gov.model.faturamento.tarifas.TabelaTarifas;
 import br.gov.servicos.to.ConsumoTarifaCategoriaTO;
 import br.gov.servicos.to.ConsumoTarifaFaixaTO;
 
@@ -17,14 +23,14 @@ public class ConsumoImovelCategoriaTO {
 	private Integer qtdEconomias;
 	private Integer consumoEconomiaCategoria;
 	private Integer consumoExcedenteCategoria;
-	private List<ConsumoTarifaFaixaTO> faixas;
-	private Map<ConsumoTarifaFaixaTO, Integer> consumoPorFaixa;
+	private List<TabelaTarifas> tabelaTarifas;
 	private List<ConsumoTarifaCategoriaTO> consumoTarifasCategoria;
+	private Date dataInicio;
+	private Date dataFim;
 	private BigDecimal valorConsumo;
-	private Integer qtdDiasConsumoTarifa;
 
 	public ConsumoImovelCategoriaTO() {
-		consumoPorFaixa = new HashMap<ConsumoTarifaFaixaTO, Integer>();
+		tabelaTarifas = new ArrayList<TabelaTarifas>();
 	}
 
 	public Imovel getImovel() {
@@ -67,30 +73,45 @@ public class ConsumoImovelCategoriaTO {
 		this.consumoExcedenteCategoria = consumoExcedenteCategoria;
 	}
 
-	public Map<ConsumoTarifaFaixaTO, Integer> getConsumoPorFaixa() {
-		return consumoPorFaixa;
-	}
-
-	public void setConsumoPorFaixa(Map<ConsumoTarifaFaixaTO, Integer> consumoPorFaixa) {
-		this.consumoPorFaixa = consumoPorFaixa;
-	}
-
-	public void addFaixaConsumo(ConsumoTarifaFaixaTO faixa, Integer consumo) {
-		this.getConsumoPorFaixa().put(faixa, consumo);
-	}
-
 	public Integer getIdConsumoTarifa() {
 		return imovel.getIdConsumoTarifa();
 	}
-
-	public List<ConsumoTarifaFaixaTO> getFaixas() {
-		return faixas;
+	
+	public List<TabelaTarifas> getTabelaTarifas() {
+		return tabelaTarifas;
+	}
+	
+	public void setTabelaTarifas(List<TabelaTarifas> tabelaTarifas) {
+		this.tabelaTarifas = tabelaTarifas;
+	}
+	
+	public void addTabelaTarifas(Date dataVigencia, List<ConsumoTarifaFaixaTO> faixas) {
+		this.tabelaTarifas.add(new TabelaTarifas(dataVigencia, faixas));
+	}
+	
+	public Date getDataAnterior() {
+		return dataInicio;
 	}
 
-	public void setFaixas(List<ConsumoTarifaFaixaTO> faixas) {
-		this.faixas = faixas;
+	public void setDataAnterior(Date dataAnterior) {
+		this.dataInicio = dataAnterior;
 	}
 
+	public Date getDataAtual() {
+		return dataFim;
+	}
+
+	public void setDataAtual(Date dataAtual) {
+		this.dataFim = dataAtual;
+	}
+
+	public Integer getQtdDiasConsumoTarifa() {
+		DateTime dataAnterior = new DateTime(dataInicio);
+		DateTime dataAtual = new DateTime(dataFim);
+			
+		return Days.daysBetween(dataAnterior, dataAtual).getDays();
+	}
+	
 	public List<ConsumoTarifaCategoriaTO> getConsumoTarifasCategoria() {
 		return consumoTarifasCategoria;
 	}
@@ -99,34 +120,66 @@ public class ConsumoImovelCategoriaTO {
 		this.consumoTarifasCategoria = consumoTarifasCategoria;
 	}
 
-	public Integer getQtdDiasConsumoTarifa() {
-		return qtdDiasConsumoTarifa;
-	}
-	
-	public void setQtdDiasConsumoTarifa(Integer qtdDiasConsumoTarifa) {
-		this.qtdDiasConsumoTarifa = qtdDiasConsumoTarifa;
-	}
-	
-	public BigDecimal getValorConsumo() {
-		if (this.valorConsumo == null) {
-			calcularValorConsumo();
+	public BigDecimal getValorConsumoTotal() {
+		valorConsumo = BigDecimal.ZERO;
+		
+		//TODO pegar o menor valor de consumo minimo das tarifas
+		BigDecimal valorConsumoMinimo = consumoTarifasCategoria.get(0).getValorConsumoMinimo();
+		
+		calcularDiasProporcionaisPorTarifa();
+		
+		for (TabelaTarifas tarifas : tabelaTarifas) {
+			valorConsumo = valorConsumo.add(tarifas.getValorConsumoTotal(qtdEconomias, valorConsumoMinimo)); 
+			valorConsumo = valorConsumo.multiply(tarifas.getPercentualDiasProporcionais(getQtdDiasConsumoTarifa()))
+												.setScale(2, RoundingMode.HALF_DOWN); 
 		}
-		return valorConsumo.multiply(new BigDecimal(this.qtdEconomias)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		
+		return valorConsumo; 
 	}
 
-	private void calcularValorConsumo() {
-		ConsumoTarifaCategoriaTO consumoTO = consumoTarifasCategoria.get(0);
+	//TODO Criar testes
+	private void calcularDiasProporcionaisPorTarifa() {
+		DateTime dataLeituraAnterior = new DateTime(this.dataInicio);
+		DateTime dataAtual = new DateTime(this.dataFim);
 
-		addValorConsumo(consumoTO.getValorConsumoMinimo());
-		consumoPorFaixa.forEach((consumoTarifaFaixaTO, consumo) -> {
-			addValorConsumo(consumoTarifaFaixaTO.getValorConsumoTarifa().multiply(new BigDecimal(consumo)));
-		});
+		Collections.sort(tabelaTarifas, (o1, o2) -> o1.compareTo(o2));
+		
+		tabelaTarifas = getTabelaTarifasQtdDiasProporcionaisCalculado(dataLeituraAnterior, dataAtual);
 	}
 
-	private void addValorConsumo(BigDecimal valorConsumo) {
-		if (this.valorConsumo == null) {
-			this.valorConsumo = BigDecimal.ZERO;
+	private List<TabelaTarifas> getTabelaTarifasQtdDiasProporcionaisCalculado(DateTime dataLeituraAnterior, DateTime dataAtual) {
+		
+		DateTime dataVigenciaAnterior = null;
+		TabelaTarifas tabelaAnterior = null;
+		List<TabelaTarifas> tabelaTarifasAtualizada = new ArrayList<TabelaTarifas>();
+
+		for (TabelaTarifas tabela : tabelaTarifas) {
+			DateTime dataVigencia = new DateTime(tabela.getDataVigencia());
+			
+			if(dataVigenciaAnterior != null) {
+				int qtdDiasProporcionais = getQtdDiasProporcionais(dataLeituraAnterior, dataVigenciaAnterior, dataVigencia);
+				tabelaAnterior.setQtdDiasProporcionais(qtdDiasProporcionais);
+				tabelaTarifasAtualizada.add(tabelaAnterior);
+			}
+			
+			dataVigenciaAnterior = dataVigencia;
+			tabelaAnterior = tabela;
 		}
-		this.valorConsumo = this.valorConsumo.add(valorConsumo);
+		
+		int qtdDiasProporcionais = getQtdDiasProporcionais(dataLeituraAnterior, dataVigenciaAnterior, dataAtual);
+		tabelaAnterior.setQtdDiasProporcionais(qtdDiasProporcionais);
+		tabelaTarifasAtualizada.add(tabelaAnterior);
+		
+		return tabelaTarifasAtualizada;
+	}
+
+	private int getQtdDiasProporcionais(DateTime dataLeituraAnterior, DateTime dataVigenciaAnterior, DateTime dataVigencia) {
+		DateTime dataInicio = dataVigenciaAnterior;
+		
+		if(dataVigenciaAnterior.isBefore(dataLeituraAnterior)) {
+			dataInicio = dataLeituraAnterior;
+		}
+		
+		return Days.daysBetween(dataInicio, dataVigencia).getDays();
 	}
 }

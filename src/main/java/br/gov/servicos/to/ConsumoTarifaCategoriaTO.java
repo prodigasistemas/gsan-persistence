@@ -15,7 +15,7 @@ public class ConsumoTarifaCategoriaTO implements Serializable{
 	private Integer id;
 	private ConsumoTarifa consumoTarifa;
 	private Categoria categoria;
-	private ConsumoTarifaVigencia consumotarifaVigencia;
+	private ConsumoTarifaVigencia consumoTarifaVigencia;
 	private Integer consumoMinimo;
 	private BigDecimal valorTarifaMinima;
 	
@@ -27,7 +27,7 @@ public class ConsumoTarifaCategoriaTO implements Serializable{
 		this.id = consumoTarifaCategoria.getId();
 		this.consumoTarifa = consumoTarifaCategoria.getConsumoTarifaVigencia().getConsumoTarifa();
 		this.categoria = consumoTarifaCategoria.getCategoria();
-		this.consumotarifaVigencia = consumoTarifaCategoria.getConsumoTarifaVigencia();
+		this.consumoTarifaVigencia = consumoTarifaCategoria.getConsumoTarifaVigencia();
 		this.consumoMinimo = consumoTarifaCategoria.getNumeroConsumoMinimo();
 		this.valorTarifaMinima = consumoTarifaCategoria.getValorTarifaMinima();
 	}
@@ -52,11 +52,11 @@ public class ConsumoTarifaCategoriaTO implements Serializable{
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	public ConsumoTarifaVigencia getConsumotarifaVigencia() {
-		return consumotarifaVigencia;
+	public ConsumoTarifaVigencia getConsumoTarifaVigencia() {
+		return consumoTarifaVigencia;
 	}
 	public void setConsumotarifaVigencia(ConsumoTarifaVigencia consumotarifaVigencia) {
-		this.consumotarifaVigencia = consumotarifaVigencia;
+		this.consumoTarifaVigencia = consumotarifaVigencia;
 	}
 	public Integer getConsumoMinimo() {
 		return consumoMinimo;
