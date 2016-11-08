@@ -17,13 +17,13 @@ public class ConsumoImovelCategoriaTO {
 	private Integer qtdEconomias;
 	private Integer consumoEconomiaCategoria;
 	private Integer consumoExcedenteCategoria;
-	private List<TabelaTarifasTO> tabelaTarifas;
+	private List<TarifasVigenciaTO> tabelaTarifas;
 	private List<ConsumoTarifaCategoriaTO> consumoTarifasCategoria;
 	private Date dataInicio;
 	private Date dataFim;
 
 	public ConsumoImovelCategoriaTO() {
-		tabelaTarifas = new ArrayList<TabelaTarifasTO>();
+		tabelaTarifas = new ArrayList<TarifasVigenciaTO>();
 	}
 
 	public Imovel getImovel() {
@@ -70,16 +70,16 @@ public class ConsumoImovelCategoriaTO {
 		return imovel.getIdConsumoTarifa();
 	}
 	
-	public List<TabelaTarifasTO> getTabelaTarifas() {
+	public List<TarifasVigenciaTO> getTabelaTarifas() {
 		return tabelaTarifas;
 	}
 	
-	public void setTabelaTarifas(List<TabelaTarifasTO> tabelaTarifas) {
+	public void setTabelaTarifas(List<TarifasVigenciaTO> tabelaTarifas) {
 		this.tabelaTarifas = tabelaTarifas;
 	}
 	
 	public void addTabelaTarifas(Date dataVigencia, List<ConsumoTarifaFaixaTO> faixas) {
-		this.tabelaTarifas.add(new TabelaTarifasTO(dataVigencia, faixas));
+		this.tabelaTarifas.add(new TarifasVigenciaTO(dataVigencia, faixas));
 	}
 	
 	public Date getDataAnterior() {

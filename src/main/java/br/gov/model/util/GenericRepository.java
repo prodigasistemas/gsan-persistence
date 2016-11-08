@@ -11,7 +11,8 @@ public class GenericRepository<PK, T> {
     @PersistenceContext
 	protected EntityManager entity;
  
-    public T obterPorID(PK pk) {
+    @SuppressWarnings("unchecked")
+	public T obterPorID(PK pk) {
         return (T) entity.find(getTypeClass(), pk);
     }
  
@@ -27,7 +28,8 @@ public class GenericRepository<PK, T> {
         entity.remove(obterPorID(pk));
     }
  
-    public List<T> obterLista() {
+    @SuppressWarnings("unchecked")
+	public List<T> obterLista() {
         return entity.createQuery(("FROM " + getTypeClass().getName()))
                 .getResultList();
     }

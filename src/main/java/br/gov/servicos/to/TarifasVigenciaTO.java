@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.joda.time.DateTime;
 
-public class TabelaTarifasTO implements Serializable, Comparable<TabelaTarifasTO>{
+public class TarifasVigenciaTO implements Serializable, Comparable<TarifasVigenciaTO>{
 
 	private static final long serialVersionUID = 6165453631973405245L;
 	
@@ -20,11 +20,11 @@ public class TabelaTarifasTO implements Serializable, Comparable<TabelaTarifasTO
 	private BigDecimal valorConsumoTotal;
 	private int qtdDiasProporcionais;
 	
-	public TabelaTarifasTO(){
+	public TarifasVigenciaTO(){
 		faixas = new ArrayList<ConsumoTarifaFaixaTO>();
 	}
 	
-	public TabelaTarifasTO(Date dataVigencia, List<ConsumoTarifaFaixaTO> faixas) {
+	public TarifasVigenciaTO(Date dataVigencia, List<ConsumoTarifaFaixaTO> faixas) {
 		this.dataVigencia = dataVigencia;
 		this.faixas = faixas;
 	}
@@ -79,7 +79,7 @@ public class TabelaTarifasTO implements Serializable, Comparable<TabelaTarifasTO
 		return this.valorConsumoTotal;
 	}
 	
-	public void calcularValorConsumoTotal(int qtdEconomias, BigDecimal valorConsumoMinimo) {
+	private void calcularValorConsumoTotal(int qtdEconomias, BigDecimal valorConsumoMinimo) {
 		try {
 			addValorConsumoTotal(valorConsumoMinimo);
 			consumoPorFaixa.forEach((consumoTarifaFaixaTO, consumo) -> {
@@ -101,9 +101,9 @@ public class TabelaTarifasTO implements Serializable, Comparable<TabelaTarifasTO
 		this.valorConsumoTotal = this.valorConsumoTotal.add(valorConsumo);
 	}
 	
-	public int compareTo(TabelaTarifasTO obj) {
+	public int compareTo(TarifasVigenciaTO obj) {
 
-		DateTime dataVigenciaObj = new DateTime(((TabelaTarifasTO) obj).getDataVigencia());
+		DateTime dataVigenciaObj = new DateTime(((TarifasVigenciaTO) obj).getDataVigencia());
 		DateTime dataVigencia = new DateTime(this.dataVigencia);
 
 		if(dataVigencia.isBefore(dataVigenciaObj)) {
