@@ -24,7 +24,7 @@ public class ContratoEnergiaRepositorio extends GenericRepository<Integer, Contr
 
 	public ContratoEnergia obterContrato(Integer codigo) throws Exception {
 		ContratoEnergia contrato = entity
-		        .createQuery("select c1 from ContratoEnergia c1 where cene_id = " + codigo, ContratoEnergia.class)
+		        .createQuery("select c1 from ContratoEnergia c1 where codigo = " + codigo, ContratoEnergia.class)
 		        .getSingleResult();
 		
 		for(int i = 0; i < contrato.getDemandas().size(); i++){
@@ -38,7 +38,7 @@ public class ContratoEnergiaRepositorio extends GenericRepository<Integer, Contr
 	    StringBuilder sql = new StringBuilder();
 	    sql.append("select c from ContratoEnergia c ")
 	    .append(" where ucon_id = :codigo")
-	    .append(" order by c.dataInicial");
+	    .append(" order by c.vigenciaInicial");
 	    
 	    try {
 	        return entity.createQuery(sql.toString(), ContratoEnergia.class)

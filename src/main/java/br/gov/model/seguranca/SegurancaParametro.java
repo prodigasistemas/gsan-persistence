@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import br.gov.model.exception.BaseRuntimeException;
 import br.gov.model.exception.ParametroCaminhoArquivosIndefinido;
+import br.gov.model.exception.ParametroUrlSegurancaIndefinido;
 
 @Entity
 @Table(name = "parametro", schema = "seguranca")
@@ -32,7 +33,8 @@ public class SegurancaParametro implements Serializable {
 	private String valor;
 
 	public enum NOME_PARAMETRO_SEGURANCA {
-		CAMINHO_ARQUIVOS(new ParametroCaminhoArquivosIndefinido());
+		CAMINHO_ARQUIVOS(new ParametroCaminhoArquivosIndefinido()),
+		URL_SEGURANCA(new ParametroUrlSegurancaIndefinido());
 
 		BaseRuntimeException exception = null;
 
