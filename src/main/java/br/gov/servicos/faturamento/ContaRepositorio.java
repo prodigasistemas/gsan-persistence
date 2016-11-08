@@ -288,4 +288,67 @@ public class ContaRepositorio extends GenericRepository<Integer, Conta>{
                 .setParameter("situacao", DebitoCreditoSituacao.PRE_FATURADA.getId())
                 .getResultList();	    
 	}
+
+	public boolean possuiFaturamento(Integer idImovel, Integer anoMesReferencia) {
+		Integer[] idsDebitoCreditoSituacao = new Integer[]{DebitoCreditoSituacao.NORMAL.getId(), 
+														   DebitoCreditoSituacao.RETIFICADA.getId(), 
+														   DebitoCreditoSituacao.INCLUIDA.getId()};
+		
+		return possuiContaPorSituacao(idImovel, anoMesReferencia, idsDebitoCreditoSituacao);		
+	}
+	
+	public boolean possuiCancelamento(Integer idImovel, Integer anoMesReferencia) {
+		Integer[] idsDebitoCreditoSituacao = new Integer[]{DebitoCreditoSituacao.CANCELADA.getId(), 
+														   DebitoCreditoSituacao.CANCELADA_POR_RETIFICACAO.getId()};
+		
+		return possuiContaPorSituacao(idImovel, anoMesReferencia, idsDebitoCreditoSituacao);		
+	}
+	
+	public boolean possuiContaPorSituacao(Integer idImovel, Integer anoMesReferencia, Integer[] idsDebitoCreditoSituacao) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT count(conta) ")
+		   .append("FROM Conta AS conta ")
+		   .append("WHERE conta.referencia = :anoMesReferencia ")
+		   .append("AND imovel.id = idImovel ")
+		   .append("AND debitoCreditoSituacaoAtual IN (:idsDebitoCreditoSituacoes) ");
+		
+		Integer qtdContas = entity.createQuery(sql.toString(), Integer.class)
+									.setParameter("anoMesReferencia", anoMesReferencia)
+									.setParameter("idImovel", idImovel)
+									.setParameter("idsDebitoCreditoSituacoes", idsDebitoCreditoSituacao)
+									.setMaxResults(1)
+									.getSingleResult().intValue();
+		
+		return qtdContas > 0;
+	}
+	
+	public Integer buscarConsumoAgua(Integer idImovel, Integer anoMesReferencia, Integer idLigacaoAguaSituacao) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append("SELECT conta.consumoAgua ")
+		   .append("FROM Conta conta ")
+		   .append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")
+		   .append("WHERE imovel.id = :idImovel ")
+		   .append("AND ligacaoAguaSituacao.id = :idLigacaoAguaSituacao ")
+		   .append("AND conta.referenciaContabil = :anoMesReferencia ")
+		   .append("UNION ")
+		   .append("SELECT contaHistorico.consumoAgua ")
+		   .append("FROM ContaHistorico contaHistorico ")
+		   .append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")
+		   .append("WHERE imovel.id = :idImovel ")
+		   .append("AND ligacaoAguaSituacao.id = :idLigacaoAguaSituacao ")
+		   .append("AND conta.referenciaContabil = :anoMesReferencia ");
+		
+		try {
+			return entity.createQuery(sql.toString(), Integer.class)
+					.setParameter("idImovel", idImovel)
+					.setParameter("idLigacaoAguaSituacao", idLigacaoAguaSituacao)
+					.setParameter("anoMesReferencia", anoMesReferencia)
+					.setMaxResults(1)
+					.getSingleResult();
+			
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }

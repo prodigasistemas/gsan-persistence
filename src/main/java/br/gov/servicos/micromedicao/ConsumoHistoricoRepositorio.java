@@ -91,7 +91,25 @@ public class ConsumoHistoricoRepositorio {
 		}
 	}
 	
-	public StringBuilder consultaAnormalidade(){
+	public ConsumoHistorico buscarConsumoHistoricoPeloImoveEReferencia(Integer idImovel, Integer referencia) {
+		StringBuilder sql = new StringBuilder(); 
+		
+		sql.append("SELECT consumoHistorico ");
+		sql.append("FROM ConsumoHistorico consumoHistorico ");
+		sql.append("WHERE consumoHistorico.imovel.id = :idImovel ");
+		sql.append("AND consumoHistorico.ligacaoTipo = :tipoLigacao ");
+		sql.append("AND consumoHistorico.referenciaFaturamento = :referencia");
+
+		ConsumoHistorico resultado = entity.createQuery(sql.toString(), ConsumoHistorico.class)
+				.setParameter("idImovel", idImovel)
+				.setParameter("tipoLigacao", LigacaoTipo.AGUA.getId())
+				.setParameter("referencia", referencia)
+				.getSingleResult();
+
+		return resultado;
+	}
+	
+	private StringBuilder consultaAnormalidade(){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select new br.gov.servicos.to.AnormalidadeHistoricoConsumoTO(ch.id, ca.id, ch.ligacaoTipo,  ch.referenciaFaturamento) ")
 		.append(" from ConsumoHistorico ch ")

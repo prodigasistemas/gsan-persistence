@@ -13,6 +13,7 @@ public class LigacaoAguaSituacao implements Serializable {
 	private static final long serialVersionUID = -4942264231639799945L;
 	
 	public static Integer POTENCIAL = Integer.valueOf(1);
+	public static Integer FACTIVEL = Integer.valueOf(2);
 	public static Integer LIGADO    = Integer.valueOf(3);
 	public static Integer CORTADO = Integer.valueOf(5);
 	public static Integer SUPRIMIDO = Integer.valueOf(6);
