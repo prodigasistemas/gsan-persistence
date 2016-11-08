@@ -54,7 +54,15 @@ public class ConsumoTarifaCategoriaRepositorio {
 		}
 	}
 	
-	public Integer consumoMinimoTarifaCategoria(Integer idCategoria, Integer idVigencia){
+	public Integer consumoMinimoTarifaCategoriaESubcategoria(Integer idCategoria, Integer idSubCategoria, Integer idVigencia) {
+		return consumoMinimoTarifaCategoriaESubCategoria(idCategoria, idSubCategoria, idVigencia);
+	}
+	
+	public Integer consumoMinimoTarifaCategoria(Integer idCategoria, Integer idVigencia) {
+		return consumoMinimoTarifaCategoriaESubCategoria(idCategoria, 0, idVigencia);
+	}
+	
+	public Integer consumoMinimoTarifaCategoriaESubCategoria(Integer idCategoria, Integer idSubCategoria, Integer idVigencia){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ctca.numeroConsumoMinimo ")
 			.append(" from ConsumoTarifaCategoria ctca ")
@@ -67,7 +75,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 			return entity.createQuery(sql.toString(), Integer.class)
 			.setParameter("idVigencia", idVigencia)
 			.setParameter("idCategoria", idCategoria)
-			.setParameter("subCategoria", 0) //TODO: COLOCAR COMO PARAMETRO
+			.setParameter("subCategoria", idSubCategoria)
 			.setMaxResults(1)
 			.getSingleResult();
 		} catch (NoResultException e) {
@@ -92,8 +100,16 @@ public class ConsumoTarifaCategoriaRepositorio {
 			return null;
 		}
 	}
-
+	
 	public BigDecimal valorMinimoTarifaCategoria(Integer idCategoria, Integer idVigencia){
+		return valorMinimoTarifaCategoriaESubCategoria(idCategoria, 0, idVigencia);
+	}
+	
+	public BigDecimal valorMinimoTarifaCategoriaESubCategoria(Integer idCategoria, Integer idSubCategoria, Integer idVigencia){
+		return valorMinimoTarifaCategoriaESubCategoria(idCategoria, idSubCategoria, idVigencia);
+	}
+
+	public BigDecimal valorMinimoTarifaCategoria(Integer idCategoria, Integer idSubCategoria, Integer idVigencia){
 		StringBuilder sql = new StringBuilder();
 		sql.append("select ctca.valorTarifaMinima ")
 			.append(" from ConsumoTarifaCategoria ctca ")
@@ -106,7 +122,7 @@ public class ConsumoTarifaCategoriaRepositorio {
 			return entity.createQuery(sql.toString(), BigDecimal.class)
 			.setParameter("idVigencia", idVigencia)
 			.setParameter("idCategoria", idCategoria)
-			.setParameter("subCategoria", 0) //TODO: COLOCAR COMO PARAMETRO
+			.setParameter("subCategoria", idSubCategoria)
 			.setMaxResults(1)
 			.getSingleResult();
 		} catch (NoResultException e) {

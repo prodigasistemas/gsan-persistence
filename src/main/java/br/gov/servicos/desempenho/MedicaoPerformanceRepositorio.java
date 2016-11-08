@@ -1,7 +1,5 @@
 package br.gov.servicos.desempenho;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,8 +12,4 @@ public class MedicaoPerformanceRepositorio extends GenericRepository<Integer, Me
 
 	@PersistenceContext
 	private EntityManager entity;
-	
-	public void incluir(List<MedicaoPerformance> medicaoPerformances) {
-		medicaoPerformances.forEach(mp -> salvar(mp));
-	}
 }

@@ -14,7 +14,7 @@ public class DebitoCreditoSituacaoRepositorio extends GenericRepository<Integer,
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public Integer buscarDebitoCreditoSituacaoId(Integer imovelId, Integer anoMesReferencia) {
+	public Integer buscarDebitoCreditoSituacaoId(Integer idImovel, Integer anoMesReferencia) {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append("SELECT conta.debitoCreditoSituacaoAtual ")
@@ -31,7 +31,7 @@ public class DebitoCreditoSituacaoRepositorio extends GenericRepository<Integer,
 		
 		try {
 			return entity.createQuery(sql.toString(), Integer.class)
-					.setParameter("idImovel", imovelId)
+					.setParameter("idImovel", idImovel)
 					.setParameter("anoMesReferencia", anoMesReferencia)
 					.setMaxResults(1)
 					.getSingleResult();
