@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -35,15 +36,15 @@ public class ContratoMedicaoAbrangencia implements Serializable{
 	private Date ultimaAlteracao;
 	
 	@ManyToOne
-	@Column(name="cmed_id")
+	@JoinColumn(name="cmed_id")
 	private ContratoMedicao contratoMedicao;
 	
 	@ManyToOne
-	@Column(name="imov_id")
+	@JoinColumn(name="imov_id")
 	private Imovel imovel;
 	
 	@ManyToOne
-	@Column(name="last_id")
+	@JoinColumn(name="last_id")
 	private LigacaoAguaSituacao ligacaoAguaSituacao;
 	
 	@Column(name="cmab_pcesgoto")
