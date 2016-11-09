@@ -30,7 +30,7 @@ public class ContratoMedicaoAbrangencia implements Serializable{
 	private Integer id;
 	
 	@Column(name="cmab_tmcriacao")
-	private Date dataCricao;
+	private Date dataCriacao;
 	
 	@Column(name="cmab_tmultimaalteracao")
 	private Date ultimaAlteracao;
@@ -58,12 +58,12 @@ public class ContratoMedicaoAbrangencia implements Serializable{
 		this.id = id;
 	}
 
-	public Date getDataCricao() {
-		return dataCricao;
+	public Date getDataCriacao() {
+		return dataCriacao;
 	}
 
-	public void setDataCricao(Date dataCricao) {
-		this.dataCricao = dataCricao;
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 
 	public Date getUltimaAlteracao() {
