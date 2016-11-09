@@ -22,8 +22,7 @@ public class DebitoCreditoSituacaoRepositorio extends GenericRepository<Integer,
 		try {
 			sql.append("SELECT conta.debitoCreditoSituacaoAtual ")
 				.append("FROM Conta conta ")
-				.append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")
-				.append("WHERE imovel.id = :idImovel ")
+				.append("WHERE conta.imovel.id = :idImovel ")
 				.append("AND conta.referenciaContabil = :anoMesReferencia ");
 		   
 			situacao = entity.createQuery(sql.toString(), Integer.class)
@@ -37,9 +36,8 @@ public class DebitoCreditoSituacaoRepositorio extends GenericRepository<Integer,
 				sql = new StringBuilder();
 				sql.append("SELECT contaHistorico.debitoCreditoSituacaoAtual ")
 				.append("FROM ContaHistorico contaHistorico ")
-				.append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")
-				.append("WHERE imovel.id = :idImovel ")
-				.append("AND conta.referenciaContabil = :anoMesReferencia ");
+				.append("WHERE contaHistorico.imovel.id = :idImovel ")
+				.append("AND contaHistorico.referenciaContabil = :anoMesReferencia ");
 				
 				situacao = entity.createQuery(sql.toString(), Integer.class)
 									.setParameter("idImovel", idImovel)
