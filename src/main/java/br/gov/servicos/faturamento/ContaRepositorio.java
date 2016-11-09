@@ -308,9 +308,9 @@ public class ContaRepositorio extends GenericRepository<Integer, Conta>{
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT count(conta) ")
 		   .append("FROM Conta AS conta ")
-		   .append("WHERE conta.referencia = :anoMesReferencia ")
-		   .append("AND imovel.id = idImovel ")
-		   .append("AND debitoCreditoSituacaoAtual IN (:idsDebitoCreditoSituacoes) ");
+		   .append("WHERE conta.referenciaContabil = :anoMesReferencia ")
+		   .append("AND conta.imovel.id = idImovel ")
+		   .append("AND conta.debitoCreditoSituacaoAtual IN (:idsDebitoCreditoSituacoes) ");
 		
 		Integer qtdContas = entity.createQuery(sql.toString(), Integer.class)
 									.setParameter("anoMesReferencia", anoMesReferencia)

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TemporalType;
 
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.desempenho.ContratoMedicao;
@@ -76,7 +77,7 @@ public class ContratoMedicaoRepositorio {
 			
 		imoveisAbrangencia = entity.createQuery(sql.toString(), Imovel.class)
 								.setParameter("idContrato", idContrato)
-								.setParameter("dataInicioReferencia", dataInicioReferencia)
+								.setParameter("dataInicioReferencia", dataInicioReferencia, TemporalType.DATE)
 								.getResultList();
 		
 		List<Imovel> imoveisAbrangenciaHistorico = new ArrayList<Imovel>();
@@ -89,8 +90,8 @@ public class ContratoMedicaoRepositorio {
 		
 		imoveisAbrangenciaHistorico = entity.createQuery(sql.toString(), Imovel.class)
 										.setParameter("idContrato", idContrato)
-										.setParameter("dataInicioReferencia", dataInicioReferencia)
-										.setParameter("dataFimReferencia", dataFimReferencia)
+										.setParameter("dataInicioReferencia", dataInicioReferencia, TemporalType.DATE)
+										.setParameter("dataFimReferencia", dataFimReferencia, TemporalType.DATE)
 										.getResultList();
 		
 		imoveisAbrangencia.addAll(imoveisAbrangenciaHistorico);
