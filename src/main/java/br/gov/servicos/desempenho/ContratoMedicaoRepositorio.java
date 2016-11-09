@@ -69,16 +69,14 @@ public class ContratoMedicaoRepositorio {
 		
 		sql.append("SELECT abrangencia.imovel from ContratoMedicaoAbrangencia abrangencia ")
 			.append(" INNER JOIN abrangencia.contratoMedicao contrato ")
-			.append(" INNER JOIN FETCH abrangencia.imovel imovel ")
 			.append(" WHERE contrato.id = :idContrato ")
-			.append(" AND abrangencia.dataCriacao >= :dataInicioReferencia ")
-			.append(" UNION ")
+			.append(" AND abrangencia.dataCriacao <= :dataInicioReferencia ")
+			.append("UNION ")
 			.append("SELECT historico.imovel from ContratoMedicaoAbrangenciaHistorico historico ")
 			.append(" INNER JOIN historico.contratoMedicao contrato ")
-			.append(" INNER JOIN FETCH historico.imovel imovel ")
 			.append(" WHERE contrato.id = :idContrato ")
-			.append(" AND historico.dataCriacaoAbrangencia >= :dataInicioReferencia ")
-			.append(" AND historico.dataRemocaoAbrangencia < :dataFimReferencia ");
+			.append(" AND historico.dataCriacaoAbrangencia <= :dataInicioReferencia ")
+			.append(" AND historico.dataRemocaoAbrangencia > :dataFimReferencia ");
 		
 		return entity.createQuery(sql.toString(), Imovel.class)
 				.setParameter("idContrato", idContrato)
