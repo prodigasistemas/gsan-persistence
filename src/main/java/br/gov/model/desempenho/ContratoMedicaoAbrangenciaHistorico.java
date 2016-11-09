@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.cadastro.Imovel;
 
@@ -27,10 +29,12 @@ public class ContratoMedicaoAbrangenciaHistorico implements Serializable{
 	@Column(name="cmah_id")
 	private Integer id;
 	
-	@Column(name="cmab_tmcriacao")
+	@Column(name="cmab_tmcriacao", columnDefinition="DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacaoAbrangencia;
 	
-	@Column(name="cmab_remocao")
+	@Column(name="cmab_tmremocao", columnDefinition="DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataRemocaoAbrangencia;
 	
 	@ManyToOne
