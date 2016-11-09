@@ -68,13 +68,13 @@ public class ContratoMedicaoRepositorio {
 		Date dataFimReferencia = Utilitarios.converteParaDataComUltimoDiaMes(anoMesReferencia);
 		
 		sql.append("SELECT abrangencia.imovel from ContratoMedicaoAbrangencia abrangencia ")
-			.append(" INNER JOIN FETCH abrangencia.contratoMedicao contrato ")
+			.append(" INNER JOIN abrangencia.contratoMedicao contrato ")
 			.append(" INNER JOIN FETCH abrangencia.imovel imovel ")
 			.append(" WHERE contrato.id = :idContrato ")
 			.append(" AND abrangencia.dataCriacao >= :dataInicioReferencia ")
 			.append(" UNION ")
 			.append("SELECT historico.imovel from ContratoMedicaoAbrangenciaHistorico historico ")
-			.append(" INNER JOIN FETCH historico.contratoMedicao contrato ")
+			.append(" INNER JOIN historico.contratoMedicao contrato ")
 			.append(" INNER JOIN FETCH historico.imovel imovel ")
 			.append(" WHERE contrato.id = :idContrato ")
 			.append(" AND historico.dataCriacaoAbrangencia >= :dataInicioReferencia ")
