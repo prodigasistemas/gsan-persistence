@@ -328,9 +328,8 @@ public class ContaRepositorio extends GenericRepository<Integer, Conta>{
 		try {
 			sql.append("SELECT conta.consumoAgua ")
 			   .append("FROM Conta conta ")
-			   .append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")
-			   .append("WHERE imovel.id = :idImovel ")
-			   .append("AND ligacaoAguaSituacao.id = :idLigacaoAguaSituacao ")
+			   .append("WHERE conta.imovel.id = :idImovel ")
+			   .append("AND conta.ligacaoAguaSituacao.id = :idLigacaoAguaSituacao ")
 			   .append("AND conta.referenciaContabil = :anoMesReferencia ");
 			
 			return entity.createQuery(sql.toString(), Integer.class)
@@ -345,10 +344,9 @@ public class ContaRepositorio extends GenericRepository<Integer, Conta>{
 				sql = new StringBuilder();
 				sql.append("SELECT contaHistorico.consumoAgua ")
 				.append("FROM ContaHistorico contaHistorico ")
-				.append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")
-				.append("WHERE imovel.id = :idImovel ")
-				.append("AND ligacaoAguaSituacao.id = :idLigacaoAguaSituacao ")
-				.append("AND conta.referenciaContabil = :anoMesReferencia ");
+				.append("WHERE contaHistorico.imovel.id = :idImovel ")
+				.append("AND contaHistorico.ligacaoAguaSituacao.id = :idLigacaoAguaSituacao ")
+				.append("AND contaHistorico.referenciaContabil = :anoMesReferencia ");
 				
 				return entity.createQuery(sql.toString(), Integer.class)
 						.setParameter("idImovel", idImovel)

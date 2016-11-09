@@ -20,10 +20,9 @@ public class LigacaoAguaSituacaoRepositorio extends GenericRepository<Integer, L
 		LigacaoAguaSituacao situacaoConta = null;
 		
 		try {
-			sql.append("SELECT ligacaoAguaSituacao ")
+			sql.append("SELECT conta.ligacaoAguaSituacao ")
 				.append("FROM Conta conta ")
-				.append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")
-				.append("WHERE imovel.id = :idImovel ")
+				.append("WHERE conta.imovel.id = :idImovel ")
 				.append("AND conta.referenciaContabil = :anoMesReferencia ");
 		   
 			situacaoConta = entity.createQuery(sql.toString(), LigacaoAguaSituacao.class)
@@ -35,11 +34,10 @@ public class LigacaoAguaSituacaoRepositorio extends GenericRepository<Integer, L
 		} catch (NoResultException e) {
 			try{
 				sql = new StringBuilder();
-				sql.append("SELECT ligacaoAguaSituacao ")
+				sql.append("SELECT contaHistorico.ligacaoAguaSituacao ")
 				.append("FROM ContaHistorico contaHistorico ")
-				.append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")
-				.append("WHERE imovel.id = :idImovel ")
-				.append("AND conta.referenciaContabil = :anoMesReferencia ");
+				.append("WHERE contaHistorico.imovel.id = :idImovel ")
+				.append("AND contaHistorico.referenciaContabil = :anoMesReferencia ");
 				
 				situacaoConta = entity.createQuery(sql.toString(), LigacaoAguaSituacao.class)
 						.setParameter("idImovel", imovelId)
