@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.gov.model.cadastro.Empresa;
 
@@ -33,13 +35,16 @@ public class ContratoMedicao implements Serializable{
 	@Column(name="cmed_vigencia_inicial")
 	private Date vigenciaInicial;
 	
-	@Column(name="cmed_vigencia_final")
+	@Column(name="cmed_vigencia_final", columnDefinition="DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date vigenciaFinal;
 	
-	@Column(name="cmed_data_assinatura")
+	@Column(name="cmed_data_assinatura", columnDefinition="DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAssinatura;
 	
-	@Column(name="cmed_tmultimaalteracao")
+	@Column(name="cmed_tmultimaalteracao", columnDefinition="DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimaAlteracao;
 	
 	@ManyToOne
