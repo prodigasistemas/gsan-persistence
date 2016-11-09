@@ -36,7 +36,7 @@ public class ContratoMedicaoRepositorio {
 	public ContratoMedicao buscarContratoAtivoPorImovel(Integer idImovel) {
 		StringBuilder sql = new StringBuilder();
 			sql.append("SELECT contrato from ContratoMedicaoAbrangencia abrangencia ")
-				.append(" INNER FETCH JOIN abrangencia.contratoMedicao contrato ")
+				.append(" INNER JOIN FETCH abrangencia.contratoMedicao contrato ")
 				.append(" WHERE abrangencia.imovel.id = :idImovel ")
 				.append(" AND contrato.vigenciaFinal <= :dataAtual");
 			
@@ -50,7 +50,7 @@ public class ContratoMedicaoRepositorio {
 	public ContratoMedicao buscarAtivoPorEmpresa(Integer idEmpresa) {
 		StringBuilder sql = new StringBuilder();
 			sql.append("SELECT contrato from ContratoMedicao contrato")
-				.append(" INNER FETCH JOIN contrato.empresa empresa ")
+				.append(" INNER JOIN FETCH contrato.empresa empresa ")
 				.append(" WHERE contrato.empresa.id = :idEmpresa ")
 				.append(" AND contrato.vigenciaFinal <= :dataAtual");
 			
@@ -68,14 +68,14 @@ public class ContratoMedicaoRepositorio {
 		Date dataFimReferencia = Utilitarios.converteParaDataComUltimoDiaMes(anoMesReferencia);
 		
 		sql.append("SELECT abrangencia.imovel from ContratoMedicaoAbrangencia abrangencia ")
-			.append(" INNER FETCH JOIN abrangencia.contratoMedicao contrato ")
-			.append(" INNER FETCH JOIN abrangencia.imovel imovel ")
+			.append(" INNER JOIN FETCH abrangencia.contratoMedicao contrato ")
+			.append(" INNER JOIN FETCH abrangencia.imovel imovel ")
 			.append(" WHERE contrato.id = :idContrato ")
 			.append(" AND abrangencia.dataCriacao >= :dataInicioReferencia ")
 			.append(" UNION ")
 			.append("SELECT historico.imovel from ContratoMedicaoAbrangenciaHistorico historico ")
-			.append(" INNER FETCH JOIN historico.contratoMedicao contrato ")
-			.append(" INNER FETCH JOIN historico.imovel imovel ")
+			.append(" INNER JOIN FETCH historico.contratoMedicao contrato ")
+			.append(" INNER JOIN FETCH historico.imovel imovel ")
 			.append(" WHERE contrato.id = :idContrato ")
 			.append(" AND historico.dataCriacaoAbrangencia >= :dataInicioReferencia ")
 			.append(" AND historico.dataRemocaoAbrangencia < :dataFimReferencia ");
