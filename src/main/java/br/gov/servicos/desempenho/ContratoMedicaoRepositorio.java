@@ -18,14 +18,17 @@ public class ContratoMedicaoRepositorio {
 	private EntityManager entity;
 	
 	public List<ContratoMedicao> buscarContratosMedicaoPorReferencia(Integer anoMesReferencia) {
+		Date dataInicioReferencia = Utilitarios.converteParaDataComPrimeiroDiaMes(anoMesReferencia);
 		Date dataFimReferencia = Utilitarios.converteParaDataComUltimoDiaMes(anoMesReferencia);
 		
 		StringBuilder sql = new StringBuilder();
 			sql.append("SELECT contrato from ContratoMedicao contrato ")
-				.append(" WHERE contrato.vigenciaFinal <= :dataReferencia");
+				.append(" WHERE contrato.vigenciaInicial <= :dataInicioReferencia")
+				.append(" AND contrato.vigenciaFinal > :dataFimReferencia");
 			
 			return entity.createQuery(sql.toString(), ContratoMedicao.class)
-					.setParameter("dataReferencia", dataFimReferencia)
+					.setParameter("dataInicioReferencia", dataInicioReferencia)
+					.setParameter("dataFimReferencia", dataFimReferencia)
 					.getResultList();
 		
 	}
