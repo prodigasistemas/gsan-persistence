@@ -32,7 +32,8 @@ public class ContratoMedicao implements Serializable{
 	@Column(name="cmed_numero_contrato")
 	private String numeroContrato;
 	
-	@Column(name="cmed_vigencia_inicial")
+	@Column(name="cmed_vigencia_inicial", columnDefinition="DATETIME")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date vigenciaInicial;
 	
 	@Column(name="cmed_vigencia_final", columnDefinition="DATETIME")
@@ -43,8 +44,7 @@ public class ContratoMedicao implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAssinatura;
 	
-	@Column(name="cmed_tmultimaalteracao", columnDefinition="DATETIME")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="cmed_tmultimaalteracao")
 	private Date ultimaAlteracao;
 	
 	@ManyToOne
