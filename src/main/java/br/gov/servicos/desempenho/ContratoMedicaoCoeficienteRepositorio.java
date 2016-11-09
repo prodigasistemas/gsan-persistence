@@ -26,9 +26,9 @@ public class ContratoMedicaoCoeficienteRepositorio {
 	
 	public ContratoMedicaoCoeficiente buscarPorContratoELigacaoAguaSituacao(Integer idContrato, Integer idLigacaoAguaSituacao) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT coeficiente FROM ContratoMedicaoCoeficiente ")
-			.append("WHERE coeficiente.contratoMedicao.id = :idContrato ")
-			.append("AND coeficiente.ligacaoAguaSituacao.id = :idLigacaoAguaSituacao ");
+		sql.append("SELECT c FROM ContratoMedicaoCoeficiente c ")
+			.append("WHERE c.contratoMedicao.id = :idContrato ")
+			.append("AND c.ligacaoAguaSituacao.id = :idLigacaoAguaSituacao ");
 		
 		return entity.createQuery(sql.toString(), ContratoMedicaoCoeficiente.class)
 					.setParameter("idContrato", idContrato)
