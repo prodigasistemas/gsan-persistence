@@ -23,10 +23,10 @@ public class ConsumoTarifaVigenciaRepositorio {
 
 	@Deprecated
 	public ConsumoTarifaVigenciaTO maiorDataVigenciaConsumoTarifa(Integer idTarifa) {
-		return buscarConsumoTarifaVigenciaAtual(idTarifa);
+		return buscarConsumoTarifaVigenciaAtualPelaTarifa(idTarifa);
 	}
 
-	public ConsumoTarifaVigenciaTO buscarConsumoTarifaVigenciaAtual(Integer idTarifa) {
+	public ConsumoTarifaVigenciaTO buscarConsumoTarifaVigenciaAtualPelaTarifa(Integer idTarifa) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select new br.gov.servicos.to.ConsumoTarifaVigenciaTO(vig.id, vig.dataVigencia) ")
 		   .append(" from ConsumoTarifaVigencia vig")
@@ -37,6 +37,24 @@ public class ConsumoTarifaVigenciaRepositorio {
 		try {
 			return entity.createQuery(sql.toString(), ConsumoTarifaVigenciaTO.class)
 					.setParameter("idTarifa", idTarifa)
+					.setParameter("dataAtual", Calendar.getInstance().getTime())
+					.setMaxResults(1).getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public ConsumoTarifaVigenciaTO buscarConsumoTarifaVigenciaAtualPelaVigencia(Integer idVigencia) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select new br.gov.servicos.to.ConsumoTarifaVigenciaTO(vig.id, vig.dataVigencia) ")
+		   .append(" from ConsumoTarifaVigencia vig")
+		   .append(" inner join vig.consumoTarifa ct ")
+		   .append(" where vig.id = :idVigencia ")
+		   .append(" and vig.dataVigencia <= :dataAtual");
+
+		try {
+			return entity.createQuery(sql.toString(), ConsumoTarifaVigenciaTO.class)
+					.setParameter("idVigencia", idVigencia)
 					.setParameter("dataAtual", Calendar.getInstance().getTime())
 					.setMaxResults(1).getSingleResult();
 		} catch (NoResultException e) {

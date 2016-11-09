@@ -148,12 +148,11 @@ public class ConsumoTarifaCategoriaRepositorio {
 		}
 	}
 	
-	public ConsumoTarifaCategoria buscarConsumoTarifaCategoriaVigente(Date dataFaturamento, Integer idConsumoTarifa, Integer idCategoria, Integer idSubcategoria) {
+	public ConsumoTarifaCategoria buscarConsumoTarifaCategoriaVigente(Date dataFaturamento, Integer idCategoria, Integer idSubcategoria) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT ctcg FROM ConsumoTarifaCategoria ctcg ")
-		.append("inner join ctcg.consumoTarifaVigencia ctv ")
+		.append("inner join fetch ctcg.consumoTarifaVigencia ctv ")
 		.append("WHERE ctv.dataVigencia = :dataFaturamento AND ")
-		.append("      ctv.consumoTarifa.id = :idConsumoTarifa AND ")
 		.append("      ctcg.categoria.id = :idCategoria AND ")
 		.append("      ctcg.subcategoria.id = :idSubcategoria ")
 		.append("order by ctv.dataVigencia DESC");
@@ -161,7 +160,6 @@ public class ConsumoTarifaCategoriaRepositorio {
 		try {
 			return entity.createQuery(sql.toString(), ConsumoTarifaCategoria.class)
 					.setParameter("dataFaturamento",dataFaturamento)
-					.setParameter("idConsumoTarifa", idConsumoTarifa)
 					.setParameter("idCategoria", idCategoria)
 					.setParameter("idSubcategoria", idSubcategoria)
 					.setMaxResults(1)

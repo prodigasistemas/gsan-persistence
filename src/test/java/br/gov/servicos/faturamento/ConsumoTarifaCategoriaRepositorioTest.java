@@ -40,7 +40,7 @@ public class ConsumoTarifaCategoriaRepositorioTest extends SingleDeployment {
 	public void pesquisarConsumoTarifaCategoriaVigente() {
 		Date dataFaturamento = Utilitarios.criarData(1, 1, 2015);
 		
-		assertNotNull(repositorio.buscarConsumoTarifaCategoriaVigente(dataFaturamento, 1, 1, 1));
+		assertNotNull(repositorio.buscarConsumoTarifaCategoriaVigente(dataFaturamento, 1, 1));
 	}
 	
 	@Test
