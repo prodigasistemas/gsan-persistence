@@ -16,28 +16,42 @@ public class DebitoCreditoSituacaoRepositorio extends GenericRepository<Integer,
 	
 	public Integer buscarDebitoCreditoSituacaoId(Integer idImovel, Integer anoMesReferencia) {
 		StringBuilder sql = new StringBuilder();
-		
-		sql.append("SELECT conta.debitoCreditoSituacaoAtual ")
-		   .append("FROM Conta conta ")
-		   .append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")
-		   .append("WHERE imovel.id = :idImovel ")
-		   .append("AND conta.referenciaContabil = :anoMesReferencia ")
-		   .append("UNION ")
-		   .append("SELECT contaHistorico.debitoCreditoSituacaoAtual ")
-		   .append("FROM ContaHistorico contaHistorico ")
-		   .append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")
-		   .append("WHERE imovel.id = :idImovel ")
-		   .append("AND conta.referenciaContabil = :anoMesReferencia ");
+
+		Integer situacao = null;
 		
 		try {
-			return entity.createQuery(sql.toString(), Integer.class)
-					.setParameter("idImovel", idImovel)
-					.setParameter("anoMesReferencia", anoMesReferencia)
-					.setMaxResults(1)
-					.getSingleResult();
-			
+			sql.append("SELECT conta.debitoCreditoSituacaoAtual ")
+				.append("FROM Conta conta ")
+				.append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")
+				.append("WHERE imovel.id = :idImovel ")
+				.append("AND conta.referenciaContabil = :anoMesReferencia ");
+		   
+			situacao = entity.createQuery(sql.toString(), Integer.class)
+									.setParameter("idImovel", idImovel)
+									.setParameter("anoMesReferencia", anoMesReferencia)
+									.setMaxResults(1)
+									.getSingleResult();
+
 		} catch (NoResultException e) {
-			return null;
+			try{
+				sql = new StringBuilder();
+				sql.append("SELECT contaHistorico.debitoCreditoSituacaoAtual ")
+				.append("FROM ContaHistorico contaHistorico ")
+				.append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")
+				.append("WHERE imovel.id = :idImovel ")
+				.append("AND conta.referenciaContabil = :anoMesReferencia ");
+				
+				situacao = entity.createQuery(sql.toString(), Integer.class)
+									.setParameter("idImovel", idImovel)
+									.setParameter("anoMesReferencia", anoMesReferencia)
+									.setMaxResults(1)
+									.getSingleResult();
+				
+			} catch (NoResultException e2) {
+				return null;
+			}
 		}
+		
+		return situacao;
 	}
 }

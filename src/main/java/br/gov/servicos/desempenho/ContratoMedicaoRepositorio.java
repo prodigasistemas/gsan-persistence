@@ -1,5 +1,6 @@
 package br.gov.servicos.desempenho;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -67,21 +68,33 @@ public class ContratoMedicaoRepositorio {
 		Date dataInicioReferencia = Utilitarios.converteParaDataComPrimeiroDiaMes(anoMesReferencia);
 		Date dataFimReferencia = Utilitarios.converteParaDataComUltimoDiaMes(anoMesReferencia);
 		
+		List<Imovel> imoveisAbrangencia = new ArrayList<Imovel>();
 		sql.append("SELECT abrangencia.imovel from ContratoMedicaoAbrangencia abrangencia ")
 			.append(" INNER JOIN abrangencia.contratoMedicao contrato ")
 			.append(" WHERE contrato.id = :idContrato ")
-			.append(" AND abrangencia.dataCriacao <= :dataInicioReferencia ")
-			.append("UNION ")
-			.append("SELECT historico.imovel from ContratoMedicaoAbrangenciaHistorico historico ")
+			.append(" AND abrangencia.dataCriacao <= :dataInicioReferencia ");
+			
+		imoveisAbrangencia = entity.createQuery(sql.toString(), Imovel.class)
+								.setParameter("idContrato", idContrato)
+								.setParameter("dataInicioReferencia", dataInicioReferencia)
+								.getResultList();
+		
+		List<Imovel> imoveisAbrangenciaHistorico = new ArrayList<Imovel>();
+		sql = new StringBuilder();
+		sql.append("SELECT historico.imovel from ContratoMedicaoAbrangenciaHistorico historico ")
 			.append(" INNER JOIN historico.contratoMedicao contrato ")
 			.append(" WHERE contrato.id = :idContrato ")
 			.append(" AND historico.dataCriacaoAbrangencia <= :dataInicioReferencia ")
 			.append(" AND historico.dataRemocaoAbrangencia > :dataFimReferencia ");
 		
-		return entity.createQuery(sql.toString(), Imovel.class)
-				.setParameter("idContrato", idContrato)
-				.setParameter("dataInicioReferencia", dataInicioReferencia)
-				.setParameter("dataFimReferencia", dataFimReferencia)
-				.getResultList();
+		imoveisAbrangenciaHistorico = entity.createQuery(sql.toString(), Imovel.class)
+										.setParameter("idContrato", idContrato)
+										.setParameter("dataInicioReferencia", dataInicioReferencia)
+										.setParameter("dataFimReferencia", dataFimReferencia)
+										.getResultList();
+		
+		imoveisAbrangencia.addAll(imoveisAbrangenciaHistorico);
+		
+		return imoveisAbrangencia;
 	}
 }
