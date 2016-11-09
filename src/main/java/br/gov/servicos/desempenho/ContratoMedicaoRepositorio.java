@@ -22,7 +22,7 @@ public class ContratoMedicaoRepositorio {
 		
 		StringBuilder sql = new StringBuilder();
 			sql.append("SELECT contrato from ContratoMedicao contrato ")
-				.append(" AND contrato.vigenciaFinal <= :dataAtual");
+				.append(" WHERE contrato.vigenciaFinal <= :dataAtual");
 			
 			return entity.createQuery(sql.toString(), ContratoMedicao.class)
 					.setParameter("dataReferencia", dataFimReferencia)
