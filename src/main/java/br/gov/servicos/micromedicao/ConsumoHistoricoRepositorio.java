@@ -94,19 +94,23 @@ public class ConsumoHistoricoRepositorio {
 	public ConsumoHistorico buscarConsumoHistoricoPeloImoveEReferencia(Integer idImovel, Integer referencia) {
 		StringBuilder sql = new StringBuilder(); 
 		
-		sql.append("SELECT consumoHistorico ");
-		sql.append("FROM ConsumoHistorico consumoHistorico ");
-		sql.append("WHERE consumoHistorico.imovel.id = :idImovel ");
-		sql.append("AND consumoHistorico.ligacaoTipo = :tipoLigacao ");
-		sql.append("AND consumoHistorico.referenciaFaturamento = :referencia");
-
-		ConsumoHistorico resultado = entity.createQuery(sql.toString(), ConsumoHistorico.class)
-				.setParameter("idImovel", idImovel)
-				.setParameter("tipoLigacao", LigacaoTipo.AGUA.getId())
-				.setParameter("referencia", referencia)
-				.getSingleResult();
-
-		return resultado;
+		try {
+			sql.append("SELECT consumoHistorico ");
+			sql.append("FROM ConsumoHistorico consumoHistorico ");
+			sql.append("WHERE consumoHistorico.imovel.id = :idImovel ");
+			sql.append("AND consumoHistorico.ligacaoTipo = :tipoLigacao ");
+			sql.append("AND consumoHistorico.referenciaFaturamento = :referencia");
+			
+			ConsumoHistorico resultado = entity.createQuery(sql.toString(), ConsumoHistorico.class)
+					.setParameter("idImovel", idImovel)
+					.setParameter("tipoLigacao", LigacaoTipo.AGUA.getId())
+					.setParameter("referencia", referencia)
+					.getSingleResult();
+			
+			return resultado;
+		} catch(Exception e) {
+			return null;
+		}
 	}
 	
 	private StringBuilder consultaAnormalidade(){
