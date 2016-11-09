@@ -77,10 +77,10 @@ public class ContratoMedicaoRepositorio {
 		imoveisAbrangencia = entity.createQuery(sql.toString(), Imovel.class)
 								.setParameter("idContrato", idContrato)
 								.setParameter("dataInicioReferencia", dataInicioReferencia)
-								.setParameter("dataFimReferencia", dataFimReferencia)
 								.getResultList();
 		
 		List<Imovel> imoveisAbrangenciaHistorico = new ArrayList<Imovel>();
+		sql = new StringBuilder();
 		sql.append("SELECT historico.imovel from ContratoMedicaoAbrangenciaHistorico historico ")
 			.append(" INNER JOIN historico.contratoMedicao contrato ")
 			.append(" WHERE contrato.id = :idContrato ")

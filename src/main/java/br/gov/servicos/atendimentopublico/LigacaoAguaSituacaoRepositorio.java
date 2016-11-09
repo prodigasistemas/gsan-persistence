@@ -34,6 +34,7 @@ public class LigacaoAguaSituacaoRepositorio extends GenericRepository<Integer, L
 
 		} catch (NoResultException e) {
 			try{
+				sql = new StringBuilder();
 				sql.append("SELECT ligacaoAguaSituacao ")
 				.append("FROM ContaHistorico contaHistorico ")
 				.append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")

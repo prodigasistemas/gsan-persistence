@@ -34,6 +34,7 @@ public class DebitoCreditoSituacaoRepositorio extends GenericRepository<Integer,
 
 		} catch (NoResultException e) {
 			try{
+				sql = new StringBuilder();
 				sql.append("SELECT contaHistorico.debitoCreditoSituacaoAtual ")
 				.append("FROM ContaHistorico contaHistorico ")
 				.append("INNER JOIN LigacaoAguaSituacao ligacaoAguaSituacao ")
