@@ -171,4 +171,46 @@ public class DebitoAutomaticoMovimento implements Serializable{
 	public String toString() {
 		return "DebitoAutomaticoMovimento [id=" + id + ", contaGeral=" + contaGeral + "]";
 	}
+	
+	public class Builder{
+	    private DebitoAutomaticoMovimento source = new DebitoAutomaticoMovimento();
+	    
+	    public Builder(){
+	        
+	    }
+	    
+	    public Builder debitoAutomatico(DebitoAutomatico debitoAutomatico){
+	        source.setDebitoAutomatico(debitoAutomatico);
+	        return this;
+	    }
+	    
+	    public Builder dataVencimento(Date data){
+	        source.setDataVencimento(data);
+	        return this;
+	    }
+	    
+        public Builder contaGeral(ContaGeral contaGeral) {
+            source.setContaGeral(contaGeral);
+            return this;
+        }
+
+        public Builder faturamentoGrupo(FaturamentoGrupo faturamentoGrupo) {
+            source.setFaturamentoGrupo(faturamentoGrupo);
+            return this;
+        }
+
+        public Builder atualizaProcessamento() {
+            source.setProcessamento(new Date());
+            return this;
+        }
+
+        public Builder atualizaUltimaAlteracao() {
+            source.setUltimaAlteracao(new Date());
+            return this;
+        }
+	    
+	    public DebitoAutomaticoMovimento build(){
+	        return source;
+	    }
+	}
 }

@@ -5,6 +5,7 @@ public enum FormatoData {
     MES_ANO              ("MM/yyyy"),
     ANO_MES              ("yyyyMM"),
     ANO_MES_DIA          ("yyyyMMdd"),
+    HORA_MINUTO          ("HH:mm"),
     ANO_MES_DIA_SEPARADO("yyyy-MM-dd");
     
     String formato;

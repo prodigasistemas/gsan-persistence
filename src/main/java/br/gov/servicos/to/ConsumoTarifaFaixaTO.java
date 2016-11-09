@@ -97,4 +97,8 @@ public class ConsumoTarifaFaixaTO implements Serializable {
 	public void setValorConsumoTarifa(BigDecimal valorConsumoTarifa) {
 		this.valorConsumoTarifa = valorConsumoTarifa;
 	}
+	
+	public Integer getConsumoTotalFaixa() {
+		return (numeroConsumoFaixaFim - numeroConsumoFaixaInicio) + 1; 
+	}
 }

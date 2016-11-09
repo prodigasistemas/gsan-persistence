@@ -20,6 +20,8 @@ public class VolumeCadastroTO implements Serializable{
     private Integer cdUnidadeOperacional;
     
     private Date dataHoraMedicao;
+    private transient Date dataMedicao = new Date();
+    private transient Date horaMedicao = new Date();
     private Date ultimaAlteracao;
     private Boolean estimado;
     private BigDecimal volume;
@@ -57,6 +59,8 @@ public class VolumeCadastroTO implements Serializable{
 		this.codigo = codigo;
 		this.referencia = referencia;
 		this.observacoes = observacoes;
+		this.dataMedicao = dataHoraMedicao;
+		this.horaMedicao = dataHoraMedicao;
 	}
 
 	public Integer getCdRegional() {
@@ -216,8 +220,24 @@ public class VolumeCadastroTO implements Serializable{
 	public void setValorMedicaoAux(BigDecimal valorMedicaoAux) {
 		this.valorMedicaoAux = valorMedicaoAux;
 	}
+	
+	public Date getDataMedicao() {
+        return dataMedicao;
+    }
 
-	public String toString() {
+    public void setDataMedicao(Date dataMedicao) {
+        this.dataMedicao = dataMedicao;
+    }
+
+    public Date getHoraMedicao() {
+        return horaMedicao;
+    }
+
+    public void setHoraMedicao(Date horaMedicao) {
+        this.horaMedicao = horaMedicao;
+    }
+
+    public String toString() {
         return "VolumeCadastroTO [codigo=" + codigo + ", referencia=" + referencia + ", quantidadeVolumeFluxo=" + quantidadeVolumeFluxo + "]";
     }
 }
