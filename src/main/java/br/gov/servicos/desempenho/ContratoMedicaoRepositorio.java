@@ -66,39 +66,46 @@ public class ContratoMedicaoRepositorio extends GenericRepository<Integer, Contr
 	}
 	
 	public List<Imovel> buscarImoveis(Integer idContrato, Integer anoMesReferencia) {
-		StringBuilder sql = new StringBuilder();
-		
-		Date dataInicioReferencia = Utilitarios.converteParaDataComPrimeiroDiaMes(anoMesReferencia);
-		Date dataFimReferencia = Utilitarios.converteParaDataComUltimoDiaMes(anoMesReferencia);
-		
-		List<Imovel> imoveisAbrangencia = new ArrayList<Imovel>();
-		sql.append("SELECT abrangencia.imovel from ContratoMedicaoAbrangencia abrangencia ")
+		try {
+			
+			StringBuilder sql = new StringBuilder();
+			
+			Date dataInicioReferencia = Utilitarios.converteParaDataComPrimeiroDiaMes(anoMesReferencia);
+			Date dataFimReferencia = Utilitarios.converteParaDataComUltimoDiaMes(anoMesReferencia);
+			
+			List<Imovel> imoveisAbrangencia = new ArrayList<Imovel>();
+			sql.append("SELECT abrangencia.imovel from ContratoMedicaoAbrangencia abrangencia ")
 			.append(" INNER JOIN abrangencia.contratoMedicao contrato ")
 			.append(" WHERE contrato.id = :idContrato ")
 			.append(" AND abrangencia.dataCriacao <= :dataInicioReferencia ");
 			
-		imoveisAbrangencia = entity.createQuery(sql.toString(), Imovel.class)
-								.setParameter("idContrato", idContrato)
-								.setParameter("dataInicioReferencia", dataInicioReferencia, TemporalType.DATE)
-								.getResultList();
-		
-//		List<Imovel> imoveisAbrangenciaHistorico = new ArrayList<Imovel>();
-//		sql = new StringBuilder();
-//		sql.append("SELECT historico.imovel from ContratoMedicaoAbrangenciaHistorico historico ")
-//			.append(" INNER JOIN historico.contratoMedicao contrato ")
-//			.append(" WHERE contrato.id = :idContrato ")
-//			.append(" AND historico.dataCriacaoAbrangencia <= :dataInicioReferencia ")
-//			.append(" AND historico.dataRemocaoAbrangencia >= :dataFimReferencia ");
-//		
-//		imoveisAbrangenciaHistorico = entity.createQuery(sql.toString(), Imovel.class)
-//										.setParameter("idContrato", idContrato)
-//										.setParameter("dataInicioReferencia", dataInicioReferencia, TemporalType.DATE)
-//										.setParameter("dataFimReferencia", dataFimReferencia, TemporalType.DATE)
-//										.getResultList();
-//		
-//		imoveisAbrangencia.addAll(imoveisAbrangenciaHistorico);
-		
-		return imoveisAbrangencia;
+			imoveisAbrangencia = entity.createQuery(sql.toString(), Imovel.class)
+					.setParameter("idContrato", idContrato)
+					.setParameter("dataInicioReferencia", dataInicioReferencia, TemporalType.DATE)
+					.getResultList();
+			
+			List<Imovel> imoveisAbrangenciaHistorico = new ArrayList<Imovel>();
+			sql = new StringBuilder();
+			sql.append("SELECT historico.imovel from ContratoMedicaoAbrangenciaHistorico historico ")
+			.append(" INNER JOIN historico.contratoMedicao contrato ")
+			.append(" WHERE contrato.id = :idContrato ")
+			.append(" AND historico.dataCriacaoAbrangencia <= :dataInicioReferencia ")
+			.append(" AND historico.dataRemocaoAbrangencia >= :dataFimReferencia ");
+			
+			imoveisAbrangenciaHistorico = entity.createQuery(sql.toString(), Imovel.class)
+					.setParameter("idContrato", idContrato)
+					.setParameter("dataInicioReferencia", dataInicioReferencia, TemporalType.DATE)
+					.setParameter("dataFimReferencia", dataFimReferencia, TemporalType.DATE)
+					.getResultList();
+			
+			imoveisAbrangencia.addAll(imoveisAbrangenciaHistorico);
+			
+			return imoveisAbrangencia;
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			return new ArrayList<Imovel>();
+		}
 	}
 	
 	public boolean possuiContaFaturadaNormal(Integer idImovel, Integer anoMesReferencia) {
