@@ -135,6 +135,52 @@ public class ImovelSubcategoriaRepositorio {
 		return retorno;
 	}	
 	
+	public Collection<ICategoria> buscarSubcategoriaAbrangencia(Integer idContratoMedicao, Integer idImovel) {
+
+		Collection<ICategoria> retorno = null;
+
+		StringBuffer consulta = new StringBuffer();
+
+		consulta.append("select new br.gov.servicos.to.ImovelSubcategoriaTO(")
+				.append("   subcategoria.id, ")
+				.append("	subcategoria.codigo,")
+				.append("	subcategoria.descricao, ")
+				.append("	sum(imovelSubcategoria.quantidadeEconomias), ")
+				.append("	subcategoria.codigoTarifaSocial, ")
+				.append("	subcategoria.numeroFatorFiscalizacao, ")
+				.append("	subcategoria.indicadorTarifaConsumo, ") 
+				.append("	categoria.id, ")
+				.append("	categoria.descricao, ")
+				.append("	categoria.fatorEconomias, ")
+				.append("	subcategoria.indicadorSazonalidade, ")
+				.append("	categoria.descricaoAbreviada, ")
+				.append("	subcategoria.descricaoAbreviada ")
+				.append(")")
+				.append("from ImovelSubcategoriaAbrangencia imovelSubCategoria ")
+				.append("	inner join imovelSubCategoria.subcategoria subcategoria ")
+				.append("	inner join subcategoria.categoria categoria ")
+				.append("where imovelSubCategoria.imovel.id = :idImovel ")
+				.append("and imovelSubCategoria.contratoMedicao.id = :idContratoMedicao ")
+				.append("group by subcategoria.id, ")
+				.append("	subcategoria.codigo,")
+				.append("	subcategoria.descricao, ")
+				.append("	subcategoria.codigoTarifaSocial, ")
+				.append("	subcategoria.numeroFatorFiscalizacao, ")
+				.append("	subcategoria.indicadorTarifaConsumo, ") 
+				.append("	categoria.id, ")
+				.append("	categoria.descricao,")
+				.append("	imovelSubCategoria.imovel.id, ")
+				.append("	categoria.fatorEconomias, subcategoria.indicadorSazonalidade, ")
+				.append("	categoria.descricaoAbreviada, subcategoria.descricaoAbreviada ");
+
+		retorno = entity.createQuery(consulta.toString(), ICategoria.class)
+		        .setParameter("idImovel", idImovel)
+		        .setParameter("idContratoMedicao", idContratoMedicao)
+		        .getResultList();
+
+		return retorno;
+	}
+	
 	public CategoriaPrincipalTO buscarCategoriaPrincipal(Integer idImovel) {
 		StringBuffer consulta = new StringBuffer();
 		consulta.append("SELECT new br.gov.servicos.to.CategoriaPrincipalTO(categoria.id, sum(imovelSubCategoria.quantidadeEconomias)) ")

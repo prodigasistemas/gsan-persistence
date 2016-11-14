@@ -59,6 +59,9 @@ public class Conta implements Serializable{
 	@Column(name="dcst_idatual")
 	private Integer debitoCreditoSituacaoAtual;
 	
+	@Column(name="dcst_idanterior")
+	private Integer debitoCreditoSituacaoAnterior;
+	
 	@Column(name="cnta_nnleituraanterior")
 	private Integer leituraAnterior;
 	
@@ -548,6 +551,14 @@ public class Conta implements Serializable{
 
 	public void setDebitoCreditoSituacaoAtual(Integer debitoCreditoSituacaoAtual) {
 		this.debitoCreditoSituacaoAtual = debitoCreditoSituacaoAtual;
+	}
+	
+	public Integer getDebitoCreditoSituacaoAnterior() {
+		return debitoCreditoSituacaoAnterior;
+	}
+
+	public void setDebitoCreditoSituacaoAnterior(Integer debitoCreditoSituacaoAnterior) {
+		this.debitoCreditoSituacaoAnterior = debitoCreditoSituacaoAnterior;
 	}
 
 	public FaturamentoGrupo getFaturamentoGrupo() {

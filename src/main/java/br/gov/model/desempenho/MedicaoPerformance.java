@@ -47,6 +47,12 @@ public class MedicaoPerformance implements Serializable{
 	@Column(name="medp_vlaguafaturadomeszero")
 	private BigDecimal valorAguaFaturadoMesZero;
 	
+	@Column(name="medp_consumomeszero")
+	private Integer consumoMesZero;
+	
+	@Column(name="medp_consumoreferencia")
+	private Integer consumoReferencia;
+	
 	@Column(name="medp_calculo")
 	private BigDecimal valorMedicao;
 	
@@ -69,6 +75,8 @@ public class MedicaoPerformance implements Serializable{
 		this.diferencaConsumoAgua = medicaoPerformanceTO.getDiferencaConsumoAgua();
 		this.valorDiferencaAgua = medicaoPerformanceTO.getValorDiferencaAgua();
 		this.imovel = medicaoPerformanceTO.getImovel();
+		this.consumoMesZero = medicaoPerformanceTO.getConsumoMesZero();
+		this.consumoReferencia = medicaoPerformanceTO.getConsumoReferencia();
 		this.valorMedicao = medicaoPerformanceTO.getValorMedicao();
 		this.referencia = medicaoPerformanceTO.getReferencia();
 	}
@@ -153,6 +161,22 @@ public class MedicaoPerformance implements Serializable{
 
 	public void setValorAguaFaturadoMesZero(BigDecimal valorAguaFaturadoMesZero) {
 		this.valorAguaFaturadoMesZero = valorAguaFaturadoMesZero;
+	}
+	
+	public Integer getConsumoMesZero() {
+		return consumoMesZero;
+	}
+
+	public void setConsumoMesZero(Integer consumoMesZero) {
+		this.consumoMesZero = consumoMesZero;
+	}
+
+	public Integer getConsumoReferencia() {
+		return consumoReferencia;
+	}
+
+	public void setConsumoReferencia(Integer consumoReferencia) {
+		this.consumoReferencia = consumoReferencia;
 	}
 
 	public BigDecimal getValorMedicao() {

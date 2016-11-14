@@ -9,6 +9,8 @@ public class MedicaoPerformanceTO {
 
 	private Integer referencia;
 	private BigDecimal valorDiferencaAgua;
+	private Integer consumoMesZero;
+	private Integer consumoReferencia;
 	private Integer diferencaConsumoAgua;
 	private BigDecimal valorAguaFaturado;
 	private BigDecimal valorAguaFaturadoMesZero;
@@ -35,6 +37,22 @@ public class MedicaoPerformanceTO {
 
 	public void setValorDiferencaAgua(BigDecimal valorDiferencaAgua) {
 		this.valorDiferencaAgua = valorDiferencaAgua;
+	}
+	
+	public Integer getConsumoMesZero() {
+		return consumoMesZero;
+	}
+
+	public void setConsumoMesZero(Integer consumoMesZero) {
+		this.consumoMesZero = consumoMesZero;
+	}
+
+	public Integer getConsumoReferencia() {
+		return consumoReferencia;
+	}
+
+	public void setConsumoReferencia(Integer consumoReferencia) {
+		this.consumoReferencia = consumoReferencia;
 	}
 
 	public Integer getDiferencaConsumoAgua() {
