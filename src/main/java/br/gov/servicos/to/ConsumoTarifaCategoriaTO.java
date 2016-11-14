@@ -72,7 +72,7 @@ public class ConsumoTarifaCategoriaTO implements Serializable{
 		this.valorTarifaMinima = valorTarifaMinima;
 	}
 	public BigDecimal getValorConsumoMinimo() {
-		return (new BigDecimal(consumoMinimo.intValue())).multiply(this.valorTarifaMinima);
+		return this.valorTarifaMinima;
 	}
 
 	public boolean possuiVigencia(Date dataVigencia) {

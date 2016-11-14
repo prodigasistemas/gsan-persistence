@@ -82,21 +82,21 @@ public class ContratoMedicaoRepositorio extends GenericRepository<Integer, Contr
 								.setParameter("dataInicioReferencia", dataInicioReferencia, TemporalType.DATE)
 								.getResultList();
 		
-		List<Imovel> imoveisAbrangenciaHistorico = new ArrayList<Imovel>();
-		sql = new StringBuilder();
-		sql.append("SELECT historico.imovel from ContratoMedicaoAbrangenciaHistorico historico ")
-			.append(" INNER JOIN historico.contratoMedicao contrato ")
-			.append(" WHERE contrato.id = :idContrato ")
-			.append(" AND historico.dataCriacaoAbrangencia <= :dataInicioReferencia ")
-			.append(" AND historico.dataRemocaoAbrangencia >= :dataFimReferencia ");
-		
-		imoveisAbrangenciaHistorico = entity.createQuery(sql.toString(), Imovel.class)
-										.setParameter("idContrato", idContrato)
-										.setParameter("dataInicioReferencia", dataInicioReferencia, TemporalType.DATE)
-										.setParameter("dataFimReferencia", dataFimReferencia, TemporalType.DATE)
-										.getResultList();
-		
-		imoveisAbrangencia.addAll(imoveisAbrangenciaHistorico);
+//		List<Imovel> imoveisAbrangenciaHistorico = new ArrayList<Imovel>();
+//		sql = new StringBuilder();
+//		sql.append("SELECT historico.imovel from ContratoMedicaoAbrangenciaHistorico historico ")
+//			.append(" INNER JOIN historico.contratoMedicao contrato ")
+//			.append(" WHERE contrato.id = :idContrato ")
+//			.append(" AND historico.dataCriacaoAbrangencia <= :dataInicioReferencia ")
+//			.append(" AND historico.dataRemocaoAbrangencia >= :dataFimReferencia ");
+//		
+//		imoveisAbrangenciaHistorico = entity.createQuery(sql.toString(), Imovel.class)
+//										.setParameter("idContrato", idContrato)
+//										.setParameter("dataInicioReferencia", dataInicioReferencia, TemporalType.DATE)
+//										.setParameter("dataFimReferencia", dataFimReferencia, TemporalType.DATE)
+//										.getResultList();
+//		
+//		imoveisAbrangencia.addAll(imoveisAbrangenciaHistorico);
 		
 		return imoveisAbrangencia;
 	}
@@ -183,8 +183,8 @@ public class ContratoMedicaoRepositorio extends GenericRepository<Integer, Contr
 		   .append("FROM Conta AS conta ")
 		   .append("WHERE conta.referencia = :anoMesReferencia ")
 		   .append("AND conta.imovel.id = :idImovel ")
-		   .append("AND conta.debitoCreditoSituacaoAtual IN (:idsDebitoCreditoSituacoes) ")
-		   .append("AND conta.debitoCreditoSituacaoAnterior IN (:idsDebitoCreditoSituacoes) ");
+		   .append("AND (conta.debitoCreditoSituacaoAtual IN (:idsDebitoCreditoSituacoes) ")
+		   .append("     OR conta.debitoCreditoSituacaoAnterior IN (:idsDebitoCreditoSituacoes) )");
 		
 		return entity.createQuery(sql.toString(), Long.class)
 									.setParameter("anoMesReferencia", anoMesReferencia)
