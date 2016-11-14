@@ -14,7 +14,7 @@ public class DebitoCreditoSituacaoRepositorio extends GenericRepository<Integer,
 	@PersistenceContext
 	private EntityManager entity;
 	
-	public Integer buscarDebitoCreditoSituacaoId(Integer idImovel, Integer anoMesReferencia) {
+	public Integer buscarDebitoCreditoSituacaoPorIdEAnoMesReferencia(Integer idImovel, Integer anoMesReferencia) {
 		StringBuilder sql = new StringBuilder();
 
 		Integer situacao = null;

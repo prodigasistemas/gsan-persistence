@@ -11,10 +11,12 @@ import javax.persistence.TemporalType;
 
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.desempenho.ContratoMedicao;
+import br.gov.model.faturamento.DebitoCreditoSituacao;
+import br.gov.model.util.GenericRepository;
 import br.gov.model.util.Utilitarios;
 
 @Stateless
-public class ContratoMedicaoRepositorio {
+public class ContratoMedicaoRepositorio extends GenericRepository<Integer, ContratoMedicao> {
 
 	@PersistenceContext
 	private EntityManager entity;
@@ -86,7 +88,7 @@ public class ContratoMedicaoRepositorio {
 			.append(" INNER JOIN historico.contratoMedicao contrato ")
 			.append(" WHERE contrato.id = :idContrato ")
 			.append(" AND historico.dataCriacaoAbrangencia <= :dataInicioReferencia ")
-			.append(" AND historico.dataRemocaoAbrangencia > :dataFimReferencia ");
+			.append(" AND historico.dataRemocaoAbrangencia >= :dataFimReferencia ");
 		
 		imoveisAbrangenciaHistorico = entity.createQuery(sql.toString(), Imovel.class)
 										.setParameter("idContrato", idContrato)
@@ -97,5 +99,98 @@ public class ContratoMedicaoRepositorio {
 		imoveisAbrangencia.addAll(imoveisAbrangenciaHistorico);
 		
 		return imoveisAbrangencia;
+	}
+	
+	public boolean possuiContaFaturadaNormal(Integer idImovel, Integer anoMesReferencia) {
+		List<Integer> idsDebitoCreditoSituacao = new ArrayList<Integer>();
+		idsDebitoCreditoSituacao.add(DebitoCreditoSituacao.NORMAL.getId());
+		
+		return quantidadeContaPorSituacaoAtualOuAnteriorEReferenciaConta(idImovel, anoMesReferencia, idsDebitoCreditoSituacao) > 0;	
+	}
+	
+	public boolean possuiContaFaturadaRetificada(Date dataVigenciaInicial, Date dataVigenciaFinal, Integer idImovel, Integer anoMesReferencia) {
+		List<Integer> idsDebitoCreditoSituacao = new ArrayList<Integer>();
+		idsDebitoCreditoSituacao.add(DebitoCreditoSituacao.RETIFICADA.getId());
+		
+		Long quantidadeContas = quantidadeContaPorSituacaoAtualEReferenciaContabilNaVigencia(dataVigenciaInicial, dataVigenciaFinal, 
+																							 idImovel, anoMesReferencia, idsDebitoCreditoSituacao);
+
+		return quantidadeContas > 0;
+	}
+	
+	public boolean possuiContaFaturadaIncluida(Integer idImovel, Integer anoMesReferencia) {
+		List<Integer> idsDebitoCreditoSituacao = new ArrayList<Integer>();
+		idsDebitoCreditoSituacao.add(DebitoCreditoSituacao.INCLUIDA.getId());
+		
+		return quantidadeContaPorSituacaoAtualEReferenciaConta(idImovel, anoMesReferencia, idsDebitoCreditoSituacao) > 0;
+	}
+	
+	public boolean possuiCancelamento(Date dataVigenciaInicial, Date dataVigenciaFinal, Integer idImovel, Integer anoMesReferencia) {
+		List<Integer> idsDebitoCreditoSituacao = new ArrayList<Integer>();
+		idsDebitoCreditoSituacao.add(DebitoCreditoSituacao.CANCELADA.getId());
+		idsDebitoCreditoSituacao.add(DebitoCreditoSituacao.CANCELADA_POR_RETIFICACAO.getId());
+		
+		Long quantidadeContas = quantidadeContaPorSituacaoAtualEReferenciaContabilNaVigencia(dataVigenciaInicial, dataVigenciaFinal, 
+																							 idImovel, anoMesReferencia, idsDebitoCreditoSituacao);
+		
+		return quantidadeContas > 0;
+	}
+	
+	public Long quantidadeContaPorSituacaoAtualEReferenciaContabilNaVigencia(Date dataVigenciaInicial, Date dataVigenciaFinal,
+																			 Integer idImovel, Integer anoMesReferencia, 
+																			 List<Integer> idsDebitoCreditoSituacao) {
+		Integer anoMesInicial = Utilitarios.getAnoMesComoInteger(dataVigenciaInicial);
+		Integer anoMesFinal = Utilitarios.getAnoMesComoInteger(dataVigenciaFinal);
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT count(conta) ")
+		   .append("FROM Conta AS conta ")
+		   .append("WHERE conta.referenciaContabil = :anoMesReferencia ")
+		   .append("AND conta.referencia >= :anoMesInicial ")
+		   .append("AND conta.referencia <= :anoMesFinal ")
+		   .append("AND conta.imovel.id = :idImovel ")
+		   .append("AND conta.debitoCreditoSituacaoAtual IN (:idsDebitoCreditoSituacoes) ");
+		
+		return entity.createQuery(sql.toString(), Long.class)
+									.setParameter("anoMesReferencia", anoMesReferencia)
+									.setParameter("anoMesInicial", anoMesInicial)
+									.setParameter("anoMesFinal", anoMesFinal)
+									.setParameter("idImovel", idImovel)
+									.setParameter("idsDebitoCreditoSituacoes", idsDebitoCreditoSituacao)
+									.setMaxResults(1)
+									.getSingleResult();
+	}
+	
+	public Long quantidadeContaPorSituacaoAtualEReferenciaConta(Integer idImovel, Integer anoMesReferencia, List<Integer> idsDebitoCreditoSituacao) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT count(conta) ")
+		   .append("FROM Conta AS conta ")
+		   .append("WHERE conta.referencia = :anoMesReferencia ")
+		   .append("AND conta.imovel.id = :idImovel ")
+		   .append("AND conta.debitoCreditoSituacaoAtual IN (:idsDebitoCreditoSituacoes) ");
+		
+		return entity.createQuery(sql.toString(), Long.class)
+									.setParameter("anoMesReferencia", anoMesReferencia)
+									.setParameter("idImovel", idImovel)
+									.setParameter("idsDebitoCreditoSituacoes", idsDebitoCreditoSituacao)
+									.setMaxResults(1)
+									.getSingleResult();
+	}
+	
+	public Long quantidadeContaPorSituacaoAtualOuAnteriorEReferenciaConta(Integer idImovel, Integer anoMesReferencia, List<Integer> idsDebitoCreditoSituacao) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT count(conta) ")
+		   .append("FROM Conta AS conta ")
+		   .append("WHERE conta.referencia = :anoMesReferencia ")
+		   .append("AND conta.imovel.id = :idImovel ")
+		   .append("AND conta.debitoCreditoSituacaoAtual IN (:idsDebitoCreditoSituacoes) ")
+		   .append("AND conta.debitoCreditoSituacaoAnterior IN (:idsDebitoCreditoSituacoes) ");
+		
+		return entity.createQuery(sql.toString(), Long.class)
+									.setParameter("anoMesReferencia", anoMesReferencia)
+									.setParameter("idImovel", idImovel)
+									.setParameter("idsDebitoCreditoSituacoes", idsDebitoCreditoSituacao)
+									.setMaxResults(1)
+									.getSingleResult();
 	}
 }

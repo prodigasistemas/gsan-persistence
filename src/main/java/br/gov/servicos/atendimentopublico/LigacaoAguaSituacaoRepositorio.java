@@ -52,4 +52,42 @@ public class LigacaoAguaSituacaoRepositorio extends GenericRepository<Integer, L
 		
 		return situacaoConta;
 	}
+	
+	public LigacaoAguaSituacao buscarLigacaoAguaSituacaoPelaAbrangencia(Integer contratoMedicaoId, Integer imovelId) {
+		StringBuilder sql = new StringBuilder();
+
+		LigacaoAguaSituacao ligacaoAguaSituacao = null;
+		
+		try {
+			sql.append("SELECT abrangencia.ligacaoAguaSituacao ")
+				.append("FROM ContratoMedicaoAbrangencia abrangencia ")
+				.append("WHERE abrangencia.imovel.id = :idImovel ")
+				.append("AND abrangencia.contratoMedicao.id = :contratoMedicaoId ");
+		   
+			ligacaoAguaSituacao = entity.createQuery(sql.toString(), LigacaoAguaSituacao.class)
+									.setParameter("idImovel", imovelId)
+									.setParameter("contratoMedicaoId", contratoMedicaoId)
+									.setMaxResults(1)
+									.getSingleResult();
+
+		} catch (NoResultException e) {
+			try{
+				sql.append("SELECT abrangencia.ligacaoAguaSituacao ")
+				.append("FROM ContratoMedicaoAbrangenciaHistorico abrangencia ")
+				.append("WHERE abrangencia.imovel.id = :idImovel ")
+				.append("AND abrangencia.contratoMedicao.id = :contratoMedicaoId ");
+		   
+				ligacaoAguaSituacao = entity.createQuery(sql.toString(), LigacaoAguaSituacao.class)
+									.setParameter("idImovel", imovelId)
+									.setParameter("contratoMedicaoId", contratoMedicaoId)
+									.setMaxResults(1)
+									.getSingleResult();
+				
+			} catch (NoResultException e2) {
+				return null;
+			}
+		}
+		
+		return ligacaoAguaSituacao;
+	}
 }

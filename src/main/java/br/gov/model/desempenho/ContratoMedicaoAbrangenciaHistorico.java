@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.gov.model.atendimentopublico.LigacaoAguaSituacao;
 import br.gov.model.cadastro.Imovel;
 
 @Entity
@@ -40,6 +41,10 @@ public class ContratoMedicaoAbrangenciaHistorico implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="cmed_id")
 	private ContratoMedicao contratoMedicao;
+	
+	@ManyToOne
+	@JoinColumn(name="last_id")
+	private LigacaoAguaSituacao ligacaoAguaSituacao;
 	
 	@ManyToOne
 	@JoinColumn(name="imov_id")
@@ -75,6 +80,14 @@ public class ContratoMedicaoAbrangenciaHistorico implements Serializable{
 
 	public void setContratoMedicao(ContratoMedicao contratoMedicao) {
 		this.contratoMedicao = contratoMedicao;
+	}
+	
+	public LigacaoAguaSituacao getLigacaoAguaSituacao() {
+		return ligacaoAguaSituacao;
+	}
+
+	public void setLigacaoAguaSituacao(LigacaoAguaSituacao ligacaoAguaSituacao) {
+		this.ligacaoAguaSituacao = ligacaoAguaSituacao;
 	}
 
 	public Imovel getImovel() {

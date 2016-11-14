@@ -288,39 +288,6 @@ public class ContaRepositorio extends GenericRepository<Integer, Conta>{
                 .setParameter("situacao", DebitoCreditoSituacao.PRE_FATURADA.getId())
                 .getResultList();	    
 	}
-
-	public boolean possuiFaturamento(Integer idImovel, Integer anoMesReferencia) {
-		List<Integer> idsDebitoCreditoSituacao = new ArrayList<Integer>();
-		idsDebitoCreditoSituacao.add(DebitoCreditoSituacao.NORMAL.getId());
-		idsDebitoCreditoSituacao.add(DebitoCreditoSituacao.RETIFICADA.getId());
-		idsDebitoCreditoSituacao.add(DebitoCreditoSituacao.INCLUIDA.getId());
-		
-		return quantidadeContaPorSituacao(idImovel, anoMesReferencia, idsDebitoCreditoSituacao) > 0;		
-	}
-	
-	public boolean possuiCancelamento(Integer idImovel, Integer anoMesReferencia) {
-		List<Integer> idsDebitoCreditoSituacao = new ArrayList<Integer>();
-		idsDebitoCreditoSituacao.add(DebitoCreditoSituacao.CANCELADA.getId());
-		idsDebitoCreditoSituacao.add(DebitoCreditoSituacao.CANCELADA_POR_RETIFICACAO.getId());
-		
-		return quantidadeContaPorSituacao(idImovel, anoMesReferencia, idsDebitoCreditoSituacao) > 0;		
-	}
-	
-	public Long quantidadeContaPorSituacao(Integer idImovel, Integer anoMesReferencia, List<Integer> idsDebitoCreditoSituacao) {
-		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT count(conta) ")
-		   .append("FROM Conta AS conta ")
-		   .append("WHERE conta.referenciaContabil = :anoMesReferencia ")
-		   .append("AND conta.imovel.id = :idImovel ")
-		   .append("AND conta.debitoCreditoSituacaoAtual IN (:idsDebitoCreditoSituacoes) ");
-		
-		return entity.createQuery(sql.toString(), Long.class)
-									.setParameter("anoMesReferencia", anoMesReferencia)
-									.setParameter("idImovel", idImovel)
-									.setParameter("idsDebitoCreditoSituacoes", idsDebitoCreditoSituacao)
-									.setMaxResults(1)
-									.getSingleResult();
-	}
 	
 	public Integer buscarConsumoAgua(Integer idImovel, Integer anoMesReferencia, Integer idLigacaoAguaSituacao) {
 		StringBuilder sql = new StringBuilder();

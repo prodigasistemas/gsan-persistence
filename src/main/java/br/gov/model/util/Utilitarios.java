@@ -447,4 +447,29 @@ public class Utilitarios {
     public static int obterQuantidadeLinhasTexto(StringBuilder texto) {
         return texto != null ? texto.toString().split(System.getProperty("line.separator")).length : 0;
     }
+    
+    public static int getMes(Date date) {
+		Calendar dataCalendar = GregorianCalendar.getInstance();
+		dataCalendar.setTime(date);
+
+		return (dataCalendar.get(Calendar.MONTH) + 1);
+	}
+
+	public static int getAno(Date date) {
+		Calendar dataCalendar = GregorianCalendar.getInstance();
+		dataCalendar.setTime(date);
+
+		return dataCalendar.get(Calendar.YEAR);
+	}
+    
+    public static Integer getAnoMesComoInteger(Date date) {
+		int mes = getMes(date);
+		String sMes = mes + "";
+		if (sMes.length() == 1) {
+			sMes = "0" + sMes;
+		}
+		int ano = getAno(date);
+
+		return new Integer(ano + "" + sMes);
+	}
 }
