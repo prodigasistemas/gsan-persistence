@@ -8,22 +8,19 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.ShouldMatchDataSet;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import br.gov.persistence.util.SingleDeployment;
 import br.gov.servicos.to.ContaImpostosDeduzidosTO;
 
-@RunWith(Arquillian.class)
-public class ContaImpostosDeduzidosRepositorioTest extends SingleDeployment{
+////@RunWith(Arquillian.class)
+public class ContaImpostosDeduzidosRepositorioTest {
 
 	@Inject
 	private ContaImpostosDeduzidosRepositorio repositorio;
 	
-	@Test
+	//@Test
 	@UsingDataSet("conta_impostos_deduzidos.yml")
 	@ShouldMatchDataSet("conta_impostos_deduzidos_expected.yml")
 	public void apagarImpostosDeduzidos(){
@@ -32,7 +29,7 @@ public class ContaImpostosDeduzidosRepositorioTest extends SingleDeployment{
 		repositorio.apagarImpostosDeduzidosDeContas(ids);
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet("contas_impostos_deduzidos_to.yml")
 	public void pesquisarParmsContaImpostosDeduzidos(){
 		

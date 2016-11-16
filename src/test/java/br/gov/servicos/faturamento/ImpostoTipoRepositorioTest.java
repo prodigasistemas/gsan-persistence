@@ -7,21 +7,18 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import br.gov.model.faturamento.ImpostoTipo;
-import br.gov.persistence.util.SingleDeployment;
 
-@RunWith(Arquillian.class)
-public class ImpostoTipoRepositorioTest extends SingleDeployment{
+////@RunWith(Arquillian.class)
+public class ImpostoTipoRepositorioTest {
 
 	@Inject
 	private ImpostoTipoRepositorio repositorio;
 	
-	@Test
+	//@Test
 	@UsingDataSet({"impostoTipoAliquota.yml"})
 	public void buscarImpostoTipoAtivos(){
 		Collection<ImpostoTipo> resultado = repositorio.buscarImpostoTipoAtivos();

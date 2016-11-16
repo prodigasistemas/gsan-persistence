@@ -6,23 +6,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import br.gov.model.operacao.LocalidadeProxy;
-import br.gov.persistence.util.SingleDeployment;
 import br.gov.servicos.operacao.to.FiltroOperacionalTO;
 import br.gov.servicos.operacao.to.HorasRelatorioTO;
 
-@RunWith(Arquillian.class)
-public class RelatorioHorasRepositorioTest extends SingleDeployment{
+//@RunWith(Arquillian.class)
+public class RelatorioHorasRepositorioTest {
 
 	@Inject
 	private RelatorioHorasRepositorio repositorio;
 	
-	@Test
+	//@Test
 	@UsingDataSet("horas.yml")
 	public void apenasHorasParadasPorEnergia() throws Exception{
 	    
@@ -36,7 +33,7 @@ public class RelatorioHorasRepositorioTest extends SingleDeployment{
 		assertEquals(40, item.getHorasParadasPorEnergia().intValue());
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet("horas.yml")
 	public void calculaHorasCMB() throws Exception{
 	    
@@ -54,7 +51,7 @@ public class RelatorioHorasRepositorioTest extends SingleDeployment{
 	    assertEquals(50, item.getHorasParadasPorEnergia().intValue());
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet("horas.yml")
 	public void filtraPorLocalidade() throws Exception{
 	    
@@ -69,7 +66,7 @@ public class RelatorioHorasRepositorioTest extends SingleDeployment{
 	    assertEquals(150, item.getHorasParadasPorEnergia().intValue());
 	}
 	
-	@Test
+	//@Test
     @UsingDataSet("horas.yml")
     public void quantidadeTotalCMB() throws Exception{
         FiltroOperacionalTO consulta = new FiltroOperacionalTO();

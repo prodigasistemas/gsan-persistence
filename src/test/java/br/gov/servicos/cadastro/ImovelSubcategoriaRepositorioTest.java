@@ -7,34 +7,31 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import br.gov.model.cadastro.ICategoria;
-import br.gov.persistence.util.SingleDeployment;
 import br.gov.servicos.to.CategoriaPrincipalTO;
 
-@RunWith(Arquillian.class)
-public class ImovelSubcategoriaRepositorioTest extends SingleDeployment{
+////@RunWith(Arquillian.class)
+public class ImovelSubcategoriaRepositorioTest{
 
     @Inject
     ImovelSubcategoriaRepositorio repositorio;
     
-    @Test
+    //@Test
     @UsingDataSet("imovel_subcategoria.yml")
     public void somarQtdEconomiasImovelExistente() throws Exception {
         assertEquals(2, repositorio.somarQuantidadeEconomias(1).intValue());
     }
     
-    @Test
+    //@Test
     @UsingDataSet("imovel_subcategoria.yml")
     public void somarQtdEconomiasImovelInexistente() throws Exception {
         assertEquals(0, repositorio.somarQuantidadeEconomias(10).intValue());
     }
     
-    @Test
+    //@Test
     @UsingDataSet("quantidade_economias_categoria_subcategoria.yml")
     public void buscarQuantidadeEconomiasCategoria() throws Exception {
     	Collection<ICategoria> categorias = repositorio.buscarCategoria(1);
@@ -55,7 +52,7 @@ public class ImovelSubcategoriaRepositorioTest extends SingleDeployment{
     	assertEquals(2, categoria.getFatorEconomias().intValue());
     }
     
-    @Test
+    //@Test
     @UsingDataSet("quantidade_economias_categoria_subcategoria.yml")
     public void buscarQuantidadeEconomiasSubcategoria() throws Exception {
     	Collection<ICategoria> subcategorias = repositorio.buscarSubcategoria(1);
@@ -76,7 +73,7 @@ public class ImovelSubcategoriaRepositorioTest extends SingleDeployment{
     	assertEquals("R1", subcategoria.getSubcategoriaDescricaoAbreviada());
     }
     
-    @Test
+    //@Test
     @UsingDataSet("categoria_principal.yml")
     public void buscarCategoriaPrincipalImovel() throws Exception {
     	CategoriaPrincipalTO categoria = repositorio.buscarCategoriaPrincipal(1);

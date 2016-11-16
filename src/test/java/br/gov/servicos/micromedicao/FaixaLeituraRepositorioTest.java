@@ -7,21 +7,18 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import br.gov.model.micromedicao.FaixaLeituraEsperadaParametros;
-import br.gov.persistence.util.SingleDeployment;
 
-@RunWith(Arquillian.class)
-public class FaixaLeituraRepositorioTest extends SingleDeployment {
+////@RunWith(Arquillian.class)
+public class FaixaLeituraRepositorioTest {
 	
 	@Inject
 	private FaixaLeituraRepositorio repositorio;
 
-	@Test
+	//@Test
 	@UsingDataSet("faixaLeituraEsperadaParametros.yml")
 	public void faixasLeitura() {
 		List<FaixaLeituraEsperadaParametros> lista = repositorio.obterFaixasLeitura();

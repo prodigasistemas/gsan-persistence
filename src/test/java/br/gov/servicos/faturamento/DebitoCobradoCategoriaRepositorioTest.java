@@ -5,16 +5,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.ShouldMatchDataSet;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import br.gov.persistence.util.SingleDeployment;
-
-@RunWith(Arquillian.class)
-public class DebitoCobradoCategoriaRepositorioTest extends SingleDeployment{
+////@RunWith(Arquillian.class)
+public class DebitoCobradoCategoriaRepositorioTest {
 
 	@Inject
 	private DebitoCobradoRepositorio repositorio;
@@ -22,7 +18,7 @@ public class DebitoCobradoCategoriaRepositorioTest extends SingleDeployment{
 	@Inject
 	private DebitoCobradoCategoriaRepositorio categoriaRepositorio;
 	
-	@Test
+	//@Test
 	@UsingDataSet({"debito_cobrado_categoria.yml"})
 	@ShouldMatchDataSet("debito_cobrado_categoria_expected.yml")
 	public void apagarCategoriasDebitosCobrados(){

@@ -1,25 +1,22 @@
 package br.gov.servicos.operacao;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import br.gov.model.operacao.Parametro;
-import br.gov.persistence.util.SingleDeployment;
 
-@RunWith(Arquillian.class)
-public class ParametroRepositorioTest extends SingleDeployment{
+//@RunWith(Arquillian.class)
+public class ParametroRepositorioTest {
 
 	@Inject
 	private ParametroRepositorio repositorio;
 	
-	@Test
+	//@Test
 	@UsingDataSet("parametros_operacao.yml")
 	public void parametroExiste() throws Exception{
 		Parametro p = repositorio.obterPeloNome(Parametro.Nome.BLOQUEIA_DATA_RETROATIVA);

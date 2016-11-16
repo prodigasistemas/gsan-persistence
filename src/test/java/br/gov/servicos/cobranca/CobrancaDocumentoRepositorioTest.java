@@ -6,21 +6,18 @@ import java.util.Calendar;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import br.gov.model.cobranca.CobrancaDocumento;
-import br.gov.persistence.util.SingleDeployment;
 
-@RunWith(Arquillian.class)
-public class CobrancaDocumentoRepositorioTest extends SingleDeployment{
+////@RunWith(Arquillian.class)
+public class CobrancaDocumentoRepositorioTest {
 
 	@Inject
 	private CobrancaDocumentoRepositorio repositorio;
 	
-	@Test
+	//@Test
 	@UsingDataSet({"cobranca_documento.yml"})
 	public void cobrancasImpressaoSimultanea(){
 		Calendar cal = Calendar.getInstance();

@@ -1,27 +1,24 @@
 package br.gov.servicos.cobranca;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.ShouldMatchDataSet;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import br.gov.persistence.util.SingleDeployment;
-
-@RunWith(Arquillian.class)
-public class CobrancaDocumentoItemRepositorioTest extends SingleDeployment{
+////@RunWith(Arquillian.class)
+public class CobrancaDocumentoItemRepositorioTest{
 
 	@Inject
 	private CobrancaDocumentoItemRepositorio repositorio;
 	
-	@Test
+	//@Test
 	@UsingDataSet("cobranca_documento_item.yml")
 	@ShouldMatchDataSet("cobranca_documento_item_expected.yml")
 	public void apagarCobrancasDasContas(){
@@ -31,7 +28,7 @@ public class CobrancaDocumentoItemRepositorioTest extends SingleDeployment{
 		repositorio.apagarItensCobrancaDasContas(ids);
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet("cobranca_documento_item.yml")
 	public void buscarCobrancaDocumentoItens() {
 		assertEquals(4, repositorio.buscarCobrancaDocumentoItens(1).size());

@@ -7,11 +7,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import br.gov.model.operacao.EstacaoOperacional;
 import br.gov.model.operacao.LocalidadeProxy;
@@ -19,10 +17,9 @@ import br.gov.model.operacao.PerfilBeanEnum;
 import br.gov.model.operacao.RegionalProxy;
 import br.gov.model.operacao.TipoUnidadeOperacional;
 import br.gov.model.operacao.UsuarioProxy;
-import br.gov.persistence.util.SingleDeployment;
 
-@RunWith(Arquillian.class)
-public class EstacaoOperacionalRepositorioTest extends SingleDeployment{
+//@RunWith(Arquillian.class)
+public class EstacaoOperacionalRepositorioTest {
 
 	@Inject
 	private EstacaoOperacionalRepositorio repositorio;
@@ -35,28 +32,28 @@ public class EstacaoOperacionalRepositorioTest extends SingleDeployment{
 	    usuario.setPerfil(PerfilBeanEnum.ADMIN);
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet("estacoes.yml")
 	public void buscarEATs() throws Exception{
 		List<EstacaoOperacional> estacoes = repositorio.listarPeloTipoEUsuario(usuario, TipoUnidadeOperacional.EAT);
 		assertEquals(2, estacoes.size());
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet("estacoes.yml")
 	public void buscarETAs() throws Exception{
 	    List<EstacaoOperacional> estacoes = repositorio.listarPeloTipoEUsuario(usuario, TipoUnidadeOperacional.ETA);
 	    assertEquals(1, estacoes.size());
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet("estacoes.yml")
 	public void buscarEABs() throws Exception{
 	    List<EstacaoOperacional> estacoes = repositorio.listarPeloTipoEUsuario(usuario, TipoUnidadeOperacional.EAB);
 	    assertEquals(3, estacoes.size());
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet("estacoes.yml")
 	public void buscarEABsPorLocalidadeComoSupervisor() throws Exception{
 	    usuario.setPerfil(PerfilBeanEnum.SUPERVISOR);
@@ -68,7 +65,7 @@ public class EstacaoOperacionalRepositorioTest extends SingleDeployment{
 	    assertEquals("EAB C" , estacoes.get(0).getNome());
 	}
 	
-    @Test
+    //@Test
     @UsingDataSet("estacoes.yml")
     public void buscarEABsPorRegionalComoGerente() throws Exception{
         usuario.setPerfil(PerfilBeanEnum.GERENTE);
@@ -80,7 +77,7 @@ public class EstacaoOperacionalRepositorioTest extends SingleDeployment{
         assertEquals("EAB B" , estacoes.get(0).getNome());
     }
     
-    @Test
+    //@Test
     @UsingDataSet("estacoes.yml")
     public void buscarEstacoesSemConsumo() throws Exception{
         Calendar c = Calendar.getInstance();

@@ -4,24 +4,21 @@ import static org.junit.Assert.assertEquals;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import br.gov.model.cadastro.Imovel;
 import br.gov.model.micromedicao.ConsumoHistorico;
 import br.gov.model.micromedicao.LigacaoTipo;
 import br.gov.model.micromedicao.MedicaoHistorico;
-import br.gov.persistence.util.SingleDeployment;
 
-@RunWith(Arquillian.class)
-public class MedicaoHistoricoRepositorioTest extends SingleDeployment{
+////@RunWith(Arquillian.class)
+public class MedicaoHistoricoRepositorioTest {
 
 	@Inject
 	private MedicaoHistoricoRepositorio repositorio;
 	
-	@Test
+	//@Test
 	@UsingDataSet("medicaoHistorico.yml")
 	public void instalacaoHidrometroLigacaoAgua(){
 	    MedicaoHistorico to = repositorio.buscarPorLigacaoAgua(2, 201408);
@@ -33,7 +30,7 @@ public class MedicaoHistoricoRepositorioTest extends SingleDeployment{
 	    assertEquals(3, to.getLeituraSituacaoAtual().intValue());
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet("medicaoHistorico.yml")
 	public void instalacaoHidrometroPoco(){
 		MedicaoHistorico to = repositorio.buscarPorLigacaoAguaOuPoco(1, 201408);
@@ -45,7 +42,7 @@ public class MedicaoHistoricoRepositorioTest extends SingleDeployment{
 		assertEquals(2, to.getLeituraSituacaoAtual().intValue());
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet({"medicaoHistorico.yml"})
 	public void instalacaoHidrometroRede(){
 		MedicaoHistorico to = repositorio.buscarPorLigacaoAguaOuPoco(2, 201408);
@@ -57,7 +54,7 @@ public class MedicaoHistoricoRepositorioTest extends SingleDeployment{
 		assertEquals(3, to.getLeituraSituacaoAtual().intValue());
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet({"medicaoHistoricoLeituraAnormalidade.yml"})
 	public void buscarLeituraAnormalidadeFaturamento(){
 		ConsumoHistorico consumoHistorico = new ConsumoHistorico();

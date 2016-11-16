@@ -4,17 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import br.gov.model.cadastro.Imovel;
-import br.gov.persistence.util.SingleDeployment;
 
 
-@RunWith(Arquillian.class)
-public class ImovelEnderecoRepositorioTest extends SingleDeployment{
+////@RunWith(Arquillian.class)
+public class ImovelEnderecoRepositorioTest{
 		
 	@Inject
 	ImovelRepositorio repositorio;
@@ -31,7 +28,7 @@ public class ImovelEnderecoRepositorioTest extends SingleDeployment{
 	
 	private String enderecoAnterior = "BR KM 50";
 	
-	@Test
+	//@Test
 	@UsingDataSet("imovel_endereco.yml")
 	public void imovelEnderecoAnterior() throws Exception {
 		String endereco = repositorio.recuperaEnderecoAnterior(1);
@@ -39,7 +36,7 @@ public class ImovelEnderecoRepositorioTest extends SingleDeployment{
 		assertEquals(enderecoAnterior, endereco);
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet("imovel_endereco.yml")
 	public void imovelEndereco() throws Exception {
 		Imovel imovel = repositorio.pesquisaComEndereco(1);
@@ -56,7 +53,7 @@ public class ImovelEnderecoRepositorioTest extends SingleDeployment{
 		assertEquals(endereco.toString(), imovel.getEnderecoFormatadoAbreviado().toString());
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet("imovel_endereco.yml")
 	public void imovelEndereco02() throws Exception {
 		Imovel imovel = repositorio.pesquisaComEndereco(2);
@@ -83,7 +80,7 @@ public class ImovelEnderecoRepositorioTest extends SingleDeployment{
 		assertEquals(endereco.toString(), imovel.getEnderecoFormatadoAbreviado().toString());
 	}
 	
-	@Test
+	//@Test
 	@UsingDataSet("imovel_endereco.yml")
 	public void imovelEndereco03() throws Exception {
 		Imovel imovel = repositorio.pesquisaComEndereco(3);

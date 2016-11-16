@@ -6,20 +6,17 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import br.gov.model.cadastro.ClienteImovel;
-import br.gov.persistence.util.SingleDeployment;
 
-@RunWith(Arquillian.class)
-public class ClienteImovelRepositorioTest extends SingleDeployment{
+////@RunWith(Arquillian.class)
+public class ClienteImovelRepositorioTest {
 	@Inject
 	private ClienteImovelRepositorio repositorio;
 	
-	@Test
+	//@Test
 	@UsingDataSet("cliente_imovel.yml")
 	public void pesquisarClienteImovelAtivos(){
 		List<ClienteImovel> clientesImovel = repositorio.pesquisarClienteImovelAtivos(1);

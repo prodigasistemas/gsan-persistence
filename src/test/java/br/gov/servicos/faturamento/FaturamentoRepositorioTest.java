@@ -7,22 +7,19 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.persistence.UsingDataSet;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import br.gov.model.faturamento.Conta;
-import br.gov.persistence.util.SingleDeployment;
 import br.gov.servicos.to.CreditoRealizadoTO;
 
-@RunWith(Arquillian.class)
-public class FaturamentoRepositorioTest extends SingleDeployment{
+////@RunWith(Arquillian.class)
+public class FaturamentoRepositorioTest {
 
 	@Inject
 	private FaturamentoRepositorio faturamentoRepositorio;
 
-	@Test
+	//@Test
 	@UsingDataSet("faturamento_credito_realizado.yml")
 	public void buscarCreditoRealizadoValido(){
 		Conta conta = new Conta();
