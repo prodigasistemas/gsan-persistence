@@ -12,4 +12,10 @@ public class MedicaoPerformanceRepositorio extends GenericRepository<Integer, Me
 
 	@PersistenceContext
 	private EntityManager entity;
+
+	public void removerPelaReferencia(Integer referencia) {
+		entity.createQuery("DELETE from MedicaoPerformance medicaoPerformance WHERE medicaoPerformance.referencia = :referencia")
+				.setParameter("referencia", referencia)
+				.executeUpdate();
+	}
 }

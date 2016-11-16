@@ -437,5 +437,45 @@ public class ImovelRepositorio extends GenericRepository<Integer, Imovel> {
 	}
     /*****************************************************
      *************** PRIVATE METHODS - END ***************
-     *****************************************************/	
+     *****************************************************/
+
+	public FaturamentoGrupo pesquisarFaturamentoGrupoRotaAlternativaPelaReferencia(Integer idImovel, Integer anoMesReferencia) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select faturamentoGrupo from Imovel imovel")
+			.append(" left join imovel.rotaAlternativa rotaAlternativa ")
+			.append(" left join rotaAlternativa.faturamentoGrupo faturamentoGrupo")
+			.append(" where imovel.id =:idImovel")
+			.append(" and faturamentoGrupo.anoMesReferencia = :anoMesReferencia");
+
+		try {
+			return entity.createQuery(sql.toString(), FaturamentoGrupo.class)
+					.setParameter("idImovel", idImovel)
+					.setParameter("anoMesReferencia", anoMesReferencia)
+					.setMaxResults(1)
+					.getSingleResult();
+			
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	public FaturamentoGrupo pesquisarFaturamentoGrupoPelaReferencia(Integer idImovel, Integer anoMesReferencia) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select faturamentoGrupo from Imovel imovel")
+           .append(" inner join imovel.quadra quadra")
+           .append(" inner join quadra.rota rota")
+           .append(" inner join rota.faturamentoGrupo faturamentoGrupo")
+           .append(" where imovel.id =:idImovel")
+		   .append(" and faturamentoGrupo.anoMesReferencia = :anoMesReferencia");
+
+		try {
+			return entity.createQuery(sql.toString(), FaturamentoGrupo.class)
+					.setParameter("idImovel", idImovel)
+					.setParameter("anoMesReferencia", anoMesReferencia)
+					.setMaxResults(1)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}	
 }

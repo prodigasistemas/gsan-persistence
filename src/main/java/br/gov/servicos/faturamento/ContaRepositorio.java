@@ -289,19 +289,17 @@ public class ContaRepositorio extends GenericRepository<Integer, Conta>{
                 .getResultList();	    
 	}
 	
-	public Integer buscarConsumoAgua(Integer idImovel, Integer anoMesReferencia, Integer idLigacaoAguaSituacao) {
+	public Integer buscarConsumoAgua(Integer idImovel, Integer anoMesReferencia) {
 		StringBuilder sql = new StringBuilder();
 
 		try {
 			sql.append("SELECT conta.consumoAgua ")
 			   .append("FROM Conta conta ")
 			   .append("WHERE conta.imovel.id = :idImovel ")
-			   .append("AND conta.ligacaoAguaSituacao.id = :idLigacaoAguaSituacao ")
 			   .append("AND conta.referenciaContabil = :anoMesReferencia ");
 			
 			return entity.createQuery(sql.toString(), Integer.class)
 								.setParameter("idImovel", idImovel)
-								.setParameter("idLigacaoAguaSituacao", idLigacaoAguaSituacao)
 								.setParameter("anoMesReferencia", anoMesReferencia)
 								.setMaxResults(1)
 								.getSingleResult();
@@ -312,12 +310,10 @@ public class ContaRepositorio extends GenericRepository<Integer, Conta>{
 				sql.append("SELECT contaHistorico.consumoAgua ")
 				.append("FROM ContaHistorico contaHistorico ")
 				.append("WHERE contaHistorico.imovel.id = :idImovel ")
-				.append("AND contaHistorico.ligacaoAguaSituacao.id = :idLigacaoAguaSituacao ")
 				.append("AND contaHistorico.referenciaContabil = :anoMesReferencia ");
 				
 				return entity.createQuery(sql.toString(), Integer.class)
 						.setParameter("idImovel", idImovel)
-						.setParameter("idLigacaoAguaSituacao", idLigacaoAguaSituacao)
 						.setParameter("anoMesReferencia", anoMesReferencia)
 						.setMaxResults(1)
 						.getSingleResult();
