@@ -288,38 +288,4 @@ public class ContaRepositorio extends GenericRepository<Integer, Conta>{
                 .setParameter("situacao", DebitoCreditoSituacao.PRE_FATURADA.getId())
                 .getResultList();	    
 	}
-	
-	public Integer buscarConsumoAgua(Integer idImovel, Integer anoMesReferencia) {
-		StringBuilder sql = new StringBuilder();
-
-		try {
-			sql.append("SELECT conta.consumoAgua ")
-			   .append("FROM Conta conta ")
-			   .append("WHERE conta.imovel.id = :idImovel ")
-			   .append("AND conta.referenciaContabil = :anoMesReferencia ");
-			
-			return entity.createQuery(sql.toString(), Integer.class)
-								.setParameter("idImovel", idImovel)
-								.setParameter("anoMesReferencia", anoMesReferencia)
-								.setMaxResults(1)
-								.getSingleResult();
-			
-		} catch (NoResultException e) {
-			try {
-				sql = new StringBuilder();
-				sql.append("SELECT contaHistorico.consumoAgua ")
-				.append("FROM ContaHistorico contaHistorico ")
-				.append("WHERE contaHistorico.imovel.id = :idImovel ")
-				.append("AND contaHistorico.referenciaContabil = :anoMesReferencia ");
-				
-				return entity.createQuery(sql.toString(), Integer.class)
-						.setParameter("idImovel", idImovel)
-						.setParameter("anoMesReferencia", anoMesReferencia)
-						.setMaxResults(1)
-						.getSingleResult();
-			} catch (NoResultException e2) {
-				return 0;
-			}
-		}
-	}
 }
