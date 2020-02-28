@@ -3,10 +3,8 @@ package br.gov.model.operacao;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
 public class NodeSigma implements Serializable {
 	private static final long serialVersionUID = 5998420653286142717L;
 

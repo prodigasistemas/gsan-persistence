@@ -4,9 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
 
-@Entity
 public class LigacaoUnidadeOperacional implements Serializable{
 	private static final long serialVersionUID = 6336080620478827242L;
 	
